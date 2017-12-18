@@ -1,0 +1,84 @@
+# Access a database
+
+## Connect to a database
+
+*The simpliest way to connect to a database.  More complex examples will be examined later in the class.*
+
+1. Click on the `Connections` tab
+
+2. Click on the `New Connection` button
+
+<img src="images/connections-tab.PNG" width = 600>
+
+3. Select `Postgres Dev`
+
+<img src="images/postgres-dsn.PNG" width = 300>
+
+4. Click OK
+
+<img src="images/new-connection.PNG" width = 300>
+
+
+## Explore the database using the RStudio IDE
+
+*Becoming familiar with the new interface for databases inside the RStudio IDE*
+
+1. Expand the `datawarehouse` schema
+
+2. Expand the `airport` table
+
+3. Click on the table icon to the right of the `airport` table 
+
+4. *(Optional)* Expand and explore the other tables
+
+5. Click on the *disconnect* icon to close the connection
+
+<img src="images/connected.PNG" width = 500>
+
+
+## List drivers and DSNs 
+
+*Learn how to use the `odbc` package to get DB info from your machine*
+
+1. To get a list of drivers available in the server
+```{r}
+library(odbc)
+
+
+odbcListDrivers()[1:2]
+```
+
+2. To see a list of DSNs available in the server
+
+```{r}
+odbcListDataSources()
+```
+
+
+## Connect to a database using code
+*Use the `odbc` package along with `DBI` to open a connection to a database*
+
+1. Run the following code to connct
+```{r}
+library(DBI)
+con <- dbConnect(odbc::odbc(), "Postgres Dev")
+```
+
+2. Use `dbListTables()` to retreive a list of tables
+```{r}
+dbListTables(con)
+```
+
+3. Use `dbGetQuery()` to run a quick query
+```{r}
+dbGetQuery(con, "SELECT * FROM datawarehouse.airport LIMIT 10")
+```
+
+4. Disconnect from the database
+```{r}
+dbDisconnect(con)
+```
+
+
+
+
