@@ -10,4 +10,4 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Big Data with R</a></li>
+        <li><a href="./">rstudio::conf 2018</a></li>

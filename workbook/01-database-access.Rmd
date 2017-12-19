@@ -44,7 +44,6 @@
 ```{r}
 library(odbc)
 
-
 odbcListDrivers()[1:2]
 ```
 
@@ -56,6 +55,7 @@ odbcListDataSources()
 
 
 ## Connect to a database using code
+
 *Use the `odbc` package along with `DBI` to open a connection to a database*
 
 1. Run the following code to connect
@@ -99,6 +99,7 @@ con <- dbConnect(
 2. When prompted, type in **rstudio_dev** for the user, and **dev_user** as the password
 
 ## Secure credentials in a file
+
 *Credentials can be saved in a YAML file and then read using the `config` package: http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config*
 
 1. Open and explore the `config.yml` file available in your working directory
@@ -119,7 +120,11 @@ con <- DBI::dbConnect(odbc::odbc(),
 
 ```
 
+## Use the OS credential store
 
+*The `keyring` package can be used to store the database credentials at the OS level*
+
+[Pending]
 
 ```{r, include = FALSE}
 dbDisconnect(con)

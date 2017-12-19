@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="access-a-database.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">rstudio::conf 2018</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>2</b> Data transformation</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-transformation.html"><a href="data-transformation.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="data-transformation.html"><a href="data-transformation.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
+<li class="chapter" data-level="2.3" data-path="data-transformation.html"><a href="data-transformation.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span><ul>
+<li class="chapter" data-level="A.4" data-path="02-data-transformation.html"><a href="#appendix-a---solutions"><i class="fa fa-check"></i><b>A.4</b> Appendix A - Solutions</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="data-transformation.html"><a href="data-transformation.html#unit-2"><i class="fa fa-check"></i><b>A.4.1</b> Unit 2</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-transformation" class="section level1">
+<h1><span class="header-section-number">2</span> Data transformation</h1>
+<div id="create-a-table-variable" class="section level2">
+<h2><span class="header-section-number">2.1</span> Create a table variable</h2>
+<p><em>Basics to how to point a variable in R to a table or view inside the database</em></p>
+<ol style="list-style-type: decimal">
+<li><em>(Optional)</em> Open a connection to the database if it’s currently closed</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(), <span class="st">&quot;Postgres Dev&quot;</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Load the <code>dplyr</code> library</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Use the <code>tbl()</code> and <code>in_schema()</code> functions to create a reference to a table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;airport&quot;</span>))</code></pre></div>
+<pre><code>## # Source:   table&lt;datawarehouse.airport&gt; [?? x 2]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##    airport                                    airportname
+##      &lt;chr&gt;                                          &lt;chr&gt;
+##  1     01A         Afognak Lake, AK: Afognak Lake Airport
+##  2     03A  Granite Mountain, AK: Bear Creek Mining Strip
+##  3     04A                       Lik, AK: Lik Mining Camp
+##  4     05A         Little Squaw, AK: Little Squaw Airport
+##  5     06A                     Kizhuyak, AK: Kizhuyak Bay
+##  6     07A             Klawock, AK: Klawock Seaplane Base
+##  7     08A Elizabeth Island, AK: Elizabeth Island Airport
+##  8     09A                     Homer, AK: Augustin Island
+##  9     1B1                    Hudson, NY: Columbia County
+## 10     1G4           Peach Springs, AZ: Grand Canyon West
+## # ... with more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Load the reference, not the table data, into a variable</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;airport&quot;</span>))</code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Call the variable to see preview the data in the table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports</code></pre></div>
+<pre><code>## # Source:   table&lt;datawarehouse.airport&gt; [?? x 2]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##    airport                                    airportname
+##      &lt;chr&gt;                                          &lt;chr&gt;
+##  1     01A         Afognak Lake, AK: Afognak Lake Airport
+##  2     03A  Granite Mountain, AK: Bear Creek Mining Strip
+##  3     04A                       Lik, AK: Lik Mining Camp
+##  4     05A         Little Squaw, AK: Little Squaw Airport
+##  5     06A                     Kizhuyak, AK: Kizhuyak Bay
+##  6     07A             Klawock, AK: Klawock Seaplane Base
+##  7     08A Elizabeth Island, AK: Elizabeth Island Airport
+##  8     09A                     Homer, AK: Augustin Island
+##  9     1B1                    Hudson, NY: Columbia County
+## 10     1G4           Peach Springs, AZ: Grand Canyon West
+## # ... with more rows</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Set up the pointers to the other of the tables</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;flight&quot;</span>))
+carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;carrier&quot;</span>))</code></pre></div>
+</div>
+<div id="basic-aggregation" class="section level2">
+<h2><span class="header-section-number">2.2</span> Basic aggregation</h2>
+<p><em>A couple of <code>dplyr</code> commands that run in-database</em></p>
+<ol style="list-style-type: decimal">
+<li>How many records are in the <strong>airport</strong> table?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##                 n
+##   &lt;S3: integer64&gt;
+## 1            1702</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_airport_length =</span> <span class="kw">mean</span>(<span class="kw">length</span>(airport)),
+            <span class="dt">max_airport_name =</span> <span class="kw">max</span>(<span class="kw">length</span>(airportname)),
+            <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">length</span>(airportname)),
+            <span class="dt">total_records =</span> <span class="kw">n</span>()) </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##   avg_airport_length max_airport_name min_airport_name   total_records
+##                &lt;dbl&gt;            &lt;int&gt;            &lt;int&gt; &lt;S3: integer64&gt;
+## 1                  3               81               17            6454</code></pre>
+<p><strong>Additional exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>How many records are in the <strong>carrier</strong> table?</p></li>
+<li><p>How many characters is the longest <strong>carriername</strong>?</p></li>
+</ol>
+</div>
+<div id="under-the-hood" class="section level2">
+<h2><span class="header-section-number">2.3</span> Under the hood</h2>
+<ul>
+<li>Use <code>show_query()</code> to preview the SQL statement that will be sent to the database*</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>SQL statement that actually runs when we ran <code>airports</code> as a command</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">show_query</span>(airports)</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT *
+## FROM datawarehouse.airport</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Easily view the resulting query by adding <code>show_query()</code> in another piped command</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT count(*) AS &quot;n&quot;
+## FROM datawarehouse.carrier</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Run the same for last exercise in the previous section</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_airport_length =</span> <span class="kw">mean</span>(<span class="kw">length</span>(airport)),
+            <span class="dt">max_airport_name =</span> <span class="kw">max</span>(<span class="kw">length</span>(airportname)),
+            <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">length</span>(airportname)),
+            <span class="dt">total_records =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT AVG(LENGTH(&quot;airport&quot;)) AS &quot;avg_airport_length&quot;, MAX(LENGTH(&quot;airportname&quot;)) AS &quot;max_airport_name&quot;, MIN(LENGTH(&quot;airportname&quot;)) AS &quot;min_airport_name&quot;, count(*) AS &quot;total_records&quot;
+## FROM datawarehouse.airport</code></pre>
+
+</div>
+</div>
+
+
+
+<h2><span class="header-section-number">A.4</span> Appendix A - Solutions</h2>
+<div id="unit-2" class="section level3">
+<h3><span class="header-section-number">A.4.1</span> Unit 2</h3>
+<ol style="list-style-type: decimal">
+<li>How many records are in the <strong>carrier</strong> table?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>How many characters is the longest <strong>carriername</strong>?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">max</span>(<span class="kw">length</span>(carriername)))</code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="access-a-database.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

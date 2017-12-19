@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html">
-
+<link rel="next" href="data-transformation.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -98,7 +98,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Big Data with R</a></li>
+<li><a href="./">rstudio::conf 2018</a></li>
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
 <li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
@@ -108,6 +108,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
 <li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
 <li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>2</b> Data transformation</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-transformation.html"><a href="data-transformation.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="data-transformation.html"><a href="data-transformation.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
+<li class="chapter" data-level="2.3" data-path="data-transformation.html"><a href="data-transformation.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span><ul>
+<li class="chapter" data-level="A.4" data-path="01-database-access.html"><a href="#appendix-a---solutions"><i class="fa fa-check"></i><b>A.4</b> Appendix A - Solutions</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="data-transformation.html"><a href="data-transformation.html#unit-2"><i class="fa fa-check"></i><b>A.4.1</b> Unit 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -164,7 +175,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>To get a list of drivers available in the server</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(odbc)
-
 
 <span class="kw">odbcListDrivers</span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</code></pre></div>
 <pre><code>##                  name   attribute
@@ -254,6 +264,11 @@ con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">
    <span class="dt">Port   =</span> dw<span class="op">$</span>port,
    <span class="dt">Database =</span> dw<span class="op">$</span>database
 )</code></pre></div>
+</div>
+<div id="use-the-os-credential-store" class="section level2">
+<h2><span class="header-section-number">1.7</span> Use the OS credential store</h2>
+<p><em>The <code>keyring</code> package can be used to store the database credentials at the OS level</em></p>
+<p>[Pending]</p>
 
 </div>
 </div>
@@ -262,8 +277,8 @@ con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

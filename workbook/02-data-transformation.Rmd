@@ -1,0 +1,93 @@
+# Data transformation
+
+```{r, include = FALSE}
+library(dplyr)
+```
+
+## Create a table variable
+
+*Basics to how to point a variable in R to a table or view inside the database*
+
+1. *(Optional)* Open a connection to the database if it's currently closed
+```{r}
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+```
+
+2. Load the `dplyr` library
+```{r}
+library(dplyr)
+```
+
+2. Use the `tbl()` and `in_schema()` functions to create a reference to a table
+```{r}
+tbl(con, in_schema("datawarehouse", "airport"))
+```
+
+3. Load the reference, not the table data, into a variable
+```{r}
+airports <- tbl(con, in_schema("datawarehouse", "airport"))
+```
+
+
+4. Call the variable to see preview the data in the table
+```{r}
+airports
+```
+
+5. Set up the pointers to the other of the tables
+```{r}
+flights <- tbl(con, in_schema("datawarehouse", "flight"))
+carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+```
+
+## Basic aggregation
+*A couple of `dplyr` commands that run in-database*
+
+1. How many records are in the **airport** table?
+```{r}
+carriers %>%
+  tally()
+```
+
+2. What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?
+```{r}
+airports %>%
+  summarise(avg_airport_length = mean(length(airport)),
+            max_airport_name = max(length(airportname)),
+            min_airport_name = min(length(airportname)),
+            total_records = n()) 
+```
+
+**Additional exercises:**
+
+1. How many records are in the **carrier** table?
+
+2. How many characters is the longest **carriername**?
+
+## Under the hood 
+* Use `show_query()` to preview the SQL statement that will be sent to the database*
+
+1. SQL statement that actually runs when we ran `airports` as a command
+```{r}
+show_query(airports)
+```
+
+2. Easily view the resulting query by adding `show_query()` in another piped command
+```{r}
+carriers %>%
+  tally() %>%
+  show_query()
+```
+
+3. Run the same for last exercise in the previous section
+```{r}
+airports %>%
+  summarise(avg_airport_length = mean(length(airport)),
+            max_airport_name = max(length(airportname)),
+            min_airport_name = min(length(airportname)),
+            total_records = n()) %>%
+  show_query()
+```
+
+
+
