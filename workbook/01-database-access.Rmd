@@ -58,20 +58,20 @@ odbcListDataSources()
 ## Connect to a database using code
 *Use the `odbc` package along with `DBI` to open a connection to a database*
 
-1. Run the following code to connct
+1. Run the following code to connect
 ```{r}
 library(DBI)
 con <- dbConnect(odbc::odbc(), "Postgres Dev")
 ```
 
-2. Use `dbListTables()` to retreive a list of tables
+2. Use `dbListTables()` to retrieve a list of tables
 ```{r}
 dbListTables(con)
 ```
 
 3. Use `dbGetQuery()` to run a quick query
 ```{r}
-dbGetQuery(con, "SELECT * FROM datawarehouse.airport LIMIT 10")
+View(odbc::dbGetQuery(con, "SELECT * FROM datawarehouse.flight LIMIT 1000"))
 ```
 
 4. Disconnect from the database
@@ -79,6 +79,48 @@ dbGetQuery(con, "SELECT * FROM datawarehouse.airport LIMIT 10")
 dbDisconnect(con)
 ```
 
+## Connect to a database without a DSN
+*A more complex way of connecting to a database, using best practices: http://db.rstudio.com/best-practices/managing-credentials/#prompt-for-credentials *
+
+
+1. Use the following code to start a new connection that does not use the pre-defined DSN
+```{r, eval = FALSE}
+con <- dbConnect(
+  odbc::odbc(),
+  Driver = "PostgreSQL",
+  Server = "localhost",
+  UID    = rstudioapi::askForPassword("Database user"),
+  PWD    = rstudioapi::askForPassword("Database password"),
+  Port = 5432,
+  Database = "postgres"
+)
+```
+
+2. When prompted, type in **rstudio_dev** for the user, and **dev_user** as the password
+
+## Secure credentials in a file
+*Credentials can be saved in a YAML file and then read using the `config` package: http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config*
+
+1. Open and explore the `config.yml` file available in your working directory
+
+2. Use the config package to connect to the database
+
+```{r}
+dw <- config::get("datawarehouse-dev")
+
+con <- DBI::dbConnect(odbc::odbc(),
+   Driver = dw$driver,
+   Server = dw$server,
+   UID    = dw$uid,
+   PWD    = dw$pwd,
+   Port   = dw$port,
+   Database = dw$database
+)
+
+```
 
 
 
+```{r, include = FALSE}
+dbDisconnect(con)
+```
