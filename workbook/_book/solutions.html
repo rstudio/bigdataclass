@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
+<link rel="prev" href="dplyr-basics.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -98,17 +98,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Big Data using R</a></li>
-
+<li><a href="./">rstudio::conf 2018</a></li>
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="1" data-path="section-1-access-a-database.html"><a href="section-1-access-a-database.html"><i class="fa fa-check"></i><b>1</b> Section 1 - Access a database</a><ul>
-<li class="chapter" data-level="1.1" data-path="section-1-access-a-database.html"><a href="section-1-access-a-database.html#exercise-1.1---connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Exercise 1.1 - Connect to a database</a></li>
-<li class="chapter" data-level="1.2" data-path="section-1-access-a-database.html"><a href="section-1-access-a-database.html#exercise-1.2---explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Exercise 1.2 - Explore the database using the RStudio IDE</a></li>
-<li class="chapter" data-level="1.3" data-path="section-1-access-a-database.html"><a href="section-1-access-a-database.html#exercise-1.3---interact-with-the-database"><i class="fa fa-check"></i><b>1.3</b> Exercise 1.3 - Interact with the database</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
 </ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i>Solutions</a></li>
 </ul>
 
       </nav>
@@ -126,42 +134,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="section-1---access-a-database" class="section level1">
-<h1><span class="header-section-number">1</span> Section 1 - Access a database</h1>
-<div id="exercise-1.1---connect-to-a-database" class="section level2">
-<h2><span class="header-section-number">1.1</span> Exercise 1.1 - Connect to a database</h2>
-<p><em>The simpliest way to connect to a database. More complex examples will be examined later in the class.</em></p>
+<div id="solutions" class="section level1 unnumbered">
+<h1>Solutions</h1>
+<p><strong>Unit 2</strong></p>
 <ol style="list-style-type: decimal">
-<li><p>Click on the <code>Connections</code> tab</p></li>
-<li><p>Click <code>postgres - rstudio_admin@localhost</code></p></li>
-<li><p>Click <code>Connect</code>, and then <code>R Console</code></p></li>
+<li>How many records are in the <strong>carrier</strong> table?</li>
 </ol>
-</div>
-<div id="exercise-1.2---explore-the-database-using-the-rstudio-ide" class="section level2">
-<h2><span class="header-section-number">1.2</span> Exercise 1.2 - Explore the database using the RStudio IDE</h2>
-<p><em>Becoming familiar with the new interface for databases inside the RStudio IDE</em></p>
-<ol style="list-style-type: decimal">
-<li><p>Expand the <code>datawarehouse</code> schema</p></li>
-<li><p>Expand the <code>airport</code> table</p></li>
-<li><p>Click on the table icon to the right of the <code>airport</code> table</p></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>How many characters is the longest <strong>carriername</strong>?</li>
 </ol>
-</div>
-<div id="exercise-1.3---interact-with-the-database" class="section level2">
-<h2><span class="header-section-number">1.3</span> Exercise 1.3 - Interact with the database</h2>
-<p><em>Use the <code>DBI</code> package to interact with the database</em></p>
-<ol style="list-style-type: decimal">
-<li>In the code chunk below use the <code>dbGetQuery()</code> command to run the following command</li>
-</ol>
-<p><a href="https://bookdown.org/yihui/bookdown/usage.html" class="uri">https://bookdown.org/yihui/bookdown/usage.html</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">max</span>(<span class="kw">length</span>(carriername)))</code></pre></div>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dplyr-basics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -202,17 +195,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

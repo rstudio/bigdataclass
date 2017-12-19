@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html">
-<link rel="next" href="data-transformation.html">
+<link rel="next" href="dplyr-basics.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -110,16 +110,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
 <li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>2</b> Data transformation</a><ul>
-<li class="chapter" data-level="2.1" data-path="data-transformation.html"><a href="data-transformation.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
-<li class="chapter" data-level="2.2" data-path="data-transformation.html"><a href="data-transformation.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
-<li class="chapter" data-level="2.3" data-path="data-transformation.html"><a href="data-transformation.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
 </ul></li>
-<li class="appendix"><span><b>Appendix</b></span><ul>
-<li class="chapter" data-level="A.4" data-path="01-database-access.html"><a href="#appendix-a---solutions"><i class="fa fa-check"></i><b>A.4</b> Appendix A - Solutions</a><ul>
-<li class="chapter" data-level="A.4.1" data-path="data-transformation.html"><a href="data-transformation.html#unit-2"><i class="fa fa-check"></i><b>A.4.1</b> Unit 2</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i>Solutions</a></li>
 </ul>
 
       </nav>
@@ -222,9 +219,20 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
 <ol start="3" style="list-style-type: decimal">
 <li>Use <code>dbGetQuery()</code> to run a quick query</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(odbc<span class="op">::</span><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM datawarehouse.flight LIMIT 1000&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">odbc<span class="op">::</span><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM datawarehouse.airport LIMIT 10&quot;</span>)</code></pre></div>
+<pre><code>##    airport                                    airportname
+## 1      01A         Afognak Lake, AK: Afognak Lake Airport
+## 2      03A  Granite Mountain, AK: Bear Creek Mining Strip
+## 3      04A                       Lik, AK: Lik Mining Camp
+## 4      05A         Little Squaw, AK: Little Squaw Airport
+## 5      06A                     Kizhuyak, AK: Kizhuyak Bay
+## 6      07A             Klawock, AK: Klawock Seaplane Base
+## 7      08A Elizabeth Island, AK: Elizabeth Island Airport
+## 8      09A                     Homer, AK: Augustin Island
+## 9      1B1                    Hudson, NY: Columbia County
+## 10     1G4           Peach Springs, AZ: Grand Canyon West</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Disconnect from the database</li>
+<li>Disconnect from the database using <code>dbDisconnect()</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
 </div>
@@ -278,7 +286,7 @@ con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dplyr-basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

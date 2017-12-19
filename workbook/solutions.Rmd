@@ -1,12 +1,12 @@
-# (APPENDIX) Appendix {-} 
-
-## Appendix A - Solutions 
-
-### Unit 2
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 ```
+
+
+# Solutions {-}
+
+**Unit 2**
 
 
 1. How many records are in the **carrier** table?

@@ -1,40 +1,44 @@
-# Data transformation
+# `dplyr` Basics
 
 ```{r, include = FALSE}
 library(dplyr)
+library(dbplyr)
 ```
 
 ## Create a table variable
 
 *Basics to how to point a variable in R to a table or view inside the database*
 
-1. *(Optional)* Open a connection to the database if it's currently closed
+
+1. Load the `dplyr` and `dbplyr` libraries
+```{r}
+library(dplyr)
+library(dbplyr)
+```
+
+2. *(Optional)* Open a connection to the database if it's currently closed
 ```{r}
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
 ```
 
-2. Load the `dplyr` library
-```{r}
-library(dplyr)
-```
 
-2. Use the `tbl()` and `in_schema()` functions to create a reference to a table
+3. Use the `tbl()` and `in_schema()` functions to create a reference to a table
 ```{r}
 tbl(con, in_schema("datawarehouse", "airport"))
 ```
 
-3. Load the reference, not the table data, into a variable
+4. Load the reference, not the table data, into a variable
 ```{r}
 airports <- tbl(con, in_schema("datawarehouse", "airport"))
 ```
 
 
-4. Call the variable to see preview the data in the table
+5. Call the variable to see preview the data in the table
 ```{r}
 airports
 ```
 
-5. Set up the pointers to the other of the tables
+6. Set up the pointers to the other of the tables
 ```{r}
 flights <- tbl(con, in_schema("datawarehouse", "flight"))
 carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
@@ -89,5 +93,27 @@ airports %>%
   show_query()
 ```
 
+## Un-translated R commands
+*Review of how `dbplyr` handles R commands that have not been translated into a like-SQL command*
 
+1. Preview how `Sys.time()` is translated
+```{r}
+airports %>%
+  mutate(today = Sys.time()) %>%
+  show_query()
+```
 
+2. Use PostgreSQL's native commands, in this case `now()`
+```{r}
+airports %>%
+  mutate(today = now()) %>%
+  show_query()
+```
+
+3. Run the `dplyr` code to confirm it works
+```{r}
+airports %>%
+  mutate(today = now()) %>%
+  select(today) %>%
+  head()
+```

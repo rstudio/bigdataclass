@@ -71,10 +71,10 @@ dbListTables(con)
 
 3. Use `dbGetQuery()` to run a quick query
 ```{r}
-View(odbc::dbGetQuery(con, "SELECT * FROM datawarehouse.flight LIMIT 1000"))
+odbc::dbGetQuery(con, "SELECT * FROM datawarehouse.airport LIMIT 10")
 ```
 
-4. Disconnect from the database
+4. Disconnect from the database using `dbDisconnect()`
 ```{r}
 dbDisconnect(con)
 ```
