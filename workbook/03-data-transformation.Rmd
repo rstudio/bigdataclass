@@ -1,6 +1,8 @@
 # Data transformation
 
 ```{r, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+
 library(dplyr)
 library(dbplyr)
 
@@ -59,6 +61,8 @@ flights %>%
   head(5)
 ```
 
+
+
 6. Figure the percent ratio of flights per month
 ```{r}
 flights %>%
@@ -69,11 +73,39 @@ flights %>%
 ```
 
 
+## View record level data
+*Important tips to record preview data**
 
-- Use `View()` to preview the data
+
+5. How many flights on 7/18 were 1 or more hours late?
+```{r}
+flights %>%
+  filter(depdelay >= 60,
+         month == 7,
+         dayofmonth == 18) %>%
+  tally() 
+```
 
 
+1. Use `filter()` to retreive only the needed data, and `head()` to limit the preview even further.
+```{r}
+flights %>%
+  filter(depdelay >= 60,
+         month == 7,
+         dayofmonth == 18) %>%
+  head(100)
+```
 
+2. Use `collect()` and `View()` to preview the data in the IDE. Make sure to **always** limit the number of returned rows.
+```{r, eval = FALSE}
+flights %>%
+  filter(depdelay >= 60,
+         month == 7,
+         dayofmonth == 18) %>%
+  collect() %>%
+  head(100) %>%
+  View("my_preview")
+```
 
 
 

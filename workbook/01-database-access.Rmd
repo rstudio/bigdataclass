@@ -1,3 +1,10 @@
+```{r, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+
+library(dplyr)
+library(dbplyr)
+```
+
 # Access a database
 
 ## Connect to a database

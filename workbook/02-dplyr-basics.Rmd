@@ -1,6 +1,8 @@
 # `dplyr` Basics
 
 ```{r, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+
 library(dplyr)
 library(dbplyr)
 ```

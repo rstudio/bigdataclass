@@ -118,6 +118,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.2</b> View record level data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plots"><i class="fa fa-check"></i><b>4.1</b> Simple plots</a></li>
@@ -278,9 +279,62 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  9    10          556205 0.07934759
 ## 10    12          544958 0.07774310
 ## # ... with more rows</code></pre>
-<ul>
-<li>Use <code>View()</code> to preview the data</li>
-</ul>
+</div>
+<div id="view-record-level-data" class="section level2">
+<h2><span class="header-section-number">3.2</span> View record level data</h2>
+<p>*Important tips to record preview data**</p>
+<ol start="5" style="list-style-type: decimal">
+<li>How many flights on 7/18 were 1 or more hours late?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+         month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##                 n
+##   &lt;S3: integer64&gt;
+## 1            1239</code></pre>
+<ol style="list-style-type: decimal">
+<li>Use <code>filter()</code> to retreive only the needed data, and <code>head()</code> to limit the preview even further.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+         month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 29]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
+##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+##  1  2008     7         18         5    1253       1115    2149       2005
+##  2  2008     7         18         5    2331       2200     733        625
+##  3  2008     7         18         5    2251       1915     159       2225
+##  4  2008     7         18         5    1122        805    2000       1645
+##  5  2008     7         18         5    1428       1315    2255       2155
+##  6  2008     7         18         5     903        745    1204       1035
+##  7  2008     7         18         5    1024        900    1445       1300
+##  8  2008     7         18         5    1558       1445    1843       1730
+##  9  2008     7         18         5    2017       1555    2239       1845
+## 10  2008     7         18         5    1930       1725    2222       2035
+## # ... with more rows, and 21 more variables: uniquecarrier &lt;chr&gt;,
+## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
+## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
+## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
+## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>collect()</code> and <code>View()</code> to preview the data in the IDE. Make sure to <strong>always</strong> limit the number of returned rows.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+         month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">View</span>(<span class="st">&quot;my_preview&quot;</span>)</code></pre></div>
 
 </div>
 </div>
