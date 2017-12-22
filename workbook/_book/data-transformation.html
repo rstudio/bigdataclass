@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="access-a-database.html">
+<link rel="prev" href="dplyr-basics.html">
+<link rel="next" href="data-visualizations.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -146,20 +146,151 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<!--bookdown:title:end-->
-<!--bookdown:title:start-->
-<div id="big-data-with-r---exercise-book" class="section level1 unnumbered">
-<h1>Big Data with R - Exercise book</h1>
-<p>Learn how to use R with Hive, SQL Server, Oracle and other scalable external data sources along with Big Data clusters in this two-day workshop. We will cover how to connect, retrieve schema information, upload data, and explore data outside of R. For databases, we will focus on the dplyr, DBI and odbc packages. These packages enable us to use the same dplyr verbs inside R but are translated and sent as SQL queries. For Big Data clusters, we will also learn how to use the sparklyr package to run models inside Spark and return the results to R. We will review recommendations for connection settings, security best practices and deployment options. Throughout the workshop, we will take advantage of the new data connections available with the RStudio IDE.</p>
+<div id="data-transformation" class="section level1">
+<h1><span class="header-section-number">3</span> Data transformation</h1>
+<div id="group-and-sort-records" class="section level2">
+<h2><span class="header-section-number">3.1</span> Group and sort records</h2>
+<p><em>Learn how to use <code>group_by()</code> and <code>arrange()</code> to better understand aggregated data</em></p>
+<ol style="list-style-type: decimal">
+<li>How many flights are there per month?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##    month               n
+##    &lt;dbl&gt; &lt;S3: integer64&gt;
+##  1    10          556205
+##  2     4          598126
+##  3    12          544958
+##  4     5          606293
+##  5     2          569236
+##  6     7          627931
+##  7    11          523272
+##  8     9          540908
+##  9     1          605765
+## 10     3          616090
+## # ... with more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Order the results by the month number</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(month)</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+## # Ordered by: month
+##    month               n
+##    &lt;dbl&gt; &lt;S3: integer64&gt;
+##  1     1          605765
+##  2     2          569236
+##  3     3          616090
+##  4     4          598126
+##  5     5          606293
+##  6     6          608665
+##  7     7          627931
+##  8     8          612279
+##  9     9          540908
+## 10    10          556205
+## # ... with more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Order the results by the number of flights, starting with the month with most flights by using <code>desc()</code> inside the <code>arrange()</code> command</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) </code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+## # Ordered by: desc(n)
+##    month               n
+##    &lt;dbl&gt; &lt;S3: integer64&gt;
+##  1     7          627931
+##  2     3          616090
+##  3     8          612279
+##  4     6          608665
+##  5     5          606293
+##  6     1          605765
+##  7     4          598126
+##  8     2          569236
+##  9    10          556205
+## 10    12          544958
+## # ... with more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Which are the top 4 months with the most flight activity?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">4</span>)</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+## # Ordered by: desc(n)
+##   month               n
+##   &lt;dbl&gt; &lt;S3: integer64&gt;
+## 1     7          627931
+## 2     3          616090
+## 3     8          612279
+## 4     6          608665</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>What were the top 5 calendar days with most flight activity?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month, dayofmonth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 3]
+## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+## # Groups:     month
+## # Ordered by: desc(n)
+##   month dayofmonth               n
+##   &lt;dbl&gt;      &lt;dbl&gt; &lt;S3: integer64&gt;
+## 1     7         18           21128
+## 2     7         11           21125
+## 3     7         25           21102
+## 4     7         10           21058
+## 5     7         17           21055</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Figure the percent ratio of flights per month</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> n<span class="op">/</span><span class="kw">sum</span>(n))</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 3]
+## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+## # Ordered by: desc(n)
+##    month               n    percent
+##    &lt;dbl&gt; &lt;S3: integer64&gt;      &lt;dbl&gt;
+##  1     7          627931 0.08957994
+##  2     3          616090 0.08789071
+##  3     8          612279 0.08734704
+##  4     6          608665 0.08683147
+##  5     5          606293 0.08649309
+##  6     1          605765 0.08641776
+##  7     4          598126 0.08532799
+##  8     2          569236 0.08120657
+##  9    10          556205 0.07934759
+## 10    12          544958 0.07774310
+## # ... with more rows</code></pre>
+<ul>
+<li>Use <code>View()</code> to preview the data</li>
+</ul>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="access-a-database.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dplyr-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-visualizations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,11 @@
+base
+dplyr
+dbplyr
+rlang
+dbplot
+ggplot2
+bindrcpp
+odbc
+DBI
+tidyr
+bookdown

@@ -1,0 +1,95 @@
+# Data transformation
+
+```{r, include = FALSE}
+library(dplyr)
+library(dbplyr)
+
+# Class catchup
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+airports <- tbl(con, in_schema("datawarehouse", "airport"))
+flights <- tbl(con, in_schema("datawarehouse", "flight"))
+carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+
+```
+
+## Group and sort records
+
+*Learn how to use `group_by()` and `arrange()` to better understand aggregated data*
+
+
+1. How many flights are there per month?
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() 
+```
+
+
+2. Order the results by the month number
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  arrange(month)
+```
+
+3. Order the results by the number of flights, starting with the month with most flights by using `desc()` inside the `arrange()` command
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  arrange(desc(n)) 
+```
+
+4. Which are the top 4 months with the most flight activity?
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(4)
+```
+
+5. What were the top 5 calendar days with most flight activity?
+```{r}
+flights %>%
+  group_by(month, dayofmonth) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(5)
+```
+
+6. Figure the percent ratio of flights per month
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  mutate(percent = n/sum(n))
+```
+
+
+
+- Use `View()` to preview the data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
