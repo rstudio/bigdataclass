@@ -119,7 +119,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
 <li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
-<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.3</b> View record level data</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
@@ -306,8 +307,72 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 10    12          544958 0.07774310
 ## # ... with more rows</code></pre>
 </div>
+<div id="aggregate-mulitple-columns" class="section level2">
+<h2><span class="header-section-number">3.3</span> Aggregate mulitple columns</h2>
+<p><em>Practice using <code>summarise _</code> functions</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>summarise_all()</code> to send the same function to all fields</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(depdelay, arrdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_all</span>(mean)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##   depdelay arrdelay
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 9.778736 7.988181</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>summarise_at()</code> to pre-select the fields that will receive the function</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">c</span>(<span class="st">&quot;depdelay&quot;</span>, <span class="st">&quot;arrdelay&quot;</span>),mean)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##   depdelay arrdelay
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 9.778736 7.988181</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>summarise_if()</code> to summarize only if the field meets a criterion</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_if</span>(is.numeric,mean)</code></pre></div>
+<pre><code>## Applying predicate on the first 100 rows</code></pre>
+<pre><code>## # Source:   lazy query [?? x 24]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##    year   month dayofmonth dayofweek  deptime crsdeptime  arrtime
+##   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1  2008 6.37513   15.72801  3.924182 1307.905   1326.086 1449.213
+## # ... with 17 more variables: crsarrtime &lt;dbl&gt;, flightnum &lt;dbl&gt;,
+## #   actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
+## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;,
+## #   taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;, diverted &lt;dbl&gt;, carrierdelay &lt;dbl&gt;,
+## #   weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;,
+## #   lateaircraftdelay &lt;dbl&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Combine with <code>group_by()</code> to create more complex results</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(month, depdelay, arrdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_all</span>(mean)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##    month  depdelay   arrdelay
+##    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+##  1    10  3.782569  0.4124073
+##  2     4  8.059151  6.6775195
+##  3    12 16.763552 16.0618708
+##  4     5  7.564221  5.9086052
+##  5     2 13.210310 12.5652559
+##  6     7 11.608261  9.7763528
+##  7    11  5.376890  1.9954441
+##  8     9  3.889212  0.6840184
+##  9     1 11.148199  9.8754187
+## 10     3 12.163158 10.8699589
+## # ... with more rows</code></pre>
+</div>
 <div id="view-record-level-data" class="section level2">
-<h2><span class="header-section-number">3.3</span> View record level data</h2>
+<h2><span class="header-section-number">3.4</span> View record level data</h2>
 <p><em>Important tips to record preview data</em></p>
 <p>How many flights in July 18th were one or more hours late?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
@@ -332,16 +397,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
 ##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
 ##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-##  1  2008     7         18         5    1250       1140    1453       1340
-##  2  2008     7         18         5    1851       1620      43       2225
-##  3  2008     7         18         5    2116       2015      40       2240
-##  4  2008     7         18         5    2040       1910     152         30
-##  5  2008     7         18         5    2219       2025     108       2310
-##  6  2008     7         18         5    1354       1245    1553       1443
-##  7  2008     7         18         5    2137       1915     149       2245
-##  8  2008     7         18         5    2308       1705      10       1830
-##  9  2008     7         18         5    1943       1715      49       2250
-## 10  2008     7         18         5    1846       1710    2120       1950
+##  1  2008     7         18         5    2326       1925     101       2105
+##  2  2008     7         18         5    1712       1610    2023       1930
+##  3  2008     7         18         5    1444       1335    1612       1510
+##  4  2008     7         18         5    2244       2120       4       2245
+##  5  2008     7         18         5    2133       1840    2248       2015
+##  6  2008     7         18         5    1324       1220    1700       1535
+##  7  2008     7         18         5    2014       1910    2354       2150
+##  8  2008     7         18         5    1224       1115    1533       1430
+##  9  2008     7         18         5    2056       1925    2345       2215
+## 10  2008     7         18         5      23       2300     112       2350
 ## # ... with more rows, and 21 more variables: uniquecarrier &lt;chr&gt;,
 ## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
 ## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,

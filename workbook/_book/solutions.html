@@ -119,7 +119,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
 <li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
-<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.3</b> View record level data</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
@@ -159,11 +160,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##                 n
+##   &lt;S3: integer64&gt;
+## 1            1702</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>How many characters is the longest <strong>carriername</strong>?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="kw">max</span>(<span class="kw">length</span>(carriername)))</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##   `max(length(carriername))`
+##                        &lt;int&gt;
+## 1                         90</code></pre>
 
 </div>
             </section>

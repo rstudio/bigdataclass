@@ -119,7 +119,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
 <li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
-<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.3</b> View record level data</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
@@ -182,7 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">ggplot</span>(by_month) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> n)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 </div>
 <div id="plot-in-one-code-segment" class="section level2">
 <h2><span class="header-section-number">4.2</span> Plot in one code segment</h2>
@@ -197,7 +198,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">                        </span><span class="co"># &lt; Don&#39;t forget to switch to `+`</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> n)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the aggregation to the average of <code>arrdelay</code>. Tip: Use <code>x</code> as the summarize variable</li>
 </ol>
@@ -208,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> x)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Plot the average distance</li>
 </ol>
@@ -219,7 +220,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> x)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 </div>
 <div id="plot-specific-data-segments" class="section level2">
 <h2><span class="header-section-number">4.3</span> Plot specific data segments</h2>
@@ -254,7 +255,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">x =</span> uniquecarrier, <span class="dt">y =</span> n))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <ol style="list-style-type: decimal">
 <li>Improve the plot’s look</li>
 </ol>
@@ -273,7 +274,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
          <span class="dt">subtitle =</span> <span class="st">&quot;Source: Datawarehouse&quot;</span>,
          <span class="dt">x =</span> <span class="st">&quot;Carrier Name&quot;</span>, 
          <span class="dt">y =</span> <span class="st">&quot;# of Flights&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 </div>
 <div id="or-more-queries" class="section level2">
 <h2><span class="header-section-number">4.4</span> 2 or more queries</h2>
@@ -299,16 +300,16 @@ top5</code></pre></div>
 ## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
 ##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
 ##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-##  1  2008     7         30         3    1249       1245    1530       1525
-##  2  2008     7         31         4    1256       1245    1535       1525
-##  3  2008     7          1         2    1026       1020    1221       1220
-##  4  2008     7          2         3    1012       1020    1221       1220
-##  5  2008     7          3         4    1020       1020    1252       1220
-##  6  2008     7          4         5    1023       1020    1219       1220
-##  7  2008     7          5         6    1012       1020    1213       1220
-##  8  2008     7          6         7    1022       1020    1217       1220
-##  9  2008     7          7         1    1015       1020    1322       1220
-## 10  2008     7          8         2    1033       1020    1236       1220
+##  1  2008     7         31         4    1530       1445    2121       2045
+##  2  2008     7          1         2     759        805     937        940
+##  3  2008     7          2         3     802        805     935        940
+##  4  2008     7          3         4     759        805     932        940
+##  5  2008     7          4         5     851        805    1018        940
+##  6  2008     7          5         6     807        805     939        940
+##  7  2008     7          6         7     759        805     925        940
+##  8  2008     7          7         1     805        805     930        940
+##  9  2008     7          8         2     814        805     936        940
+## 10  2008     7          9         3     801        805     939        940
 ## # ... with more rows, and 21 more variables: uniquecarrier &lt;chr&gt;,
 ## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
 ## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
@@ -349,7 +350,7 @@ top5</code></pre></div>
          <span class="dt">subtitle =</span> <span class="st">&quot;Source: Datawarehouse&quot;</span>,
          <span class="dt">x =</span> <span class="st">&quot;Carrier Name&quot;</span>, 
          <span class="dt">y =</span> <span class="st">&quot;Average Delay&quot;</span>) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 </div>
 <div id="visualize-using-dbplot" class="section level2">
 <h2><span class="header-section-number">4.5</span> Visualize using <code>dbplot</code></h2>
@@ -364,7 +365,7 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_line</span>(month)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Update the plot’s labels</li>
 </ol>
@@ -373,7 +374,7 @@ top5</code></pre></div>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Monthly flights&quot;</span>,
        <span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>,
        <span class="dt">y =</span> <span class="st">&quot;Number of flights&quot;</span>) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 </div>
 <div id="plot-a-different-aggregation" class="section level2">
 <h2><span class="header-section-number">4.6</span> Plot a different aggregation</h2>
@@ -383,7 +384,7 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the day numbers to day name labels</li>
 </ol>
@@ -391,7 +392,7 @@ top5</code></pre></div>
 <span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>,<span class="st">&quot;Sun&quot;</span>),
                      <span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
 </div>
 <div id="create-a-histogram" class="section level2">
 <h2><span class="header-section-number">4.7</span> Create a histogram</h2>
@@ -401,13 +402,13 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_histogram</span>(distance)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Adjust the <code>binwidth</code> to 300</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_histogram</span>(distance, <span class="dt">binwidth =</span> <span class="dv">300</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 </div>
 <div id="raster-plot" class="section level2">
 <h2><span class="header-section-number">4.8</span> Raster plot</h2>
@@ -416,13 +417,13 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_raster</span>(deptime, arrtime)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the plot’s resolution to 500</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_raster</span>(deptime, arrtime, <span class="dt">resolution =</span> <span class="dv">500</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
 </div>
 <div id="using-the-calculate-functions" class="section level2">
 <h2><span class="header-section-number">4.9</span> Using the <code>calculate</code> functions</h2>
@@ -454,7 +455,7 @@ departure</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">n()</span><span class="st">`</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">x =</span> deptime, <span class="dt">y =</span> arrtime, <span class="dt">fill =</span> <span class="st">`</span><span class="dt">n()</span><span class="st">`</span>))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 </div>
 <div id="under-the-hood-ii" class="section level2">
 <h2><span class="header-section-number">4.10</span> Under the hood (II)</h2>
