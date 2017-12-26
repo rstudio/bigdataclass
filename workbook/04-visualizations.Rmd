@@ -2,7 +2,7 @@
 
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(cache = FALSE)
 
 library(dplyr)
 library(dbplyr)
@@ -22,10 +22,11 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 ```
 
 
-## Simple plots
+
+## Simple plot
 *Practice pushing the calculations to the database*
 
-1. Use `collect()` bring back the aggregated results 
+1. Use `collect()` bring back the aggregated results into a "pass-through" variable called `by_month`
 ```{r}
 by_month <- flights %>%
   group_by(month) %>%
@@ -45,6 +46,135 @@ ggplot(by_month) +
   geom_line(aes(x = month, y = n)) 
 ```
 
+## Plot in one code segment
+*Practice going from `dplyr` to `ggplot2` without using pass-through variable, great for EDA*
+
+1. Using the code from the previous section, create a single piped code set which also creates the plot
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  mutate(n = as.numeric(n)) %>%
+  collect() %>%
+  ggplot() +                        # < Don't forget to switch to `+`
+  geom_line(aes(x = month, y = n)) 
+```
+
+2. Change the aggregation to the average of `arrdelay`.  Tip: Use `x` as the summarize variable 
+```{r}
+flights %>%
+  group_by(month) %>%
+  summarise(x = mean(arrdelay)) %>%
+  mutate(x = as.numeric(x)) %>%
+  collect() %>%
+  ggplot() +
+  geom_line(aes(x = month, y = x)) 
+```
+
+3. Plot the average distance 
+```{r}
+flights %>%
+  group_by(month) %>%
+  summarise(x = mean(distance)) %>%
+  mutate(x = as.numeric(x)) %>%
+  collect() %>%
+  ggplot() +
+  geom_line(aes(x = month, y = x)) 
+```
+
+
+## Plot specific data segments
+*Combine skills from previous units to create more sophisticated plots*
+
+1. Start with getting the top 5 carriers
+```{r}
+flights %>%
+  group_by(uniquecarrier) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(5) 
+```
+
+1. Start with getting the top 5 carriers
+```{r}
+flights %>%
+  group_by(uniquecarrier) %>%
+  tally() %>%
+  mutate(n = as.numeric(n)) %>%
+  arrange(desc(n)) %>%
+  head(5) %>%
+  collect() %>%
+  ggplot() +
+    geom_col(aes(x = uniquecarrier, y = n))
+```
+
+1. Improve the plot's look
+```{r}
+flights %>%
+  group_by(uniquecarrier) %>%
+  tally() %>%
+  mutate(n = as.numeric(n)) %>%
+  arrange(desc(n)) %>%
+  head(5) %>%
+  collect() %>%
+  ggplot() +      #Don't forget to switch to `+`
+    geom_col(aes(x = uniquecarrier, y = n, fill = n)) +  #Add fill
+    theme(legend.position="none") +    # Turn legend off
+    coord_flip() +  # Rotate cols into rows
+    labs(title = "Top 5 Carriers", 
+         subtitle = "Source: Datawarehouse",
+         x = "Carrier Name", 
+         y = "# of Flights")
+    
+```
+
+## 2 or more queries
+*Learn how to use `pull()` to pass a set of values to be used on a secondary query*
+
+1. Use `pull()` to get the top 5 carriers loaded in a vector
+
+```{r}
+top5 <- flights %>%
+  group_by(uniquecarrier) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(5) %>%
+  pull(uniquecarrier)
+
+top5
+```
+
+2. Use `%in%` to pass the `top5` vector to a filter
+```{r}
+flights %>%
+  filter(uniquecarrier %in% top5) 
+```
+
+3. Group by carrier and get the average arrival delay
+```{r}
+flights %>%
+  filter(uniquecarrier %in% top5) %>%
+  group_by(uniquecarrier) %>%
+  summarise(n = mean(arrdelay))
+```
+
+4. Copy the final `ggplot()` code from the *Plot specific segment* section. Update the `y` labs.
+```{r}
+flights %>%
+  filter(uniquecarrier %in% top5) %>%
+  group_by(uniquecarrier) %>%
+  summarise(n = mean(arrdelay)) %>%
+  # From previous section ----------------------------------------------
+  collect() %>%
+  ggplot() +      #Don't forget to switch to `+`
+    geom_col(aes(x = uniquecarrier, y = n, fill = n)) +  #Add fill
+    theme(legend.position="none") +    # Turn legend off
+    coord_flip() +  # Rotate cols into rows
+    labs(title = "Top 5 Carriers", 
+         subtitle = "Source: Datawarehouse",
+         x = "Carrier Name", 
+         y = "Average Delay") 
+```
 
 ## Visualize using `dbplot`
 *Review how to use `dbplot` to make it easier to plot with databases*
@@ -95,7 +225,7 @@ flights %>%
 
 
 1. Use the `dbplot_histogram()` to build the histogram
-```{r, cache = TRUE}
+```{r}
 flights %>%
   dbplot_histogram(distance)
 ```
@@ -103,7 +233,7 @@ flights %>%
 
 2. Adjust the `binwidth` to 300
 
-```{r, cache = TRUE}
+```{r}
 flights %>%
   dbplot_histogram(distance, binwidth = 300)
 ```
@@ -111,13 +241,13 @@ flights %>%
 ## Raster plot
 
 1. Use a `dbplot_raster()` to visualize `deptime` versus `depdelay`
-```{r, cache = TRUE}
+```{r}
 flights %>%
   dbplot_raster(deptime, arrtime)
 ```
 
 2. Change the plot's resolution to 500
-```{r, cache = TRUE}
+```{r}
 flights %>%
   dbplot_raster(deptime, arrtime, resolution = 500)
 ```
@@ -126,7 +256,7 @@ flights %>%
 ## Using the `calculate` functions
 
 1. Use the `db_comptue_raster()` function to get the underlying results that feed the plot
-```{r, cache = TRUE}
+```{r}
 departure <- flights %>%
   db_compute_raster(deptime, arrtime)
 

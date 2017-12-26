@@ -118,16 +118,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
-<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.2</b> View record level data</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.3</b> View record level data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
-<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plots"><i class="fa fa-check"></i><b>4.1</b> Simple plots</a></li>
-<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.2</b> Visualize using <code>dbplot</code></a></li>
-<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.3</b> Plot a different aggregation</a></li>
-<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.4</b> Create a histogram</a></li>
-<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.5</b> Raster plot</a></li>
-<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.6</b> Using the <code>calculate</code> functions</a></li>
-<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.7</b> Under the hood (II)</a></li>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#or-more-queries"><i class="fa fa-check"></i><b>4.4</b> 2 or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i>Solutions</a></li>
 </ul>
@@ -149,11 +153,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="data-visualizations" class="section level1">
 <h1><span class="header-section-number">4</span> Data Visualizations</h1>
-<div id="simple-plots" class="section level2">
-<h2><span class="header-section-number">4.1</span> Simple plots</h2>
+<div id="simple-plot" class="section level2">
+<h2><span class="header-section-number">4.1</span> Simple plot</h2>
 <p><em>Practice pushing the calculations to the database</em></p>
 <ol style="list-style-type: decimal">
-<li>Use <code>collect()</code> bring back the aggregated results</li>
+<li>Use <code>collect()</code> bring back the aggregated results into a “pass-through” variable called <code>by_month</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_month &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
@@ -178,10 +182,177 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">ggplot</span>(by_month) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> n)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+</div>
+<div id="plot-in-one-code-segment" class="section level2">
+<h2><span class="header-section-number">4.2</span> Plot in one code segment</h2>
+<p><em>Practice going from <code>dplyr</code> to <code>ggplot2</code> without using pass-through variable, great for EDA</em></p>
+<ol style="list-style-type: decimal">
+<li>Using the code from the previous section, create a single piped code set which also creates the plot</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">as.numeric</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">                        </span><span class="co"># &lt; Don&#39;t forget to switch to `+`</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> n)) </code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Change the aggregation to the average of <code>arrdelay</code>. Tip: Use <code>x</code> as the summarize variable</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">x =</span> <span class="kw">mean</span>(arrdelay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">x =</span> <span class="kw">as.numeric</span>(x)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> x)) </code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Plot the average distance</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">x =</span> <span class="kw">mean</span>(distance)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">x =</span> <span class="kw">as.numeric</span>(x)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> x)) </code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+</div>
+<div id="plot-specific-data-segments" class="section level2">
+<h2><span class="header-section-number">4.3</span> Plot specific data segments</h2>
+<p><em>Combine skills from previous units to create more sophisticated plots</em></p>
+<ol style="list-style-type: decimal">
+<li>Start with getting the top 5 carriers</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) </code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+## # Ordered by: desc(n)
+##   uniquecarrier               n
+##           &lt;chr&gt; &lt;S3: integer64&gt;
+## 1            WN         1201754
+## 2            AA          604885
+## 3            OO          567159
+## 4            MQ          490693
+## 5            US          453589</code></pre>
+<ol style="list-style-type: decimal">
+<li>Start with getting the top 5 carriers</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">as.numeric</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">x =</span> uniquecarrier, <span class="dt">y =</span> n))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<ol style="list-style-type: decimal">
+<li>Improve the plot’s look</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">as.numeric</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">      </span><span class="co">#Don&#39;t forget to switch to `+`</span>
+<span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">x =</span> uniquecarrier, <span class="dt">y =</span> n, <span class="dt">fill =</span> n)) <span class="op">+</span><span class="st">  </span><span class="co">#Add fill</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="op">+</span><span class="st">    </span><span class="co"># Turn legend off</span>
+<span class="st">    </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st">  </span><span class="co"># Rotate cols into rows</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Top 5 Carriers&quot;</span>, 
+         <span class="dt">subtitle =</span> <span class="st">&quot;Source: Datawarehouse&quot;</span>,
+         <span class="dt">x =</span> <span class="st">&quot;Carrier Name&quot;</span>, 
+         <span class="dt">y =</span> <span class="st">&quot;# of Flights&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+</div>
+<div id="or-more-queries" class="section level2">
+<h2><span class="header-section-number">4.4</span> 2 or more queries</h2>
+<p><em>Learn how to use <code>pull()</code> to pass a set of values to be used on a secondary query</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>pull()</code> to get the top 5 carriers loaded in a vector</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">top5 &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">pull</span>(uniquecarrier)
+
+top5</code></pre></div>
+<pre><code>## [1] &quot;WN&quot; &quot;AA&quot; &quot;OO&quot; &quot;MQ&quot; &quot;US&quot;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>%in%</code> to pass the <code>top5</code> vector to a filter</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 29]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
+##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+##  1  2008     7         30         3    1249       1245    1530       1525
+##  2  2008     7         31         4    1256       1245    1535       1525
+##  3  2008     7          1         2    1026       1020    1221       1220
+##  4  2008     7          2         3    1012       1020    1221       1220
+##  5  2008     7          3         4    1020       1020    1252       1220
+##  6  2008     7          4         5    1023       1020    1219       1220
+##  7  2008     7          5         6    1012       1020    1213       1220
+##  8  2008     7          6         7    1022       1020    1217       1220
+##  9  2008     7          7         1    1015       1020    1322       1220
+## 10  2008     7          8         2    1033       1020    1236       1220
+## # ... with more rows, and 21 more variables: uniquecarrier &lt;chr&gt;,
+## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
+## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
+## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
+## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Group by carrier and get the average arrival delay</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">mean</span>(arrdelay))</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
+##   uniquecarrier         n
+##           &lt;chr&gt;     &lt;dbl&gt;
+## 1            US  2.800998
+## 2            MQ  9.496971
+## 3            OO  6.438939
+## 4            WN  5.115703
+## 5            AA 12.202853</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Copy the final <code>ggplot()</code> code from the <em>Plot specific segment</em> section. Update the <code>y</code> labs.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">mean</span>(arrdelay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># From previous section ----------------------------------------------</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">      </span><span class="co">#Don&#39;t forget to switch to `+`</span>
+<span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">x =</span> uniquecarrier, <span class="dt">y =</span> n, <span class="dt">fill =</span> n)) <span class="op">+</span><span class="st">  </span><span class="co">#Add fill</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="op">+</span><span class="st">    </span><span class="co"># Turn legend off</span>
+<span class="st">    </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st">  </span><span class="co"># Rotate cols into rows</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Top 5 Carriers&quot;</span>, 
+         <span class="dt">subtitle =</span> <span class="st">&quot;Source: Datawarehouse&quot;</span>,
+         <span class="dt">x =</span> <span class="st">&quot;Carrier Name&quot;</span>, 
+         <span class="dt">y =</span> <span class="st">&quot;Average Delay&quot;</span>) </code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
 </div>
 <div id="visualize-using-dbplot" class="section level2">
-<h2><span class="header-section-number">4.2</span> Visualize using <code>dbplot</code></h2>
+<h2><span class="header-section-number">4.5</span> Visualize using <code>dbplot</code></h2>
 <p><em>Review how to use <code>dbplot</code> to make it easier to plot with databases</em></p>
 <ol style="list-style-type: decimal">
 <li>Install and load <code>dbplot</code></li>
@@ -193,7 +364,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_line</span>(month)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Update the plot’s labels</li>
 </ol>
@@ -202,17 +373,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Monthly flights&quot;</span>,
        <span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>,
        <span class="dt">y =</span> <span class="st">&quot;Number of flights&quot;</span>) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 </div>
 <div id="plot-a-different-aggregation" class="section level2">
-<h2><span class="header-section-number">4.3</span> Plot a different aggregation</h2>
+<h2><span class="header-section-number">4.6</span> Plot a different aggregation</h2>
 <p><em><code>dbplot</code> allows for aggregate functions, other than record count, to be used for plotting</em></p>
 <ol style="list-style-type: decimal">
 <li>Plot the average departure delay by day of week</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the day numbers to day name labels</li>
 </ol>
@@ -220,41 +391,41 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>,<span class="st">&quot;Sun&quot;</span>),
                      <span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 </div>
 <div id="create-a-histogram" class="section level2">
-<h2><span class="header-section-number">4.4</span> Create a histogram</h2>
+<h2><span class="header-section-number">4.7</span> Create a histogram</h2>
 <p><em>Use the package’s function to easily create a histogram</em></p>
 <ol style="list-style-type: decimal">
 <li>Use the <code>dbplot_histogram()</code> to build the histogram</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_histogram</span>(distance)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Adjust the <code>binwidth</code> to 300</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_histogram</span>(distance, <span class="dt">binwidth =</span> <span class="dv">300</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 </div>
 <div id="raster-plot" class="section level2">
-<h2><span class="header-section-number">4.5</span> Raster plot</h2>
+<h2><span class="header-section-number">4.8</span> Raster plot</h2>
 <ol style="list-style-type: decimal">
 <li>Use a <code>dbplot_raster()</code> to visualize <code>deptime</code> versus <code>depdelay</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_raster</span>(deptime, arrtime)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the plot’s resolution to 500</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_raster</span>(deptime, arrtime, <span class="dt">resolution =</span> <span class="dv">500</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 </div>
 <div id="using-the-calculate-functions" class="section level2">
-<h2><span class="header-section-number">4.6</span> Using the <code>calculate</code> functions</h2>
+<h2><span class="header-section-number">4.9</span> Using the <code>calculate</code> functions</h2>
 <ol style="list-style-type: decimal">
 <li>Use the <code>db_comptue_raster()</code> function to get the underlying results that feed the plot</li>
 </ol>
@@ -283,10 +454,10 @@ departure</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">n()</span><span class="st">`</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">x =</span> deptime, <span class="dt">y =</span> arrtime, <span class="dt">fill =</span> <span class="st">`</span><span class="dt">n()</span><span class="st">`</span>))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 </div>
 <div id="under-the-hood-ii" class="section level2">
-<h2><span class="header-section-number">4.7</span> Under the hood (II)</h2>
+<h2><span class="header-section-number">4.10</span> Under the hood (II)</h2>
 <p><em>Review how <code>dbplot</code> pushes histogram and raster calculations to the database</em></p>
 <ol style="list-style-type: decimal">
 <li>Use the <code>db_bin()</code> command to see the resulting tidy eval formula</li>
