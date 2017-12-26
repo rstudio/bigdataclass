@@ -9,3 +9,4 @@ odbc
 DBI
 tidyr
 bookdown
+tibble

@@ -128,7 +128,7 @@ flights %>%
     
 ```
 
-## 2 or more queries
+## Two or more queries
 *Learn how to use `pull()` to pass a set of values to be used on a secondary query*
 
 1. Use `pull()` to get the top 5 carriers loaded in a vector
