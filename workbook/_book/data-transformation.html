@@ -126,7 +126,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
 <li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
 <li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
-<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#or-more-queries"><i class="fa fa-check"></i><b>4.4</b> 2 or more queries</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
 <li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
 <li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
 <li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
@@ -134,7 +134,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
 <li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i>Solutions</a></li>
+<li class="chapter" data-level="5" data-path="database-operations.html"><a href="database-operations.html"><i class="fa fa-check"></i><b>5</b> Database operations</a><ul>
+<li class="chapter" data-level="5.1" data-path="database-operations.html"><a href="database-operations.html#case-1---data-enrichment"><i class="fa fa-check"></i><b>5.1</b> Case 1 - Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dashboards.html"><a href="dashboards.html"><i class="fa fa-check"></i><b>6</b> Dashboards</a><ul>
+<li class="chapter" data-level="6.1" data-path="dashboards.html"><a href="dashboards.html#basic-structure"><i class="fa fa-check"></i><b>6.1</b> Basic structure</a></li>
+<li class="chapter" data-level="6.2" data-path="dashboards.html"><a href="dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>6.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="6.3" data-path="dashboards.html"><a href="dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>6.3</b> Update dashboard items</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -163,21 +170,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 2]
-## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-##    month               n
-##    &lt;dbl&gt; &lt;S3: integer64&gt;
-##  1    10          556205
-##  2     4          598126
-##  3    12          544958
-##  4     5          606293
-##  5     2          569236
-##  6     7          627931
-##  7    11          523272
-##  8     9          540908
-##  9     1          605765
-## 10     3          616090
-## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Order the results by the month number</li>
 </ol>
@@ -185,22 +177,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(month)</code></pre></div>
-<pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-## # Ordered by: month
-##    month               n
-##    &lt;dbl&gt; &lt;S3: integer64&gt;
-##  1     1          605765
-##  2     2          569236
-##  3     3          616090
-##  4     4          598126
-##  5     5          606293
-##  6     6          608665
-##  7     7          627931
-##  8     8          612279
-##  9     9          540908
-## 10    10          556205
-## # ... with more rows</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Order the results by the number of flights, starting with the month with most flights by using <code>desc()</code> inside the <code>arrange()</code> command</li>
 </ol>
@@ -208,22 +184,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) </code></pre></div>
-<pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-## # Ordered by: desc(n)
-##    month               n
-##    &lt;dbl&gt; &lt;S3: integer64&gt;
-##  1     7          627931
-##  2     3          616090
-##  3     8          612279
-##  4     6          608665
-##  5     5          606293
-##  6     1          605765
-##  7     4          598126
-##  8     2          569236
-##  9    10          556205
-## 10    12          544958
-## # ... with more rows</code></pre>
 </div>
 <div id="answering-questions-with-dplyr" class="section level2">
 <h2><span class="header-section-number">3.2</span> Answering questions with <code>dplyr</code></h2>
@@ -236,15 +196,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">4</span>)</code></pre></div>
-<pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-## # Ordered by: desc(n)
-##   month               n
-##   &lt;dbl&gt; &lt;S3: integer64&gt;
-## 1     7          627931
-## 2     3          616090
-## 3     8          612279
-## 4     6          608665</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>What were the top 5 calendar days with most flight activity?</li>
 </ol>
@@ -253,17 +204,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
-<pre><code>## # Source:     lazy query [?? x 3]
-## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-## # Groups:     month
-## # Ordered by: desc(n)
-##   month dayofmonth               n
-##   &lt;dbl&gt;      &lt;dbl&gt; &lt;S3: integer64&gt;
-## 1     7         18           21128
-## 2     7         11           21125
-## 3     7         25           21102
-## 4     7         10           21058
-## 5     7         17           21055</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Which are the top 5 carriers (airlines) with the most flights?</li>
 </ol>
@@ -272,16 +212,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
-<pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-## # Ordered by: desc(n)
-##   uniquecarrier               n
-##           &lt;chr&gt; &lt;S3: integer64&gt;
-## 1            WN         1201754
-## 2            AA          604885
-## 3            OO          567159
-## 4            MQ          490693
-## 5            US          453589</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Figure the percent ratio of flights per month</li>
 </ol>
@@ -290,22 +220,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> n<span class="op">/</span><span class="kw">sum</span>(n))</code></pre></div>
-<pre><code>## # Source:     lazy query [?? x 3]
-## # Database:   PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-## # Ordered by: desc(n)
-##    month               n    percent
-##    &lt;dbl&gt; &lt;S3: integer64&gt;      &lt;dbl&gt;
-##  1     7          627931 0.08957994
-##  2     3          616090 0.08789071
-##  3     8          612279 0.08734704
-##  4     6          608665 0.08683147
-##  5     5          606293 0.08649309
-##  6     1          605765 0.08641776
-##  7     4          598126 0.08532799
-##  8     2          569236 0.08120657
-##  9    10          556205 0.07934759
-## 10    12          544958 0.07774310
-## # ... with more rows</code></pre>
 </div>
 <div id="aggregate-mulitple-columns" class="section level2">
 <h2><span class="header-section-number">3.3</span> Aggregate mulitple columns</h2>
@@ -316,38 +230,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(depdelay, arrdelay) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_all</span>(mean)</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 2]
-## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-##   depdelay arrdelay
-##      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 9.778736 7.988181</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>summarise_at()</code> to pre-select the fields that will receive the function</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">c</span>(<span class="st">&quot;depdelay&quot;</span>, <span class="st">&quot;arrdelay&quot;</span>),mean)</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 2]
-## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-##   depdelay arrdelay
-##      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 9.778736 7.988181</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Use <code>summarise_if()</code> to summarize only if the field meets a criterion</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_if</span>(is.numeric,mean)</code></pre></div>
-<pre><code>## Applying predicate on the first 100 rows</code></pre>
-<pre><code>## # Source:   lazy query [?? x 24]
-## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-##    year   month dayofmonth dayofweek  deptime crsdeptime  arrtime
-##   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1  2008 6.37513   15.72801  3.924182 1307.905   1326.086 1449.213
-## # ... with 17 more variables: crsarrtime &lt;dbl&gt;, flightnum &lt;dbl&gt;,
-## #   actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
-## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;,
-## #   taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;, diverted &lt;dbl&gt;, carrierdelay &lt;dbl&gt;,
-## #   weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;,
-## #   lateaircraftdelay &lt;dbl&gt;</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Combine with <code>group_by()</code> to create more complex results</li>
 </ol>
@@ -355,21 +247,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">select</span>(month, depdelay, arrdelay) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_all</span>(mean)</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 3]
-## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-##    month  depdelay   arrdelay
-##    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-##  1    10  3.782569  0.4124073
-##  2     4  8.059151  6.6775195
-##  3    12 16.763552 16.0618708
-##  4     5  7.564221  5.9086052
-##  5     2 13.210310 12.5652559
-##  6     7 11.608261  9.7763528
-##  7    11  5.376890  1.9954441
-##  8     9  3.889212  0.6840184
-##  9     1 11.148199  9.8754187
-## 10     3 12.163158 10.8699589
-## # ... with more rows</code></pre>
 </div>
 <div id="view-record-level-data" class="section level2">
 <h2><span class="header-section-number">3.4</span> View record level data</h2>
@@ -380,11 +257,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
          month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
          dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 1]
-## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-##                 n
-##   &lt;S3: integer64&gt;
-## 1            1239</code></pre>
 <ol style="list-style-type: decimal">
 <li>Use <code>filter()</code> to retreive only the needed data, and <code>head()</code> to limit the preview even further.</li>
 </ol>
@@ -393,27 +265,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
          month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
          dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 29]
-## # Database: PostgreSQL 9.3.20[rstudio_dev@localhost/postgres]
-##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
-##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-##  1  2008     7         18         5    2326       1925     101       2105
-##  2  2008     7         18         5    1712       1610    2023       1930
-##  3  2008     7         18         5    1444       1335    1612       1510
-##  4  2008     7         18         5    2244       2120       4       2245
-##  5  2008     7         18         5    2133       1840    2248       2015
-##  6  2008     7         18         5    1324       1220    1700       1535
-##  7  2008     7         18         5    2014       1910    2354       2150
-##  8  2008     7         18         5    1224       1115    1533       1430
-##  9  2008     7         18         5    2056       1925    2345       2215
-## 10  2008     7         18         5      23       2300     112       2350
-## # ... with more rows, and 21 more variables: uniquecarrier &lt;chr&gt;,
-## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
-## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
-## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
-## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
-## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>collect()</code> and <code>View()</code> to preview the data in the IDE. Make sure to <strong>always</strong> limit the number of returned rows.</li>
 </ol>

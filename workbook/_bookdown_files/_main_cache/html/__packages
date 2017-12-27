@@ -10,3 +10,6 @@ DBI
 tidyr
 bookdown
 tibble
+shinydashboard
+shiny
+purrr

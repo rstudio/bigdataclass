@@ -70,10 +70,12 @@ combined %>%
 ``` 
 
 
+8. Remove the temp table 
+```{r}
+dbRemoveTable(con, "planes")
 
-
-
-
+dbDisconnect(con)
+```
 
 
 

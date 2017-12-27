@@ -126,7 +126,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
 <li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
 <li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
-<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#or-more-queries"><i class="fa fa-check"></i><b>4.4</b> 2 or more queries</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
 <li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
 <li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
 <li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
@@ -134,7 +134,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
 <li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i>Solutions</a></li>
+<li class="chapter" data-level="5" data-path="database-operations.html"><a href="database-operations.html"><i class="fa fa-check"></i><b>5</b> Database operations</a><ul>
+<li class="chapter" data-level="5.1" data-path="database-operations.html"><a href="database-operations.html#case-1---data-enrichment"><i class="fa fa-check"></i><b>5.1</b> Case 1 - Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="dashboards.html"><a href="dashboards.html"><i class="fa fa-check"></i><b>6</b> Dashboards</a><ul>
+<li class="chapter" data-level="6.1" data-path="dashboards.html"><a href="dashboards.html#basic-structure"><i class="fa fa-check"></i><b>6.1</b> Basic structure</a></li>
+<li class="chapter" data-level="6.2" data-path="dashboards.html"><a href="dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>6.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="6.3" data-path="dashboards.html"><a href="dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>6.3</b> Update dashboard items</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -192,34 +199,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(odbc)
 
 <span class="kw">odbcListDrivers</span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</code></pre></div>
-<pre><code>##                  name   attribute
-## 1     PostgreSQL ANSI Description
-## 2     PostgreSQL ANSI      Driver
-## 3     PostgreSQL ANSI       Setup
-## 4     PostgreSQL ANSI       Debug
-## 5     PostgreSQL ANSI     CommLog
-## 6     PostgreSQL ANSI  UsageCount
-## 7  PostgreSQL Unicode Description
-## 8  PostgreSQL Unicode      Driver
-## 9  PostgreSQL Unicode       Setup
-## 10 PostgreSQL Unicode       Debug
-## 11 PostgreSQL Unicode     CommLog
-## 12 PostgreSQL Unicode  UsageCount
-## 13     AmazonRedshift      Driver
-## 14               Hive      Driver
-## 15             Impala      Driver
-## 16             Oracle      Driver
-## 17         PostgreSQL      Driver
-## 18         Salesforce      Driver
-## 19          SQLServer      Driver
-## 20           Teradata      Driver</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>To see a list of DSNs available in the server</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odbcListDataSources</span>()</code></pre></div>
-<pre><code>##            name description
-## 1  Postgres Dev  PostgreSQL
-## 2 Postgres Prod  PostgreSQL</code></pre>
 </div>
 <div id="connect-to-a-database-using-code" class="section level2">
 <h2><span class="header-section-number">1.4</span> Connect to a database using code</h2>
@@ -233,22 +216,10 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
 <li>Use <code>dbListTables()</code> to retrieve a list of tables</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbListTables</span>(con)</code></pre></div>
-<pre><code>## [1] &quot;airport&quot; &quot;carrier&quot; &quot;flight&quot;</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Use <code>dbGetQuery()</code> to run a quick query</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">odbc<span class="op">::</span><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM datawarehouse.airport LIMIT 10&quot;</span>)</code></pre></div>
-<pre><code>##    airport                                    airportname
-## 1      01A         Afognak Lake, AK: Afognak Lake Airport
-## 2      03A  Granite Mountain, AK: Bear Creek Mining Strip
-## 3      04A                       Lik, AK: Lik Mining Camp
-## 4      05A         Little Squaw, AK: Little Squaw Airport
-## 5      06A                     Kizhuyak, AK: Kizhuyak Bay
-## 6      07A             Klawock, AK: Klawock Seaplane Base
-## 7      08A Elizabeth Island, AK: Elizabeth Island Airport
-## 8      09A                     Homer, AK: Augustin Island
-## 9      1B1                    Hudson, NY: Columbia County
-## 10     1G4           Peach Springs, AZ: Grand Canyon West</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Disconnect from the database using <code>dbDisconnect()</code></li>
 </ol>

@@ -1,0 +1,199 @@
+# Dashboards
+
+<img src="images/shinydashboard-1.PNG" width = 600>
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+
+library(dplyr)
+library(dbplyr)
+library(DBI)
+library(dbplot)
+library(purrr)
+
+# Class catchup
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+airports <- tbl(con, in_schema("datawarehouse", "airport"))
+flights <- tbl(con, in_schema("datawarehouse", "flight"))
+carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+
+
+
+```
+
+## Basic structure
+*Preview a simple `shinydashboard`*
+
+
+1. Create and preview a simple `shinydashboard` 
+```{r, eval = FALSE}
+library(shinydashboard)
+library(shiny)
+library(DT)
+ui <- dashboardPage(
+  dashboardHeader(title = "Quick Example"),
+  dashboardSidebar(selectInput("select", "Selection", c("one", "two"))),
+  dashboardBody(
+    valueBoxOutput("total"),
+    tableOutput("monthly")
+  )
+)
+server <- function(input, output) {
+  output$monthly <- renderTable(head(mtcars))
+  output$total <- renderValueBox(valueBox(100, subtitle = "Flights"))
+}
+shinyApp(ui, server)
+```
+
+
+
+## Dropdown data
+*Review a technique to populate a dropdown*
+
+1. Use `purrr` to create a list with the correct structure for the `shiny` dropdown
+```{r}
+airline_list <- carriers %>%  
+  filter(carrier %in% c("UA", "DL")) %>%
+  select(carrier, carriername) %>%   # In case more fields are added
+  collect()  %>%                     # All would be collected anyway
+  split(.$carriername) %>%           # Create a list item for each name
+  map(~.$carrier)                    # Add the carrier code to each item
+
+head(airline_list)
+```
+
+2. In the app code, replace `c("one", "two", "three")` with `airline_list`
+
+```{r, eval = FALSE}
+# Goes from this:
+dashboardSidebar(selectInput("select", "Selection", c("one", "two"))),
+# To this:
+dashboardSidebar(selectInput("select", "Selection", airline_list)),
+```
+
+3. Re-run the app
+
+## Update dashboard items
+*Create base query for the dashboard using `dplyr` and pass the results to the dashboard*
+
+1. Save the base "query" to a variable. It will contain a carrier selection
+```{r}
+base_dashboard <- flights %>%
+  filter(uniquecarrier == "DL")
+
+head(base_dashboard)
+```
+
+3. Use the base query to figure the number of flights for that carrier
+```{r}
+no_flights <- base_dashboard %>%
+  tally() %>% 
+  pull()
+  
+no_flights
+```
+
+4. In the app, replace the `100` number with `no_flights` and re-run the app
+```{r, eval = FALSE}
+# Goes from this:
+output$total <- renderValueBox(valueBox(100, subtitle = "Flights"))
+# To this:
+output$total <- renderValueBox(valueBox(no_flights, subtitle = "Flights"))
+```
+
+5. Create a table with the month name and the number of flights for that month and that carrier
+```{r}
+monthly_flights <- base_dashboard %>%
+  group_by(month) %>%
+  tally() %>%
+  collect() %>%
+  mutate(monthname = month.name[month],
+         n = as.integer(n)) %>%
+  arrange(month) %>%
+  select(monthname, n)
+
+head(monthly_flights) 
+```
+
+6. In the app, replace `head(mtcars)` with `monthly_flights` and re-run the app
+```{r, eval = FALSE}
+# Goes from this:
+output$monthly <- renderTable(head(mtcars))
+# To this:
+output$monthly <- renderTable(monthly_flights)
+```
+
+## Integrate the input
+
+```{r, eval = FALSE}
+base_dashboard <- flights %>%
+  filter(uniquecarrier == input$select)
+
+no_flights <- base_dashboard %>%
+  tally() %>% 
+  pull()
+
+monthly_flights <- base_dashboard %>%
+  group_by(month) %>%
+  tally() %>%
+  collect() %>%
+  mutate(monthname = month.name[month],
+         n = as.integer(n)) %>%
+  arrange(month) %>%
+  select(monthname, n)
+```
+
+```{r, eval = FALSE, echo = FALSE}
+library(shinydashboard)
+library(shiny)
+library(dplyr)
+library(rlang)
+
+  
+
+  
+airline_list <- carriers %>%  
+  filter(carrier %in% c("UA", "DL")) %>%
+  select(carrier, carriername) %>%   
+  collect()  %>%                    
+  split(.$carriername) %>%          
+  map(~.$carrier)    
+
+ui <- dashboardPage(
+  dashboardHeader(title = "Quick Example"),
+  dashboardSidebar(selectInput("select", "Selection", airline_list)),
+  dashboardBody(
+    valueBoxOutput("total"),
+    tableOutput("monthly")
+  )
+)
+server <- function(input, output) {
+  
+  base_dashboard <- reactive({
+    flights %>% 
+        filter(uniquecarrier == input$select)
+  })
+    
+    
+  
+no_flights <- base_dashboard %>%
+  tally() %>% 
+  pull()
+
+monthly_flights <- base_dashboard %>%
+  group_by(month) %>%
+  tally() %>%
+  collect() %>%
+  mutate(monthname = month.name[month],
+         n = as.integer(n)) %>%
+  arrange(month) %>%
+  select(monthname, n)
+
+  output$monthly <- renderTable(monthly_flights)
+  output$total <- renderValueBox(valueBox(no_flights, subtitle = "Flights"))
+}
+shinyApp(ui, server)
+```
+
+
+
