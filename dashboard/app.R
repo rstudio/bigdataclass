@@ -8,6 +8,7 @@ library(dbplyr)
 library(DBI)
 library(dbplot)
 library(purrr)
+library(DT)
 
 
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
@@ -16,7 +17,6 @@ flights <- tbl(con, in_schema("datawarehouse", "flight"))
 carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 
 airline_list <- carriers %>%  
-  filter(carrier %in% c("UA", "DL")) %>%
   select(carrier, carriername) %>%   
   collect()  %>%                    
   split(.$carriername) %>%          
@@ -34,10 +34,10 @@ ui <- dashboardPage(
         valueBoxOutput("total"),
         dataTableOutput("monthly")
       )
+      )
     )
-
-  )
 )
+
 server <- function(input, output, session) {
   
   base_dashboard <- reactive({
@@ -57,28 +57,31 @@ server <- function(input, output, session) {
       collect() %>%
       mutate(n = as.numeric(n)) %>%
       rename(flights = n) %>%
-      arrange(month)
-  }, 
-  list(mode = "single", target = "cell"),
-  rownames = FALSE
-  ))
-
+      arrange(month)}, 
+    list( target = "cell"),
+    rownames = FALSE)
+    
+    )
   
   observeEvent(input$monthly_cell_clicked, {
+    
     cell <- input$monthly_cell_clicked
-    tab_title <- paste0(input$select, "-", month.name[cell$value])
-    appendTab(inputId = "tabs",
-              tabPanel(
-                cell$value,
-                DT::renderDataTable({
-                  base_dashboard() %>%
-                    filter(month == cell$value) %>%
-                    select(3:10) %>%
-                    head(100) %>%
-                    collect() 
-                }, rownames = FALSE)
-              ))
-    updateTabsetPanel(session, "tabs", selected = tab_title)
+    if(!is.null(cell$value)){
+      tab_title <- paste0(month.name[cell$value], "_", input$select)
+      appendTab(inputId = "tabs",
+                tabPanel(
+                  tab_title,
+                  DT::renderDataTable({
+                    base_dashboard() %>%
+                      filter(month == cell$value) %>%
+                      select(3:10) %>%
+                      head(100) %>%
+                      collect() 
+                  }, rownames = FALSE)
+                ))
+      updateTabsetPanel(session, "tabs", selected = tab_title)
+    }
+
   })
   
 }

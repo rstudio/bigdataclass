@@ -1,7 +1,6 @@
 # `dplyr` Basics
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(cache = TRUE)
 
 library(dplyr)
 library(dbplyr)
@@ -13,7 +12,7 @@ library(dbplyr)
 
 
 1. Load the `dplyr` and `dbplyr` libraries
-```{r}
+```{r, dplyr}
 library(dplyr)
 library(dbplyr)
 ```

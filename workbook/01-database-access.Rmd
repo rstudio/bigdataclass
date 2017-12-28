@@ -1,6 +1,6 @@
 ```{r, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
 #knitr::opts_chunk$set(cache = TRUE, eval = FALSE)
-knitr::opts_chunk$set(cache = TRUE, eval = FALSE)
 
 library(dplyr)
 library(dbplyr)
@@ -49,7 +49,7 @@ library(dbplyr)
 *Learn how to use the `odbc` package to get DB info from your machine*
 
 1. To get a list of drivers available in the server
-```{r}
+```{r, access}
 library(odbc)
 
 odbcListDrivers()[1:2]

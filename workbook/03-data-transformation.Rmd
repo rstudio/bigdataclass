@@ -1,7 +1,6 @@
 # Data transformation
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(cache = TRUE)
 
 library(dplyr)
 library(dbplyr)
@@ -20,7 +19,7 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 
 
 1. How many flights are there per month?
-```{r}
+```{r, transformation}
 flights %>%
   group_by(month) %>%
   tally() 
