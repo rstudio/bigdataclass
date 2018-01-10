@@ -4,6 +4,7 @@
 
 library(dplyr)
 library(dbplyr)
+
 ```
 
 ## Create a table variable
@@ -50,8 +51,9 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 
 1. How many records are in the **airport** table?
 ```{r}
-carriers %>%
-  tally()
+tbl(con, in_schema("datawarehouse", "vflight"))  %>%
+  group_by(month) %>%
+  summarise(n()) 
 ```
 
 2. What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?
@@ -80,8 +82,7 @@ show_query(airports)
 2. Easily view the resulting query by adding `show_query()` in another piped command
 ```{r}
 carriers %>%
-  tally() %>%
-  show_query()
+  summarise(n())
 ```
 
 3. Run the same for last exercise in the previous section

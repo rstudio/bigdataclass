@@ -85,7 +85,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -98,8 +97,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">rstudio::conf 2018</a></li>
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
 <li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
 <li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
@@ -148,7 +145,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>7.9</b> Using the <code>calculate</code> functions</a></li>
 <li class="chapter" data-level="7.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>7.10</b> Under the hood (II)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i>Solutions</a></li>
 </ul>
 
       </nav>
@@ -185,7 +181,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;airport&quot;</span>))</code></pre></div>
 <pre><code>## # Source:   table&lt;datawarehouse.airport&gt; [?? x 7]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##    airport airportname                 city      state count…   lat   long
 ##    &lt;chr&gt;   &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ##  1 ABE     Lehigh Valley International Allentown PA    USA     40.7 - 75.4
@@ -208,7 +204,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports</code></pre></div>
 <pre><code>## # Source:   table&lt;datawarehouse.airport&gt; [?? x 7]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##    airport airportname                 city      state count…   lat   long
 ##    &lt;chr&gt;   &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ##  1 ABE     Lehigh Valley International Allentown PA    USA     40.7 - 75.4
@@ -234,13 +230,24 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <ol style="list-style-type: decimal">
 <li>How many records are in the <strong>airport</strong> table?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 1]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
-##   n              
-##   &lt;S3: integer64&gt;
-## 1 20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;vflight&quot;</span>))  <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">n</span>()) </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    month `n()`          
+##    &lt;dbl&gt; &lt;S3: integer64&gt;
+##  1 10.0  556205         
+##  2  4.00 598126         
+##  3 12.0  544958         
+##  4  5.00 606293         
+##  5  2.00 569236         
+##  6  7.00 627931         
+##  7 11.0  523272         
+##  8  9.00 540908         
+##  9  1.00 605765         
+## 10  3.00 616090         
+## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?</li>
 </ol>
@@ -249,8 +256,14 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
             <span class="dt">max_airport_name =</span> <span class="kw">max</span>(<span class="kw">length</span>(airportname)),
             <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">length</span>(airportname)),
             <span class="dt">total_records =</span> <span class="kw">n</span>()) </code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `MAX(x, na.rm = TRUE)` to silence this warning</code></pre>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `MIN(x, na.rm = TRUE)` to silence this warning</code></pre>
 <pre><code>## # Source:   lazy query [?? x 4]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   avg_airport_length max_airport_name min_airport_name total_records  
 ##                &lt;dbl&gt;            &lt;int&gt;            &lt;int&gt; &lt;S3: integer64&gt;
 ## 1               3.00               40                3 305</code></pre>
@@ -276,11 +289,12 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <li>Easily view the resulting query by adding <code>show_query()</code> in another piped command</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
-<pre><code>## &lt;SQL&gt;
-## SELECT count(*) AS &quot;n&quot;
-## FROM datawarehouse.carrier</code></pre>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">n</span>())</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   `n()`          
+##   &lt;S3: integer64&gt;
+## 1 20</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Run the same for last exercise in the previous section</li>
 </ol>
@@ -290,8 +304,14 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
             <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">length</span>(airportname)),
             <span class="dt">total_records =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `MAX(x, na.rm = TRUE)` to silence this warning</code></pre>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `MIN(x, na.rm = TRUE)` to silence this warning</code></pre>
 <pre><code>## &lt;SQL&gt;
-## SELECT AVG(LENGTH(&quot;airport&quot;)) AS &quot;avg_airport_length&quot;, MAX(LENGTH(&quot;airportname&quot;)) AS &quot;max_airport_name&quot;, MIN(LENGTH(&quot;airportname&quot;)) AS &quot;min_airport_name&quot;, count(*) AS &quot;total_records&quot;
+## SELECT AVG(LENGTH(&quot;airport&quot;)) AS &quot;avg_airport_length&quot;, MAX(LENGTH(&quot;airportname&quot;)) AS &quot;max_airport_name&quot;, MIN(LENGTH(&quot;airportname&quot;)) AS &quot;min_airport_name&quot;, COUNT(*) AS &quot;total_records&quot;
 ## FROM datawarehouse.airport</code></pre>
 </div>
 <div id="un-translated-r-commands" class="section level2">
@@ -323,15 +343,15 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <span class="st">  </span><span class="kw">select</span>(today) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today              
 ##   &lt;dttm&gt;             
-## 1 2017-12-28 22:57:05
-## 2 2017-12-28 22:57:05
-## 3 2017-12-28 22:57:05
-## 4 2017-12-28 22:57:05
-## 5 2017-12-28 22:57:05
-## 6 2017-12-28 22:57:05</code></pre>
+## 1 2018-01-10 21:36:40
+## 2 2018-01-10 21:36:40
+## 3 2018-01-10 21:36:40
+## 4 2018-01-10 21:36:40
+## 5 2018-01-10 21:36:40
+## 6 2018-01-10 21:36:40</code></pre>
 
 </div>
 </div>
@@ -369,14 +389,16 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": null,
-"text": null
-},
+"edit": null,
 "download": null,
 "toc": {
-"collapse": "subsection"
-}
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
 });
 });
 </script>

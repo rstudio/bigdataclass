@@ -85,7 +85,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -98,8 +97,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">rstudio::conf 2018</a></li>
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
 <li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
 <li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
@@ -148,7 +145,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>7.9</b> Using the <code>calculate</code> functions</a></li>
 <li class="chapter" data-level="7.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>7.10</b> Under the hood (II)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i>Solutions</a></li>
 </ul>
 
       </nav>
@@ -178,7 +174,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 2]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##    month n              
 ##    &lt;dbl&gt; &lt;S3: integer64&gt;
 ##  1 10.0  556205         
@@ -200,7 +196,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(month)</code></pre></div>
 <pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
 ## # Ordered by: month
 ##    month n              
 ##    &lt;dbl&gt; &lt;S3: integer64&gt;
@@ -223,7 +219,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) </code></pre></div>
 <pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
 ## # Ordered by: desc(n)
 ##    month n              
 ##    &lt;dbl&gt; &lt;S3: integer64&gt;
@@ -251,7 +247,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">4</span>)</code></pre></div>
 <pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
 ## # Ordered by: desc(n)
 ##   month n              
 ##   &lt;dbl&gt; &lt;S3: integer64&gt;
@@ -268,7 +264,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
 <pre><code>## # Source:     lazy query [?? x 3]
-## # Database:   PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
 ## # Groups:     month
 ## # Ordered by: desc(n)
 ##   month dayofmonth n              
@@ -287,7 +283,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
 <pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
 ## # Ordered by: desc(n)
 ##   uniquecarrier n              
 ##   &lt;chr&gt;         &lt;S3: integer64&gt;
@@ -304,8 +300,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> n<span class="op">/</span><span class="kw">sum</span>(n))</code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `sum(x, na.rm = TRUE)` to silence this warning</code></pre>
 <pre><code>## # Source:     lazy query [?? x 3]
-## # Database:   PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
 ## # Ordered by: desc(n)
 ##    month n               percent
 ##    &lt;dbl&gt; &lt;S3: integer64&gt;   &lt;dbl&gt;
@@ -330,8 +328,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(depdelay, arrdelay) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_all</span>(mean)</code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
 <pre><code>## # Source:   lazy query [?? x 2]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   depdelay arrdelay
 ##      &lt;dbl&gt;    &lt;dbl&gt;
 ## 1     9.78     7.99</code></pre>
@@ -340,8 +343,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">c</span>(<span class="st">&quot;depdelay&quot;</span>, <span class="st">&quot;arrdelay&quot;</span>),mean)</code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
 <pre><code>## # Source:   lazy query [?? x 2]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   depdelay arrdelay
 ##      &lt;dbl&gt;    &lt;dbl&gt;
 ## 1     9.78     7.99</code></pre>
@@ -351,8 +359,79 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_if</span>(is.numeric,mean)</code></pre></div>
 <pre><code>## Applying predicate on the first 100 rows</code></pre>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
 <pre><code>## # Source:   lazy query [?? x 24]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##    year month dayof… dayo… dept… crsd… arrt… crsa… flig… actu… crse… airt…
 ##   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1  2008  6.38   15.7  3.92  1308  1326  1449  1495  2224   125   129   102
@@ -367,8 +446,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">select</span>(month, depdelay, arrdelay) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_all</span>(mean)</code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning
+
+## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
 <pre><code>## # Source:   lazy query [?? x 3]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##    month depdelay arrdelay
 ##    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
 ##  1 10.0      3.78    0.412
@@ -393,7 +477,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
          dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   n              
 ##   &lt;S3: integer64&gt;
 ## 1 1239</code></pre>
@@ -406,7 +490,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
          dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 29]
-## # Database: PostgreSQL 9.5.10[rstudio_dev@localhost/postgres]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##     year month dayof… dayof… depti… crsde… arrti… crsa… uniq… fligh… tail…
 ##    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
 ##  1  2008  7.00   18.0   5.00   2201   2030 2.18e²  2359 DL      9.00 N375…
@@ -472,14 +556,16 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": null,
-"text": null
-},
+"edit": null,
 "download": null,
 "toc": {
-"collapse": "subsection"
-}
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
 });
 });
 </script>
