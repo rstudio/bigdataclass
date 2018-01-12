@@ -1,0 +1,355 @@
+#Intro to `sparklyr`
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE, eval = FALSE)
+
+library(dplyr)
+library(purrr)
+library(readr)
+library(sparklyr)
+
+sc <- spark_connect(master = "local", version = "2.1.0")
+```
+
+## New Spark session
+*Learn to open a new Spark session*
+
+1. Use `spark_connect()` to create a new local Spark session
+```{r, eval = FALSE}
+sc <- spark_connect(master = "local", version = "2.1.0")
+```
+
+2. Click on the `SparkUI` button to view the current Spark session's UI
+
+3. Click on the `Log` button to see the message history
+
+## Data transfer
+*Practice uploading data to Spark*
+
+1. Copy the `mtcars` dataset into the session
+```{r}
+spark_mtcars <- sdf_copy_to(sc, mtcars, "my_mtcars")
+```
+
+2. In the **Connections** pane, expande the `my_mtcars` table
+
+3. Go to the Spark UI, note the new jobs
+
+4. In the UI, click the Storage button, note the new table
+
+5. Click on the **In-memory table my_mtcars** link
+
+### Simple dplyr example
+*See how Spark handles `dplyr` commands*
+
+```{r}
+spark_mtcars %>%
+  group_by(am) %>%
+  summarise(avg_wt = mean(wt, na.rm = TRUE))
+```
+
+3. Go to the Spark UI and click the **SQL** button 
+
+4. Click on the top item inside the **Completed Queries** table
+
+5. At the bottom of the diagram, expand **Details**
+
+## Advanced
+
+```{r}
+library(purrr)
+library(readr)
+
+top_rows <- read.csv("/usr/share/flights/flights_2008.csv", nrows = 5)
+
+file_columns <- top_rows %>% 
+  rename_all(tolower) %>%
+  map(function(x)"character")
+
+head(file_columns)
+
+```
+
+```{r}
+spark_flights <- spark_read_csv(sc, 
+                             name = "flights", 
+                             path = "/usr/share/flights/flights_2008.csv", 
+                             memory = FALSE, 
+                             columns = file_columns, 
+                             infer_schema = FALSE)
+```
+
+
+```{r}
+spark_flights %>%
+  tally()
+```
+
+
+```{r}
+cached_flights <- spark_flights %>%
+  select(
+    month,
+    dayofmonth,
+    arrtime,
+    arrdelay,
+    depdelay,
+    crsarrtime,
+    crsdeptime,
+    distance
+  ) %>%
+  mutate_all(as.numeric)
+
+
+sdf_register(cached_flights, "sub_flights")
+
+
+tbl_cache(sc, "sub_flights")
+
+cached_flights %>%
+  tally()
+```
+
+
+```{r}
+cached_flights %>%
+  arrange(month) %>%
+  sdf_pivot(month ~ dayofmonth)
+```
+
+```{r}
+partition <- cached_flights %>%
+  sdf_partition(training = 0.01, testing = 0.09, other = 0.9)
+
+tally(partition$training)
+
+```
+
+```{r}
+cached_flights %>%
+  ft_binarizer(
+    input.col = "depdelay",
+    output.col = "delayed",
+    threshold = 15
+  ) %>%
+  select(
+    depdelay,
+    delayed
+  ) %>%
+  head(100)
+```
+
+
+
+```{r}
+cached_flights %>%
+      ft_bucketizer(
+        input.col = "crsdeptime",
+        output.col = "dephour",
+        splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+        ) %>%
+  select(
+    crsdeptime,
+    dephour
+  ) %>%
+  head(100)
+```
+
+
+```{r}
+sample_data <- cached_flights %>%
+  filter(!is.na(arrdelay)) %>%
+  ft_binarizer(
+    input.col = "arrdelay",
+    output.col = "delayed",
+    threshold = 15
+    ) %>% 
+  ft_bucketizer(
+    input.col = "crsdeptime",
+    output.col = "dephour",
+    splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+    ) %>%
+  mutate(dephour = paste0("h", as.integer(dephour))) %>%
+  sdf_partition(training = 0.01, testing = 0.09, other = 0.9)
+```
+
+```{r}
+training <- sdf_register(sample_data$training, "training")
+tbl_cache(sc, "training")
+
+```
+
+
+```{r}
+delayed_model <- training %>%
+  ml_logistic_regression(delayed ~ depdelay + dephour)
+```
+
+```{r}
+summary(delayed_model)
+```
+
+```{r}
+delayed_testing <- sdf_predict(delayed_model, sample_data$testing) 
+delayed_testing %>% 
+  head()
+```
+
+```{r}
+delayed_testing %>%
+  group_by(delayed, prediction) %>%
+  tally()
+```
+
+## Pipelines
+
+```{r}
+current <- tbl(sc, "flights") %>%
+  sample_frac(0.001) %>%
+  sdf_register(., "current")
+```
+
+```{r}
+
+pipeline_df <- current  %>%
+  mutate(
+    arrdelay = ifelse(arrdelay == "NA", 0,  arrdelay),
+    depdelay = ifelse(depdelay == "NA", 0,  depdelay)
+    ) %>%
+  select(
+    month,
+    dayofmonth,
+    arrtime,
+    arrdelay,
+    depdelay,
+    crsarrtime,
+    crsdeptime,
+    distance
+  ) %>%
+  mutate_all(as.numeric)
+
+
+pipeline_df %>%
+  ft_binarizer(
+    input.col = "depdelay",
+    output.col = "delayed",
+    threshold = 15
+    ) %>% 
+  ft_bucketizer(
+    input.col = "crsdeptime",
+    output.col = "dephour",
+    splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+    )  %>%
+  ml_logistic_regression(delayed ~ arrdelay + dephour)
+
+
+```
+
+```{r}
+flights_pipeline <- ml_pipeline(sc) %>%
+  ft_dplyr_transformer(
+    tbl = pipeline_df
+  ) %>%
+  ft_binarizer(
+    input.col = "arrdelay",
+    output.col = "delayed",
+    threshold = 15
+    ) %>% 
+  ft_bucketizer(
+    input.col = "crsdeptime",
+    output.col = "dephour",
+    splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+    ) %>% 
+  ft_r_formula(delayed ~ arrdelay + dephour) %>%
+  ml_logistic_regression()
+
+flights_pipeline
+```
+
+```{r}
+model <- ml_fit(flights_pipeline, current)
+
+model
+```
+
+```{r}
+predictions <- ml_transform(
+  x = model, 
+  dataset = current)
+
+predictions %>%
+  group_by(delayed, prediction) %>%
+  tally()
+
+```
+
+```{r}
+ml_save(model, "saved_model", overwrite = TRUE)
+
+spark_disconnect(sc)
+```
+
+
+
+```{r}
+library(sparklyr)
+sc <- spark_connect(master = "local", version = "2.1.0")
+```
+
+```{r}
+reload <- ml_load(sc, "saved_model")
+reload
+```
+
+```{r}
+
+spark_flights <- spark_read_csv(sc, 
+                             name = "flights", 
+                             path = "/usr/share/flights/flights_2008.csv", 
+                             memory = FALSE, 
+                             columns = file_columns, 
+                             infer_schema = FALSE)
+
+current <- tbl(sc, "flights") %>%
+  filter(
+    month == "2",
+    dayofmonth == "1"
+    ) %>% 
+  sdf_register(., "current")
+```
+
+```{r}
+new_predictions <- ml_transform(
+  x = reload, 
+  dataset = current
+  )
+
+new_predictions  %>%
+  group_by(delayed, prediction) %>%
+  tally()
+```
+
+
+
+
+```{r}
+spark_disconnect(sc)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
