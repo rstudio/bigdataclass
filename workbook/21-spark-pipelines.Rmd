@@ -1,7 +1,7 @@
 #Spark pipelines
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(cache = TRUE) #, eval = FALSE)
+knitr::opts_chunk$set(cache = TRUE, eval = FALSE)
 
 library(dplyr)
 library(purrr)
