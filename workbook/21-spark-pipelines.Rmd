@@ -1,0 +1,158 @@
+#Spark pipelines
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE) #, eval = FALSE)
+
+library(dplyr)
+library(purrr)
+library(readr)
+library(sparklyr)
+
+
+sc <- spark_connect(master = "local", version = "2.1.0")
+top_rows <- read.csv("/usr/share/flights/flights_2008.csv", nrows = 5)
+file_columns <- top_rows %>% 
+  rename_all(tolower) %>%
+  map(function(x)"character")
+spark_flights <- spark_read_csv(sc, 
+                             name = "flights", 
+                             path = "/usr/share/flights/flights_2008.csv", 
+                             memory = FALSE, 
+                             columns = file_columns, 
+                             infer_schema = FALSE)
+
+```
+
+## Recreate the transformations 
+*Overview of how most of the existing code will be reused*
+
+1. Register a new table called *current* containing a sample of the base *flights* table
+```{r}
+current <- tbl(sc, "flights") %>%
+  sample_frac(0.001) %>%
+  sdf_register(., "current")
+```
+
+2. Recreate the `dplyr` code in the `cached_flights` variable from the previous unit
+```{r}
+pipeline_df <- current  %>%
+  mutate(
+    arrdelay = ifelse(arrdelay == "NA", 0,  arrdelay),
+    depdelay = ifelse(depdelay == "NA", 0,  depdelay)
+    ) %>%
+  select(
+    month,
+    dayofmonth,
+    arrtime,
+    arrdelay,
+    depdelay,
+    crsarrtime,
+    crsdeptime,
+    distance
+  ) %>%
+  mutate_all(as.numeric)
+```
+
+3. Create a new Spark pipeline
+```{r}
+flights_pipeline <- ml_pipeline(sc) %>%
+  ft_dplyr_transformer(
+    tbl = pipeline_df
+  ) %>%
+  ft_binarizer(
+    input.col = "arrdelay",
+    output.col = "delayed",
+    threshold = 15
+    ) %>% 
+  ft_bucketizer(
+    input.col = "crsdeptime",
+    output.col = "dephour",
+    splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+    ) %>% 
+  ft_r_formula(delayed ~ arrdelay + dephour) %>%
+  ml_logistic_regression() 
+
+flights_pipeline
+
+
+```
+
+## Fit, evaluate, save
+
+
+1. Fit (train) the pipeline's model
+```{r}
+model <- ml_fit(flights_pipeline, current)
+model
+```
+
+2. Use the newly fitted model to perform predictions using `ml_transform()`
+```{r}
+predictions <- ml_transform(
+  x = model, 
+  dataset = current)
+```
+
+3. Use `group_by()` to see how the model performed
+```{r}
+predictions %>%
+  group_by(delayed, prediction) %>%
+  tally()
+```
+
+4. Save the model into disk using `ml_save()`
+```{r}
+ml_save(model, "saved_model", overwrite = TRUE)
+spark_disconnect(sc)
+```
+
+## Reload model
+*Use the saved model inside a different Spark session*
+
+1. Open a new Spark connection
+```{r}
+library(sparklyr)
+sc <- spark_connect(master = "local", version = "2.1.0")
+```
+
+2. Use `ml_load()` to reload the model directly into the Spark session
+```{r}
+reload <- ml_load(sc, "saved_model")
+reload
+```
+
+3. Re-map the *flights* data
+```{r}
+
+spark_flights <- spark_read_csv(sc, 
+                             name = "flights", 
+                             path = "/usr/share/flights/flights_2008.csv", 
+                             memory = FALSE, 
+                             columns = file_columns, 
+                             infer_schema = FALSE)
+```
+
+4.  Create a new table called *current* but with different filters that the original *current* table
+```{r}
+current <- tbl(sc, "flights") %>%
+  filter(
+    month == "2",
+    dayofmonth == "1"
+    ) %>% 
+  sdf_register(., "current")
+```
+
+5. Run predictions against the new data set
+```{r}
+new_predictions <- ml_transform(
+  x = reload, 
+  dataset = current
+  )
+
+head(new_predictions)
+```
+
+6. Disconnect from Spark
+```{r}
+spark_disconnect(sc)
+```
