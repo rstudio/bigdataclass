@@ -78,7 +78,7 @@ flights %>%
   group_by(month) %>%
   tally() %>%
   arrange(desc(n)) %>%
-  mutate(percent = n/sum(n))
+  mutate(percent = n/sum(n, na.rm = TRUE))
 ```
 
 ## Aggregate mulitple columns
@@ -89,19 +89,19 @@ flights %>%
 ```{r}
 flights %>%
   select(depdelay, arrdelay) %>%
-  summarise_all(mean)
+  summarise_all(mean, na.rm = TRUE)
 ```
 
 2. Use `summarise_at()` to pre-select the fields that will receive the function
 ```{r}
 flights %>%
-  summarise_at(c("depdelay", "arrdelay"),mean)
+  summarise_at(c("depdelay", "arrdelay"),mean, na.rm = TRUE)
 ```
 
 3. Use `summarise_if()` to summarize only if the field meets a criterion
 ```{r}
 flights %>%
-  summarise_if(is.numeric,mean)
+  summarise_if(is.numeric,mean, na.rm = TRUE)
 ```
 
 4. Combine with `group_by()` to create more complex results
@@ -109,7 +109,7 @@ flights %>%
 flights %>%
   select(month, depdelay, arrdelay) %>%
   group_by(month) %>%
-  summarise_all(mean)
+  summarise_all(mean, na.rm = TRUE)
 ```
 
 ## View record level data
@@ -144,4 +144,74 @@ flights %>%
   collect() %>%
   head(100) %>%
   View("my_preview")
+```
+
+## Case statements
+*See how to use the flexibility of case statements for special cases*
+
+1. Use `case_when()` to bucket each month one of four seasons
+```{r}
+flights %>%
+  mutate(
+    season = case_when(
+      month >= 3 && month <= 5  ~ "Spring",
+      month >= 6 && month <= 8  ~ "Summmer",
+      month >= 9 && month <= 11 ~ "Fall",
+      TRUE ~ "Winter"
+    )
+  ) %>%
+  group_by(season) %>%
+  tally()
+```
+
+2. Add a specific case for "Winter"
+```{r}
+flights %>%
+  mutate(
+    season = case_when(
+      month >= 3 && month <= 5  ~ "Spring",
+      month >= 6 && month <= 8  ~ "Summmer",
+      month >= 9 && month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  group_by(season) %>%
+  tally()
+```
+
+3. Append an entry for Monday at the end of the case statement
+```{r}
+flights %>%
+  mutate(
+    season = case_when(
+      month >= 3 && month <= 5  ~ "Spring",
+      month >= 6 && month <= 8  ~ "Summmer",
+      month >= 9 && month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter",
+      dayofweek == 1 ~ "Monday"
+    )
+  ) %>%
+  group_by(season) %>%
+  tally()
+```
+
+4. Move the "Monday" entry to the top of the case statement
+```{r}
+flights %>%
+  mutate(
+    season = case_when(
+      dayofweek == 1 ~ "Monday",
+      month >= 3 && month <= 5  ~ "Spring",
+      month >= 6 && month <= 8  ~ "Summmer",
+      month >= 9 && month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  group_by(season) %>%
+  tally()
+```
+
+
+```{r, include = FALSE}
+dbDisconnect(con)
 ```

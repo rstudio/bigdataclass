@@ -53,15 +53,15 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 ```{r}
 tbl(con, in_schema("datawarehouse", "vflight"))  %>%
   group_by(month) %>%
-  summarise(n()) 
+  tally()
 ```
 
 2. What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?
 ```{r}
 airports %>%
-  summarise(avg_airport_length = mean(length(airport)),
-            max_airport_name = max(length(airportname)),
-            min_airport_name = min(length(airportname)),
+  summarise(avg_airport_length = mean(length(airport), na.rm = TRUE),
+            max_airport_name = max(length(airportname), na.rm = TRUE),
+            min_airport_name = min(length(airportname), na.rm = TRUE),
             total_records = n()) 
 ```
 
@@ -88,9 +88,9 @@ carriers %>%
 3. Run the same for last exercise in the previous section
 ```{r}
 airports %>%
-  summarise(avg_airport_length = mean(length(airport)),
-            max_airport_name = max(length(airportname)),
-            min_airport_name = min(length(airportname)),
+  summarise(avg_airport_length = mean(length(airport), na.rm = TRUE),
+            max_airport_name = max(length(airportname), na.rm = TRUE),
+            min_airport_name = min(length(airportname), na.rm = TRUE),
             total_records = n()) %>%
   show_query()
 ```
@@ -118,4 +118,9 @@ airports %>%
   mutate(today = now()) %>%
   select(today) %>%
   head()
+```
+
+
+```{r, include = FALSE}
+dbDisconnect(con)
 ```

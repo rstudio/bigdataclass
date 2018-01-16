@@ -1,7 +1,6 @@
 # Database operations
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(cache = FALSE, eval = FALSE)
 
 library(dplyr)
 library(dbplyr)

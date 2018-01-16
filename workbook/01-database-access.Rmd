@@ -1,7 +1,10 @@
-```{r, include = FALSE}
-knitr::opts_chunk$set(cache = TRUE)
-#knitr::opts_chunk$set(cache = TRUE, eval = FALSE)
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
+```{r, include = FALSE}
 library(dplyr)
 library(dbplyr)
 ```
