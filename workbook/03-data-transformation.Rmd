@@ -1,3 +1,8 @@
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+
 # Data transformation
 
 ```{r, include = FALSE}

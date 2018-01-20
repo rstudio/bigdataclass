@@ -7,8 +7,6 @@ library(purrr)
 library(readr)
 library(sparklyr)
 
-if(dir.exists("saved_model")) unlink("saved_model", recursive = TRUE)
-
 sc <- spark_connect(master = "local", version = "2.1.0")
 ```
 
@@ -43,47 +41,54 @@ spark_mtcars <- sdf_copy_to(sc, mtcars, "my_mtcars")
 ## Simple dplyr example
 *See how Spark handles `dplyr` commands*
 
+1. Run the following code snipett
 ```{r}
 spark_mtcars %>%
   group_by(am) %>%
   summarise(avg_wt = mean(wt, na.rm = TRUE))
 ```
 
-3. Go to the Spark UI and click the **SQL** button 
+2. Go to the Spark UI and click the **SQL** button 
 
-4. Click on the top item inside the **Completed Queries** table
+3. Click on the top item inside the **Completed Queries** table
 
-5. At the bottom of the diagram, expand **Details**
+4. At the bottom of the diagram, expand **Details**
 
 ## Map data
 *See the machanics of how Spark is able to use files as a data source*
 
-1. Read the top 5 rows of the 2008 flights CSV file.  It is located under /usr/share/flights
+1. Examine the contents of the /usr/share/flights/data folder
+
+2. Read the top 5 rows of the `flight_2008_1` CSV file.  It is located under /usr/share/flights
 ```{r}
 library(readr)
-top_rows <- read.csv("/usr/share/flights/flights_2008.csv", nrows = 5)
+top_rows <- read.csv("/usr/share/flights/data/flight_2008_1.csv", nrows = 5)
 ```
 
-2. Create a list based on the column names, and add a list item with "character" as its value.
+3. Create a list based on the column names, and add a list item with "character" as its value.
 ```{r}
 library(purrr)
-file_columns <- top_rows %>% 
+file_columns <- top_rows %>%
   rename_all(tolower) %>%
-  map(function(x)"character")
+  map(function(x) "character")
 head(file_columns)
 ```
 
-3. Use `spark_read()` to "map" the file's structure and location to the Spark context
+4. Use `spark_read()` to "map" the file's structure and location to the Spark context
 ```{r}
-spark_flights <- spark_read_csv(sc, 
-                             name = "flights", 
-                             path = "/usr/share/flights/flights_2008.csv", 
-                             memory = FALSE, 
-                             columns = file_columns, 
-                             infer_schema = FALSE)
+spark_flights <- spark_read_csv(
+  sc,
+  name = "flights",
+  path = "/usr/share/flights/data/",
+  memory = FALSE,
+  columns = file_columns,
+  infer_schema = FALSE
+)
 ```
 
-4. Verify that the new variable pointer work using `tally()`
+5. In the Connections pane, click on the table icon by the `flights` variable
+
+6. Verify that the new variable pointer work using `tally()`
 ```{r}
 spark_flights %>%
   tally()
@@ -96,9 +101,9 @@ spark_flights %>%
 ```{r}
 cached_flights <- spark_flights %>%
   mutate(
-    arrdelay = ifelse(arrdelay == "NA", 0,  arrdelay),
-    depdelay = ifelse(depdelay == "NA", 0,  depdelay)
-    ) %>%  
+    arrdelay = ifelse(arrdelay == "NA", 0, arrdelay),
+    depdelay = ifelse(depdelay == "NA", 0, depdelay)
+  ) %>%
   select(
     month,
     dayofmonth,
@@ -167,11 +172,11 @@ cached_flights %>%
 2. Use `ft_bucketizer()` to split the data into groups
 ```{r}
 cached_flights %>%
-      ft_bucketizer(
-        input.col = "crsdeptime",
-        output.col = "dephour",
-        splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
-        ) %>%
+  ft_bucketizer(
+    input.col = "crsdeptime",
+    output.col = "dephour",
+    splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+  ) %>%
   select(
     crsdeptime,
     dephour
@@ -190,12 +195,12 @@ sample_data <- cached_flights %>%
     input.col = "arrdelay",
     output.col = "delayed",
     threshold = 15
-    ) %>% 
+  ) %>%
   ft_bucketizer(
     input.col = "crsdeptime",
     output.col = "dephour",
     splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
-    ) %>%
+  ) %>%
   mutate(dephour = paste0("h", as.integer(dephour))) %>%
   sdf_partition(training = 0.01, testing = 0.09, other = 0.9)
 ```
@@ -223,8 +228,8 @@ summary(delayed_model)
 
 1. Use `sdf_predict()` agains the test dataset
 ```{r}
-delayed_testing <- sdf_predict(delayed_model, sample_data$testing) 
-delayed_testing %>% 
+delayed_testing <- sdf_predict(delayed_model, sample_data$testing)
+delayed_testing %>%
   head()
 ```
 

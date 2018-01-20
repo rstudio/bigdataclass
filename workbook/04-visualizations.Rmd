@@ -1,5 +1,9 @@
 # Data Visualizations
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 
 ```{r, include = FALSE}
 
@@ -63,7 +67,7 @@ flights %>%
 ```{r}
 flights %>%
   group_by(month) %>%
-  summarise(x = mean(arrdelay)) %>%
+  summarise(x = mean(arrdelay, na.rm = TRUE)) %>%
   mutate(x = as.numeric(x)) %>%
   collect() %>%
   ggplot() +
@@ -74,7 +78,7 @@ flights %>%
 ```{r}
 flights %>%
   group_by(month) %>%
-  summarise(x = mean(distance)) %>%
+  summarise(x = mean(distance, na.rm = TRUE)) %>%
   mutate(x = as.numeric(x)) %>%
   collect() %>%
   ggplot() +
@@ -154,7 +158,7 @@ flights %>%
 flights %>%
   filter(uniquecarrier %in% top5) %>%
   group_by(uniquecarrier) %>%
-  summarise(n = mean(arrdelay))
+  summarise(n = mean(arrdelay, na.rm = TRUE))
 ```
 
 4. Copy the final `ggplot()` code from the *Plot specific segment* section. Update the `y` labs.
@@ -162,7 +166,7 @@ flights %>%
 flights %>%
   filter(uniquecarrier %in% top5) %>%
   group_by(uniquecarrier) %>%
-  summarise(n = mean(arrdelay)) %>%
+  summarise(n = mean(arrdelay, na.rm = TRUE)) %>%
   # From previous section ----------------------------------------------
   collect() %>%
   ggplot() +      #Don't forget to switch to `+`
@@ -206,15 +210,17 @@ flights %>%
 1. Plot the average departure delay by day of week
 ```{r}
 flights %>%
-  dbplot_bar(dayofweek, mean(depdelay))
+  dbplot_bar(dayofweek, mean(depdelay, na.rm = TRUE))
 ```
 
 2. Change the day numbers to day name labels
 ```{r}
 flights %>%
-  dbplot_bar(dayofweek, mean(depdelay)) +
-    scale_x_continuous(labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"),
-                     breaks = 1:7)
+  dbplot_bar(dayofweek, mean(depdelay, na.rm = TRUE)) +
+  scale_x_continuous(
+    labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
+    breaks = 1:7
+  )
 ```
 
 
@@ -284,3 +290,8 @@ db_bin(field)
 translate_sql(!! db_bin(field), con = simulate_odbc_postgresql())
 ```
 
+
+
+```{r, include = FALSE}
+dbDisconnect(con)
+```

@@ -1,10 +1,16 @@
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+
 # `dplyr` Basics
 
 ```{r, include = FALSE}
 
 library(dplyr)
 library(dbplyr)
-
+library(DBI)
 ```
 
 ## Create a table variable
@@ -20,7 +26,9 @@ library(dbplyr)
 
 2. *(Optional)* Open a connection to the database if it's currently closed
 ```{r}
-con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+library(DBI)
+
+con <- dbConnect(odbc::odbc(), "Postgres Dev")
 ```
 
 
@@ -59,10 +67,12 @@ tbl(con, in_schema("datawarehouse", "vflight"))  %>%
 2. What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?
 ```{r}
 airports %>%
-  summarise(avg_airport_length = mean(length(airport), na.rm = TRUE),
-            max_airport_name = max(length(airportname), na.rm = TRUE),
-            min_airport_name = min(length(airportname), na.rm = TRUE),
-            total_records = n()) 
+  summarise(
+    avg_airport_length = mean(length(airport), na.rm = TRUE),
+    max_airport_name = max(length(airportname), na.rm = TRUE),
+    min_airport_name = min(length(airportname), na.rm = TRUE),
+    total_records = n()
+  )
 ```
 
 **Additional exercises:**
@@ -88,10 +98,12 @@ carriers %>%
 3. Run the same for last exercise in the previous section
 ```{r}
 airports %>%
-  summarise(avg_airport_length = mean(length(airport), na.rm = TRUE),
-            max_airport_name = max(length(airportname), na.rm = TRUE),
-            min_airport_name = min(length(airportname), na.rm = TRUE),
-            total_records = n()) %>%
+  summarise(
+    avg_airport_length = mean(length(airport), na.rm = TRUE),
+    max_airport_name = max(length(airportname), na.rm = TRUE),
+    min_airport_name = min(length(airportname), na.rm = TRUE),
+    total_records = n()
+  ) %>%
   show_query()
 ```
 

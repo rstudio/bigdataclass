@@ -1,4 +1,4 @@
-# Database operations
+# External data
 
 ```{r, include = FALSE}
 
@@ -15,7 +15,7 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 
 ```
 
-## Case 1 - Data enrichment
+##  Data enrichment
 *Upload a small dataset in order to combine it with the datawarehouse data*
 
 1. Load the `planes` data into memory
@@ -63,17 +63,53 @@ combined %>%
   group_by(tailnum) %>%
   tally() %>%
   summarise(planes = n(),
-            avg_flights = mean(n),
-            max_flights = max(n),
-            min_flights = min(n))
+            avg_flights = mean(n, na.rm = TRUE),
+            max_flights = max(n, na.rm = TRUE),
+            min_flights = min(n, na.rm = TRUE))
 ``` 
 
 
-8. Remove the temp table 
+## Using other join statements
+*Overview of the other joint statements*
+
+
+```{r}
+left <- flights %>%
+  left_join(tbl_planes, by = "tailnum") 
+
+tally(left)
+```
+
+```{r}
+left %>%
+  filter(is.na(manufacturer)) %>%
+  tally()
+```
+
+```{r}
+right <- flights %>%
+  right_join(tbl_planes, by = "tailnum") 
+
+tally(right)
+```
+```{r}
+right %>%
+  filter(is.na(manufacturer)) %>%
+  tally()
+```
+
+```{r}
+left %>%
+  filter(!is.na(manufacturer)) %>%
+  inner_join(right, by = "tailnum") %>%
+  tally()
+```
+
 ```{r}
 dbRemoveTable(con, "planes")
 
 dbDisconnect(con)
+
 ```
 
 

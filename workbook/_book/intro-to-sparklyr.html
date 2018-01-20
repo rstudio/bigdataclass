@@ -158,9 +158,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
 <li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
 <li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="database-operations.html"><a href="database-operations.html"><i class="fa fa-check"></i><b>9</b> Database operations</a><ul>
-<li class="chapter" data-level="9.1" data-path="database-operations.html"><a href="database-operations.html#case-1---data-enrichment"><i class="fa fa-check"></i><b>9.1</b> Case 1 - Data enrichment</a></li>
+<li class="chapter" data-level="9" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>9</b> External data</a><ul>
+<li class="chapter" data-level="9.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>9.1</b> Data enrichment</a></li>
+<li class="chapter" data-level="9.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>9.2</b> Using other join statements</a></li>
 </ul></li>
 </ul>
 
@@ -210,10 +212,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="simple-dplyr-example" class="section level2">
 <h2><span class="header-section-number">7.3</span> Simple dplyr example</h2>
 <p><em>See how Spark handles <code>dplyr</code> commands</em></p>
+<ol style="list-style-type: decimal">
+<li>Run the following code snipett</li>
+</ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_mtcars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_wt =</span> <span class="kw">mean</span>(wt, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<ol start="3" style="list-style-type: decimal">
+<ol start="2" style="list-style-type: decimal">
 <li><p>Go to the Spark UI and click the <strong>SQL</strong> button</p></li>
 <li><p>Click on the top item inside the <strong>Completed Queries</strong> table</p></li>
 <li><p>At the bottom of the diagram, expand <strong>Details</strong></p></li>
@@ -223,29 +228,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">7.4</span> Map data</h2>
 <p><em>See the machanics of how Spark is able to use files as a data source</em></p>
 <ol style="list-style-type: decimal">
-<li>Read the top 5 rows of the 2008 flights CSV file. It is located under /usr/share/flights</li>
+<li><p>Examine the contents of the /usr/share/flights/data folder</p></li>
+<li><p>Read the top 5 rows of the <code>flight_2008_1</code> CSV file. It is located under /usr/share/flights</p></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
-top_rows &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/usr/share/flights/flights_2008.csv&quot;</span>, <span class="dt">nrows =</span> <span class="dv">5</span>)</code></pre></div>
-<ol start="2" style="list-style-type: decimal">
+top_rows &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/usr/share/flights/data/flight_2008_1.csv&quot;</span>, <span class="dt">nrows =</span> <span class="dv">5</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
 <li>Create a list based on the column names, and add a list item with “character” as its value.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(purrr)
-file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span><span class="st"> </span>
+file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x)<span class="st">&quot;character&quot;</span>)
+<span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)
 <span class="kw">head</span>(file_columns)</code></pre></div>
-<ol start="3" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Use <code>spark_read()</code> to “map” the file’s structure and location to the Spark context</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(sc, 
-                             <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>, 
-                             <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/flights_2008.csv&quot;</span>, 
-                             <span class="dt">memory =</span> <span class="ot">FALSE</span>, 
-                             <span class="dt">columns =</span> file_columns, 
-                             <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<ol start="4" style="list-style-type: decimal">
-<li>Verify that the new variable pointer work using <code>tally()</code></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(
+  sc,
+  <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>,
+  <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/data/&quot;</span>,
+  <span class="dt">memory =</span> <span class="ot">FALSE</span>,
+  <span class="dt">columns =</span> file_columns,
+  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>
+)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li><p>In the Connections pane, click on the table icon by the <code>flights</code> variable</p></li>
+<li><p>Verify that the new variable pointer work using <code>tally()</code></p></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
@@ -258,9 +267,9 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights &lt;-<span class="st"> </span>spark_flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">arrdelay =</span> <span class="kw">ifelse</span>(arrdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>,  arrdelay),
-    <span class="dt">depdelay =</span> <span class="kw">ifelse</span>(depdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>,  depdelay)
-    ) <span class="op">%&gt;%</span><span class="st">  </span>
+    <span class="dt">arrdelay =</span> <span class="kw">ifelse</span>(arrdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>, arrdelay),
+    <span class="dt">depdelay =</span> <span class="kw">ifelse</span>(depdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>, depdelay)
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(
     month,
     dayofmonth,
@@ -324,11 +333,11 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <li>Use <code>ft_bucketizer()</code> to split the data into groups</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">ft_bucketizer</span>(
-        <span class="dt">input.col =</span> <span class="st">&quot;crsdeptime&quot;</span>,
-        <span class="dt">output.col =</span> <span class="st">&quot;dephour&quot;</span>,
-        <span class="dt">splits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1200</span>, <span class="dv">1600</span>, <span class="dv">2000</span>, <span class="dv">2400</span>)
-        ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_bucketizer</span>(
+    <span class="dt">input.col =</span> <span class="st">&quot;crsdeptime&quot;</span>,
+    <span class="dt">output.col =</span> <span class="st">&quot;dephour&quot;</span>,
+    <span class="dt">splits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1200</span>, <span class="dv">1600</span>, <span class="dv">2000</span>, <span class="dv">2400</span>)
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(
     crsdeptime,
     dephour
@@ -347,12 +356,12 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
     <span class="dt">input.col =</span> <span class="st">&quot;arrdelay&quot;</span>,
     <span class="dt">output.col =</span> <span class="st">&quot;delayed&quot;</span>,
     <span class="dt">threshold =</span> <span class="dv">15</span>
-    ) <span class="op">%&gt;%</span><span class="st"> </span>
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ft_bucketizer</span>(
     <span class="dt">input.col =</span> <span class="st">&quot;crsdeptime&quot;</span>,
     <span class="dt">output.col =</span> <span class="st">&quot;dephour&quot;</span>,
     <span class="dt">splits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1200</span>, <span class="dv">1600</span>, <span class="dv">2000</span>, <span class="dv">2400</span>)
-    ) <span class="op">%&gt;%</span>
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dephour =</span> <span class="kw">paste0</span>(<span class="st">&quot;h&quot;</span>, <span class="kw">as.integer</span>(dephour))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">sdf_partition</span>(<span class="dt">training =</span> <span class="fl">0.01</span>, <span class="dt">testing =</span> <span class="fl">0.09</span>, <span class="dt">other =</span> <span class="fl">0.9</span>)</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
@@ -376,8 +385,8 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <ol style="list-style-type: decimal">
 <li>Use <code>sdf_predict()</code> agains the test dataset</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing &lt;-<span class="st"> </span><span class="kw">sdf_predict</span>(delayed_model, sample_data<span class="op">$</span>testing) 
-delayed_testing <span class="op">%&gt;%</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing &lt;-<span class="st"> </span><span class="kw">sdf_predict</span>(delayed_model, sample_data<span class="op">$</span>testing)
+delayed_testing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>group_by()</code> to see how effective the new model is</li>

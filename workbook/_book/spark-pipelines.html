@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="intro-to-sparklyr.html">
-<link rel="next" href="database-operations.html">
+<link rel="next" href="external-data.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -158,9 +158,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
 <li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
 <li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="database-operations.html"><a href="database-operations.html"><i class="fa fa-check"></i><b>9</b> Database operations</a><ul>
-<li class="chapter" data-level="9.1" data-path="database-operations.html"><a href="database-operations.html#case-1---data-enrichment"><i class="fa fa-check"></i><b>9.1</b> Case 1 - Data enrichment</a></li>
+<li class="chapter" data-level="9" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>9</b> External data</a><ul>
+<li class="chapter" data-level="9.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>9.1</b> Data enrichment</a></li>
+<li class="chapter" data-level="9.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>9.2</b> Using other join statements</a></li>
 </ul></li>
 </ul>
 
@@ -187,17 +189,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ol style="list-style-type: decimal">
 <li>Register a new table called <em>current</em> containing a sample of the base <em>flights</em> table</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">sample_frac</span>(<span class="fl">0.001</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">sdf_register</span>(., <span class="st">&quot;current&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_data &lt;-<span class="st"> </span><span class="kw">sdf_partition</span>(
+  <span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>), 
+  <span class="dt">training =</span> <span class="fl">0.01</span>,
+  <span class="dt">testing =</span> <span class="fl">0.01</span>,
+  <span class="dt">rest =</span> <span class="fl">0.98</span>)</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Recreate the <code>dplyr</code> code in the <code>cached_flights</code> variable from the previous unit</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pipeline_df &lt;-<span class="st"> </span>current  <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pipeline_df &lt;-<span class="st"> </span>model_data<span class="op">$</span>training <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">arrdelay =</span> <span class="kw">ifelse</span>(arrdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>,  arrdelay),
-    <span class="dt">depdelay =</span> <span class="kw">ifelse</span>(depdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>,  depdelay)
-    ) <span class="op">%&gt;%</span>
+    <span class="dt">arrdelay =</span> <span class="kw">ifelse</span>(arrdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>, arrdelay),
+    <span class="dt">depdelay =</span> <span class="kw">ifelse</span>(depdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>, depdelay)
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(
     month,
     dayofmonth,
@@ -217,17 +221,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="dt">tbl =</span> pipeline_df
   ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ft_binarizer</span>(
-    <span class="dt">input.col =</span> <span class="st">&quot;arrdelay&quot;</span>,
-    <span class="dt">output.col =</span> <span class="st">&quot;delayed&quot;</span>,
+    <span class="dt">input_col =</span> <span class="st">&quot;arrdelay&quot;</span>,
+    <span class="dt">output_col =</span> <span class="st">&quot;delayed&quot;</span>,
     <span class="dt">threshold =</span> <span class="dv">15</span>
-    ) <span class="op">%&gt;%</span><span class="st"> </span>
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ft_bucketizer</span>(
-    <span class="dt">input.col =</span> <span class="st">&quot;crsdeptime&quot;</span>,
-    <span class="dt">output.col =</span> <span class="st">&quot;dephour&quot;</span>,
+    <span class="dt">input_col =</span> <span class="st">&quot;crsdeptime&quot;</span>,
+    <span class="dt">output_col =</span> <span class="st">&quot;dephour&quot;</span>,
     <span class="dt">splits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1200</span>, <span class="dv">1600</span>, <span class="dv">2000</span>, <span class="dv">2400</span>)
-    ) <span class="op">%&gt;%</span><span class="st"> </span>
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ft_r_formula</span>(delayed <span class="op">~</span><span class="st"> </span>arrdelay <span class="op">+</span><span class="st"> </span>dephour) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ml_logistic_regression</span>() 
+<span class="st">  </span><span class="kw">ml_logistic_regression</span>()
 
 flights_pipeline</code></pre></div>
 </div>
@@ -236,14 +240,14 @@ flights_pipeline</code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Fit (train) the pipeline’s model</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(flights_pipeline, current)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(flights_pipeline, model_data<span class="op">$</span>training)
 model</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Use the newly fitted model to perform predictions using <code>ml_transform()</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions &lt;-<span class="st"> </span><span class="kw">ml_transform</span>(
   <span class="dt">x =</span> model, 
-  <span class="dt">dataset =</span> current)</code></pre></div>
+  <span class="dt">dataset =</span> model_data<span class="op">$</span>testing)</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Use <code>group_by()</code> to see how the model performed</li>
 </ol>
@@ -254,30 +258,31 @@ model</code></pre></div>
 <li>Save the model into disk using <code>ml_save()</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(model, <span class="st">&quot;saved_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
-<span class="kw">spark_disconnect</span>(sc)</code></pre></div>
+<span class="kw">list.files</span>(<span class="st">&quot;saved_model&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(flights_pipeline, <span class="st">&quot;saved_pipeline&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
+<span class="kw">list.files</span>(<span class="st">&quot;saved_pipeline&quot;</span>)</code></pre></div>
 </div>
 <div id="reload-model" class="section level2">
 <h2><span class="header-section-number">8.3</span> Reload model</h2>
 <p><em>Use the saved model inside a different Spark session</em></p>
 <ol style="list-style-type: decimal">
-<li>Open a new Spark connection</li>
+<li>Open a new Spark connection and reload the data</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sparklyr)
-sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;2.1.0&quot;</span>)</code></pre></div>
+sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;2.1.0&quot;</span>)
+spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(
+  sc,
+  <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>,
+  <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/flights_2008.csv&quot;</span>,
+  <span class="dt">memory =</span> <span class="ot">FALSE</span>,
+  <span class="dt">columns =</span> file_columns,
+  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>
+)</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>ml_load()</code> to reload the model directly into the Spark session</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reload &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_model&quot;</span>)
 reload</code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>Re-map the <em>flights</em> data</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(sc, 
-                             <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>, 
-                             <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/flights_2008.csv&quot;</span>, 
-                             <span class="dt">memory =</span> <span class="ot">FALSE</span>, 
-                             <span class="dt">columns =</span> file_columns, 
-                             <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a new table called <em>current</em> but with different filters that the original <em>current</em> table</li>
 </ol>
@@ -285,8 +290,7 @@ reload</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(
     month <span class="op">==</span><span class="st"> &quot;2&quot;</span>,
     dayofmonth <span class="op">==</span><span class="st"> &quot;1&quot;</span>
-    ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">sdf_register</span>(., <span class="st">&quot;current&quot;</span>)</code></pre></div>
+  )</code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Run predictions against the new data set</li>
 </ol>
@@ -296,7 +300,31 @@ reload</code></pre></div>
   )
 
 <span class="kw">head</span>(new_predictions)</code></pre></div>
-<ol start="6" style="list-style-type: decimal">
+</div>
+<div id="reload-pipeline" class="section level2">
+<h2><span class="header-section-number">8.4</span> Reload pipeline</h2>
+<p><em>Overview of how to use new data to re-fit the pipeline, thus creating a new pipeline model</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>ml_load()</code> to reload the pipeline into the Spark session</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pipeline &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_pipeline&quot;</span>)
+pipeline</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Create a new sample data set using <code>sample_frac()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sample_frac</span>(<span class="fl">0.001</span>) </code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Re-fit the model using <code>ml_fit()</code> and the new sample data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(pipeline, sample)
+new_model</code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Save the newly fitted model</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(new_model, <span class="st">&quot;new_model&quot;</span>)
+<span class="kw">list.files</span>(<span class="st">&quot;new_model&quot;</span>)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
 <li>Disconnect from Spark</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre></div>
@@ -309,7 +337,7 @@ reload</code></pre></div>
         </div>
       </div>
 <a href="intro-to-sparklyr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="database-operations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="external-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

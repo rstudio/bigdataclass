@@ -158,9 +158,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
 <li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
 <li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="database-operations.html"><a href="database-operations.html"><i class="fa fa-check"></i><b>9</b> Database operations</a><ul>
-<li class="chapter" data-level="9.1" data-path="database-operations.html"><a href="database-operations.html#case-1---data-enrichment"><i class="fa fa-check"></i><b>9.1</b> Case 1 - Data enrichment</a></li>
+<li class="chapter" data-level="9" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>9</b> External data</a><ul>
+<li class="chapter" data-level="9.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>9.1</b> Data enrichment</a></li>
+<li class="chapter" data-level="9.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>9.2</b> Using other join statements</a></li>
 </ul></li>
 </ul>
 
@@ -192,11 +194,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ol start="2" style="list-style-type: decimal">
 <li><em>(Optional)</em> Open a connection to the database if it’s currently closed</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(), <span class="st">&quot;Postgres Dev&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DBI)
+
+con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(), <span class="st">&quot;Postgres Dev&quot;</span>)</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the <code>tbl()</code> and <code>in_schema()</code> functions to create a reference to a table</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;airport&quot;</span>))</code></pre></div>
+<pre><code>## # Source:   table&lt;datawarehouse.airport&gt; [?? x 7]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    airport airportname                 city      state count…   lat   long
+##    &lt;chr&gt;   &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 ABE     Lehigh Valley International Allentown PA    USA     40.7 - 75.4
+##  2 ABI     Abilene Regional            Abilene   TX    USA     32.4 - 99.7
+##  3 ABQ     Albuquerque International   Albuquer… NM    USA     35.0 -107  
+##  4 ABY     Southwest Georgia Regional  Albany    GA    USA     31.5 - 84.2
+##  5 ACK     Nantucket Memorial          Nantucket MA    USA     41.3 - 70.1
+##  6 ACT     Waco Regional               Waco      TX    USA     31.6 - 97.2
+##  7 ACV     Arcata                      Arcata/E… CA    USA     41.0 -124  
+##  8 ACY     Atlantic City International Atlantic… NJ    USA     39.5 - 74.6
+##  9 ADK     Adak                        Adak      AK    USA     51.9 -177  
+## 10 ADQ     Kodiak                      Kodiak    AK    USA     57.7 -152  
+## # ... with more rows</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Load the reference, not the table data, into a variable</li>
 </ol>
@@ -205,6 +224,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Call the variable to see preview the data in the table</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports</code></pre></div>
+<pre><code>## # Source:   table&lt;datawarehouse.airport&gt; [?? x 7]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    airport airportname                 city      state count…   lat   long
+##    &lt;chr&gt;   &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 ABE     Lehigh Valley International Allentown PA    USA     40.7 - 75.4
+##  2 ABI     Abilene Regional            Abilene   TX    USA     32.4 - 99.7
+##  3 ABQ     Albuquerque International   Albuquer… NM    USA     35.0 -107  
+##  4 ABY     Southwest Georgia Regional  Albany    GA    USA     31.5 - 84.2
+##  5 ACK     Nantucket Memorial          Nantucket MA    USA     41.3 - 70.1
+##  6 ACT     Waco Regional               Waco      TX    USA     31.6 - 97.2
+##  7 ACV     Arcata                      Arcata/E… CA    USA     41.0 -124  
+##  8 ACY     Atlantic City International Atlantic… NJ    USA     39.5 - 74.6
+##  9 ADK     Adak                        Adak      AK    USA     51.9 -177  
+## 10 ADQ     Kodiak                      Kodiak    AK    USA     57.7 -152  
+## # ... with more rows</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Set up the pointers to the other of the tables</li>
 </ol>
@@ -220,14 +254,36 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;vflight&quot;</span>))  <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    month n              
+##    &lt;dbl&gt; &lt;S3: integer64&gt;
+##  1 10.0  556205         
+##  2  4.00 598126         
+##  3 12.0  544958         
+##  4  5.00 606293         
+##  5  2.00 569236         
+##  6  7.00 627931         
+##  7 11.0  523272         
+##  8  9.00 540908         
+##  9  1.00 605765         
+## 10  3.00 616090         
+## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_airport_length =</span> <span class="kw">mean</span>(<span class="kw">length</span>(airport), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">max_airport_name =</span> <span class="kw">max</span>(<span class="kw">length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">total_records =</span> <span class="kw">n</span>()) </code></pre></div>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">avg_airport_length =</span> <span class="kw">mean</span>(<span class="kw">length</span>(airport), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">max_airport_name =</span> <span class="kw">max</span>(<span class="kw">length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">total_records =</span> <span class="kw">n</span>()
+  )</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   avg_airport_length max_airport_name min_airport_name total_records  
+##                &lt;dbl&gt;            &lt;int&gt;            &lt;int&gt; &lt;S3: integer64&gt;
+## 1               3.00               40                3 305</code></pre>
 <p><strong>Additional exercises:</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>How many records are in the <strong>carrier</strong> table?</p></li>
@@ -243,20 +299,33 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <li>SQL statement that actually runs when we ran <code>airports</code> as a command</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">show_query</span>(airports)</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT *
+## FROM datawarehouse.airport</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Easily view the resulting query by adding <code>show_query()</code> in another piped command</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="kw">n</span>())</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   `n()`          
+##   &lt;S3: integer64&gt;
+## 1 20</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Run the same for last exercise in the previous section</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_airport_length =</span> <span class="kw">mean</span>(<span class="kw">length</span>(airport), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">max_airport_name =</span> <span class="kw">max</span>(<span class="kw">length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">total_records =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">avg_airport_length =</span> <span class="kw">mean</span>(<span class="kw">length</span>(airport), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">max_airport_name =</span> <span class="kw">max</span>(<span class="kw">length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">total_records =</span> <span class="kw">n</span>()
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT AVG(LENGTH(&quot;airport&quot;)) AS &quot;avg_airport_length&quot;, MAX(LENGTH(&quot;airportname&quot;)) AS &quot;max_airport_name&quot;, MIN(LENGTH(&quot;airportname&quot;)) AS &quot;min_airport_name&quot;, COUNT(*) AS &quot;total_records&quot;
+## FROM datawarehouse.airport</code></pre>
 </div>
 <div id="un-translated-r-commands" class="section level2">
 <h2><span class="header-section-number">2.4</span> Un-translated R commands</h2>
@@ -267,12 +336,18 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, SYS.TIME() AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use PostgreSQL’s native commands, in this case <code>now()</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">now</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, NOW() AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Run the <code>dplyr</code> code to confirm it works</li>
 </ol>
@@ -280,6 +355,16 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">now</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(today) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   today              
+##   &lt;dttm&gt;             
+## 1 2018-01-20 02:16:30
+## 2 2018-01-20 02:16:30
+## 3 2018-01-20 02:16:30
+## 4 2018-01-20 02:16:30
+## 5 2018-01-20 02:16:30
+## 6 2018-01-20 02:16:30</code></pre>
 
 </div>
 </div>
