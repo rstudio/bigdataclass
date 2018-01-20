@@ -222,7 +222,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">x =</span> <span class="kw">mean</span>(arrdelay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">x =</span> <span class="kw">mean</span>(arrdelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">x =</span> <span class="kw">as.numeric</span>(x)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
@@ -232,7 +232,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">x =</span> <span class="kw">mean</span>(distance)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">x =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">x =</span> <span class="kw">as.numeric</span>(x)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
@@ -305,14 +305,14 @@ top5</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">mean</span>(arrdelay))</code></pre></div>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">mean</span>(arrdelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Copy the final <code>ggplot()</code> code from the <em>Plot specific segment</em> section. Update the <code>y</code> labs.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">mean</span>(arrdelay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">mean</span>(arrdelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co"># From previous section ----------------------------------------------</span>
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">      </span><span class="co">#Don&#39;t forget to switch to `+`</span>
@@ -353,14 +353,16 @@ top5</code></pre></div>
 <li>Plot the average departure delay by day of week</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay))</code></pre></div>
+<span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the day numbers to day name labels</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>,<span class="st">&quot;Sun&quot;</span>),
-                     <span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(
+    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>),
+    <span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>
+  )</code></pre></div>
 </div>
 <div id="create-a-histogram" class="section level2">
 <h2><span class="header-section-number">4.7</span> Create a histogram</h2>
