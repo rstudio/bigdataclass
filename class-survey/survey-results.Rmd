@@ -1,0 +1,204 @@
+---
+title: "Big Data with R"
+subtitle: "Survey Results"
+date: "02/01/2018"
+output:
+  xaringan::moon_reader:
+    css: rstudio.css
+    nature:
+      countIncrementalSlides: yes
+      highlightLines: yes
+      highlightStyle: github
+      ratio: 16:9
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(tidyverse)
+library(forcats)
+library(ggjoy)
+
+thm <- theme_bw() + 
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    legend.background = element_rect(fill = "transparent", colour = NA),
+    legend.key = element_rect(fill = "transparent", colour = NA),
+    panel.grid.major.x = element_blank(),
+    text = element_text(size = 30),
+    axis.title = element_text(size = 20)
+  )
+theme_set(thm)
+
+class_size <- 88
+responses <- read_csv("responses.csv")
+
+```
+
+class: rstudio-slide, left
+
+# R
+
+```{r, fig.height=8, fig.width=20, dev.args = list(bg = "transparent"), echo = FALSE}
+
+levels <- c(
+  "Enough to make me dangerous",
+  "Enough to help the guy that knows enough to be dangerous",
+  "Enough to stop being dangerous",
+  "Enough to write an R package for my company's use",
+  "Enough to publish an R package on CRAN"
+)
+
+responses %>%
+  rename(question = `Which one describes your proficiency in R?`) %>%
+  group_by(question) %>%
+  tally() %>% 
+  mutate(question = factor(question, levels)) %>%
+  ggplot() +
+    geom_col(aes(
+      x = question, 
+      y = n,
+      fill = question),
+      alpha = 0.3) +
+    coord_flip() +
+    theme(legend.position="none") +
+    labs(x = "", y = "Responses")
+```
+
+```{r, include = FALSE}
+packages <- responses %>%
+  select(contains("For each of these R packages, which one describes you best? ")) %>%
+  rename_all(funs(substr(., 60, nchar(.)))) %>%
+  rename_all(funs(str_replace(., "\\[",""))) %>%
+  rename_all(funs(str_replace(., "\\]",""))) %>%
+  mutate_all(funs(case_when(
+    . == "I don't use it" ~ 0,
+    . == "I use it occasionally" ~ 1,
+    . == "I use it most days" ~ 2,
+    . == "I can't live without it" ~ 3,
+    . == "I'm the one that folks come to for help" ~ 4,
+    TRUE ~ -1000
+  )))
+
+package_responses <- seq_len(length(packages)) %>%
+  map_df(~tibble(
+    package = colnames(packages)[.x],
+    response = pull(packages[, .x])
+  )) %>%
+  filter(response >= 0)
+
+```
+
+---
+class: rstudio-slide, left
+# R Packages
+
+
+```{r, fig.height=8, fig.width=20, dev.args = list(bg = "transparent"), echo = FALSE}
+package_responses %>%
+  group_by(package) %>%
+  summarise(n = mean(response)) %>%
+    ggplot() +
+    geom_col(aes(
+      x = package, 
+      y = n,
+      fill = package),
+      alpha = 0.3) +
+    coord_flip() +
+    theme(legend.position="none") +
+    scale_y_continuous(
+      breaks = c(0, 1, 2, 3, 4),
+      labels = c("Never", "Occasionally", "Most Days", "Always", "Ninja")
+      ) +
+    labs(x = "", y = "Responses")
+```
+
+---
+class: rstudio-slide, left
+# R Packages
+
+```{r, fig.height=8, fig.width=20, dev.args = list(bg = "transparent"), echo = FALSE, message=FALSE}
+ggplot(package_responses) +
+  geom_joy(aes(
+    y = package,
+    x = response,
+    fill = package),
+    alpha = 0.3,
+    color = "white") +
+    theme(legend.position="none") +
+    scale_x_continuous(
+      breaks = c(0, 1, 2, 3, 4),
+      labels = c("Never", "Occasionally", "Most Days", "Always", "Ninja")
+      ) +
+    labs(x = "", y = "")
+```
+
+
+```{r, include = FALSE}
+queries <- responses %>%
+  select(contains("Regarding SQL and Spark experience, which one describes you best? ")) %>%
+  rename_all(funs(substr(., 68, nchar(.)))) %>%
+  rename_all(funs(str_replace(., "\\[",""))) %>%
+  rename_all(funs(str_replace(., "\\]",""))) %>%
+  mutate_all(funs(case_when(
+    . == "I'm not sure what this is" ~ 0,
+    . == "I've done it once or twice" ~ 1,
+    . == "I do that on occasion" ~ 2,
+    . == "I do that very often" ~ 3,
+    . == "Anytime, anywhere!" ~ 4,
+    TRUE ~ -1000
+  )))
+
+query_responses <- seq_len(length(queries)) %>%
+  map_df(~tibble(
+    type = colnames(queries)[.x],
+    response = pull(queries[, .x])
+  )) %>%
+  filter(response >= 0)
+
+```
+
+---
+class: rstudio-slide, left
+# R Packages
+
+
+```{r, fig.height=8, fig.width=20, dev.args = list(bg = "transparent"), echo = FALSE}
+query_responses %>%
+  group_by(type) %>%
+  summarise(n = mean(response)) %>%
+    ggplot() +
+    geom_col(aes(
+      x = type, 
+      y = n,
+      fill = type),
+      alpha = 0.3) +
+    coord_flip() +
+    theme(legend.position="none") +
+    scale_y_continuous(
+      breaks = c(0, 1, 2, 3, 4),
+      labels = c("Never", "Occasionally", "Most Days", "Always", "Ninja")
+      ) +
+    labs(x = "", y = "Responses")
+```
+
+
+---
+class: rstudio-slide, left
+# R Packages
+
+```{r, fig.height=8, fig.width=20, dev.args = list(bg = "transparent"), echo = FALSE, message=FALSE}
+ggplot(query_responses) +
+  geom_joy(aes(
+    y = type,
+    x = response,
+    fill = type),
+    alpha = 0.3,
+    color = "white") +
+    theme(legend.position="none") +
+    scale_x_continuous(
+      breaks = c(0, 1, 2, 3, 4),
+      labels = c("Never", "Occasionally", "Most Days", "Always", "Ninja")
+      ) +
+    labs(x = "", y = "")
+```
