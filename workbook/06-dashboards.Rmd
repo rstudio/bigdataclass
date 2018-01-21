@@ -50,7 +50,7 @@ shinyApp(ui, server)
 ## Dropdown data
 *Review a technique to populate a dropdown*
 
-1. Use `purrr` to create a list with the correct structure for the `shiny` dropdown
+1. Use `purrr` to create a list with the correct structure for the `shiny` drop down
 ```{r}
 airline_list <- carriers %>%  
   select(carrier, carriername) %>%   # In case more fields are added
@@ -160,13 +160,15 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) {
   base_dashboard <- reactive({
-  flights %>% 
-    filter(uniquecarrier == input$select)})
+    flights %>%
+      filter(uniquecarrier == input$select)
+  })
   output$total <- renderValueBox(
     base_dashboard() %>%
-      tally() %>% 
+      tally() %>%
       pull() %>%
-      valueBox(subtitle = "Flights"))
+      valueBox(subtitle = "Flights")
+  )
   output$monthly <- renderDataTable(datatable(
     base_dashboard() %>%
       group_by(month) %>%
@@ -177,7 +179,6 @@ server <- function(input, output, session) {
       arrange(month)
   ))
 }
-
 shinyApp(ui, server)
 ```
 

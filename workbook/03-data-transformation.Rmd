@@ -131,7 +131,7 @@ flights %>%
 ```
 
 
-1. Use `filter()` to retreive only the needed data, and `head()` to limit the preview even further.
+1. Use `filter()` to retrieve only the needed data, and `head()` to limit the preview even further.
 ```{r}
 flights %>%
   filter(depdelay >= 60,

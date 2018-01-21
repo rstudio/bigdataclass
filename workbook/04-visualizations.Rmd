@@ -1,7 +1,7 @@
 # Data Visualizations
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+knitr::opts_chunk$set(eval = TRUE, cache = TRUE)
 ```
 
 

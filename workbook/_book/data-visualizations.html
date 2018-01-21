@@ -32,12 +32,12 @@
   
 <link rel="prev" href="data-transformation.html">
 <link rel="next" href="intro-to-dashboards.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
@@ -106,6 +106,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
 <li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
 <li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#variables-pending"><i class="fa fa-check"></i><b>1.8</b> Variables [pending]</a></li>
+<li class="chapter" data-level="1.9" data-path="access-a-database.html"><a href="access-a-database.html#options-pending"><i class="fa fa-check"></i><b>1.9</b> options [pending]</a></li>
+<li class="chapter" data-level="1.10" data-path="access-a-database.html"><a href="access-a-database.html#prompt-pending"><i class="fa fa-check"></i><b>1.10</b> Prompt [pending]</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
@@ -143,26 +146,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>6.2</b> Add interactivity</a></li>
 <li class="chapter" data-level="6.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>6.3</b> Add title to the new tab</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>7</b> Intro to <code>sparklyr</code></a><ul>
-<li class="chapter" data-level="7.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>7.1</b> New Spark session</a></li>
-<li class="chapter" data-level="7.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>7.2</b> Data transfer</a></li>
-<li class="chapter" data-level="7.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>7.3</b> Simple dplyr example</a></li>
-<li class="chapter" data-level="7.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>7.4</b> Map data</a></li>
-<li class="chapter" data-level="7.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>7.5</b> Caching data</a></li>
-<li class="chapter" data-level="7.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>7.6</b> <code>sdf</code> Functions</a></li>
-<li class="chapter" data-level="7.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>7.7</b> Feature transformers</a></li>
-<li class="chapter" data-level="7.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>7.8</b> Fit a model with <code>sparklyr</code></a></li>
-<li class="chapter" data-level="7.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>7.9</b> Run predictions in Spark</a></li>
+<li class="chapter" data-level="7" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a><ul>
+<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#native-sampling"><i class="fa fa-check"></i><b>7.1</b> Native sampling</a></li>
+<li class="chapter" data-level="7.2" data-path="sampling.html"><a href="sampling.html#sample-manually"><i class="fa fa-check"></i><b>7.2</b> Sample manually</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
-<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
-<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
-<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
-<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
+<li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="8.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>8.1</b> New Spark session</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>8.2</b> Data transfer</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>8.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="8.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>8.4</b> Map data</a></li>
+<li class="chapter" data-level="8.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>8.5</b> Caching data</a></li>
+<li class="chapter" data-level="8.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>8.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="8.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>8.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="8.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>8.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="8.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>8.9</b> Run predictions in Spark</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>9</b> External data</a><ul>
-<li class="chapter" data-level="9.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>9.1</b> Data enrichment</a></li>
-<li class="chapter" data-level="9.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>9.2</b> Using other join statements</a></li>
+<li class="chapter" data-level="9" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>9</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="9.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>9.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="9.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>9.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="9.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>9.3</b> Reload model</a></li>
+<li class="chapter" data-level="9.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>9.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>10</b> External data</a><ul>
+<li class="chapter" data-level="10.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>10.1</b> Data enrichment</a></li>
+<li class="chapter" data-level="10.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>10.2</b> Using other join statements</a></li>
 </ul></li>
 </ul>
 
@@ -327,21 +334,21 @@ top5</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) </code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 29]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##     year month dayo… dayo… dept… crsd… arrt… crsa… uniq… flig… tail… actu…
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
-##  1  2008  7.00  18.0  5.00  1702  1700  1737  1740 OO     5456 N229…  35.0
-##  2  2008  7.00  18.0  5.00   822   829   858   910 OO     5457 N221…  36.0
-##  3  2008  7.00  18.0  5.00   926   931  1010  1015 OO     5457 N221…  44.0
-##  4  2008  7.00  18.0  5.00  1127  1130  1205  1211 OO     5458 N270…  38.0
-##  5  2008  7.00  18.0  5.00  1225  1230  1318  1314 OO     5458 N270…  53.0
-##  6  2008  7.00  18.0  5.00   956   955  1047  1048 OO     5459 N224…  51.0
-##  7  2008  7.00  18.0  5.00  1107  1107  1205  1155 OO     5459 N224…  58.0
-##  8  2008  7.00  18.0  5.00  1957  2006  2058  2110 OO     5460 N296…  61.0
-##  9  2008  7.00  18.0  5.00  1734  1740  1819  1825 OO     5461 N235…  45.0
-## 10  2008  7.00  18.0  5.00  1842  1844  1935  1940 OO     5461 N235…  53.0
-## # ... with more rows, and 17 more variables: crselapsedtime &lt;dbl&gt;,
-## #   airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;,
-## #   dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
+##     year month dayof… dayof… depti… crsde… arrt… crsa… uniqu… fligh… tail…
+##    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;
+##  1  2008  7.00   18.0   5.00    642    640   758   800 WN     7.03e² N694…
+##  2  2008  7.00   18.0   5.00   1916   1900  2029  2020 WN     1.05e³ N698…
+##  3  2008  7.00   18.0   5.00    958    950  1118  1110 WN     1.40e³ N674…
+##  4  2008  7.00   18.0   5.00   1609   1600  1723  1720 WN     3.16e³ N285…
+##  5  2008  7.00   18.0   5.00   1317   1315  1432  1435 WN     3.22e³ N660…
+##  6  2008  7.00   18.0   5.00    753    755   841   845 WN     2.00e⁰ N714…
+##  7  2008  7.00   18.0   5.00   1642   1640  1726  1730 WN     1.47e³ N260…
+##  8  2008  7.00   18.0   5.00   2244   2125  2337  2215 WN     1.92e³ N508…
+##  9  2008  7.00   18.0   5.00   1448   1440  1535  1530 WN     2.04e³ N611…
+## 10  2008  7.00   18.0   5.00   1017   1015  1100  1105 WN     2.40e³ N731…
+## # ... with more rows, and 18 more variables: actualelapsedtime &lt;dbl&gt;,
+## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
 ## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
 ## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
 ## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;</code></pre>
@@ -519,13 +526,13 @@ departure</code></pre></div>
 <a href="intro-to-dashboards.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/lunr.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({

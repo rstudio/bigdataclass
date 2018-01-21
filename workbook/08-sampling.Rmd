@@ -1,0 +1,113 @@
+# Sampling
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+```{r, include = FALSE}
+
+library(dplyr)
+library(dbplyr)
+library(dbplot)
+library(ggplot2)
+library(purrr)
+library(DBI)
+# Class catchup
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+airports <- tbl(con, in_schema("datawarehouse", "airport")) %>%
+  mutate(crsarrtime = crsarrtime)
+
+flights <- tbl(con, in_schema("datawarehouse", "flight"))
+carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+
+
+set.seed(100)
+```
+
+## Native sampling 
+*Use PostgreSQL TABLESAMPLE clause*
+
+1. Use `build_sql()` and `remote_query()` to combine a the `dplyr` command with a custom SQL statement
+```{r}
+sample_table<-  dbGetQuery(con, build_sql(remote_query(flights), " TABLESAMPLE SYSTEM (0.1)"))
+head(sample_table)
+```
+
+2. Test the efficacy of the sampling with a plot
+```{r}
+dbplot_histogram(sample_table, distance)
+```
+
+## Sample manually
+*Use `row_number()`, `sample()` and `map_df()` to create a sample data set*
+
+
+1. Create a filtered dataset for with 1 month of data
+```{r}
+db_month <- flights %>%
+  filter(month == 1)
+```
+
+2. Get the row count
+```{r}
+rows <- as.integer(pull(tally(db_month)))
+```
+
+3. Use `row_number()` to create a new column to number each row
+```{r}
+db_month <- db_month %>%
+  mutate(row = row_number()) 
+```
+
+4. Create a random set of 600 numbers, limited by the number of rows
+```{r}
+sampling <- sample(1:rows, 600)
+```
+
+5. Use `%in%` to filter the matched sample row IDs with the random set
+```{r}
+db_month <- db_month %>%
+  filter(row %in% sampling)
+```
+
+6. Verify number of rows
+```{r}
+tally(db_month)
+```
+
+7. Create a function with the previous steps, but replacing the month number with an argument.  Collect the data at the end
+```{r}
+sample_segment <- function(x, size = 600) {
+  db_month <- flights %>%
+    filter(month == x)
+  rows <- as.integer(pull(tally(db_month)))
+  db_month <- db_month %>%
+    mutate(row = row_number())
+  sampling <- sample(1:rows, size)
+  db_month %>%
+    filter(row %in% sampling) %>%
+    collect()
+}
+```
+
+8. Test the function
+```{r}
+head(sample_segment(3), 100)
+```
+
+9. Use `map_df()` to run the function for each month
+```{r}
+new_sample <- 1:12 %>%
+  map_df(~sample_segment(.x))
+```
+
+10. Verify sample with a histogram
+```{r}
+dbplot_histogram(new_sample, distance)
+```
+
+```{r, include = FALSE}
+dbDisconnect(con)
+```
+
+

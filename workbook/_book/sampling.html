@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="intro-to-dashboards.html">
-<link rel="next" href="sampling.html">
+<link rel="prev" href="dashboard-drill-down.html">
+<link rel="next" href="intro-to-sparklyr.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -188,107 +188,78 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dashboard-drill-down" class="section level1">
-<h1><span class="header-section-number">6</span> Dashboard drill-down</h1>
-<p><img src="images/shinydashboard-1.PNG" width = 600></p>
-<div id="add-a-tabset-to-the-dashboard" class="section level2">
-<h2><span class="header-section-number">6.1</span> Add a tabset to the dashboard</h2>
-<p><em>Prepare the <code>ui</code> to accept new tabs based on the user’s input</em></p>
+<div id="sampling" class="section level1">
+<h1><span class="header-section-number">7</span> Sampling</h1>
+<div id="native-sampling" class="section level2">
+<h2><span class="header-section-number">7.1</span> Native sampling</h2>
+<p><em>Use PostgreSQL TABLESAMPLE clause</em></p>
 <ol style="list-style-type: decimal">
-<li>Wrap the “output” functions in the <strong>ui</strong> with a <code>tabPanel()</code></li>
+<li>Use <code>build_sql()</code> and <code>remote_query()</code> to combine a the <code>dplyr</code> command with a custom SQL statement</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Goes from this</span>
-<span class="kw">valueBoxOutput</span>(<span class="st">&quot;total&quot;</span>),
-<span class="kw">dataTableOutput</span>(<span class="st">&quot;monthly&quot;</span>)
-
-<span class="co"># To this</span>
-<span class="kw">tabPanel</span>(
-  <span class="kw">valueBoxOutput</span>(<span class="st">&quot;total&quot;</span>),
-  <span class="kw">dataTableOutput</span>(<span class="st">&quot;monthly&quot;</span>)
-  )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_table&lt;-<span class="st">  </span><span class="kw">dbGetQuery</span>(con, <span class="kw">build_sql</span>(<span class="kw">remote_query</span>(flights), <span class="st">&quot; TABLESAMPLE SYSTEM (0.1)&quot;</span>))
+<span class="kw">head</span>(sample_table)</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Set the panel’s <code>title</code> and <code>value</code>. The new code should look like this</li>
+<li>Test the efficacy of the sampling with a plot</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tabPanel</span>(
-  <span class="dt">title =</span> <span class="st">&quot;Dashboard&quot;</span>, 
-  <span class="dt">value =</span> <span class="st">&quot;page1&quot;</span>, 
-  <span class="kw">valueBoxOutput</span>(<span class="st">&quot;total&quot;</span>),
-  <span class="kw">dataTableOutput</span>(<span class="st">&quot;monthly&quot;</span>)
-  )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(sample_table, distance)</code></pre></div>
+</div>
+<div id="sample-manually" class="section level2">
+<h2><span class="header-section-number">7.2</span> Sample manually</h2>
+<p><em>Use <code>row_number()</code>, <code>sample()</code> and <code>map_df()</code> to create a sample data set</em></p>
+<ol style="list-style-type: decimal">
+<li>Create a filtered dataset for with 1 month of data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Get the row count</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rows &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">pull</span>(<span class="kw">tally</span>(db_month)))</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Wrap that code inside a <code>tabsetPanel()</code>, set the <code>id</code> to <code>tabs</code></li>
+<li>Use <code>row_number()</code> to create a new column to number each row</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tabsetPanel</span>(
-  <span class="dt">id =</span> <span class="st">&quot;tabs&quot;</span>,
-  <span class="kw">tabPanel</span>(
-    <span class="dt">title =</span> <span class="st">&quot;Dashboard&quot;</span>,
-    <span class="dt">value =</span> <span class="st">&quot;page1&quot;</span>,
-    <span class="kw">valueBoxOutput</span>(<span class="st">&quot;total&quot;</span>),
-    <span class="kw">dataTableOutput</span>(<span class="st">&quot;monthly&quot;</span>)
-  )
-)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">row =</span> <span class="kw">row_number</span>()) </code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li>Re-run the app</li>
+<li>Create a random set of 600 numbers, limited by the number of rows</li>
 </ol>
-</div>
-<div id="add-interactivity" class="section level2">
-<h2><span class="header-section-number">6.2</span> Add interactivity</h2>
-<p><em>Add an click-event that creates a new tab</em></p>
-<ol style="list-style-type: decimal">
-<li>Set the <code>selection</code> and <code>rownames</code> in the current <code>datatable()</code> function</li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>rows, <span class="dv">600</span>)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Use <code>%in%</code> to filter the matched sample row IDs with the random set</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output<span class="op">$</span>monthly &lt;-<span class="st"> </span><span class="kw">renderDataTable</span>(<span class="kw">datatable</span>({
-  <span class="kw">base_dashboard</span>() <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">as.numeric</span>(n)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">rename</span>(<span class="dt">flights =</span> n) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">arrange</span>(month)}, 
-  <span class="kw">list</span>( <span class="dt">target =</span> <span class="st">&quot;cell&quot;</span>),    <span class="co"># New code</span>
-  <span class="dt">rownames =</span> <span class="ot">FALSE</span>))         <span class="co"># New code</span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Use <code>observeEvent()</code> and <code>appendTab()</code> to add the interactivity</li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(row <span class="op">%in%</span><span class="st"> </span>sampling)</code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Verify number of rows</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">observeEvent</span>(input<span class="op">$</span>monthly_cell_clicked, {
-  <span class="kw">appendTab</span>(
-    <span class="dt">inputId =</span> <span class="st">&quot;tabs&quot;</span>, <span class="co"># This is the tabsets panel&#39;s ID</span>
-    <span class="kw">tabPanel</span>(
-      <span class="st">&quot;test_new&quot;</span>, <span class="co"># This will be the label of the new tab</span>
-      <span class="kw">renderDataTable</span>(mtcars, <span class="dt">rownames =</span> <span class="ot">FALSE</span>)
-    )
-  )
-}) </code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li><p>Re-run the app</p></li>
-<li><p>Click on a row inside the <code>datatable</code> and then select the new tab called <code>test_new</code> to see the <code>mtcars</code> data</p></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tally</span>(db_month)</code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>Create a function with the previous steps, but replacing the month number with an argument. Collect the data at the end</li>
 </ol>
-</div>
-<div id="add-title-to-the-new-tab" class="section level2">
-<h2><span class="header-section-number">6.3</span> Add title to the new tab</h2>
-<p><em>Use the input’s info to create a custom label</em></p>
-<ol style="list-style-type: decimal">
-<li>Load the clicked cell’s info into a variable, and create a new lable by concatenating the cell’s month and the selected airline’s code</li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_segment &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">size =</span> <span class="dv">600</span>) {
+  db_month &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span>x)
+  rows &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">pull</span>(<span class="kw">tally</span>(db_month)))
+  db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">row =</span> <span class="kw">row_number</span>())
+  sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>rows, size)
+  db_month <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(row <span class="op">%in%</span><span class="st"> </span>sampling) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">collect</span>()
+}</code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>Test the function</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">observeEvent</span>(input<span class="op">$</span>monthly_cell_clicked, {
-  cell &lt;-<span class="st"> </span>input<span class="op">$</span>monthly_cell_clicked <span class="co"># New code</span>
-
-  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(cell<span class="op">$</span>value)) { <span class="co"># New code</span>
-    tab_title &lt;-<span class="st"> </span><span class="kw">paste0</span>(month.name[cell<span class="op">$</span>value], <span class="st">&quot;_&quot;</span>, input<span class="op">$</span>select)
-    <span class="kw">appendTab</span>(
-      <span class="dt">inputId =</span> <span class="st">&quot;tabs&quot;</span>,
-      <span class="kw">tabPanel</span>(
-        tab_title, <span class="co"># Changed code</span>
-        <span class="kw">renderDataTable</span>(mtcars, <span class="dt">rownames =</span> <span class="ot">FALSE</span>)
-      )
-    )
-  }
-})</code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li><p>Re-run the app, and click on one of the month’s to confirm that the new label works</p></li>
-<li><p>Use <code>updateTabsetPanel</code> to switch the dashboard’s focus to the newly created tab. It goes after the <code>tabPanel()</code> code</p></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sample_segment</span>(<span class="dv">3</span>), <span class="dv">100</span>)</code></pre></div>
+<ol start="9" style="list-style-type: decimal">
+<li>Use <code>map_df()</code> to run the function for each month</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">updateTabsetPanel</span>(session, <span class="st">&quot;tabs&quot;</span>, <span class="dt">selected =</span> tab_title)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_sample &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map_df</span>(<span class="op">~</span><span class="kw">sample_segment</span>(.x))</code></pre></div>
+<ol start="10" style="list-style-type: decimal">
+<li>Verify sample with a histogram</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(new_sample, distance)</code></pre></div>
 
 </div>
 </div>
@@ -297,8 +268,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="intro-to-dashboards.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sampling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dashboard-drill-down.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro-to-sparklyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>

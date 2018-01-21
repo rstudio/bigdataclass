@@ -59,14 +59,15 @@ tabPanel(
 3. Wrap that code inside a `tabsetPanel()`, set the `id` to `tabs`
 
 ```{r, eval = FALSE}
-tabsetPanel(id = "tabs",
+tabsetPanel(
+  id = "tabs",
   tabPanel(
-    title = "Dashboard", 
-    value = "page1", 
+    title = "Dashboard",
+    value = "page1",
     valueBoxOutput("total"),
     dataTableOutput("monthly")
-    )
   )
+)
 ```
 
 4. Re-run the app
@@ -91,10 +92,14 @@ output$monthly <- renderDataTable(datatable({
 2. Use `observeEvent()` and `appendTab()` to add the interactivity
 ```{r, eval = FALSE}
 observeEvent(input$monthly_cell_clicked, {
-  appendTab(inputId = "tabs",      # This is the tabsets panel's ID 
-            tabPanel("test_new",   # This will be the label of the new tab
-                     renderDataTable(mtcars, rownames = FALSE)))})
-      
+  appendTab(
+    inputId = "tabs", # This is the tabsets panel's ID
+    tabPanel(
+      "test_new", # This will be the label of the new tab
+      renderDataTable(mtcars, rownames = FALSE)
+    )
+  )
+}) 
 ```
 
 3. Re-run the app
@@ -107,16 +112,19 @@ observeEvent(input$monthly_cell_clicked, {
 1. Load the clicked cell's info into a variable, and create a new lable by concatenating the cell's month and the selected airline's code
 ```{r, eval = FALSE}
 observeEvent(input$monthly_cell_clicked, {
-  
   cell <- input$monthly_cell_clicked # New code
-  
-  if(!is.null(cell$value)){          # New code
+
+  if (!is.null(cell$value)) { # New code
     tab_title <- paste0(month.name[cell$value], "_", input$select)
-    appendTab(inputId = "tabs",      
-              tabPanel(tab_title,    # Changed code
-                       renderDataTable(mtcars, rownames = FALSE)))
-  }})
-    
+    appendTab(
+      inputId = "tabs",
+      tabPanel(
+        tab_title, # Changed code
+        renderDataTable(mtcars, rownames = FALSE)
+      )
+    )
+  }
+})
 ```
 
 2. Re-run the app, and click on one of the month's to confirm that the new label works
@@ -132,51 +140,57 @@ ui <- dashboardPage(
   dashboardHeader(title = "Quick Example"),
   dashboardSidebar(selectInput("select", "Selection", airline_list)),
   dashboardBody(
-tabsetPanel(id = "tabs",
-  tabPanel(
-    title = "Dashboard", 
-    value = "page1", 
-    valueBoxOutput("total"),
-    dataTableOutput("monthly")
+    tabsetPanel(
+      id = "tabs",
+      tabPanel(
+        title = "Dashboard",
+        value = "page1",
+        valueBoxOutput("total"),
+        dataTableOutput("monthly")
+      )
     )
-  )
   )
 )
 
 server <- function(input, output, session) {
   base_dashboard <- reactive({
-  flights %>% 
-    filter(uniquecarrier == input$select)})
+    flights %>%
+      filter(uniquecarrier == input$select)
+  })
   output$total <- renderValueBox(
     base_dashboard() %>%
-      tally() %>% 
+      tally() %>%
       pull() %>%
-      valueBox(subtitle = "Flights"))
-output$monthly <- renderDataTable(datatable({
-  base_dashboard() %>%
-    group_by(month) %>%
-    tally() %>%
-    collect() %>%
-    mutate(n = as.numeric(n)) %>%
-    rename(flights = n) %>%
-    arrange(month)}, 
-  list( target = "cell"),    #New code
-  rownames = FALSE))         #New code
+      valueBox(subtitle = "Flights")
+  )
+  output$monthly <- renderDataTable(datatable(
+    {
+      base_dashboard() %>%
+        group_by(month) %>%
+        tally() %>%
+        collect() %>%
+        mutate(n = as.numeric(n)) %>%
+        rename(flights = n) %>%
+        arrange(month)
+    },
+    list(target = "cell"), # New code
+    rownames = FALSE
+  )) # New code
 
-observeEvent(input$monthly_cell_clicked, {
-  
-  cell <- input$monthly_cell_clicked
-  
-  if(!is.null(cell$value)){          # New code
-    tab_title <- paste0(month.name[cell$value], "_", input$select)
-    appendTab(inputId = "tabs",      
-              tabPanel(tab_title,    # Changed code
-                       renderDataTable(mtcars, rownames = FALSE)))
-    
-    
-  }})
+  observeEvent(input$monthly_cell_clicked, {
+    cell <- input$monthly_cell_clicked
 
-
+    if (!is.null(cell$value)) { # New code
+      tab_title <- paste0(month.name[cell$value], "_", input$select)
+      appendTab(
+        inputId = "tabs",
+        tabPanel(
+          tab_title, # Changed code
+          renderDataTable(mtcars, rownames = FALSE)
+        )
+      )
+    }
+  })
 }
 
 shinyApp(ui, server)
