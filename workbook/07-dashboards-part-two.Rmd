@@ -1,5 +1,9 @@
 #Dashboard drill-down
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
 <img src="images/shinydashboard-1.PNG" width = 600>
 
 ```{r, include = FALSE}

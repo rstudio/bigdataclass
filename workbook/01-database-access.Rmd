@@ -136,3 +136,9 @@ con <- DBI::dbConnect(odbc::odbc(),
 ```{r, include = FALSE}
 dbDisconnect(con)
 ```
+
+
+## Variables [pending]
+## options [pending]
+## Prompt [pending]
+

@@ -1,4 +1,8 @@
 #Spark pipelines
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 
 ```{r, include = FALSE}
 
