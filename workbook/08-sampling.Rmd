@@ -1,7 +1,7 @@
-# Sampling
+# Modeling
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(eval = TRUE, cache = TRUE)
 ```
 
 ```{r, include = FALSE}
@@ -24,16 +24,20 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 set.seed(100)
 ```
 
-## Native sampling 
+## SQL Native sampling 
 *Use PostgreSQL TABLESAMPLE clause*
 
 1. Use `build_sql()` and `remote_query()` to combine a the `dplyr` command with a custom SQL statement
 ```{r}
 sample_table<-  dbGetQuery(con, build_sql(remote_query(flights), " TABLESAMPLE SYSTEM (0.1)"))
-head(sample_table)
 ```
 
-2. Test the efficacy of the sampling with a plot
+2. Preview the sample data
+```{r, eval = FALSE}
+View(sample_table, 1000)
+```
+
+3. Test the efficacy of the sampling with a plot
 ```{r}
 dbplot_histogram(sample_table, distance)
 ```
@@ -104,6 +108,80 @@ new_sample <- 1:12 %>%
 10. Verify sample with a histogram
 ```{r}
 dbplot_histogram(new_sample, distance)
+```
+
+## Create a model & test
+
+```{r}
+model_data <- new_sample %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select(arrdelay, season, depdelay) 
+  
+```
+
+```{r}
+model_lm <- lm(arrdelay ~ . , data = model_data)
+summary(model_lm)
+```
+
+```{r}
+test_sample <- 1:12 %>%
+  map_df(~sample_segment(.x, 100)) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select(arrdelay, season, depdelay) 
+  
+```
+
+```{r}
+test_sample %>%
+  mutate(p = predict(model_lm, test_sample),
+         over = abs(p - arrdelay) < 10) %>%
+  group_by(over) %>% 
+  tally() %>%
+  mutate(percent = round(n / sum(n), 2))
+```
+
+## Use tidypredict
+
+```{r}
+library(tidypredict)
+
+tidypredict_fit(model_lm)
+```
+```{r}
+tidypredict_sql(model_lm, con)
+```
+```{r}
+flights %>%
+  filter(month == 2,
+         dayofmonth == 1) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select( season, depdelay) %>%
+  tidypredict_to_column(model_lm) %>%
+  show_query()
+  
+
 ```
 
 ```{r, include = FALSE}

@@ -135,6 +135,8 @@ con <- DBI::dbConnect(odbc::odbc(),
 
 ```{r, include = FALSE}
 dbDisconnect(con)
+
+6 * 60  / 10
 ```
 
 

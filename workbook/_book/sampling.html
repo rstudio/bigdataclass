@@ -147,7 +147,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>6.3</b> Add title to the new tab</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a><ul>
-<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#native-sampling"><i class="fa fa-check"></i><b>7.1</b> Native sampling</a></li>
+<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#sql-native-sampling"><i class="fa fa-check"></i><b>7.1</b> SQL Native sampling</a></li>
 <li class="chapter" data-level="7.2" data-path="sampling.html"><a href="sampling.html#sample-manually"><i class="fa fa-check"></i><b>7.2</b> Sample manually</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
@@ -190,18 +190,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="sampling" class="section level1">
 <h1><span class="header-section-number">7</span> Sampling</h1>
-<div id="native-sampling" class="section level2">
-<h2><span class="header-section-number">7.1</span> Native sampling</h2>
+<div id="sql-native-sampling" class="section level2">
+<h2><span class="header-section-number">7.1</span> SQL Native sampling</h2>
 <p><em>Use PostgreSQL TABLESAMPLE clause</em></p>
 <ol style="list-style-type: decimal">
 <li>Use <code>build_sql()</code> and <code>remote_query()</code> to combine a the <code>dplyr</code> command with a custom SQL statement</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_table&lt;-<span class="st">  </span><span class="kw">dbGetQuery</span>(con, <span class="kw">build_sql</span>(<span class="kw">remote_query</span>(flights), <span class="st">&quot; TABLESAMPLE SYSTEM (0.1)&quot;</span>))
-<span class="kw">head</span>(sample_table)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_table&lt;-<span class="st">  </span><span class="kw">dbGetQuery</span>(con, <span class="kw">build_sql</span>(<span class="kw">remote_query</span>(flights), <span class="st">&quot; TABLESAMPLE SYSTEM (0.1)&quot;</span>))</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
+<li>Preview the sample data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(sample_table, <span class="dv">1000</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
 <li>Test the efficacy of the sampling with a plot</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(sample_table, distance)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
 </div>
 <div id="sample-manually" class="section level2">
 <h2><span class="header-section-number">7.2</span> Sample manually</h2>
@@ -233,6 +237,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Verify number of rows</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tally</span>(db_month)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   n              
+##   &lt;S3: integer64&gt;
+## 1 600</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Create a function with the previous steps, but replacing the month number with an argument. Collect the data at the end</li>
 </ol>
@@ -251,6 +260,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Test the function</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sample_segment</span>(<span class="dv">3</span>), <span class="dv">100</span>)</code></pre></div>
+<pre><code>## # A tibble: 100 x 30
+##     year month dayof… dayof… depti… crsd… arrti… crsar… uniq… fligh… tail…
+##    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+##  1  2008  3.00   3.00   1.00   1334  1325 1409   1410   WN     342   N501…
+##  2  2008  3.00   3.00   1.00   1151  1150 1237   1300   WN    2016   N503…
+##  3  2008  3.00   3.00   1.00   1646  1645 1807   1825   WN    2987   N701…
+##  4  2008  3.00   3.00   1.00    852   855 1004   1010   WN      32.0 N525…
+##  5  2008  3.00   4.00   2.00   1010  1000 1158   1155   WN    2978   N333…
+##  6  2008  3.00   4.00   2.00   1402  1400 1642   1655   WN    1374   N279…
+##  7  2008  3.00   4.00   2.00   1807  1805 1959   2005   WN    3754   N430…
+##  8  2008  3.00   4.00   2.00   2129  2135   39.0   55.0 WN    2965   N234…
+##  9  2008  3.00   4.00   2.00   1306  1305 1358   1410   WN    1361   N912…
+## 10  2008  3.00   4.00   2.00   1913  1850 2026   2015   WN    1516   N465…
+## # ... with 90 more rows, and 19 more variables: actualelapsedtime &lt;dbl&gt;,
+## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
+## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
+## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, row &lt;S3: integer64&gt;</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Use <code>map_df()</code> to run the function for each month</li>
 </ol>
@@ -260,6 +288,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Verify sample with a histogram</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(new_sample, distance)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 
 </div>
 </div>

@@ -147,7 +147,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>6.3</b> Add title to the new tab</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a><ul>
-<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#native-sampling"><i class="fa fa-check"></i><b>7.1</b> Native sampling</a></li>
+<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#sql-native-sampling"><i class="fa fa-check"></i><b>7.1</b> SQL Native sampling</a></li>
 <li class="chapter" data-level="7.2" data-path="sampling.html"><a href="sampling.html#sample-manually"><i class="fa fa-check"></i><b>7.2</b> Sample manually</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
@@ -268,14 +268,14 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 <span class="kw">head</span>(<span class="kw">base_dashboard</span>())</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 29]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##    year month dayof… dayo… dept… crsd… arrt… crsa… uniq… flig… tail… actu…
-##   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
-## 1  2008  7.00   19.0  6.00  2115  2119  2216  2209 DL     1143 N614… 121  
-## 2  2008  7.00   19.0  6.00  1753  1740  1915  1914 DL     1145 N642…  82.0
-## 3  2008  7.00   19.0  6.00  2110  2116  2148  2201 DL     1148 N698…  98.0
-## 4  2008  7.00   19.0  6.00  1755  1659  1837  1749 DL     1149 N904… 102  
-## 5  2008  7.00   19.0  6.00  1236  1240  1509  1520 DL     1150 N394…  93.0
-## 6  2008  7.00   19.0  6.00   713   705   812   812 DL     1153 N958…  59.0
+##    year month dayo… dayo… dept… crsde… arrt… crsa… uniq… flig… tail… actu…
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+## 1  2008  7.00  1.00  2.00  1647 1.65e³  1941  1945 DL     1.00 N3767   174
+## 2  2008  7.00  1.00  2.00  2357 1.00e⁰   629   629 DL     3.00 N696…   272
+## 3  2008  7.00  1.00  2.00  1251 1.26e³  1546  1608 DL     4.00 N3767   175
+## 4  2008  7.00  1.00  2.00  1150 1.20e³  1444  1509 DL     5.00 N980…   174
+## 5  2008  7.00  1.00  2.00  1409 1.40e³  1720  1721 DL     6.00 N960…   191
+## 6  2008  7.00  1.00  2.00  1633 1.60e³  1933  1913 DL     8.00 N998…   120
 ## # ... with 17 more variables: crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
 ## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
 ## #   distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;,
