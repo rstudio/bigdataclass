@@ -112,6 +112,7 @@ dbplot_histogram(new_sample, distance)
 
 ## Create a model & test
 
+1. Prepare a model data set
 ```{r}
 model_data <- new_sample %>%
     mutate(
@@ -126,11 +127,13 @@ model_data <- new_sample %>%
   
 ```
 
+2. Create a simple `lm()` model
 ```{r}
 model_lm <- lm(arrdelay ~ . , data = model_data)
 summary(model_lm)
 ```
 
+3. Create a test data set by combining the sampling and model data set routines
 ```{r}
 test_sample <- 1:12 %>%
   map_df(~sample_segment(.x, 100)) %>%
@@ -146,6 +149,7 @@ test_sample <- 1:12 %>%
   
 ```
 
+4. Run a simple routine to check accuracy 
 ```{r}
 test_sample %>%
   mutate(p = predict(model_lm, test_sample),
@@ -155,16 +159,22 @@ test_sample %>%
   mutate(percent = round(n / sum(n), 2))
 ```
 
-## Use tidypredict
+## Score inside database
+*Learn about tidypredict to run predictions inside the database*
 
+1. Load the library, and see the results of passing the model as an argument to `tidypredict_fit()` 
 ```{r}
 library(tidypredict)
 
 tidypredict_fit(model_lm)
 ```
+
+2. Use `tidypredict_sql()` to see the resulting SQL statement
 ```{r}
 tidypredict_sql(model_lm, con)
 ```
+
+3. Run the prediction inside `dplyr`
 ```{r}
 flights %>%
   filter(month == 2,
@@ -179,9 +189,37 @@ flights %>%
   ) %>%
   select( season, depdelay) %>%
   tidypredict_to_column(model_lm) %>%
-  show_query()
-  
+  head()
+```
 
+4. View the SQL behind the `dplyr` command
+```{r}
+flights %>%
+  filter(month == 2,
+         dayofmonth == 1) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select( season, depdelay) %>%
+  tidypredict_to_column(model_lm) %>%
+  remote_query()
+```
+
+6. Compare predictions to ensure results are within range
+```{r}
+test <- tidypredict_test(model_lm)
+test
+```
+
+7. View the records that exceeded the threshold
+```{r}
+test$raw_results %>%
+  filter(fit_threshold)
 ```
 
 ```{r, include = FALSE}

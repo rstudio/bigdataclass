@@ -30,14 +30,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="sampling.html">
+<link rel="prev" href="modeling.html">
 <link rel="next" href="spark-pipelines.html">
-<script src="libs/jquery/jquery.min.js"></script>
-<link href="libs/gitbook/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
@@ -105,10 +105,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
 <li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
 <li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
-<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
-<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#variables-pending"><i class="fa fa-check"></i><b>1.8</b> Variables [pending]</a></li>
-<li class="chapter" data-level="1.9" data-path="access-a-database.html"><a href="access-a-database.html#options-pending"><i class="fa fa-check"></i><b>1.9</b> options [pending]</a></li>
-<li class="chapter" data-level="1.10" data-path="access-a-database.html"><a href="access-a-database.html#prompt-pending"><i class="fa fa-check"></i><b>1.10</b> Prompt [pending]</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
@@ -122,6 +120,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
 <li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
 <li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
@@ -135,41 +134,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
 <li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>5</b> Intro to dashboards</a><ul>
-<li class="chapter" data-level="5.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>5.1</b> Basic structure</a></li>
-<li class="chapter" data-level="5.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>5.2</b> Dropdown data</a></li>
-<li class="chapter" data-level="5.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>5.3</b> Update dashboard items</a></li>
-<li class="chapter" data-level="5.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>5.4</b> Integrate the dropdown</a></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.2</b> Sample manually</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.3</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.4</b> Score inside database</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>6</b> Dashboard drill-down</a><ul>
-<li class="chapter" data-level="6.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>6.1</b> Add a tabset to the dashboard</a></li>
-<li class="chapter" data-level="6.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>6.2</b> Add interactivity</a></li>
-<li class="chapter" data-level="6.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>6.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a><ul>
-<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#sql-native-sampling"><i class="fa fa-check"></i><b>7.1</b> SQL Native sampling</a></li>
-<li class="chapter" data-level="7.2" data-path="sampling.html"><a href="sampling.html#sample-manually"><i class="fa fa-check"></i><b>7.2</b> Sample manually</a></li>
+<li class="chapter" data-level="7" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>7</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="7.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>7.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="7.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>7.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="7.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>7.3</b> Reload model</a></li>
+<li class="chapter" data-level="7.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>7.4</b> Reload pipeline</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
-<li class="chapter" data-level="8.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>8.1</b> New Spark session</a></li>
-<li class="chapter" data-level="8.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>8.2</b> Data transfer</a></li>
-<li class="chapter" data-level="8.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>8.3</b> Simple dplyr example</a></li>
-<li class="chapter" data-level="8.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>8.4</b> Map data</a></li>
-<li class="chapter" data-level="8.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>8.5</b> Caching data</a></li>
-<li class="chapter" data-level="8.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>8.6</b> <code>sdf</code> Functions</a></li>
-<li class="chapter" data-level="8.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>8.7</b> Feature transformers</a></li>
-<li class="chapter" data-level="8.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>8.8</b> Fit a model with <code>sparklyr</code></a></li>
-<li class="chapter" data-level="8.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>8.9</b> Run predictions in Spark</a></li>
+<li class="chapter" data-level="8" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>8</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="8.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>8.1</b> Basic structure</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>8.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>8.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="8.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>8.4</b> Integrate the dropdown</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>9</b> Spark pipelines</a><ul>
-<li class="chapter" data-level="9.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>9.1</b> Recreate the transformations</a></li>
-<li class="chapter" data-level="9.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>9.2</b> Fit, evaluate, save</a></li>
-<li class="chapter" data-level="9.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>9.3</b> Reload model</a></li>
-<li class="chapter" data-level="9.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>9.4</b> Reload pipeline</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>10</b> External data</a><ul>
-<li class="chapter" data-level="10.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>10.1</b> Data enrichment</a></li>
-<li class="chapter" data-level="10.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>10.2</b> Using other join statements</a></li>
+<li class="chapter" data-level="9" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>9</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="9.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>9.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="9.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>9.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="9.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>9.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 </ul>
 
@@ -189,9 +187,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="intro-to-sparklyr" class="section level1">
-<h1><span class="header-section-number">8</span> Intro to <code>sparklyr</code></h1>
+<h1><span class="header-section-number">6</span> Intro to <code>sparklyr</code></h1>
 <div id="new-spark-session" class="section level2">
-<h2><span class="header-section-number">8.1</span> New Spark session</h2>
+<h2><span class="header-section-number">6.1</span> New Spark session</h2>
 <p><em>Learn to open a new Spark session</em></p>
 <ol style="list-style-type: decimal">
 <li>Use <code>spark_connect()</code> to create a new local Spark session</li>
@@ -203,7 +201,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 </div>
 <div id="data-transfer" class="section level2">
-<h2><span class="header-section-number">8.2</span> Data transfer</h2>
+<h2><span class="header-section-number">6.2</span> Data transfer</h2>
 <p><em>Practice uploading data to Spark</em></p>
 <ol style="list-style-type: decimal">
 <li>Copy the <code>mtcars</code> dataset into the session</li>
@@ -217,7 +215,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 </div>
 <div id="simple-dplyr-example" class="section level2">
-<h2><span class="header-section-number">8.3</span> Simple dplyr example</h2>
+<h2><span class="header-section-number">6.3</span> Simple dplyr example</h2>
 <p><em>See how Spark handles <code>dplyr</code> commands</em></p>
 <ol style="list-style-type: decimal">
 <li>Run the following code snipett</li>
@@ -232,7 +230,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 </div>
 <div id="map-data" class="section level2">
-<h2><span class="header-section-number">8.4</span> Map data</h2>
+<h2><span class="header-section-number">6.4</span> Map data</h2>
 <p><em>See the machanics of how Spark is able to use files as a data source</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Examine the contents of the /usr/share/flights/data folder</p></li>
@@ -267,7 +265,7 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
 </div>
 <div id="caching-data" class="section level2">
-<h2><span class="header-section-number">8.5</span> Caching data</h2>
+<h2><span class="header-section-number">6.5</span> Caching data</h2>
 <p><em>Learn how to cache a subset of the data in Spark</em></p>
 <ol style="list-style-type: decimal">
 <li>Create a subset of the <em>flights</em> table object</li>
@@ -303,7 +301,7 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
 </div>
 <div id="sdf-functions" class="section level2">
-<h2><span class="header-section-number">8.6</span> <code>sdf</code> Functions</h2>
+<h2><span class="header-section-number">6.6</span> <code>sdf</code> Functions</h2>
 <p><em>Overview of a few <code>sdf_</code> functions</em></p>
 <ol style="list-style-type: decimal">
 <li>Use <code>sdf_pivot</code> to create a column for each value in month</li>
@@ -320,7 +318,7 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <span class="kw">tally</span>(partition<span class="op">$</span>training)</code></pre></div>
 </div>
 <div id="feature-transformers" class="section level2">
-<h2><span class="header-section-number">8.7</span> Feature transformers</h2>
+<h2><span class="header-section-number">6.7</span> Feature transformers</h2>
 <p><em>See how to use Spark’s feature transformers</em></p>
 <ol style="list-style-type: decimal">
 <li>Use <code>ft_binarizer()</code> to identify “delayed” flights</li>
@@ -352,7 +350,7 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
 </div>
 <div id="fit-a-model-with-sparklyr" class="section level2">
-<h2><span class="header-section-number">8.8</span> Fit a model with <code>sparklyr</code></h2>
+<h2><span class="header-section-number">6.8</span> Fit a model with <code>sparklyr</code></h2>
 <p><em>Build on the recently learned transformation techniques to feed data into a model</em></p>
 <ol style="list-style-type: decimal">
 <li>Combine the <code>ft_</code> and <code>sdf_</code> functions to prepare the da</li>
@@ -387,7 +385,7 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(delayed_model)</code></pre></div>
 </div>
 <div id="run-predictions-in-spark" class="section level2">
-<h2><span class="header-section-number">8.9</span> Run predictions in Spark</h2>
+<h2><span class="header-section-number">6.9</span> Run predictions in Spark</h2>
 <p><em>Quick review of running predictions and reviewing accuracy</em></p>
 <ol style="list-style-type: decimal">
 <li>Use <code>sdf_predict()</code> agains the test dataset</li>
@@ -409,17 +407,17 @@ delayed_testing <span class="op">%&gt;%</span>
           </div>
         </div>
       </div>
-<a href="sampling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="spark-pipelines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
-<script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
-<script src="libs/gitbook/js/plugin-search.js"></script>
-<script src="libs/gitbook/js/plugin-sharing.js"></script>
-<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({

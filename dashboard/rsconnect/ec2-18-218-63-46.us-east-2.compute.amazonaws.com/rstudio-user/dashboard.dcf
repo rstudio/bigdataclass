@@ -1,0 +1,12 @@
+name: dashboard
+title: dashboard
+username: rstudio-user
+account: rstudio-user
+server: ec2-18-218-63-46.us-east-2.compute.amazonaws.com
+hostUrl: http://ec2-18-218-63-46.us-east-2.compute.amazonaws.com:3939/__api__
+appId: 1
+bundleId: 1
+url: http://ec2-18-218-63-46.us-east-2.compute.amazonaws.com:3939/content/1/
+when: 1516671705.25781
+asMultiple: FALSE
+asStatic: FALSE

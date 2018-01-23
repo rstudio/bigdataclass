@@ -32,12 +32,12 @@
   
 <link rel="prev" href="dplyr-basics.html">
 <link rel="next" href="data-visualizations.html">
-<script src="libs/jquery/jquery.min.js"></script>
-<link href="libs/gitbook/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
@@ -105,10 +105,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
 <li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
 <li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
-<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
-<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#variables-pending"><i class="fa fa-check"></i><b>1.8</b> Variables [pending]</a></li>
-<li class="chapter" data-level="1.9" data-path="access-a-database.html"><a href="access-a-database.html#options-pending"><i class="fa fa-check"></i><b>1.9</b> options [pending]</a></li>
-<li class="chapter" data-level="1.10" data-path="access-a-database.html"><a href="access-a-database.html#prompt-pending"><i class="fa fa-check"></i><b>1.10</b> Prompt [pending]</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
@@ -122,6 +120,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
 <li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
 <li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
@@ -135,41 +134,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
 <li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>5</b> Intro to dashboards</a><ul>
-<li class="chapter" data-level="5.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>5.1</b> Basic structure</a></li>
-<li class="chapter" data-level="5.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>5.2</b> Dropdown data</a></li>
-<li class="chapter" data-level="5.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>5.3</b> Update dashboard items</a></li>
-<li class="chapter" data-level="5.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>5.4</b> Integrate the dropdown</a></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.2</b> Sample manually</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.3</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.4</b> Score inside database</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>6</b> Dashboard drill-down</a><ul>
-<li class="chapter" data-level="6.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>6.1</b> Add a tabset to the dashboard</a></li>
-<li class="chapter" data-level="6.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>6.2</b> Add interactivity</a></li>
-<li class="chapter" data-level="6.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>6.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a><ul>
-<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#sql-native-sampling"><i class="fa fa-check"></i><b>7.1</b> SQL Native sampling</a></li>
-<li class="chapter" data-level="7.2" data-path="sampling.html"><a href="sampling.html#sample-manually"><i class="fa fa-check"></i><b>7.2</b> Sample manually</a></li>
+<li class="chapter" data-level="7" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>7</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="7.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>7.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="7.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>7.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="7.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>7.3</b> Reload model</a></li>
+<li class="chapter" data-level="7.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>7.4</b> Reload pipeline</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
-<li class="chapter" data-level="8.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>8.1</b> New Spark session</a></li>
-<li class="chapter" data-level="8.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>8.2</b> Data transfer</a></li>
-<li class="chapter" data-level="8.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>8.3</b> Simple dplyr example</a></li>
-<li class="chapter" data-level="8.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>8.4</b> Map data</a></li>
-<li class="chapter" data-level="8.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>8.5</b> Caching data</a></li>
-<li class="chapter" data-level="8.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>8.6</b> <code>sdf</code> Functions</a></li>
-<li class="chapter" data-level="8.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>8.7</b> Feature transformers</a></li>
-<li class="chapter" data-level="8.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>8.8</b> Fit a model with <code>sparklyr</code></a></li>
-<li class="chapter" data-level="8.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>8.9</b> Run predictions in Spark</a></li>
+<li class="chapter" data-level="8" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>8</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="8.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>8.1</b> Basic structure</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>8.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>8.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="8.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>8.4</b> Integrate the dropdown</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>9</b> Spark pipelines</a><ul>
-<li class="chapter" data-level="9.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>9.1</b> Recreate the transformations</a></li>
-<li class="chapter" data-level="9.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>9.2</b> Fit, evaluate, save</a></li>
-<li class="chapter" data-level="9.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>9.3</b> Reload model</a></li>
-<li class="chapter" data-level="9.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>9.4</b> Reload pipeline</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>10</b> External data</a><ul>
-<li class="chapter" data-level="10.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>10.1</b> Data enrichment</a></li>
-<li class="chapter" data-level="10.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>10.2</b> Using other join statements</a></li>
+<li class="chapter" data-level="9" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>9</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="9.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>9.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="9.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>9.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="9.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>9.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 </ul>
 
@@ -211,8 +209,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  6  7.00 627931         
 ##  7 11.0  523272         
 ##  8  9.00 540908         
-##  9  1.00 605765         
-## 10  3.00 616090         
+##  9  3.00 616090         
+## 10  1.00 605765         
 ## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Order the results by the month number</li>
@@ -401,8 +399,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  6  7.00    11.6     9.78 
 ##  7 11.0      5.38    2.00 
 ##  8  9.00     3.89    0.684
-##  9  1.00    11.1     9.88 
-## 10  3.00    12.2    10.9  
+##  9  3.00    12.2    10.9  
+## 10  1.00    11.1     9.88 
 ## # ... with more rows</code></pre>
 </div>
 <div id="view-record-level-data" class="section level2">
@@ -429,21 +427,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 29]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##     year month dayof… dayof… deptime crsde… arrt… crsa… uniqu… flig… tail…
-##    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
-##  1  2008  7.00   18.0   5.00  1831     1725  1842  1750 EV      4576 N919…
-##  2  2008  7.00   18.0   5.00  1108      926  1154  1007 EV      4632 N872…
-##  3  2008  7.00   18.0   5.00  1214     1032  1446  1313 EV      4632 N872…
-##  4  2008  7.00   18.0   5.00  1827     1427  2129  1740 EV      4636 N933…
-##  5  2008  7.00   18.0   5.00  1635     1444  1740  1547 EV      4665 N637…
-##  6  2008  7.00   18.0   5.00  1500     1318  1605  1414 EV      4665 N637…
-##  7  2008  7.00   18.0   5.00  1309     1206  1615  1519 EV      4680 N921…
-##  8  2008  7.00   18.0   5.00  1124     1011  1301  1154 EV      4699 N931…
-##  9  2008  7.00   18.0   5.00  1326     1219  1505  1404 EV      4699 N931…
-## 10  2008  7.00   18.0   5.00    10.0   2000   120  2109 EV      4707 N635…
-## # ... with more rows, and 18 more variables: actualelapsedtime &lt;dbl&gt;,
-## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
+##     year month dayo… dayo… dept… crsd… arrt… crsa… uniq… flig… tail… actu…
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+##  1  2008  7.00  18.0  5.00  1737  1630  2018  1915 WN     2667 N512… 101  
+##  2  2008  7.00  18.0  5.00  1837  1715  1949  1835 WN     2977 N224…  72.0
+##  3  2008  7.00  18.0  5.00  1537  1335  1556  1345 WN     1693 N913…  79.0
+##  4  2008  7.00  18.0  5.00  1642  1535  1721  1545 WN     1938 N220…  99.0
+##  5  2008  7.00  18.0  5.00  1802  1645  1811  1700 WN     2566 N261…  69.0
+##  6  2008  7.00  18.0  5.00  1938  1755  2018  1840 WN     2534 N275… 100  
+##  7  2008  7.00  18.0  5.00  2138  2010  2229  2105 WN     1922 N508…  51.0
+##  8  2008  7.00  18.0  5.00  2019  1915  2151  2055 WN      719 N262… 212  
+##  9  2008  7.00  18.0  5.00  1649  1525  1921  1810 WN     2893 N910…  92.0
+## 10  2008  7.00  18.0  5.00  1959  1835  2200  2050 WN     2541 N301… 241  
+## # ... with more rows, and 17 more variables: crselapsedtime &lt;dbl&gt;,
+## #   airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;,
+## #   dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
 ## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
 ## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
 ## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;</code></pre>
@@ -552,6 +550,104 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 3 Winter  1464948        
 ## 4 Monday  1036201        
 ## 5 Summmer 1577629</code></pre>
+</div>
+<div id="data-enrichment" class="section level2">
+<h2><span class="header-section-number">3.6</span> Data enrichment</h2>
+<p><em>Upload a small dataset in order to combine it with the datawarehouse data</em></p>
+<ol style="list-style-type: decimal">
+<li>Load the <code>planes</code> data into memory</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">planes &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>planes</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Using <code>DBI</code>, copy the <code>planes</code> data to the datawarehouse as a temporary table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;planes&quot;</span>, planes, <span class="dt">temporary =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Using <code>dplyr</code>, create a variable pointer to the new table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl_planes &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&quot;planes&quot;</span>)
+tbl_planes</code></pre></div>
+<pre><code>## # Source:   table&lt;planes&gt; [?? x 9]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    tailnum  year type          manufactu… model   engi… seats speed engine
+##    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
+##  1 N10156   2004 Fixed wing m… EMBRAER    EMB-14…     2    55    NA Turbo…
+##  2 N102UW   1998 Fixed wing m… AIRBUS IN… A320-2…     2   182    NA Turbo…
+##  3 N103US   1999 Fixed wing m… AIRBUS IN… A320-2…     2   182    NA Turbo…
+##  4 N104UW   1999 Fixed wing m… AIRBUS IN… A320-2…     2   182    NA Turbo…
+##  5 N10575   2002 Fixed wing m… EMBRAER    EMB-14…     2    55    NA Turbo…
+##  6 N105UW   1999 Fixed wing m… AIRBUS IN… A320-2…     2   182    NA Turbo…
+##  7 N107US   1999 Fixed wing m… AIRBUS IN… A320-2…     2   182    NA Turbo…
+##  8 N108UW   1999 Fixed wing m… AIRBUS IN… A320-2…     2   182    NA Turbo…
+##  9 N109UW   1999 Fixed wing m… AIRBUS IN… A320-2…     2   182    NA Turbo…
+## 10 N110UW   1999 Fixed wing m… AIRBUS IN… A320-2…     2   182    NA Turbo…
+## # ... with more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a “lazy” variable that joins the flights table to the new temp table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(tbl_planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) </code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>View a sample of flights of planes with more than 100 seats</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(seats <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 37]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   year.x month dayo… dayo… dept… crsd… arrt… crsa… uniq… flig… tail… actu…
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+## 1   2008  7.00  18.0  5.00  1410  1410  1545  1600 WN     2976 N407…  95.0
+## 2   2008  7.00  18.0  5.00  1947  1935  2047  2045 WN     1154 N656…  60.0
+## 3   2008  7.00  18.0  5.00  1154  1155  1259  1305 WN     2629 N225…  65.0
+## 4   2008  7.00  18.0  5.00   700   700   805   810 WN     3133 N660…  65.0
+## 5   2008  7.00  18.0  5.00  1228  1230  1341  1410 WN     2355 N490… 193  
+## 6   2008  7.00  18.0  5.00  1050  1050  1259  1300 WN     2610 N221…  69.0
+## # ... with 25 more variables: crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
+## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;,
+## #   cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;, carrierdelay &lt;dbl&gt;,
+## #   weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;,
+## #   lateaircraftdelay &lt;dbl&gt;, year.y &lt;int&gt;, type &lt;chr&gt;, manufacturer &lt;chr&gt;,
+## #   model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>See how many flights each plane McDonnel Douglas had</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(manufacturer <span class="op">==</span><span class="st"> &quot;MCDONNELL DOUGLAS&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    tailnum n              
+##    &lt;chr&gt;   &lt;S3: integer64&gt;
+##  1 N599AA  1243           
+##  2 N494AA  1360           
+##  3 N492AA  1331           
+##  4 N505AA  1373           
+##  5 N777NC  1850           
+##  6 N475AA  1358           
+##  7 N583AA  1403           
+##  8 N560AA  1340           
+##  9 N480AA  1204           
+## 10 N470AA  1455           
+## # ... with more rows</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Get the total number of planes, and the average, minimum &amp; maximum number of flights for the manufacturer</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(manufacturer <span class="op">==</span><span class="st"> &quot;MCDONNELL DOUGLAS&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">planes =</span> <span class="kw">n</span>(),
+            <span class="dt">avg_flights =</span> <span class="kw">mean</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">max_flights =</span> <span class="kw">max</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">min_flights =</span> <span class="kw">min</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   planes          avg_flights max_flights     min_flights    
+##   &lt;S3: integer64&gt;       &lt;dbl&gt; &lt;S3: integer64&gt; &lt;S3: integer64&gt;
+## 1 102                    1346 1850            1068</code></pre>
 
 </div>
 </div>
@@ -564,13 +660,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <a href="data-visualizations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
-<script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
-<script src="libs/gitbook/js/plugin-search.js"></script>
-<script src="libs/gitbook/js/plugin-sharing.js"></script>
-<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({

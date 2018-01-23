@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="data-visualizations.html">
+<link rel="next" href="intro-to-sparklyr.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.2</b> Sample manually</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.3</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.4</b> Score inside database</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>7</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="7.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>7.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="7.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>7.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="7.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>7.3</b> Reload model</a></li>
+<li class="chapter" data-level="7.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>7.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>8</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="8.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>8.1</b> Basic structure</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>8.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>8.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="8.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>8.4</b> Integrate the dropdown</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>9</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="9.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>9.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="9.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>9.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="9.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>9.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeling" class="section level1">
+<h1><span class="header-section-number">5</span> Modeling</h1>
+<div id="sql-native-sampling" class="section level2">
+<h2><span class="header-section-number">5.1</span> SQL Native sampling</h2>
+<p><em>Use PostgreSQL TABLESAMPLE clause</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>build_sql()</code> and <code>remote_query()</code> to combine a the <code>dplyr</code> command with a custom SQL statement</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_table&lt;-<span class="st">  </span><span class="kw">dbGetQuery</span>(con, <span class="kw">build_sql</span>(<span class="kw">remote_query</span>(flights), <span class="st">&quot; TABLESAMPLE SYSTEM (0.1)&quot;</span>))</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Preview the sample data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(sample_table, <span class="dv">1000</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Test the efficacy of the sampling with a plot</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(sample_table, distance)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+</div>
+<div id="sample-manually" class="section level2">
+<h2><span class="header-section-number">5.2</span> Sample manually</h2>
+<p><em>Use <code>row_number()</code>, <code>sample()</code> and <code>map_df()</code> to create a sample data set</em></p>
+<ol style="list-style-type: decimal">
+<li>Create a filtered dataset for with 1 month of data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Get the row count</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rows &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">pull</span>(<span class="kw">tally</span>(db_month)))</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>row_number()</code> to create a new column to number each row</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">row =</span> <span class="kw">row_number</span>()) </code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a random set of 600 numbers, limited by the number of rows</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>rows, <span class="dv">600</span>)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Use <code>%in%</code> to filter the matched sample row IDs with the random set</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(row <span class="op">%in%</span><span class="st"> </span>sampling)</code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Verify number of rows</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tally</span>(db_month)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   n              
+##   &lt;S3: integer64&gt;
+## 1 600</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Create a function with the previous steps, but replacing the month number with an argument. Collect the data at the end</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_segment &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">size =</span> <span class="dv">600</span>) {
+  db_month &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span>x)
+  rows &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">pull</span>(<span class="kw">tally</span>(db_month)))
+  db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">row =</span> <span class="kw">row_number</span>())
+  sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>rows, size)
+  db_month <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(row <span class="op">%in%</span><span class="st"> </span>sampling) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">collect</span>()
+}</code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>Test the function</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sample_segment</span>(<span class="dv">3</span>), <span class="dv">100</span>)</code></pre></div>
+<pre><code>## # A tibble: 100 x 30
+##     year month dayof… dayof… depti… crsd… arrti… crsar… uniq… fligh… tail…
+##    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+##  1  2008  3.00   3.00   1.00   1334  1325 1409   1410   WN     342   N501…
+##  2  2008  3.00   3.00   1.00   1151  1150 1237   1300   WN    2016   N503…
+##  3  2008  3.00   3.00   1.00   1646  1645 1807   1825   WN    2987   N701…
+##  4  2008  3.00   3.00   1.00    852   855 1004   1010   WN      32.0 N525…
+##  5  2008  3.00   4.00   2.00   1010  1000 1158   1155   WN    2978   N333…
+##  6  2008  3.00   4.00   2.00   1402  1400 1642   1655   WN    1374   N279…
+##  7  2008  3.00   4.00   2.00   1807  1805 1959   2005   WN    3754   N430…
+##  8  2008  3.00   4.00   2.00   2129  2135   39.0   55.0 WN    2965   N234…
+##  9  2008  3.00   4.00   2.00   1306  1305 1358   1410   WN    1361   N912…
+## 10  2008  3.00   4.00   2.00   1913  1850 2026   2015   WN    1516   N465…
+## # ... with 90 more rows, and 19 more variables: actualelapsedtime &lt;dbl&gt;,
+## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
+## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
+## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, row &lt;S3: integer64&gt;</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Use <code>map_df()</code> to run the function for each month</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_sample &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map_df</span>(<span class="op">~</span><span class="kw">sample_segment</span>(.x))</code></pre></div>
+<ol start="10" style="list-style-type: decimal">
+<li>Verify sample with a histogram</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(new_sample, distance)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+</div>
+<div id="create-a-model-test" class="section level2">
+<h2><span class="header-section-number">5.3</span> Create a model &amp; test</h2>
+<ol style="list-style-type: decimal">
+<li>Prepare a model data set</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_data &lt;-<span class="st"> </span>new_sample <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(arrdelay, season, depdelay) </code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Create a simple <code>lm()</code> model</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(arrdelay <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> model_data)
+<span class="kw">summary</span>(model_lm)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = arrdelay ~ ., data = model_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -202.498   -7.584   -1.295    5.261  196.263 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -3.165814   0.344705  -9.184  &lt; 2e-16 ***
+## seasonSpring   1.507999   0.487334   3.094  0.00198 ** 
+## seasonSummmer  0.904464   0.487796   1.854  0.06375 .  
+## seasonWinter   1.911854   0.489637   3.905 9.52e-05 ***
+## depdelay       1.023795   0.004793 213.602  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.6 on 7195 degrees of freedom
+## Multiple R-squared:  0.8657, Adjusted R-squared:  0.8657 
+## F-statistic: 1.16e+04 on 4 and 7195 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a test data set by combining the sampling and model data set routines</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_sample &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map_df</span>(<span class="op">~</span><span class="kw">sample_segment</span>(.x, <span class="dv">100</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(arrdelay, season, depdelay) </code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Run a simple routine to check accuracy</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_sample <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> <span class="kw">predict</span>(model_lm, test_sample),
+         <span class="dt">over =</span> <span class="kw">abs</span>(p <span class="op">-</span><span class="st"> </span>arrdelay) <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(over) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> <span class="kw">round</span>(n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n), <span class="dv">2</span>))</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   over      n percent
+##   &lt;lgl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1 F       385   0.320
+## 2 T       815   0.680</code></pre>
+</div>
+<div id="score-inside-database" class="section level2">
+<h2><span class="header-section-number">5.4</span> Score inside database</h2>
+<p><em>Learn about tidypredict to run predictions inside the database</em></p>
+<ol style="list-style-type: decimal">
+<li>Load the library, and see the results of passing the model as an argument to <code>tidypredict_fit()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidypredict)</code></pre></div>
+<pre><code>## Loading required package: tibble</code></pre>
+<pre><code>## Loading required package: tidyr</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_fit</span>(model_lm)</code></pre></div>
+<pre><code>## ((((-3.1658137881201) + ((ifelse((season) == (&quot;Spring&quot;), 1, 0)) * 
+##     (1.5079986648297))) + ((ifelse((season) == (&quot;Summmer&quot;), 1, 
+##     0)) * (0.904463744367426))) + ((ifelse((season) == (&quot;Winter&quot;), 
+##     1, 0)) * (1.91185411320333))) + ((depdelay) * (1.02379514814137))</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>tidypredict_sql()</code> to see the resulting SQL statement</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_sql</span>(model_lm, con)</code></pre></div>
+<pre><code>## &lt;SQL&gt; ((((-3.1658137881201) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (0.0) END) * (1.5079986648297))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (0.0) END) * (0.904463744367426))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (0.0) END) * (1.91185411320333))) + ((&quot;depdelay&quot;) * (1.02379514814137))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Run the prediction inside <code>dplyr</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>( season, depdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidypredict_to_column</span>(model_lm) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   season depdelay    fit
+##   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Winter    19.0   18.2 
+## 2 Winter     0    - 1.25
+## 3 Winter   - 5.00 - 6.37
+## 4 Winter   - 9.00 -10.5 
+## 5 Winter   - 6.00 - 7.40
+## 6 Winter    50.0   49.9</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>View the SQL behind the <code>dplyr</code> command</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>( season, depdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidypredict_to_column</span>(model_lm) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">remote_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt; SELECT &quot;season&quot;, &quot;depdelay&quot;, ((((-3.1658137881201) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (0.0) END) * (1.5079986648297))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (0.0) END) * (0.904463744367426))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (0.0) END) * (1.91185411320333))) + ((&quot;depdelay&quot;) * (1.02379514814137)) AS &quot;fit&quot;
+## FROM (SELECT &quot;season&quot;, &quot;depdelay&quot;
+## FROM (SELECT &quot;year&quot;, &quot;month&quot;, &quot;dayofmonth&quot;, &quot;dayofweek&quot;, &quot;deptime&quot;, &quot;crsdeptime&quot;, &quot;arrtime&quot;, &quot;crsarrtime&quot;, &quot;uniquecarrier&quot;, &quot;flightnum&quot;, &quot;tailnum&quot;, &quot;actualelapsedtime&quot;, &quot;crselapsedtime&quot;, &quot;airtime&quot;, &quot;arrdelay&quot;, &quot;depdelay&quot;, &quot;origin&quot;, &quot;dest&quot;, &quot;distance&quot;, &quot;taxiin&quot;, &quot;taxiout&quot;, &quot;cancelled&quot;, &quot;cancellationcode&quot;, &quot;diverted&quot;, &quot;carrierdelay&quot;, &quot;weatherdelay&quot;, &quot;nasdelay&quot;, &quot;securitydelay&quot;, &quot;lateaircraftdelay&quot;, CASE
+## WHEN (&quot;month&quot; &gt;= 3.0 AND &quot;month&quot; &lt;= 5.0) THEN (&#39;Spring&#39;)
+## WHEN (&quot;month&quot; &gt;= 6.0 AND &quot;month&quot; &lt;= 8.0) THEN (&#39;Summmer&#39;)
+## WHEN (&quot;month&quot; &gt;= 9.0 AND &quot;month&quot; &lt;= 11.0) THEN (&#39;Fall&#39;)
+## WHEN (&quot;month&quot; = 12.0 OR &quot;month&quot; &lt;= 2.0) THEN (&#39;Winter&#39;)
+## END AS &quot;season&quot;
+## FROM (SELECT *
+## FROM datawarehouse.flight
+## WHERE ((&quot;month&quot; = 2.0) AND (&quot;dayofmonth&quot; = 1.0))) &quot;nhuyjegkot&quot;) &quot;pioouutnyy&quot;) &quot;gumgipifhn&quot;</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Compare predictions to ensure results are within range</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span><span class="kw">tidypredict_test</span>(model_lm)
+test</code></pre></div>
+<pre><code>## tidypredict test results
+## Difference threshold: 1e-12
+## 
+## Fitted records above the threshold: 8
+## 
+## Fit max  difference:
+## Lower max difference:
+## Upper max difference:3.29691829392686e-12</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>View the records that exceeded the threshold</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test<span class="op">$</span>raw_results <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(fit_threshold)</code></pre></div>
+<pre><code>##   rowid      fit   fit_te     fit_diff fit_threshold
+## 1  1085 953.9469 953.9469 3.296918e-12          TRUE
+## 2  2198 422.1934 422.1934 1.477929e-12          TRUE
+## 3  3418 929.3922 929.3922 3.183231e-12          TRUE
+## 4  5757 328.5438 328.5438 1.136868e-12          TRUE
+## 5  6676 317.1463 317.1463 1.136868e-12          TRUE
+## 6  6703 289.5039 289.5039 1.023182e-12          TRUE
+## 7  7014 605.8566 605.8566 2.046363e-12          TRUE
+## 8  7019 285.4087 285.4087 1.023182e-12          TRUE</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-visualizations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro-to-sparklyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>

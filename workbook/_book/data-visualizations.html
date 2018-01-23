@@ -31,13 +31,13 @@
   
   
 <link rel="prev" href="data-transformation.html">
-<link rel="next" href="intro-to-dashboards.html">
-<script src="libs/jquery/jquery.min.js"></script>
-<link href="libs/gitbook/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link rel="next" href="modeling.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
@@ -105,10 +105,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
 <li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
 <li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
-<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
-<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#variables-pending"><i class="fa fa-check"></i><b>1.8</b> Variables [pending]</a></li>
-<li class="chapter" data-level="1.9" data-path="access-a-database.html"><a href="access-a-database.html#options-pending"><i class="fa fa-check"></i><b>1.9</b> options [pending]</a></li>
-<li class="chapter" data-level="1.10" data-path="access-a-database.html"><a href="access-a-database.html#prompt-pending"><i class="fa fa-check"></i><b>1.10</b> Prompt [pending]</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
@@ -122,6 +120,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
 <li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
 <li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
@@ -135,41 +134,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
 <li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>5</b> Intro to dashboards</a><ul>
-<li class="chapter" data-level="5.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>5.1</b> Basic structure</a></li>
-<li class="chapter" data-level="5.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>5.2</b> Dropdown data</a></li>
-<li class="chapter" data-level="5.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>5.3</b> Update dashboard items</a></li>
-<li class="chapter" data-level="5.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>5.4</b> Integrate the dropdown</a></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.2</b> Sample manually</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.3</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.4</b> Score inside database</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>6</b> Dashboard drill-down</a><ul>
-<li class="chapter" data-level="6.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>6.1</b> Add a tabset to the dashboard</a></li>
-<li class="chapter" data-level="6.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>6.2</b> Add interactivity</a></li>
-<li class="chapter" data-level="6.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>6.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a><ul>
-<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#sql-native-sampling"><i class="fa fa-check"></i><b>7.1</b> SQL Native sampling</a></li>
-<li class="chapter" data-level="7.2" data-path="sampling.html"><a href="sampling.html#sample-manually"><i class="fa fa-check"></i><b>7.2</b> Sample manually</a></li>
+<li class="chapter" data-level="7" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>7</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="7.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>7.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="7.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>7.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="7.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>7.3</b> Reload model</a></li>
+<li class="chapter" data-level="7.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>7.4</b> Reload pipeline</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
-<li class="chapter" data-level="8.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>8.1</b> New Spark session</a></li>
-<li class="chapter" data-level="8.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>8.2</b> Data transfer</a></li>
-<li class="chapter" data-level="8.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>8.3</b> Simple dplyr example</a></li>
-<li class="chapter" data-level="8.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>8.4</b> Map data</a></li>
-<li class="chapter" data-level="8.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>8.5</b> Caching data</a></li>
-<li class="chapter" data-level="8.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>8.6</b> <code>sdf</code> Functions</a></li>
-<li class="chapter" data-level="8.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>8.7</b> Feature transformers</a></li>
-<li class="chapter" data-level="8.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>8.8</b> Fit a model with <code>sparklyr</code></a></li>
-<li class="chapter" data-level="8.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>8.9</b> Run predictions in Spark</a></li>
+<li class="chapter" data-level="8" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>8</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="8.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>8.1</b> Basic structure</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>8.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>8.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="8.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>8.4</b> Integrate the dropdown</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>9</b> Spark pipelines</a><ul>
-<li class="chapter" data-level="9.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>9.1</b> Recreate the transformations</a></li>
-<li class="chapter" data-level="9.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>9.2</b> Fit, evaluate, save</a></li>
-<li class="chapter" data-level="9.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>9.3</b> Reload model</a></li>
-<li class="chapter" data-level="9.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>9.4</b> Reload pipeline</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>10</b> External data</a><ul>
-<li class="chapter" data-level="10.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>10.1</b> Data enrichment</a></li>
-<li class="chapter" data-level="10.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>10.2</b> Using other join statements</a></li>
+<li class="chapter" data-level="9" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>9</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="9.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>9.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="9.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>9.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="9.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>9.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 </ul>
 
@@ -219,7 +217,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">ggplot</span>(by_month) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> n)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 </div>
 <div id="plot-in-one-code-segment" class="section level2">
 <h2><span class="header-section-number">4.2</span> Plot in one code segment</h2>
@@ -234,7 +232,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">                        </span><span class="co"># &lt; Don&#39;t forget to switch to `+`</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> n)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the aggregation to the average of <code>arrdelay</code>. Tip: Use <code>x</code> as the summarize variable</li>
 </ol>
@@ -245,7 +243,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> x)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Plot the average distance</li>
 </ol>
@@ -256,7 +254,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> x)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 </div>
 <div id="plot-specific-data-segments" class="section level2">
 <h2><span class="header-section-number">4.3</span> Plot specific data segments</h2>
@@ -291,7 +289,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">x =</span> uniquecarrier, <span class="dt">y =</span> n))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <ol style="list-style-type: decimal">
 <li>Improve the plot’s look</li>
 </ol>
@@ -310,7 +308,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
          <span class="dt">subtitle =</span> <span class="st">&quot;Source: Datawarehouse&quot;</span>,
          <span class="dt">x =</span> <span class="st">&quot;Carrier Name&quot;</span>, 
          <span class="dt">y =</span> <span class="st">&quot;# of Flights&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
 </div>
 <div id="two-or-more-queries" class="section level2">
 <h2><span class="header-section-number">4.4</span> Two or more queries</h2>
@@ -336,16 +334,16 @@ top5</code></pre></div>
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##     year month dayo… dayo… dept… crsd… arrt… crsa… uniq… flig… tail… actu…
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
-##  1  2008  7.00  1.00  2.00   819   822   919   935 MQ     3004 N848…  60.0
-##  2  2008  7.00  2.00  3.00   819   822   930   935 MQ     3004 N323…  71.0
-##  3  2008  7.00  3.00  4.00   817   822   923   935 MQ     3004 N323…  66.0
-##  4  2008  7.00  4.00  5.00   822   822   937   935 MQ     3004 N323…  75.0
-##  5  2008  7.00  5.00  6.00   820   822   926   935 MQ     3004 N240…  66.0
-##  6  2008  7.00  6.00  7.00   824   822   938   935 MQ     3004 N253…  74.0
-##  7  2008  7.00  7.00  1.00   819   822   931   935 MQ     3004 N317…  72.0
-##  8  2008  7.00  8.00  2.00   818   822   938   935 MQ     3004 N250…  80.0
-##  9  2008  7.00  9.00  3.00   817   822   926   935 MQ     3004 N323…  69.0
-## 10  2008  7.00 10.0   4.00   817   822   924   935 MQ     3004 N313…  67.0
+##  1  2008  7.00  18.0  5.00  1410  1410  1545  1600 WN     2976 N407…  95.0
+##  2  2008  7.00  18.0  5.00  1947  1935  2047  2045 WN     1154 N656…  60.0
+##  3  2008  7.00  18.0  5.00  1154  1155  1259  1305 WN     2629 N225…  65.0
+##  4  2008  7.00  18.0  5.00   700   700   805   810 WN     3133 N660…  65.0
+##  5  2008  7.00  18.0  5.00  1228  1230  1341  1410 WN     2355 N490… 193  
+##  6  2008  7.00  18.0  5.00  1853  1855  2101  2105 WN     1947 N293   68.0
+##  7  2008  7.00  18.0  5.00  1050  1050  1259  1300 WN     2610 N221…  69.0
+##  8  2008  7.00  18.0  5.00   755   745   906   905 WN     2084 N472…  71.0
+##  9  2008  7.00  18.0  5.00   936   935  1201  1155 WN     1804 N390…  85.0
+## 10  2008  7.00  18.0  5.00  1334  1325  1606  1545 WN     2471 N308…  92.0
 ## # ... with more rows, and 17 more variables: crselapsedtime &lt;dbl&gt;,
 ## #   airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;,
 ## #   dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
@@ -385,7 +383,7 @@ top5</code></pre></div>
          <span class="dt">subtitle =</span> <span class="st">&quot;Source: Datawarehouse&quot;</span>,
          <span class="dt">x =</span> <span class="st">&quot;Carrier Name&quot;</span>, 
          <span class="dt">y =</span> <span class="st">&quot;Average Delay&quot;</span>) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 </div>
 <div id="visualize-using-dbplot" class="section level2">
 <h2><span class="header-section-number">4.5</span> Visualize using <code>dbplot</code></h2>
@@ -400,7 +398,7 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_line</span>(month)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Update the plot’s labels</li>
 </ol>
@@ -409,7 +407,7 @@ top5</code></pre></div>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Monthly flights&quot;</span>,
        <span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>,
        <span class="dt">y =</span> <span class="st">&quot;Number of flights&quot;</span>) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 </div>
 <div id="plot-a-different-aggregation" class="section level2">
 <h2><span class="header-section-number">4.6</span> Plot a different aggregation</h2>
@@ -419,7 +417,7 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the day numbers to day name labels</li>
 </ol>
@@ -429,7 +427,7 @@ top5</code></pre></div>
     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>),
     <span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>
   )</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
 </div>
 <div id="create-a-histogram" class="section level2">
 <h2><span class="header-section-number">4.7</span> Create a histogram</h2>
@@ -439,13 +437,13 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_histogram</span>(distance)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Adjust the <code>binwidth</code> to 300</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_histogram</span>(distance, <span class="dt">binwidth =</span> <span class="dv">300</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 </div>
 <div id="raster-plot" class="section level2">
 <h2><span class="header-section-number">4.8</span> Raster plot</h2>
@@ -454,13 +452,13 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_raster</span>(deptime, arrtime)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the plot’s resolution to 500</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_raster</span>(deptime, arrtime, <span class="dt">resolution =</span> <span class="dv">500</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
 </div>
 <div id="using-the-calculate-functions" class="section level2">
 <h2><span class="header-section-number">4.9</span> Using the <code>calculate</code> functions</h2>
@@ -492,7 +490,7 @@ departure</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">n()</span><span class="st">`</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">x =</span> deptime, <span class="dt">y =</span> arrtime, <span class="dt">fill =</span> <span class="st">`</span><span class="dt">n()</span><span class="st">`</span>))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
 </div>
 <div id="under-the-hood-ii" class="section level2">
 <h2><span class="header-section-number">4.10</span> Under the hood (II)</h2>
@@ -523,16 +521,16 @@ departure</code></pre></div>
         </div>
       </div>
 <a href="data-transformation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="intro-to-dashboards.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="modeling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
-<script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
-<script src="libs/gitbook/js/plugin-search.js"></script>
-<script src="libs/gitbook/js/plugin-sharing.js"></script>
-<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({

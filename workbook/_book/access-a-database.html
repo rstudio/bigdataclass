@@ -32,12 +32,12 @@
   
 <link rel="prev" href="index.html">
 <link rel="next" href="dplyr-basics.html">
-<script src="libs/jquery/jquery.min.js"></script>
-<link href="libs/gitbook/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
@@ -105,10 +105,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
 <li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
 <li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
-<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#use-the-os-credential-store"><i class="fa fa-check"></i><b>1.7</b> Use the OS credential store</a></li>
-<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#variables-pending"><i class="fa fa-check"></i><b>1.8</b> Variables [pending]</a></li>
-<li class="chapter" data-level="1.9" data-path="access-a-database.html"><a href="access-a-database.html#options-pending"><i class="fa fa-check"></i><b>1.9</b> options [pending]</a></li>
-<li class="chapter" data-level="1.10" data-path="access-a-database.html"><a href="access-a-database.html#prompt-pending"><i class="fa fa-check"></i><b>1.10</b> Prompt [pending]</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
@@ -122,6 +120,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
 <li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
 <li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
 <li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
@@ -135,41 +134,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
 <li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>5</b> Intro to dashboards</a><ul>
-<li class="chapter" data-level="5.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>5.1</b> Basic structure</a></li>
-<li class="chapter" data-level="5.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>5.2</b> Dropdown data</a></li>
-<li class="chapter" data-level="5.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>5.3</b> Update dashboard items</a></li>
-<li class="chapter" data-level="5.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>5.4</b> Integrate the dropdown</a></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.2</b> Sample manually</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.3</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.4</b> Score inside database</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>6</b> Dashboard drill-down</a><ul>
-<li class="chapter" data-level="6.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>6.1</b> Add a tabset to the dashboard</a></li>
-<li class="chapter" data-level="6.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>6.2</b> Add interactivity</a></li>
-<li class="chapter" data-level="6.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>6.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sampling.html"><a href="sampling.html"><i class="fa fa-check"></i><b>7</b> Sampling</a><ul>
-<li class="chapter" data-level="7.1" data-path="sampling.html"><a href="sampling.html#sql-native-sampling"><i class="fa fa-check"></i><b>7.1</b> SQL Native sampling</a></li>
-<li class="chapter" data-level="7.2" data-path="sampling.html"><a href="sampling.html#sample-manually"><i class="fa fa-check"></i><b>7.2</b> Sample manually</a></li>
+<li class="chapter" data-level="7" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>7</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="7.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>7.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="7.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>7.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="7.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>7.3</b> Reload model</a></li>
+<li class="chapter" data-level="7.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>7.4</b> Reload pipeline</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
-<li class="chapter" data-level="8.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>8.1</b> New Spark session</a></li>
-<li class="chapter" data-level="8.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>8.2</b> Data transfer</a></li>
-<li class="chapter" data-level="8.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>8.3</b> Simple dplyr example</a></li>
-<li class="chapter" data-level="8.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>8.4</b> Map data</a></li>
-<li class="chapter" data-level="8.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>8.5</b> Caching data</a></li>
-<li class="chapter" data-level="8.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>8.6</b> <code>sdf</code> Functions</a></li>
-<li class="chapter" data-level="8.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>8.7</b> Feature transformers</a></li>
-<li class="chapter" data-level="8.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>8.8</b> Fit a model with <code>sparklyr</code></a></li>
-<li class="chapter" data-level="8.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>8.9</b> Run predictions in Spark</a></li>
+<li class="chapter" data-level="8" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>8</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="8.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>8.1</b> Basic structure</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>8.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>8.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="8.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>8.4</b> Integrate the dropdown</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>9</b> Spark pipelines</a><ul>
-<li class="chapter" data-level="9.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>9.1</b> Recreate the transformations</a></li>
-<li class="chapter" data-level="9.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>9.2</b> Fit, evaluate, save</a></li>
-<li class="chapter" data-level="9.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>9.3</b> Reload model</a></li>
-<li class="chapter" data-level="9.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>9.4</b> Reload pipeline</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="external-data.html"><a href="external-data.html"><i class="fa fa-check"></i><b>10</b> External data</a><ul>
-<li class="chapter" data-level="10.1" data-path="external-data.html"><a href="external-data.html#data-enrichment"><i class="fa fa-check"></i><b>10.1</b> Data enrichment</a></li>
-<li class="chapter" data-level="10.2" data-path="external-data.html"><a href="external-data.html#using-other-join-statements"><i class="fa fa-check"></i><b>10.2</b> Using other join statements</a></li>
+<li class="chapter" data-level="9" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>9</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="9.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>9.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="9.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>9.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="9.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>9.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 </ul>
 
@@ -250,12 +248,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 19          SQLServer      Driver
 ## 20           Teradata      Driver</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>To see a list of DSNs available in the server</li>
+<li>Click on the <em>ellipsis</em> button located in the <strong>Files</strong> tab</li>
+</ol>
+<p><img src="images/ellipsis.PNG" width = 300></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Type: <code>/etc</code></li>
+</ol>
+<p><img src="images/gotofolder.PNG" width = 300></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Locate and open the <code>odbcinst.ini</code> file</p></li>
+<li><p>To see a list of DSNs available in the server</p></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odbcListDataSources</span>()</code></pre></div>
 <pre><code>##            name description
 ## 1  Postgres Dev  PostgreSQL
 ## 2 Postgres Prod  PostgreSQL</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Using the <em>ellipsis</em> button again, navigate to <code>/etc/odbc.ini</code></li>
+</ol>
 </div>
 <div id="connect-to-a-database-using-code" class="section level2">
 <h2><span class="header-section-number">1.4</span> Connect to a database using code</h2>
@@ -322,14 +332,21 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
 </div>
 <div id="secure-credentials-in-a-file" class="section level2">
 <h2><span class="header-section-number">1.6</span> Secure credentials in a file</h2>
-<p>*Credentials can be saved in a YAML file and then read using the <code>config</code> package: <a href="http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config*" class="uri">http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config*</a></p>
+<p><em>Credentials can be saved in a YAML file and then read using the <code>config</code> package: <a href="http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config" class="uri">http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config</a> </em></p>
 <ol style="list-style-type: decimal">
 <li><p>Open and explore the <code>config.yml</code> file available in your working directory</p></li>
-<li><p>Use the config package to connect to the database</p></li>
+<li><p>Load the <code>datawarehouse-dev</code> vaelus to a variable</p></li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dw &lt;-<span class="st"> </span>config<span class="op">::</span><span class="kw">get</span>(<span class="st">&quot;datawarehouse-dev&quot;</span>)
-
-con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dw &lt;-<span class="st"> </span>config<span class="op">::</span><span class="kw">get</span>(<span class="st">&quot;datawarehouse-dev&quot;</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Check that the variable loaded propery, by checking the <code>driver</code> value</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dw<span class="op">$</span>driver</code></pre></div>
+<pre><code>## [1] &quot;PostgreSQL&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use info in the config.yml file to connect to the database</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(),
    <span class="dt">Driver =</span> dw<span class="op">$</span>driver,
    <span class="dt">Server =</span> dw<span class="op">$</span>server,
    <span class="dt">UID    =</span> dw<span class="op">$</span>uid,
@@ -338,19 +355,53 @@ con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">
    <span class="dt">Database =</span> dw<span class="op">$</span>database
 )</code></pre></div>
 </div>
-<div id="use-the-os-credential-store" class="section level2">
-<h2><span class="header-section-number">1.7</span> Use the OS credential store</h2>
-<p><em>The <code>keyring</code> package can be used to store the database credentials at the OS level</em></p>
-<p>[Pending]</p>
+<div id="environment-variables" class="section level2">
+<h2><span class="header-section-number">1.7</span> Environment variables</h2>
+<p><em>Use .Renviron file to store credentials</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Open and explore the <code>.Renviron</code> file available in your working directory</p></li>
+<li><p>Confirm that the environment variables are loaded by using <code>Sys.getenv()</code></p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.getenv</span>(<span class="st">&quot;uid&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;rstudio_dev&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Pass the credentials using the environment variables</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(
+  odbc<span class="op">::</span><span class="kw">odbc</span>(),
+  <span class="dt">Driver =</span> <span class="st">&quot;PostgreSQL&quot;</span>,
+  <span class="dt">Server =</span> <span class="st">&quot;localhost&quot;</span>,
+  <span class="dt">UID    =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;uid&quot;</span>),
+  <span class="dt">PWD    =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;pwd&quot;</span>),
+  <span class="dt">Port =</span> <span class="dv">5432</span>,
+  <span class="dt">Database =</span> <span class="st">&quot;postgres&quot;</span>
+)</code></pre></div>
 </div>
-<div id="variables-pending" class="section level2">
-<h2><span class="header-section-number">1.8</span> Variables [pending]</h2>
-</div>
-<div id="options-pending" class="section level2">
-<h2><span class="header-section-number">1.9</span> options [pending]</h2>
-</div>
-<div id="prompt-pending" class="section level2">
-<h2><span class="header-section-number">1.10</span> Prompt [pending]</h2>
+<div id="use-options" class="section level2">
+<h2><span class="header-section-number">1.8</span> Use options()</h2>
+<p><em>Set options() in a separate R script</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Open and explore the <code>options.R</code> script available in your working directory</p></li>
+<li><p>Source the <code>options.R</code> script</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;options.R&quot;</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Confirm that the environment variables are loaded by using <code>Sys.getenv()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getOption</span>(<span class="st">&quot;database_userid&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;rstudio_dev&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Pass the credentials using the environment variables</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(
+  odbc<span class="op">::</span><span class="kw">odbc</span>(),
+  <span class="dt">Driver =</span> <span class="st">&quot;PostgreSQL&quot;</span>,
+  <span class="dt">Server =</span> <span class="st">&quot;localhost&quot;</span>,
+  <span class="dt">UID    =</span> <span class="kw">getOption</span>(<span class="st">&quot;database_userid&quot;</span>),
+  <span class="dt">PWD    =</span> <span class="kw">getOption</span>(<span class="st">&quot;database_password&quot;</span>),
+  <span class="dt">Port =</span> <span class="dv">5432</span>,
+  <span class="dt">Database =</span> <span class="st">&quot;postgres&quot;</span>
+)</code></pre></div>
 
 </div>
 </div>
@@ -363,13 +414,13 @@ con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">
 <a href="dplyr-basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
-<script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
-<script src="libs/gitbook/js/plugin-search.js"></script>
-<script src="libs/gitbook/js/plugin-sharing.js"></script>
-<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({

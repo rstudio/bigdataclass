@@ -11,10 +11,15 @@ library(purrr)
 library(DT)
 
 
-con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+con <- pool::dbPool(odbc::odbc(), dsn =  "Postgres Dev")
+onStop(function() {
+  poolClose(con)
+})
+
 airports <- tbl(con, in_schema("datawarehouse", "airport"))
 flights <- tbl(con, in_schema("datawarehouse", "flight"))
 carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+
 
 airline_list <- carriers %>%  
   select(carrier, carriername) %>%   

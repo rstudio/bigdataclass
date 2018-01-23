@@ -134,7 +134,35 @@ observeEvent(input$monthly_cell_clicked, {
 updateTabsetPanel(session, "tabs", selected = tab_title)
 ```
 
+## pool pakcage
+*Improve connectivity using the pool package*
+
+1.Change `dbConnect()` to `dbPool()`
+```{r, eval = FALSE}
+# Goes from this
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+
+# To this
+con <- pool::dbPool(odbc::odbc(), dsn =  "Postgres Dev")
+```
+
+2. Add an `onStop()` step to close the pool connection
+```{r, eval = FALSE}
+onStop(function() {
+  poolClose(con)
+})
+```
+
 ```{r, eval = FALSE, echo = FALSE}
+Connect Account click Next
+Select RStudio Connect
+Copy and paste RStudio Server URL and add `:3939`
+Enter your credentials
+Complete the form
+Click Proceed
+Click on Connect
+Click Publish
+
 
 ui <- dashboardPage(
   dashboardHeader(title = "Quick Example"),
@@ -195,10 +223,6 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
-
-
-
-
 
 ```{r, include = FALSE}
 dbDisconnect(con)

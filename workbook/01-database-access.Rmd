@@ -3,6 +3,7 @@
 ```{r, include = FALSE}
 library(dplyr)
 library(dbplyr)
+library(DBI)
 ```
 
 # Access a database
@@ -54,12 +55,23 @@ library(odbc)
 odbcListDrivers()[1:2]
 ```
 
-2. To see a list of DSNs available in the server
+2. Click on the *ellipsis* button located in the **Files** tab
+
+<img src="images/ellipsis.PNG" width = 300>
+
+3. Type: `/etc`
+
+<img src="images/gotofolder.PNG" width = 300>
+
+4. Locate and open the `odbcinst.ini` file
+
+5. To see a list of DSNs available in the server
 
 ```{r}
 odbcListDataSources()
 ```
 
+6. Using the *ellipsis* button again, navigate to `/etc/odbc.ini`
 
 ## Connect to a database using code
 
@@ -107,16 +119,22 @@ con <- dbConnect(
 
 ## Secure credentials in a file
 
-*Credentials can be saved in a YAML file and then read using the `config` package: http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config*
+*Credentials can be saved in a YAML file and then read using the `config` package: http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config *
 
 1. Open and explore the `config.yml` file available in your working directory
 
-2. Use the config package to connect to the database
-
+2. Load the `datawarehouse-dev` vaelus to a variable
 ```{r}
 dw <- config::get("datawarehouse-dev")
+```
 
-con <- DBI::dbConnect(odbc::odbc(),
+3. Check that the variable loaded propery, by checking the `driver` value
+```{r}
+dw$driver
+```
+4. Use info in the config.yml file to connect to the database
+```{r}
+con <- dbConnect(odbc::odbc(),
    Driver = dw$driver,
    Server = dw$server,
    UID    = dw$uid,
@@ -124,23 +142,60 @@ con <- DBI::dbConnect(odbc::odbc(),
    Port   = dw$port,
    Database = dw$database
 )
-
 ```
 
-## Use the OS credential store
+## Environment variables
+*Use .Renviron file to store credentials*
 
-*The `keyring` package can be used to store the database credentials at the OS level*
+1. Open and explore the `.Renviron` file available in your working directory
 
-[Pending]
+2. Confirm that the environment variables are loaded by using `Sys.getenv()`
+```{r}
+Sys.getenv("uid")
+```
+
+3. Pass the credentials using the environment variables
+```{r, eval = FALSE}
+con <- dbConnect(
+  odbc::odbc(),
+  Driver = "PostgreSQL",
+  Server = "localhost",
+  UID    = Sys.getenv("uid"),
+  PWD    = Sys.getenv("pwd"),
+  Port = 5432,
+  Database = "postgres"
+)
+```
+
+## Use options()
+*Set options() in a separate R script*
+
+1. Open and explore the `options.R` script available in your working directory
+
+2. Source the `options.R` script
+```{r}
+source("options.R")
+```
+3. Confirm that the environment variables are loaded by using `Sys.getenv()`
+```{r}
+getOption("database_userid")
+```
+
+3. Pass the credentials using the environment variables
+```{r, eval = FALSE}
+con <- dbConnect(
+  odbc::odbc(),
+  Driver = "PostgreSQL",
+  Server = "localhost",
+  UID    = getOption("database_userid"),
+  PWD    = getOption("database_password"),
+  Port = 5432,
+  Database = "postgres"
+)
+```
+
+
 
 ```{r, include = FALSE}
 dbDisconnect(con)
-
-6 * 60  / 10
 ```
-
-
-## Variables [pending]
-## options [pending]
-## Prompt [pending]
-
