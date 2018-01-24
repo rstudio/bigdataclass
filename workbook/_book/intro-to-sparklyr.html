@@ -139,6 +139,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.2</b> Sample manually</a></li>
 <li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.3</b> Create a model &amp; test</a></li>
 <li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.4</b> Score inside database</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.5</b> Parsed model</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
@@ -168,6 +169,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>9.2</b> Add interactivity</a></li>
 <li class="chapter" data-level="9.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>9.3</b> Add title to the new tab</a></li>
 <li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>10</b> Share and Production</a><ul>
+<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#connect-to-rsc"><i class="fa fa-check"></i><b>10.1</b> Connect to RSC</a></li>
 </ul></li>
 </ul>
 
@@ -223,6 +227,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_mtcars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_wt =</span> <span class="kw">mean</span>(wt, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: spark_connection
+##      am avg_wt
+##   &lt;dbl&gt;  &lt;dbl&gt;
+## 1  0      3.77
+## 2  1.00   2.41</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Go to the Spark UI and click the <strong>SQL</strong> button</p></li>
 <li><p>Click on the top item inside the <strong>Completed Queries</strong> table</p></li>
@@ -246,6 +256,23 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)
 <span class="kw">head</span>(file_columns)</code></pre></div>
+<pre><code>## $year
+## [1] &quot;character&quot;
+## 
+## $month
+## [1] &quot;character&quot;
+## 
+## $dayofmonth
+## [1] &quot;character&quot;
+## 
+## $dayofweek
+## [1] &quot;character&quot;
+## 
+## $deptime
+## [1] &quot;character&quot;
+## 
+## $crsdeptime
+## [1] &quot;character&quot;</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Use <code>spark_read()</code> to “map” the file’s structure and location to the Spark context</li>
 </ol>
@@ -263,6 +290,11 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: spark_connection
+##         n
+##     &lt;dbl&gt;
+## 1 7009728</code></pre>
 </div>
 <div id="caching-data" class="section level2">
 <h2><span class="header-section-number">6.5</span> Caching data</h2>
@@ -290,6 +322,21 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <li>Register the data subset as a new table called <em>sub_flights</em></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sdf_register</span>(cached_flights, <span class="st">&quot;sub_flights&quot;</span>)</code></pre></div>
+<pre><code>## # Source:   table&lt;sub_flights&gt; [?? x 8]
+## # Database: spark_connection
+##    month dayofmonth arrtime arrdelay depdelay crsarrtime crsdeptime
+##    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1  7.00       2.00    1027   - 8.00   - 4.00       1035        910
+##  2  7.00       2.00     953   -12.0    - 1.00       1005        835
+##  3  7.00       2.00    1733    13.0     15.0        1720       1555
+##  4  7.00       2.00     848   - 7.00   - 2.00        855        730
+##  5  7.00       2.00    2201   - 9.00     2.00       2210       2045
+##  6  7.00       2.00    1253   - 7.00   - 4.00       1300       1135
+##  7  7.00       2.00    1446    11.0     19.0        1435       1310
+##  8  7.00       2.00    1335     5.00     1.00       1330       1220
+##  9  7.00       2.00    1624   - 1.00     0          1625       1515
+## 10  7.00       2.00     756    11.0    - 3.00        745        630
+## # ... with more rows, and 1 more variable: distance &lt;dbl&gt;</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Use <code>tbl_cache()</code> to extract the data into Spark memory</li>
 </ol>
@@ -299,6 +346,11 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: spark_connection
+##         n
+##     &lt;dbl&gt;
+## 1 7009728</code></pre>
 </div>
 <div id="sdf-functions" class="section level2">
 <h2><span class="header-section-number">6.6</span> <code>sdf</code> Functions</h2>
@@ -309,6 +361,25 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">sdf_pivot</span>(month <span class="op">~</span><span class="st"> </span>dayofmonth)</code></pre></div>
+<pre><code>## # Source:   table&lt;sparklyr_tmp_46483ee0b79f&gt; [?? x 32]
+## # Database: spark_connection
+##    month `1.0` `2.0` `3.0` `4.0` `5.0` `6.0` `7.0` `8.0` `9.0` `10.0`
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1  1.00 19187 20954 20937 20929 18069 19897 20347 19604 19820  20305
+##  2  2.00 20334 16176 18857 20163 19490 19760 20254 20308 16142  18895
+##  3  3.00 16973 19379 20630 20275 20561 20679 20699 17273 19545  20635
+##  4  4.00 20255 20520 20684 20734 17183 19543 20642 20135 20516  20708
+##  5  5.00 20522 20579 16893 19362 20434 19922 20301 20504 20565  16907
+##  6  6.00 19523 20593 20134 20474 20791 20877 17882 19895 20832  20605
+##  7  7.00 20742 20937 20891 15994 17603 20130 21042 20409 19593  21058
+##  8  8.00 21009 18104 20026 20928 20636 20807 20925 20993 18087  20027
+##  9  9.00 18977 19293 18729 18961 19021 14643 17850 18855 18089  18457
+## 10 10.0  18294 18779 18851 14527 17685 18747 18047 18420 18849  18882
+## # ... with more rows, and 21 more variables: `11.0` &lt;dbl&gt;, `12.0` &lt;dbl&gt;,
+## #   `13.0` &lt;dbl&gt;, `14.0` &lt;dbl&gt;, `15.0` &lt;dbl&gt;, `16.0` &lt;dbl&gt;, `17.0` &lt;dbl&gt;,
+## #   `18.0` &lt;dbl&gt;, `19.0` &lt;dbl&gt;, `20.0` &lt;dbl&gt;, `21.0` &lt;dbl&gt;, `22.0` &lt;dbl&gt;,
+## #   `23.0` &lt;dbl&gt;, `24.0` &lt;dbl&gt;, `25.0` &lt;dbl&gt;, `26.0` &lt;dbl&gt;, `27.0` &lt;dbl&gt;,
+## #   `28.0` &lt;dbl&gt;, `29.0` &lt;dbl&gt;, `30.0` &lt;dbl&gt;, `31.0` &lt;dbl&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>sdf_partition()</code> to sepparate the data into discrete groups</li>
 </ol>
@@ -316,6 +387,11 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <span class="st">  </span><span class="kw">sdf_partition</span>(<span class="dt">training =</span> <span class="fl">0.01</span>, <span class="dt">testing =</span> <span class="fl">0.09</span>, <span class="dt">other =</span> <span class="fl">0.9</span>)
 
 <span class="kw">tally</span>(partition<span class="op">$</span>training)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: spark_connection
+##       n
+##   &lt;dbl&gt;
+## 1 70040</code></pre>
 </div>
 <div id="feature-transformers" class="section level2">
 <h2><span class="header-section-number">6.7</span> Feature transformers</h2>
@@ -334,6 +410,21 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
     delayed
   ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: spark_connection
+##    depdelay delayed
+##       &lt;dbl&gt;   &lt;dbl&gt;
+##  1   - 4.00    0   
+##  2   - 1.00    0   
+##  3    15.0     0   
+##  4   - 2.00    0   
+##  5     2.00    0   
+##  6   - 4.00    0   
+##  7    19.0     1.00
+##  8     1.00    0   
+##  9     0       0   
+## 10   - 3.00    0   
+## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>ft_bucketizer()</code> to split the data into groups</li>
 </ol>
@@ -348,6 +439,21 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
     dephour
   ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: spark_connection
+##    crsdeptime dephour
+##         &lt;dbl&gt;   &lt;dbl&gt;
+##  1        910    2.00
+##  2        835    2.00
+##  3       1555    3.00
+##  4        730    1.00
+##  5       2045    5.00
+##  6       1135    2.00
+##  7       1310    3.00
+##  8       1220    3.00
+##  9       1515    3.00
+## 10        630    1.00
+## # ... with more rows</code></pre>
 </div>
 <div id="fit-a-model-with-sparklyr" class="section level2">
 <h2><span class="header-section-number">6.8</span> Fit a model with <code>sparklyr</code></h2>
@@ -383,6 +489,13 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <li>View the model results</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(delayed_model)</code></pre></div>
+<pre><code>## Call: ml_logistic_regression.tbl_spark(., delayed ~ depdelay + dephour)  
+## 
+## Coefficients:
+## (Intercept)    depdelay  dephour_h2  dephour_h3  dephour_h4  dephour_h1 
+## -2.83253424  0.13804006  0.22923897  0.16554232  0.18574870  0.23132122 
+##  dephour_h5 
+##  0.05709073</code></pre>
 </div>
 <div id="run-predictions-in-spark" class="section level2">
 <h2><span class="header-section-number">6.9</span> Run predictions in Spark</h2>
@@ -393,12 +506,35 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing &lt;-<span class="st"> </span><span class="kw">sdf_predict</span>(delayed_model, sample_data<span class="op">$</span>testing)
 delayed_testing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 18]
+## # Database: spark_connection
+##   month dayofmonth arrtime arrdelay depdelay crsarrtime crsdeptime
+##   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1  3.00       1.00       0        0        0        700        619
+## 2  3.00       1.00       0        0        0        812        630
+## 3  3.00       1.00       0        0        0        900        600
+## 4  3.00       1.00       0        0        0        907        705
+## 5  3.00       1.00       0        0        0        907        720
+## 6  3.00       1.00       0        0        0        918        739
+## # ... with 11 more variables: distance &lt;dbl&gt;, delayed &lt;dbl&gt;,
+## #   dephour &lt;chr&gt;, features &lt;list&gt;, label &lt;dbl&gt;, rawPrediction &lt;list&gt;,
+## #   probability &lt;list&gt;, prediction &lt;dbl&gt;, predicted_label &lt;chr&gt;,
+## #   probability_0_0 &lt;dbl&gt;, probability_1_0 &lt;dbl&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>group_by()</code> to see how effective the new model is</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(delayed, prediction) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: spark_connection
+## # Groups:   delayed
+##   delayed prediction      n
+##     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+## 1    0          1.00  10237
+## 2    0          0    487848
+## 3    1.00       1.00  91150
+## 4    1.00       0     40648</code></pre>
 
 </div>
 </div>

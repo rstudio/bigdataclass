@@ -222,6 +222,26 @@ test$raw_results %>%
   filter(fit_threshold)
 ```
 
+## Parsed model
+*Quick review of the model parser*
+
+1. Use the `parse_model()` function to see how `tidypredict` interprets the model
+```{r}
+pm <- parse_model(model_lm)
+pm
+```
+
+2. Verify that the resulting table can be used to get the fit formula
+```{r}
+tidypredict_fit(pm)
+```
+
+3. Save the parsed model for later use
+```{r}
+library(readr)
+write_csv(pm, "parsedmodel.csv")
+``` 
+
 ```{r, include = FALSE}
 dbDisconnect(con)
 ```

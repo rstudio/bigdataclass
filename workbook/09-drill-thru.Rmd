@@ -154,14 +154,6 @@ onStop(function() {
 ```
 
 ```{r, eval = FALSE, echo = FALSE}
-Connect Account click Next
-Select RStudio Connect
-Copy and paste RStudio Server URL and add `:3939`
-Enter your credentials
-Complete the form
-Click Proceed
-Click on Connect
-Click Publish
 
 
 ui <- dashboardPage(

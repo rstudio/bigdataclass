@@ -1,0 +1,63 @@
+#Share and Production
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+
+```{r, include = FALSE}
+
+library(dplyr)
+library(dbplyr)
+library(DBI)
+library(dbplot)
+library(purrr)
+
+# Class catchup
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+airports <- tbl(con, in_schema("datawarehouse", "airport"))
+flights <- tbl(con, in_schema("datawarehouse", "flight"))
+carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+
+airline_list <- carriers %>%  
+  select(carrier, carriername) %>%   
+  collect()  %>%                     
+  split(.$carriername) %>%           
+  map(~.$carrier)     
+
+```
+
+## Connect to RSC
+*Use RStudio Connect to publish work internally in the enterprise*
+
+1. Open the dashboard `app.R` file
+
+2. Click on File
+
+3. Click on Publish
+
+4. Connect Account click Next
+
+5. Select RStudio Connect
+
+<img src="images/select-connect.PNG" width = 400>
+
+6. Copy and paste **your** RStudio Server URL and add `:3939`
+
+<img src="images/rsc-server.PNG" width = 400>
+
+7. Enter your credentials
+
+8. Complete the form
+
+9. Click Proceed
+
+10. Click on Connect
+
+11. Click Publish
+
+
+
+
+
+

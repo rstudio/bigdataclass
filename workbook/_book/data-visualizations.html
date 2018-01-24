@@ -139,6 +139,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.2</b> Sample manually</a></li>
 <li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.3</b> Create a model &amp; test</a></li>
 <li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.4</b> Score inside database</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.5</b> Parsed model</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
@@ -168,6 +169,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>9.2</b> Add interactivity</a></li>
 <li class="chapter" data-level="9.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>9.3</b> Add title to the new tab</a></li>
 <li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>10</b> Share and Production</a><ul>
+<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#connect-to-rsc"><i class="fa fa-check"></i><b>10.1</b> Connect to RSC</a></li>
 </ul></li>
 </ul>
 
@@ -332,21 +336,22 @@ top5</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) </code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 29]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##     year month dayo… dayo… dept… crsd… arrt… crsa… uniq… flig… tail… actu…
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
-##  1  2008  7.00  18.0  5.00  1410  1410  1545  1600 WN     2976 N407…  95.0
-##  2  2008  7.00  18.0  5.00  1947  1935  2047  2045 WN     1154 N656…  60.0
-##  3  2008  7.00  18.0  5.00  1154  1155  1259  1305 WN     2629 N225…  65.0
-##  4  2008  7.00  18.0  5.00   700   700   805   810 WN     3133 N660…  65.0
-##  5  2008  7.00  18.0  5.00  1228  1230  1341  1410 WN     2355 N490… 193  
-##  6  2008  7.00  18.0  5.00  1853  1855  2101  2105 WN     1947 N293   68.0
-##  7  2008  7.00  18.0  5.00  1050  1050  1259  1300 WN     2610 N221…  69.0
-##  8  2008  7.00  18.0  5.00   755   745   906   905 WN     2084 N472…  71.0
-##  9  2008  7.00  18.0  5.00   936   935  1201  1155 WN     1804 N390…  85.0
-## 10  2008  7.00  18.0  5.00  1334  1325  1606  1545 WN     2471 N308…  92.0
-## # ... with more rows, and 17 more variables: crselapsedtime &lt;dbl&gt;,
-## #   airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;,
-## #   dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
+##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
+##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+##  1  2008  7.00       18.0      5.00    1410       1410    1545       1600
+##  2  2008  7.00       18.0      5.00    1947       1935    2047       2045
+##  3  2008  7.00       18.0      5.00    1154       1155    1259       1305
+##  4  2008  7.00       18.0      5.00     700        700     805        810
+##  5  2008  7.00       18.0      5.00    1228       1230    1341       1410
+##  6  2008  7.00       18.0      5.00    1853       1855    2101       2105
+##  7  2008  7.00       18.0      5.00    1050       1050    1259       1300
+##  8  2008  7.00       18.0      5.00     755        745     906        905
+##  9  2008  7.00       18.0      5.00     936        935    1201       1155
+## 10  2008  7.00       18.0      5.00    1334       1325    1606       1545
+## # ... with more rows, and 21 more variables: uniquecarrier &lt;chr&gt;,
+## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
+## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
 ## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
 ## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
 ## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;</code></pre>
