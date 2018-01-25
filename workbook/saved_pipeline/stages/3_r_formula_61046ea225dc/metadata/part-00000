@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.RFormula","timestamp":1516810244583,"sparkVersion":"2.1.0","uid":"r_formula_61046ea225dc","paramMap":{"labelCol":"label","forceIndexLabel":false,"featuresCol":"features","formula":"delayed ~ arrdelay + dephour"}}

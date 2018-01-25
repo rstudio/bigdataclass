@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.Bucketizer","timestamp":1516810244537,"sparkVersion":"2.1.0","uid":"bucketizer_61049871837","paramMap":{"inputCol":"crsdeptime","outputCol":"dephour","handleInvalid":"error","splits":[0.0,400.0,800.0,1200.0,1600.0,2000.0,2400.0]}}

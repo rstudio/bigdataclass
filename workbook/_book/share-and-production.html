@@ -113,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
 <li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
 <li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.5</b> Using bang-bang</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
@@ -171,7 +172,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>10</b> Share and Production</a><ul>
-<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#connect-to-rsc"><i class="fa fa-check"></i><b>10.1</b> Connect to RSC</a></li>
+<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>10.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>10.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="10.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>10.3</b> Scheduled pipeline</a></li>
 </ul></li>
 </ul>
 
@@ -192,8 +195,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="share-and-production" class="section level1">
 <h1><span class="header-section-number">10</span> Share and Production</h1>
-<div id="connect-to-rsc" class="section level2">
-<h2><span class="header-section-number">10.1</span> Connect to RSC</h2>
+<div id="publish-dashboard" class="section level2">
+<h2><span class="header-section-number">10.1</span> Publish dashboard</h2>
 <p><em>Use RStudio Connect to publish work internally in the enterprise</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Open the dashboard <code>app.R</code> file</p></li>
@@ -213,6 +216,117 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p>Click Proceed</p></li>
 <li><p>Click on Connect</p></li>
 <li><p>Click Publish</p></li>
+</ol>
+</div>
+<div id="schedule-scoring" class="section level2">
+<h2><span class="header-section-number">10.2</span> Schedule scoring</h2>
+<p><em>Use the tidypredict model to score and write back to the database</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(dbplyr)
+<span class="kw">library</span>(tidypredict)
+<span class="kw">library</span>(DBI)
+<span class="kw">library</span>(lubridate)
+
+dw &lt;-<span class="st"> </span>config<span class="op">::</span><span class="kw">get</span>(<span class="st">&quot;datawarehouse-dev&quot;</span>)
+
+con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(),
+   <span class="dt">Driver =</span> dw<span class="op">$</span>driver,
+   <span class="dt">Server =</span> dw<span class="op">$</span>server,
+   <span class="dt">UID    =</span> dw<span class="op">$</span>uid,
+   <span class="dt">PWD    =</span> dw<span class="op">$</span>pwd,
+   <span class="dt">Port   =</span> dw<span class="op">$</span>port,
+   <span class="dt">Database =</span> dw<span class="op">$</span>database
+)
+flights &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;flight&quot;</span>))
+
+<span class="co">#head(flights)</span>
+
+parsedmodel &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;parsedmodel.csv&quot;</span>)
+
+predictions &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    month <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">month</span>(<span class="kw">now</span>()),
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">day</span>(<span class="kw">now</span>())
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidypredict_to_column</span>(parsedmodel) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(
+    <span class="dt">pred_flightid =</span> flightid, 
+    <span class="dt">pred_fit =</span> fit,
+    <span class="dt">check_score =</span> nasdelay)
+
+update_statement &lt;-<span class="st"> </span><span class="kw">build_sql</span>(
+  <span class="st">&quot;UPDATE datawarehouse.flight SET nasdelay = pred_fit FROM (&quot;</span>,
+  <span class="kw">remote_query</span>(predictions),
+  <span class="st">&quot;) as p &quot;</span>,
+  <span class="st">&quot;WHERE pred_flightid = flightid&quot;</span>,
+  <span class="dt">con =</span> con
+)
+
+
+<span class="kw">dbSendQuery</span>(con, update_statement)</code></pre></div>
+</div>
+<div id="scheduled-pipeline" class="section level2">
+<h2><span class="header-section-number">10.3</span> Scheduled pipeline</h2>
+<p><em>See how to automate the pipeline model to run on a daily basis</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Create a new <strong>RMarkdown</strong> document, and save it inside the <em>saved_pipeline</em> folder</p></li>
+<li><p>Copy the code from the <strong>Reload Pipeline</strong> exercise into the new document</p></li>
+<li><p>Add the <code>top_rows</code> and <code>file_columns</code> code from the <code>Intro to sparklyr</code> section</p></li>
+<li><p>Move the <em>saved_model</em> folder under <em>/tmp</em></p></li>
+<li><p>Change the <code>ml_load()</code> location to <code>&quot;/tmp/saved_model&quot;</code></p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(lubridate)
+<span class="kw">library</span>(sparklyr)
+
+top_rows &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/usr/share/flights/data/flight_2008_1.csv&quot;</span>, <span class="dt">nrows =</span> <span class="dv">5</span>)
+file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)
+
+sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;2.1.0&quot;</span>)
+spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(
+  sc,
+  <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>,
+  <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/flights_2008.csv&quot;</span>,
+  <span class="dt">memory =</span> <span class="ot">FALSE</span>,
+  <span class="dt">columns =</span> file_columns,
+  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>
+)
+
+reload &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;/tmp/saved_model&quot;</span>)
+
+current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    month <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">month</span>(<span class="kw">now</span>()),
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">day</span>(<span class="kw">now</span>())
+  )
+
+new_predictions &lt;-<span class="st"> </span><span class="kw">ml_transform</span>(
+  <span class="dt">x =</span> reload,
+  <span class="dt">dataset =</span> current
+)
+
+new_predictions <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">late_fligths =</span> <span class="kw">sum</span>(prediction, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+
+<span class="kw">spark_disconnect</span>(sc)</code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Click on File and then Publish</p></li>
+<li><p>Select <em>Publish just this document</em></p></li>
+<li><p>Click <em>Publish anyway</em> on the warning</p></li>
+<li><p>In RStudio Connect, select <code>Schedule</code></p></li>
+<li><p>Click on <code>Schedule output for default</code></p></li>
+<li><p>Click on <code>Run every weekday (Monday to Friday)</code></p></li>
+<li><p>Click Save</p></li>
 </ol>
 
 </div>

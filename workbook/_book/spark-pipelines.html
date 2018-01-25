@@ -113,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
 <li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
 <li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.5</b> Using bang-bang</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
@@ -171,7 +172,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>10</b> Share and Production</a><ul>
-<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#connect-to-rsc"><i class="fa fa-check"></i><b>10.1</b> Connect to RSC</a></li>
+<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>10.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>10.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="10.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>10.3</b> Scheduled pipeline</a></li>
 </ul></li>
 </ul>
 
@@ -293,22 +296,33 @@ spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reload &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_model&quot;</span>)
 reload</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li>Create a new table called <em>current</em> but with different filters that the original <em>current</em> table</li>
+<li>Create a new table called <em>current</em>. It needs to pull today’s flights</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
+
+current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(
-    month <span class="op">==</span><span class="st"> &quot;2&quot;</span>,
-    dayofmonth <span class="op">==</span><span class="st"> &quot;1&quot;</span>
-  )</code></pre></div>
+    month <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">month</span>(<span class="kw">now</span>()),
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">day</span>(<span class="kw">now</span>())
+  )
+
+<span class="kw">show_query</span>(current)</code></pre></div>
 <ol start="5" style="list-style-type: decimal">
+<li>Create a new table called <em>current</em>. It needs to pull today’s flights</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(current)</code></pre></div>
+<ol start="6" style="list-style-type: decimal">
 <li>Run predictions against the new data set</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_predictions &lt;-<span class="st"> </span><span class="kw">ml_transform</span>(
-  <span class="dt">x =</span> reload, 
+  <span class="dt">x =</span> reload,
   <span class="dt">dataset =</span> current
-  )
-
-<span class="kw">head</span>(new_predictions)</code></pre></div>
+)</code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>Get a quick count of expected delayed flights</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_predictions <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">late_fligths =</span> <span class="kw">sum</span>(prediction, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
 </div>
 <div id="reload-pipeline" class="section level2">
 <h2><span class="header-section-number">7.4</span> Reload pipeline</h2>

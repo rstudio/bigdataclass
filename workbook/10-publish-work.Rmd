@@ -27,7 +27,7 @@ airline_list <- carriers %>%
 
 ```
 
-## Connect to RSC
+## Publish dashboard
 *Use RStudio Connect to publish work internally in the enterprise*
 
 1. Open the dashboard `app.R` file
@@ -55,6 +55,149 @@ airline_list <- carriers %>%
 10. Click on Connect
 
 11. Click Publish
+
+## Schedule scoring
+*Use the tidypredict model to score and write back to the database*
+
+
+1. Create a new RMarkdown
+
+2. Copy the code from the excercise
+```{r, eval = FALSE}
+library(tidyverse)
+library(dbplyr)
+library(tidypredict)
+library(DBI)
+library(lubridate)
+
+dw <- config::get("datawarehouse-dev")
+
+con <- dbConnect(odbc::odbc(),
+   Driver = dw$driver,
+   Server = dw$server,
+   UID    = dw$uid,
+   PWD    = dw$pwd,
+   Port   = dw$port,
+   Database = dw$database
+)
+flights <- tbl(con, in_schema("datawarehouse", "flight"))
+
+#head(flights)
+
+parsedmodel <- read_csv("parsedmodel.csv")
+
+predictions <- flights %>%
+  filter(
+    month == !! month(now()),
+    dayofmonth == !! day(now())
+  ) %>%
+  mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  tidypredict_to_column(parsedmodel) %>%
+  select(
+    pred_flightid = flightid, 
+    pred_fit = fit,
+    check_score = nasdelay)
+
+update_statement <- build_sql(
+  "UPDATE datawarehouse.flight SET nasdelay = pred_fit FROM (",
+  remote_query(predictions),
+  ") as p ",
+  "WHERE pred_flightid = flightid",
+  con = con
+)
+
+
+dbSendQuery(con, update_statement)
+
+```
+
+6. Click on File and then Publish
+
+7. Select *Publish just this document*
+
+8. Click *Publish anyway* on the warning
+
+9. In RStudio Connect, select `Schedule`
+
+10. Click on `Schedule output for default`
+
+11. Click on `Run every weekday (Monday to Friday)`
+
+12. Click Save
+
+## Scheduled pipeline
+*See how to automate the pipeline model to run on a daily basis*
+
+1. Create a new **RMarkdown** document
+
+2. Copy the code from the **Reload Pipeline** exercise into the new document
+
+3. Add the `top_rows` and `file_columns` code from the `Intro to sparklyr` section
+
+4. Move the *saved_model* folder under */tmp*
+
+5. Change the `ml_load()` location to `"/tmp/saved_model"`
+```{r, eval = FALSE}
+library(tidyverse)
+library(lubridate)
+library(sparklyr)
+
+top_rows <- read.csv("/usr/share/flights/data/flight_2008_1.csv", nrows = 5)
+file_columns <- top_rows %>%
+  rename_all(tolower) %>%
+  map(function(x) "character")
+
+sc <- spark_connect(master = "local", version = "2.1.0")
+spark_flights <- spark_read_csv(
+  sc,
+  name = "flights",
+  path = "/usr/share/flights/flights_2008.csv",
+  memory = FALSE,
+  columns = file_columns,
+  infer_schema = FALSE
+)
+
+reload <- ml_load(sc, "/tmp/saved_model")
+
+current <- tbl(sc, "flights") %>%
+  filter(
+    month == !! month(now()),
+    dayofmonth == !! day(now())
+  )
+
+new_predictions <- ml_transform(
+  x = reload,
+  dataset = current
+)
+
+new_predictions %>%
+  summarise(late_fligths = sum(prediction, na.rm = TRUE))
+
+spark_disconnect(sc)
+
+```
+
+6. Click on File and then Publish
+
+7. Select *Publish just this document*
+
+8. Click *Publish anyway* on the warning
+
+9. In RStudio Connect, select `Schedule`
+
+10. Click on `Schedule output for default`
+
+11. Click on `Run every weekday (Monday to Friday)`
+
+12. Click Save
+
 
 
 

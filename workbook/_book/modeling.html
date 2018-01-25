@@ -113,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
 <li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
 <li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.5</b> Using bang-bang</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
@@ -171,7 +172,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>10</b> Share and Production</a><ul>
-<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#connect-to-rsc"><i class="fa fa-check"></i><b>10.1</b> Connect to RSC</a></li>
+<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>10.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>10.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="10.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>10.3</b> Scheduled pipeline</a></li>
 </ul></li>
 </ul>
 
@@ -207,7 +210,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Test the efficacy of the sampling with a plot</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(sample_table, distance)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-210-1.png" width="672" /></p>
 </div>
 <div id="sample-manually" class="section level2">
 <h2><span class="header-section-number">5.2</span> Sample manually</h2>
@@ -262,7 +265,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Test the function</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sample_segment</span>(<span class="dv">3</span>), <span class="dv">100</span>)</code></pre></div>
-<pre><code>## # A tibble: 100 x 30
+<pre><code>## # A tibble: 100 x 31
 ##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
 ##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
 ##  1  2008  3.00       3.00      1.00    1334       1325  1409       1410  
@@ -275,13 +278,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  8  2008  3.00       4.00      2.00    2129       2135    39.0       55.0
 ##  9  2008  3.00       4.00      2.00    1306       1305  1358       1410  
 ## 10  2008  3.00       4.00      2.00    1913       1850  2026       2015  
-## # ... with 90 more rows, and 22 more variables: uniquecarrier &lt;chr&gt;,
+## # ... with 90 more rows, and 23 more variables: uniquecarrier &lt;chr&gt;,
 ## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
 ## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
 ## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
 ## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
 ## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
-## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, row &lt;S3: integer64&gt;</code></pre>
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, flightid &lt;int&gt;, row &lt;S3:
+## #   integer64&gt;</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Use <code>map_df()</code> to run the function for each month</li>
 </ol>
@@ -291,7 +295,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Verify sample with a histogram</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(new_sample, distance)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-220-1.png" width="672" /></p>
 </div>
 <div id="create-a-model-test" class="section level2">
 <h2><span class="header-section-number">5.3</span> Create a model &amp; test</h2>
@@ -319,21 +323,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -202.498   -7.584   -1.295    5.261  196.263 
+## -200.294   -7.384   -1.186    5.175  183.902 
 ## 
 ## Coefficients:
 ##                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   -3.165814   0.344705  -9.184  &lt; 2e-16 ***
-## seasonSpring   1.507999   0.487334   3.094  0.00198 ** 
-## seasonSummmer  0.904464   0.487796   1.854  0.06375 .  
-## seasonWinter   1.911854   0.489637   3.905 9.52e-05 ***
-## depdelay       1.023795   0.004793 213.602  &lt; 2e-16 ***
+## (Intercept)   -3.111415   0.337908  -9.208  &lt; 2e-16 ***
+## seasonSpring   1.577236   0.477733   3.301 0.000966 ***
+## seasonSummmer  1.286903   0.478356   2.690 0.007156 ** 
+## seasonWinter   1.794533   0.479908   3.739 0.000186 ***
+## depdelay       1.010592   0.004575 220.905  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 14.6 on 7195 degrees of freedom
-## Multiple R-squared:  0.8657, Adjusted R-squared:  0.8657 
-## F-statistic: 1.16e+04 on 4 and 7195 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 14.31 on 7195 degrees of freedom
+## Multiple R-squared:  0.8733, Adjusted R-squared:  0.8732 
+## F-statistic: 1.24e+04 on 4 and 7195 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Create a test data set by combining the sampling and model data set routines</li>
 </ol>
@@ -360,8 +364,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## # A tibble: 2 x 3
 ##   over      n percent
 ##   &lt;lgl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1 F       385   0.320
-## 2 T       815   0.680</code></pre>
+## 1 F       384   0.320
+## 2 T       816   0.680</code></pre>
 </div>
 <div id="score-inside-database" class="section level2">
 <h2><span class="header-section-number">5.4</span> Score inside database</h2>
@@ -372,15 +376,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidypredict)
 
 <span class="kw">tidypredict_fit</span>(model_lm)</code></pre></div>
-<pre><code>## ((((-3.1658137881201) + ((ifelse((season) == (&quot;Spring&quot;), 1, 0)) * 
-##     (1.5079986648297))) + ((ifelse((season) == (&quot;Summmer&quot;), 1, 
-##     0)) * (0.904463744367426))) + ((ifelse((season) == (&quot;Winter&quot;), 
-##     1, 0)) * (1.91185411320333))) + ((depdelay) * (1.02379514814137))</code></pre>
+<pre><code>## ((((-3.11141538856176) + ((ifelse((season) == (&quot;Spring&quot;), 1, 
+##     0)) * (1.57723632575646))) + ((ifelse((season) == (&quot;Summmer&quot;), 
+##     1, 0)) * (1.28690319865656))) + ((ifelse((season) == (&quot;Winter&quot;), 
+##     1, 0)) * (1.7945327269226))) + ((depdelay) * (1.01059165310291))</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>tidypredict_sql()</code> to see the resulting SQL statement</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_sql</span>(model_lm, con)</code></pre></div>
-<pre><code>## &lt;SQL&gt; ((((-3.1658137881201) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (0.0) END) * (1.5079986648297))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (0.0) END) * (0.904463744367426))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (0.0) END) * (1.91185411320333))) + ((&quot;depdelay&quot;) * (1.02379514814137))</code></pre>
+<pre><code>## &lt;SQL&gt; ((((-3.11141538856176) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (0.0) END) * (1.57723632575646))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (0.0) END) * (1.28690319865656))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (0.0) END) * (1.7945327269226))) + ((&quot;depdelay&quot;) * (1.01059165310291))</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Run the prediction inside <code>dplyr</code></li>
 </ol>
@@ -402,12 +406,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   season depdelay    fit
 ##   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Winter    19.0   18.2 
-## 2 Winter     0    - 1.25
+## 1 Winter    19.0   17.9 
+## 2 Winter     0    - 1.32
 ## 3 Winter   - 5.00 - 6.37
-## 4 Winter   - 9.00 -10.5 
-## 5 Winter   - 6.00 - 7.40
-## 6 Winter    50.0   49.9</code></pre>
+## 4 Winter   - 9.00 -10.4 
+## 5 Winter   - 6.00 - 7.38
+## 6 Winter    50.0   49.2</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>View the SQL behind the <code>dplyr</code> command</li>
 </ol>
@@ -425,9 +429,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">select</span>( season, depdelay) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tidypredict_to_column</span>(model_lm) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">remote_query</span>()</code></pre></div>
-<pre><code>## &lt;SQL&gt; SELECT &quot;season&quot;, &quot;depdelay&quot;, ((((-3.1658137881201) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (0.0) END) * (1.5079986648297))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (0.0) END) * (0.904463744367426))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (0.0) END) * (1.91185411320333))) + ((&quot;depdelay&quot;) * (1.02379514814137)) AS &quot;fit&quot;
+<pre><code>## &lt;SQL&gt; SELECT &quot;season&quot;, &quot;depdelay&quot;, ((((-3.11141538856176) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (0.0) END) * (1.57723632575646))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (0.0) END) * (1.28690319865656))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (0.0) END) * (1.7945327269226))) + ((&quot;depdelay&quot;) * (1.01059165310291)) AS &quot;fit&quot;
 ## FROM (SELECT &quot;season&quot;, &quot;depdelay&quot;
-## FROM (SELECT &quot;year&quot;, &quot;month&quot;, &quot;dayofmonth&quot;, &quot;dayofweek&quot;, &quot;deptime&quot;, &quot;crsdeptime&quot;, &quot;arrtime&quot;, &quot;crsarrtime&quot;, &quot;uniquecarrier&quot;, &quot;flightnum&quot;, &quot;tailnum&quot;, &quot;actualelapsedtime&quot;, &quot;crselapsedtime&quot;, &quot;airtime&quot;, &quot;arrdelay&quot;, &quot;depdelay&quot;, &quot;origin&quot;, &quot;dest&quot;, &quot;distance&quot;, &quot;taxiin&quot;, &quot;taxiout&quot;, &quot;cancelled&quot;, &quot;cancellationcode&quot;, &quot;diverted&quot;, &quot;carrierdelay&quot;, &quot;weatherdelay&quot;, &quot;nasdelay&quot;, &quot;securitydelay&quot;, &quot;lateaircraftdelay&quot;, CASE
+## FROM (SELECT &quot;year&quot;, &quot;month&quot;, &quot;dayofmonth&quot;, &quot;dayofweek&quot;, &quot;deptime&quot;, &quot;crsdeptime&quot;, &quot;arrtime&quot;, &quot;crsarrtime&quot;, &quot;uniquecarrier&quot;, &quot;flightnum&quot;, &quot;tailnum&quot;, &quot;actualelapsedtime&quot;, &quot;crselapsedtime&quot;, &quot;airtime&quot;, &quot;arrdelay&quot;, &quot;depdelay&quot;, &quot;origin&quot;, &quot;dest&quot;, &quot;distance&quot;, &quot;taxiin&quot;, &quot;taxiout&quot;, &quot;cancelled&quot;, &quot;cancellationcode&quot;, &quot;diverted&quot;, &quot;carrierdelay&quot;, &quot;weatherdelay&quot;, &quot;nasdelay&quot;, &quot;securitydelay&quot;, &quot;lateaircraftdelay&quot;, &quot;flightid&quot;, CASE
 ## WHEN (&quot;month&quot; &gt;= 3.0 AND &quot;month&quot; &lt;= 5.0) THEN (&#39;Spring&#39;)
 ## WHEN (&quot;month&quot; &gt;= 6.0 AND &quot;month&quot; &lt;= 8.0) THEN (&#39;Summmer&#39;)
 ## WHEN (&quot;month&quot; &gt;= 9.0 AND &quot;month&quot; &lt;= 11.0) THEN (&#39;Fall&#39;)
@@ -444,7 +448,7 @@ test</code></pre></div>
 <pre><code>## tidypredict test results
 ## Difference threshold: 1e-12
 ## 
-## Fitted records above the threshold: 8
+## Fitted records above the threshold: 10
 ## 
 ## Fit max  difference:
 ## Lower max difference:
@@ -454,15 +458,17 @@ test</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test<span class="op">$</span>raw_results <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(fit_threshold)</code></pre></div>
-<pre><code>##   rowid      fit   fit_te     fit_diff fit_threshold
-## 1  1085 953.9469 953.9469 3.296918e-12          TRUE
-## 2  2198 422.1934 422.1934 1.477929e-12          TRUE
-## 3  3418 929.3922 929.3922 3.183231e-12          TRUE
-## 4  5757 328.5438 328.5438 1.136868e-12          TRUE
-## 5  6676 317.1463 317.1463 1.136868e-12          TRUE
-## 6  6703 289.5039 289.5039 1.023182e-12          TRUE
-## 7  7014 605.8566 605.8566 2.046363e-12          TRUE
-## 8  7019 285.4087 285.4087 1.023182e-12          TRUE</code></pre>
+<pre><code>##    rowid      fit   fit_te     fit_diff fit_threshold
+## 1   1085 941.5651 941.5651 3.296918e-12          TRUE
+## 2   2198 416.8508 416.8508 1.477929e-12          TRUE
+## 3   3418 917.8139 917.8139 3.296918e-12          TRUE
+## 4   3895 317.5225 317.5225 1.080025e-12          TRUE
+## 5   3919 383.2109 383.2109 1.307399e-12          TRUE
+## 6   3990 288.2153 288.2153 1.023182e-12          TRUE
+## 7   5757 324.3203 324.3203 1.136868e-12          TRUE
+## 8   6676 312.9771 312.9771 1.080025e-12          TRUE
+## 9   7014 597.9640 597.9640 2.160050e-12          TRUE
+## 10  7019 281.6488 281.6488 1.023182e-12          TRUE</code></pre>
 </div>
 <div id="parsed-model" class="section level2">
 <h2><span class="header-section-number">5.5</span> Parsed model</h2>
@@ -475,25 +481,25 @@ pm</code></pre></div>
 <pre><code>## # A tibble: 10 x 11
 ##    labels     estimate type   field_1 field_2     qr_1      qr_2      qr_3
 ##    &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-##  1 (Intercep…  - 3.17  term   &lt;NA&gt;    &lt;NA&gt;    - 0.0118 - 0.00680 - 0.00962
-##  2 seasonSpr…    1.51  term   &lt;NA&gt;    Spring    0        0.0272    0.00962
-##  3 seasonSum…    0.904 term   &lt;NA&gt;    Summmer   0        0         0.0289 
-##  4 seasonWin…    1.91  term   &lt;NA&gt;    Winter    0        0         0      
-##  5 depdelay      1.02  term   {{:}}   &lt;NA&gt;      0        0         0      
-##  6 labels        0     varia… depdel… season   NA       NA        NA      
-##  7 model        NA     varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
-##  8 version      NA     varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
-##  9 residual     NA     varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
-## 10 sigma2       NA     varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
+##  1 (Intercep…   - 3.11 term   &lt;NA&gt;    &lt;NA&gt;    - 0.0118 - 0.00680 - 0.00962
+##  2 seasonSpr…     1.58 term   &lt;NA&gt;    Spring    0        0.0272    0.00962
+##  3 seasonSum…     1.29 term   &lt;NA&gt;    Summmer   0        0         0.0289 
+##  4 seasonWin…     1.79 term   &lt;NA&gt;    Winter    0        0         0      
+##  5 depdelay       1.01 term   {{:}}   &lt;NA&gt;      0        0         0      
+##  6 labels         0    varia… depdel… season   NA       NA        NA      
+##  7 model         NA    varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
+##  8 version       NA    varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
+##  9 residual      NA    varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
+## 10 sigma2        NA    varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
 ## # ... with 3 more variables: qr_4 &lt;dbl&gt;, qr_5 &lt;dbl&gt;, vals &lt;chr&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Verify that the resulting table can be used to get the fit formula</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_fit</span>(pm)</code></pre></div>
-<pre><code>## ((((-3.1658137881201) + ((ifelse((season) == (&quot;Spring&quot;), 1, 0)) * 
-##     (1.5079986648297))) + ((ifelse((season) == (&quot;Summmer&quot;), 1, 
-##     0)) * (0.904463744367426))) + ((ifelse((season) == (&quot;Winter&quot;), 
-##     1, 0)) * (1.91185411320333))) + ((depdelay) * (1.02379514814137))</code></pre>
+<pre><code>## ((((-3.11141538856176) + ((ifelse((season) == (&quot;Spring&quot;), 1, 
+##     0)) * (1.57723632575646))) + ((ifelse((season) == (&quot;Summmer&quot;), 
+##     1, 0)) * (1.28690319865656))) + ((ifelse((season) == (&quot;Winter&quot;), 
+##     1, 0)) * (1.7945327269226))) + ((depdelay) * (1.01059165310291))</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Save the parsed model for later use</li>
 </ol>

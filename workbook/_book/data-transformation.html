@@ -113,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
 <li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
 <li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.5</b> Using bang-bang</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
@@ -171,7 +172,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>10</b> Share and Production</a><ul>
-<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#connect-to-rsc"><i class="fa fa-check"></i><b>10.1</b> Connect to RSC</a></li>
+<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>10.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>10.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="10.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>10.3</b> Scheduled pipeline</a></li>
 </ul></li>
 </ul>
 
@@ -213,8 +216,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  6  7.00 627931         
 ##  7 11.0  523272         
 ##  8  9.00 540908         
-##  9  3.00 616090         
-## 10  1.00 605765         
+##  9  1.00 605765         
+## 10  3.00 616090         
 ## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Order the results by the month number</li>
@@ -375,16 +378,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_if</span>(is.numeric,mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Applying predicate on the first 100 rows</code></pre>
-<pre><code>## # Source:   lazy query [?? x 24]
+<pre><code>## # Source:   lazy query [?? x 25]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##    year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
 ##   &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
 ## 1  2008  6.38       15.7      3.92    1308       1326    1449       1495
-## # ... with 16 more variables: flightnum &lt;dbl&gt;, actualelapsedtime &lt;dbl&gt;,
+## # ... with 17 more variables: flightnum &lt;dbl&gt;, actualelapsedtime &lt;dbl&gt;,
 ## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
 ## #   distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;,
 ## #   diverted &lt;dbl&gt;, carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;,
-## #   nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;</code></pre>
+## #   nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;,
+## #   flightid &lt;dbl&gt;</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Combine with <code>group_by()</code> to create more complex results</li>
 </ol>
@@ -404,8 +408,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  6  7.00    11.6     9.78 
 ##  7 11.0      5.38    2.00 
 ##  8  9.00     3.89    0.684
-##  9  3.00    12.2    10.9  
-## 10  1.00    11.1     9.88 
+##  9  1.00    11.1     9.88 
+## 10  3.00    12.2    10.9  
 ## # ... with more rows</code></pre>
 </div>
 <div id="view-record-level-data" class="section level2">
@@ -430,7 +434,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
          month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
          dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 29]
+<pre><code>## # Source:   lazy query [?? x 30]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
 ##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
@@ -444,13 +448,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  8  2008  7.00       18.0      5.00    2019       1915    2151       2055
 ##  9  2008  7.00       18.0      5.00    1649       1525    1921       1810
 ## 10  2008  7.00       18.0      5.00    1959       1835    2200       2050
-## # ... with more rows, and 21 more variables: uniquecarrier &lt;chr&gt;,
+## # ... with more rows, and 22 more variables: uniquecarrier &lt;chr&gt;,
 ## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
 ## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
 ## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
 ## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
 ## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
-## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;</code></pre>
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, flightid &lt;int&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>collect()</code> and <code>View()</code> to preview the data in the IDE. Make sure to <strong>always</strong> limit the number of returned rows.</li>
 </ol>
@@ -599,25 +603,25 @@ tbl_planes</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(seats <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 37]
+<pre><code>## # Source:   lazy query [?? x 38]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   year.x month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
 ##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-## 1   2008  7.00       18.0      5.00    1410       1410    1545       1600
-## 2   2008  7.00       18.0      5.00    1947       1935    2047       2045
-## 3   2008  7.00       18.0      5.00    1154       1155    1259       1305
-## 4   2008  7.00       18.0      5.00     700        700     805        810
-## 5   2008  7.00       18.0      5.00    1228       1230    1341       1410
-## 6   2008  7.00       18.0      5.00    1050       1050    1259       1300
-## # ... with 29 more variables: uniquecarrier &lt;chr&gt;, flightnum &lt;dbl&gt;,
+## 1   2008  7.00       18.0      5.00    2115       2115    2241       2245
+## 2   2008  7.00       18.0      5.00    1639       1620    1804       1755
+## 3   2008  7.00       18.0      5.00     634        635     751        810
+## 4   2008  7.00       18.0      5.00    1326       1315    1457       1445
+## 5   2008  7.00       18.0      5.00    1049       1050    1325       1335
+## 6   2008  7.00       18.0      5.00    1419       1420    1658       1710
+## # ... with 30 more variables: uniquecarrier &lt;chr&gt;, flightnum &lt;dbl&gt;,
 ## #   tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;,
 ## #   airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;,
 ## #   dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
 ## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
 ## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
-## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, year.y &lt;int&gt;,
-## #   type &lt;chr&gt;, manufacturer &lt;chr&gt;, model &lt;chr&gt;, engines &lt;int&gt;,
-## #   seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, flightid &lt;int&gt;,
+## #   year.y &lt;int&gt;, type &lt;chr&gt;, manufacturer &lt;chr&gt;, model &lt;chr&gt;,
+## #   engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>See how many flights each plane McDonnel Douglas had</li>
 </ol>

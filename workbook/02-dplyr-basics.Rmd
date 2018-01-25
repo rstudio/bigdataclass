@@ -132,6 +132,30 @@ airports %>%
   head()
 ```
 
+## Using bang-bang
+*Intro on passing unevaluated code to a dplyr verb*
+
+1. Preview how `Sys.time()` is translated
+```{r}
+airports %>%
+  mutate(today = Sys.time()) %>%
+  show_query()
+```
+
+2. Preview how `Sys.time()` is translated when prefixing `!!`
+```{r}
+airports %>%
+  mutate(today = !!Sys.time()) %>%
+  show_query()
+```
+
+3. Preview how `Sys.time()` is translated when prefixing `!!`
+```{r}
+airports %>%
+  mutate(today = !!Sys.time()) %>%
+  head()
+```
+
 
 ```{r, include = FALSE}
 dbDisconnect(con)

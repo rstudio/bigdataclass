@@ -10,7 +10,7 @@ library(dplyr)
 library(purrr)
 library(readr)
 library(sparklyr)
-
+library(lubridate)
 
 top_rows <- read.csv("/usr/share/flights/data/flight_2008_1.csv", nrows = 5)
 file_columns <- top_rows %>%
@@ -144,23 +144,37 @@ reload
 ```
 
 
-4.  Create a new table called *current* but with different filters that the original *current* table
+4.  Create a new table called *current*. It needs to pull today's flights
 ```{r}
+library(lubridate)
+
 current <- tbl(sc, "flights") %>%
   filter(
-    month == "2",
-    dayofmonth == "1"
+    month == !! month(now()),
+    dayofmonth == !! day(now())
   )
+
+show_query(current)
 ```
 
-5. Run predictions against the new data set
+5.  Create a new table called *current*. It needs to pull today's flights
+```{r}
+head(current)
+```
+
+6. Run predictions against the new data set
 ```{r}
 new_predictions <- ml_transform(
-  x = reload, 
+  x = reload,
   dataset = current
-  )
+)
 
-head(new_predictions)
+```
+
+7. Get a quick count of expected delayed flights
+```{r}
+new_predictions %>%
+  summarise(late_fligths = sum(prediction, na.rm = TRUE))
 ```
 
 ## Reload pipeline

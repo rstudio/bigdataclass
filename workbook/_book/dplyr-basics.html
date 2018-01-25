@@ -113,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
 <li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
 <li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.5</b> Using bang-bang</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
@@ -171,7 +172,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>9.4</b> pool pakcage</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>10</b> Share and Production</a><ul>
-<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#connect-to-rsc"><i class="fa fa-check"></i><b>10.1</b> Connect to RSC</a></li>
+<li class="chapter" data-level="10.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>10.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>10.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="10.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>10.3</b> Scheduled pipeline</a></li>
 </ul></li>
 </ul>
 
@@ -275,8 +278,8 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 ##  6  7.00 627931         
 ##  7 11.0  523272         
 ##  8  9.00 540908         
-##  9  3.00 616090         
-## 10  1.00 605765         
+##  9  1.00 605765         
+## 10  3.00 616090         
 ## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?</li>
@@ -368,12 +371,50 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today              
 ##   &lt;dttm&gt;             
-## 1 2018-01-23 21:22:06
-## 2 2018-01-23 21:22:06
-## 3 2018-01-23 21:22:06
-## 4 2018-01-23 21:22:06
-## 5 2018-01-23 21:22:06
-## 6 2018-01-23 21:22:06</code></pre>
+## 1 2018-01-25 01:24:33
+## 2 2018-01-25 01:24:33
+## 3 2018-01-25 01:24:33
+## 4 2018-01-25 01:24:33
+## 5 2018-01-25 01:24:33
+## 6 2018-01-25 01:24:33</code></pre>
+</div>
+<div id="using-bang-bang" class="section level2">
+<h2><span class="header-section-number">2.5</span> Using bang-bang</h2>
+<p><em>Intro on passing unevaluated code to a dplyr verb</em></p>
+<ol style="list-style-type: decimal">
+<li>Preview how <code>Sys.time()</code> is translated</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, SYS.TIME() AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Preview how <code>Sys.time()</code> is translated when prefixing <code>!!</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-01-25T01:24:33Z&#39; AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Preview how <code>Sys.time()</code> is translated when prefixing <code>!!</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 8]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   airport airportname        city    state country   lat   long today     
+##   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     
+## 1 ABE     Lehigh Valley Int… Allent… PA    USA      40.7 - 75.4 2018-01-2…
+## 2 ABI     Abilene Regional   Abilene TX    USA      32.4 - 99.7 2018-01-2…
+## 3 ABQ     Albuquerque Inter… Albuqu… NM    USA      35.0 -107   2018-01-2…
+## 4 ABY     Southwest Georgia… Albany  GA    USA      31.5 - 84.2 2018-01-2…
+## 5 ACK     Nantucket Memorial Nantuc… MA    USA      41.3 - 70.1 2018-01-2…
+## 6 ACT     Waco Regional      Waco    TX    USA      31.6 - 97.2 2018-01-2…</code></pre>
 
 </div>
 </div>
