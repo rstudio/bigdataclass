@@ -176,6 +176,7 @@ con <- dbConnect(
 ```{r}
 source("options.R")
 ```
+
 3. Confirm that the environment variables are loaded by using `Sys.getenv()`
 ```{r}
 getOption("database_userid")

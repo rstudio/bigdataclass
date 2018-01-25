@@ -138,7 +138,7 @@ cached_flights %>%
 ```
 
 ## `sdf` Functions
-*Overview of a few `sdf_` functions*
+*Overview of a few `sdf_` functions: http://spark.rstudio.com/reference/#section-spark-dataframes *
 
 1. Use `sdf_pivot` to create a column for each value in month
 ```{r}
@@ -155,8 +155,24 @@ partition <- cached_flights %>%
 tally(partition$training)
 ```
 
+3. Use `sdf_bind_cols()` to combine two tables of the same row size
+```{r}
+sdf_bind_cols(
+  spark_mtcars,
+  spark_mtcars
+) 
+```
+
+4. Use `sdf_bind_rows()` to append Spark tables of the same width
+```{r}
+sdf_bind_rows(
+  mutate(spark_mtcars, table = 1),
+  mutate(spark_mtcars, table = 2)
+) 
+```
+
 ## Feature transformers
-*See how to use Spark's feature transformers*
+*See how to use Spark's feature transformers: http://spark.rstudio.com/reference/#section-spark-feature-transformers *
 
 1. Use `ft_binarizer()` to identify "delayed" flights
 ```{r}

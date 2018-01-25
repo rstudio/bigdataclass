@@ -1,0 +1,64 @@
+#Distributed R
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+```{r, include = FALSE}
+library(dplyr)
+library(purrr)
+library(readr)
+library(sparklyr)
+library(lubridate)
+
+```
+
+## Basic distribution
+*Use spark_apply() to to view the partition row size*
+
+1. Open a new Spark connection
+```{r}
+sc <- spark_connect(master = "local",  version = "2.1.0")
+```
+
+2. Import the *airport_lookup.csv* file
+```{r}
+airports <- spark_read_csv(
+  sc, 
+  "airports", 
+  "/usr/share/flights/airport_lookup.csv",
+  repartition = 4
+  )
+```
+
+
+3. Use `spark_apply()` with `nrow()` against the new data
+```{r}
+spark_apply(airports, nrow)
+```
+
+4. Navigate to the Storage page in the Spark UI
+
+5.
+```{r}
+spark_apply(airports, function(x)mean(x$lat))
+```
+
+
+```{r}
+spark_apply(airports, nrow, group_by = "state", columns = "count")
+```
+
+
+```{r}
+spark_apply(
+  airports,
+  function(x) mean(x$lat),
+  group_by = "state",
+  columns = "count"
+)
+```
+
+
+
+
+

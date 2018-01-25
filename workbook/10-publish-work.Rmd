@@ -59,7 +59,6 @@ airline_list <- carriers %>%
 ## Schedule scoring
 *Use the tidypredict model to score and write back to the database*
 
-
 1. Create a new RMarkdown
 
 2. Copy the code from the excercise

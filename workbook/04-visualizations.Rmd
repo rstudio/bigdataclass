@@ -98,7 +98,7 @@ flights %>%
   head(5) 
 ```
 
-1. Start with getting the top 5 carriers
+2. Pipe the top 5 carriers to a plot
 ```{r}
 flights %>%
   group_by(uniquecarrier) %>%
@@ -135,7 +135,6 @@ flights %>%
 *Learn how to use `pull()` to pass a set of values to be used on a secondary query*
 
 1. Use `pull()` to get the top 5 carriers loaded in a vector
-
 ```{r}
 top5 <- flights %>%
   group_by(uniquecarrier) %>%

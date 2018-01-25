@@ -42,9 +42,36 @@ View(sample_table, 1000)
 dbplot_histogram(sample_table, distance)
 ```
 
+## Sample with ID
+*Use a record's unique ID to produce a sample*
+
+1. Use `max()` to get the upper limit for *flightid*
+```{r}
+limit <- flights %>%
+  summarise(max(flightid, na.rm = TRUE)) %>%
+  pull()
+```
+
+2. Use `sample` to get 0.1% of IDs
+```{r}
+sampling <- sample(1:limit, round(limit * 0.001))
+```
+
+3. Use `%in%` to match the sample IDs in the *flight* table
+```{r}
+new_sample <- flights %>%
+  filter(flightid %in% sampling) %>%
+  collect()
+```
+
+ Verify sample with a histogram
+```{r}
+dbplot_histogram(new_sample, distance)
+```
+
+
 ## Sample manually
 *Use `row_number()`, `sample()` and `map_df()` to create a sample data set*
-
 
 1. Create a filtered dataset for with 1 month of data
 ```{r}
