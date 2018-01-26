@@ -11,8 +11,7 @@ library(dbplot)
 library(ggplot2)
 # Class catchup
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
-airports <- tbl(con, in_schema("datawarehouse", "airport")) %>%
-  mutate(crsarrtime = crsarrtime)
+airports <- tbl(con, in_schema("datawarehouse", "airport"))
 flights <- tbl(con, in_schema("datawarehouse", "vflight"))
 carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 ```

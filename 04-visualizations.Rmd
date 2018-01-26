@@ -1,0 +1,220 @@
+---
+title: "Data Visualizations"
+output: html_notebook
+---
+
+## Class catchup
+
+```{r}
+library(tidyverse)
+library(rlang)
+library(dbplyr)
+library(dbplot)
+# Class catchup
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+airports <- tbl(con, in_schema("datawarehouse", "airport")) 
+flights <- tbl(con, in_schema("datawarehouse", "vflight"))
+carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+```
+
+## 4.1 - Simple plot
+
+1. Use `collect()` bring back the aggregated results into a "pass-through" variable called `by_month`
+```{r, operations}
+by_month <- flights %>%
+  group_by(month) %>%
+  tally() %>%
+  collect() 
+
+head(by_month)
+```
+
+2. Plot results using `ggplot2`
+https://github.com/tidyverse/ggplot2/issues/2377
+
+```{r}
+library(ggplot2)
+
+ggplot(by_month) +
+  geom_line(aes(x = month, y = n)) 
+```
+
+## 4.2 - Plot in one code segment
+
+1. Using the code from the previous section, create a single piped code set which also creates the plot
+```{r}
+
+```
+
+2. Change the aggregation to the average of `arrdelay`.  Tip: Use `x` as the summarize variable 
+```{r}
+
+```
+
+3. Plot the average distance. Copy the code from the previous exercise and change the variable
+```{r}
+
+```
+
+## 4.3 - Plot specific data segments
+
+1. Start with getting the top 5 carriers
+```{r}
+flights %>%
+  group_by(uniquecarrier) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(5) 
+```
+
+2. Pipe the top 5 carriers to a plot. Use `geom_col`
+```{r}
+flights %>%
+  group_by(uniquecarrier) %>%
+  tally() %>%
+  mutate(n = as.numeric(n)) %>%
+  arrange(desc(n)) %>%
+  head(5) %>%
+  collect() %>%
+```
+
+3. Improve the plot's look
+```{r}
+flights %>%
+  group_by(uniquecarrier) %>%
+  tally() %>%
+  mutate(n = as.numeric(n)) %>%
+  arrange(desc(n)) %>%
+  head(5) %>%
+  collect() %>%
+```
+
+## 4.4 - Two or more queries
+
+1. Use `pull()` to get the top 5 carriers loaded in a vector
+```{r}
+top5 <- flights %>%
+  group_by(uniquecarrier) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(5) %>%
+  pull(uniquecarrier)
+
+top5
+```
+
+2. Use `%in%` to pass the `top5` vector to a filter
+```{r}
+flights %>%
+  filter(uniquecarrier %in% top5) 
+```
+
+3. Group by *uniquecarrier* and get the average arrival delay
+```{r}
+
+```
+
+4. Copy the final `ggplot()` code from the *Plot specific segment* section. Update the `y` labs.
+```{r}
+
+```
+
+## 4.5 - Visualize using `dbplot`
+
+1. Install and load `dbplot`
+```{r, eval = FALSE}
+library(dbplot)
+```
+
+2. Create a line plot using the helper function `dbplot_line()`
+
+```{r}
+flights %>%
+  dbplot_line(month)
+```
+
+3. Update the plot's labels
+```{r}
+flights %>%
+  dbplot_line(month) +
+
+```
+
+## 4.6 - Plot a different aggregation
+
+1. Plot the average departure delay by day of week
+```{r}
+flights %>%
+  dbplot_bar(dayofweek, )
+```
+
+2. Change the day numbers to day name labels
+```{r}
+flights %>%
+  dbplot_bar(dayofweek, ) +
+```
+
+## 4.7 - Create a histogram
+
+1. Use the `dbplot_histogram()` to build the histogram
+```{r}
+flights %>%
+  dbplot_histogram(distance)
+```
+
+2. Adjust the `binwidth` to 300
+
+```{r}
+flights %>%
+  dbplot_histogram(distance, )
+```
+
+## 4.8 - Raster plot
+
+1. Use a `dbplot_raster()` to visualize `deptime` versus `arrtime`
+```{r}
+flights %>%
+  
+```
+
+2. Change the plot's resolution to 500
+```{r}
+  
+```
+
+
+## 4.9 - Using the `calculate` functions
+
+1. Use the `db_comptue_raster()` function to get the underlying results that feed the plot
+```{r}
+departure <- flights %>%
+  db_compute_raster(deptime, arrtime)
+
+departure
+```
+
+2. Plot the results "manually"
+```{r}
+departure %>%
+  filter(`n()` > 1000) %>%
+  ggplot() +
+  geom_raster(aes(x = deptime, y = arrtime, fill = `n()`))
+```
+
+## 4.10 - Under the hood 
+
+1. Use the `db_bin()` command to see the resulting tidy eval formula
+```{r}
+db_bin(field)
+```
+
+2. Use `trasnlate_sql()` and `simulate_odbc_postgresql()` to see an example of what the resulting SQL statement looks like
+```{r}
+
+```
+
+3. Disconnect from the database
+
+```{r}
+dbDisconnect(con)
+```
