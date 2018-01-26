@@ -1,0 +1,277 @@
+```{r, section05, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+# Modeling
+
+```{r, catchup5, include = FALSE}
+library(tidyverse)
+library(DBI)
+library(dbplyr)
+library(dbplot)
+library(tidypredict)
+# Class catchup
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+airports <- tbl(con, in_schema("datawarehouse", "airport")) 
+table_flights <- tbl(con, in_schema("datawarehouse", "flight"))
+carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+set.seed(100)
+```
+
+## SQL Native sampling 
+*Use PostgreSQL TABLESAMPLE clause*
+
+1. Use `build_sql()` and `remote_query()` to combine a the `dplyr` command with a custom SQL statement
+```{r}
+sql_sample <-  dbGetQuery(con, build_sql(remote_query(table_flights), " TABLESAMPLE SYSTEM (0.1)"))
+```
+
+2. Preview the sample data
+```{r}
+sql_sample
+```
+
+3. Test the efficacy of the sampling with a plot
+```{r}
+dbplot_histogram(sql_sample, distance)
+```
+
+## Sample with ID
+*Use a record's unique ID to produce a sample*
+
+1. Use `max()` to get the upper limit for *flightid*
+```{r}
+limit <- table_flights %>%
+  summarise(
+    max = max(flightid, na.rm = TRUE),
+    min = min(flightid, na.rm = TRUE)
+  ) %>%
+  collect()
+```
+
+2. Use `sample` to get 0.1% of IDs
+```{r}
+sampling <- sample(
+  limit$min:limit$max, 
+  round((limit$max -limit$min) * 0.001))
+```
+
+3. Use `%in%` to match the sample IDs in the *flight* table
+```{r}
+id_sample <- table_flights %>%
+  filter(flightid %in% sampling) %>%
+  collect()
+```
+
+ Verify sample with a histogram
+```{r}
+dbplot_histogram(id_sample, distance)
+```
+
+
+## Sample manually
+*Use `row_number()`, `sample()` and `map_df()` to create a sample data set*
+
+1. Create a filtered dataset for with 1 month of data
+```{r}
+db_month <- table_flights %>%
+  filter(month == 1)
+```
+
+2. Get the row count
+```{r}
+rows <- as.integer(pull(tally(db_month)))
+```
+
+3. Use `row_number()` to create a new column to number each row
+```{r}
+db_month <- db_month %>%
+  mutate(row = row_number()) 
+```
+
+4. Create a random set of 600 numbers, limited by the number of rows
+```{r}
+sampling <- sample(1:rows, 600)
+```
+
+5. Use `%in%` to filter the matched sample row IDs with the random set
+```{r}
+db_month <- db_month %>%
+  filter(row %in% sampling)
+```
+
+6. Verify number of rows
+```{r}
+tally(db_month)
+```
+
+7. Create a function with the previous steps, but replacing the month number with an argument.  Collect the data at the end
+```{r}
+sample_segment <- function(x, size = 600) {
+  db_month <- table_flights %>%
+    filter(month == x)
+  rows <- as.integer(pull(tally(db_month)))
+  db_month <- db_month %>%
+    mutate(row = row_number())
+  sampling <- sample(1:rows, size)
+  db_month %>%
+    filter(row %in% sampling) %>%
+    collect()
+}
+```
+
+8. Test the function
+```{r}
+head(sample_segment(3), 100)
+```
+
+9. Use `map_df()` to run the function for each month
+```{r}
+strat_sample <- 1:12 %>%
+  map_df(~sample_segment(.x))
+```
+
+10. Verify sample with a histogram
+```{r}
+dbplot_histogram(strat_sample, distance)
+```
+
+## Create a model & test
+
+1. Prepare a model data set
+```{r}
+model_data <- strat_sample %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select(arrdelay, season, depdelay) 
+  
+```
+
+2. Create a simple `lm()` model
+```{r}
+model_lm <- lm(arrdelay ~ . , data = model_data)
+summary(model_lm)
+```
+
+3. Create a test data set by combining the sampling and model data set routines
+```{r}
+test_sample <- 1:12 %>%
+  map_df(~sample_segment(.x, 100)) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select(arrdelay, season, depdelay) 
+  
+```
+
+4. Run a simple routine to check accuracy 
+```{r}
+test_sample %>%
+  mutate(p = predict(model_lm, test_sample),
+         over = abs(p - arrdelay) < 10) %>%
+  group_by(over) %>% 
+  tally() %>%
+  mutate(percent = round(n / sum(n), 2))
+```
+
+## Score inside database
+*Learn about tidypredict to run predictions inside the database*
+
+1. Load the library, and see the results of passing the model as an argument to `tidypredict_fit()` 
+```{r}
+library(tidypredict)
+
+tidypredict_fit(model_lm)
+```
+
+2. Use `tidypredict_sql()` to see the resulting SQL statement
+```{r}
+tidypredict_sql(model_lm, con)
+```
+
+3. Run the prediction inside `dplyr`
+```{r}
+table_flights %>%
+  filter(month == 2,
+         dayofmonth == 1) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select( season, depdelay) %>%
+  tidypredict_to_column(model_lm) %>%
+  head()
+```
+
+4. View the SQL behind the `dplyr` command
+```{r}
+table_flights %>%
+  filter(month == 2,
+         dayofmonth == 1) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select( season, depdelay) %>%
+  tidypredict_to_column(model_lm) %>%
+  remote_query()
+```
+
+6. Compare predictions to ensure results are within range
+```{r}
+test <- tidypredict_test(model_lm)
+test
+```
+
+7. View the records that exceeded the threshold
+```{r}
+test$raw_results %>%
+  filter(fit_threshold)
+```
+
+## Parsed model
+*Quick review of the model parser*
+
+1. Use the `parse_model()` function to see how `tidypredict` interprets the model
+```{r}
+pm <- parse_model(model_lm)
+pm
+```
+
+2. Verify that the resulting table can be used to get the fit formula
+```{r}
+tidypredict_fit(pm)
+```
+
+3. Save the parsed model for later use
+```{r}
+library(readr)
+write_csv(pm, "parsedmodel.csv")
+``` 
+
+4. Disconnect from the database
+
+```{r}
+dbDisconnect(con)
+```
+
+
