@@ -131,6 +131,25 @@ airports %>%
   select(today) %>%
   head()
 ```
+## knitr SQL engine
+
+1. Copy the result of `show_query()` 
+```{r}
+airports %>%
+  summarise(
+    avg_airport_length = mean(length(airport), na.rm = TRUE),
+    max_airport_name = max(length(airportname), na.rm = TRUE),
+    min_airport_name = min(length(airportname), na.rm = TRUE),
+    total_records = n()
+  ) %>%
+  show_query()
+```
+
+2. Paste the result in this SQL chunk
+```{sql, connection = con}
+SELECT AVG(LENGTH("airport")) AS "avg_airport_length", MAX(LENGTH("airportname")) AS "max_airport_name", MIN(LENGTH("airportname")) AS "min_airport_name", COUNT(*) AS "total_records"
+FROM datawarehouse.airport
+```
 
 ## Using bang-bang
 *Intro on passing unevaluated code to a dplyr verb*

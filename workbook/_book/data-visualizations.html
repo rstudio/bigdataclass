@@ -214,15 +214,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() 
 
 <span class="kw">head</span>(by_month)</code></pre></div>
-<pre><code>## # A tibble: 6 x 2
-##   month      n
-##   &lt;dbl&gt;  &lt;dbl&gt;
-## 1 10.0  556205
-## 2  4.00 598126
-## 3 12.0  544958
-## 4  5.00 606293
-## 5  2.00 569236
-## 6  7.00 627931</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Plot results using <code>ggplot2</code></li>
 </ol>
@@ -230,7 +221,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">ggplot</span>(by_month) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> n)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 </div>
 <div id="plot-in-one-code-segment" class="section level2">
 <h2><span class="header-section-number">4.2</span> Plot in one code segment</h2>
@@ -245,7 +235,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">                        </span><span class="co"># &lt; Don&#39;t forget to switch to `+`</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> n)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the aggregation to the average of <code>arrdelay</code>. Tip: Use <code>x</code> as the summarize variable</li>
 </ol>
@@ -256,7 +245,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> x)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Plot the average distance</li>
 </ol>
@@ -267,7 +255,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> x)) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
 </div>
 <div id="plot-specific-data-segments" class="section level2">
 <h2><span class="header-section-number">4.3</span> Plot specific data segments</h2>
@@ -280,16 +267,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) </code></pre></div>
-<pre><code>## # Source:     lazy query [?? x 2]
-## # Database:   postgres [rstudio_dev@localhost:/postgres]
-## # Ordered by: desc(n)
-##   uniquecarrier n              
-##   &lt;chr&gt;         &lt;S3: integer64&gt;
-## 1 WN            1201754        
-## 2 AA            604885         
-## 3 OO            567159         
-## 4 MQ            490693         
-## 5 US            453589</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Pipe the top 5 carriers to a plot</li>
 </ol>
@@ -302,7 +279,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">x =</span> uniquecarrier, <span class="dt">y =</span> n))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <ol style="list-style-type: decimal">
 <li>Improve the plot’s look</li>
 </ol>
@@ -321,7 +297,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
          <span class="dt">subtitle =</span> <span class="st">&quot;Source: Datawarehouse&quot;</span>,
          <span class="dt">x =</span> <span class="st">&quot;Carrier Name&quot;</span>, 
          <span class="dt">y =</span> <span class="st">&quot;# of Flights&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 </div>
 <div id="two-or-more-queries" class="section level2">
 <h2><span class="header-section-number">4.4</span> Two or more queries</h2>
@@ -337,33 +312,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">pull</span>(uniquecarrier)
 
 top5</code></pre></div>
-<pre><code>## [1] &quot;WN&quot; &quot;AA&quot; &quot;OO&quot; &quot;MQ&quot; &quot;US&quot;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>%in%</code> to pass the <code>top5</code> vector to a filter</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) </code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 30]
-## # Database: postgres [rstudio_dev@localhost:/postgres]
-##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
-##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-##  1  2008  7.00       18.0      5.00    1959       1835    2200       2050
-##  2  2008  7.00       18.0      5.00    2115       2115    2241       2245
-##  3  2008  7.00       18.0      5.00    1639       1620    1804       1755
-##  4  2008  7.00       18.0      5.00     634        635     751        810
-##  5  2008  7.00       18.0      5.00    1326       1315    1457       1445
-##  6  2008  7.00       18.0      5.00    1049       1050    1325       1335
-##  7  2008  7.00       18.0      5.00    1419       1420    1658       1710
-##  8  2008  7.00       18.0      5.00    2107       2100    2339       2340
-##  9  2008  7.00       18.0      5.00     640        640     918        925
-## 10  2008  7.00       18.0      5.00    1856       1845    2135       2130
-## # ... with more rows, and 22 more variables: uniquecarrier &lt;chr&gt;,
-## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
-## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
-## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
-## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
-## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, flightid &lt;int&gt;</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Group by carrier and get the average arrival delay</li>
 </ol>
@@ -371,15 +324,6 @@ top5</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(uniquecarrier <span class="op">%in%</span><span class="st"> </span>top5) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">mean</span>(arrdelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 2]
-## # Database: postgres [rstudio_dev@localhost:/postgres]
-##   uniquecarrier     n
-##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 US             2.80
-## 2 MQ             9.50
-## 3 OO             6.44
-## 4 WN             5.12
-## 5 AA            12.2</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Copy the final <code>ggplot()</code> code from the <em>Plot specific segment</em> section. Update the <code>y</code> labs.</li>
 </ol>
@@ -397,7 +341,6 @@ top5</code></pre></div>
          <span class="dt">subtitle =</span> <span class="st">&quot;Source: Datawarehouse&quot;</span>,
          <span class="dt">x =</span> <span class="st">&quot;Carrier Name&quot;</span>, 
          <span class="dt">y =</span> <span class="st">&quot;Average Delay&quot;</span>) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 </div>
 <div id="visualize-using-dbplot" class="section level2">
 <h2><span class="header-section-number">4.5</span> Visualize using <code>dbplot</code></h2>
@@ -412,7 +355,6 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_line</span>(month)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Update the plot’s labels</li>
 </ol>
@@ -421,7 +363,6 @@ top5</code></pre></div>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Monthly flights&quot;</span>,
        <span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>,
        <span class="dt">y =</span> <span class="st">&quot;Number of flights&quot;</span>) </code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 </div>
 <div id="plot-a-different-aggregation" class="section level2">
 <h2><span class="header-section-number">4.6</span> Plot a different aggregation</h2>
@@ -431,7 +372,6 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_bar</span>(dayofweek, <span class="kw">mean</span>(depdelay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the day numbers to day name labels</li>
 </ol>
@@ -441,7 +381,6 @@ top5</code></pre></div>
     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>),
     <span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>
   )</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
 </div>
 <div id="create-a-histogram" class="section level2">
 <h2><span class="header-section-number">4.7</span> Create a histogram</h2>
@@ -451,13 +390,11 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_histogram</span>(distance)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Adjust the <code>binwidth</code> to 300</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_histogram</span>(distance, <span class="dt">binwidth =</span> <span class="dv">300</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
 </div>
 <div id="raster-plot" class="section level2">
 <h2><span class="header-section-number">4.8</span> Raster plot</h2>
@@ -466,13 +403,11 @@ top5</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_raster</span>(deptime, arrtime)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the plot’s resolution to 500</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">dbplot_raster</span>(deptime, arrtime, <span class="dt">resolution =</span> <span class="dv">500</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
 </div>
 <div id="using-the-calculate-functions" class="section level2">
 <h2><span class="header-section-number">4.9</span> Using the <code>calculate</code> functions</h2>
@@ -483,20 +418,6 @@ top5</code></pre></div>
 <span class="st">  </span><span class="kw">db_compute_raster</span>(deptime, arrtime)
 
 departure</code></pre></div>
-<pre><code>## # A tibble: 3,362 x 3
-##    deptime arrtime     `n()`
-##      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-##  1       0       0 136345   
-##  2    1440    1584  11899   
-##  3    1440    1704  12455   
-##  4    1248    2208     20.0 
-##  5     744    2112      1.00
-##  6     840    1344   1578   
-##  7    2112     936     34.0 
-##  8     936    2208      1.00
-##  9     648     816  17227   
-## 10     336     528     42.0 
-## # ... with 3,352 more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Plot the results “manually”</li>
 </ol>
@@ -504,7 +425,6 @@ departure</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">n()</span><span class="st">`</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">x =</span> deptime, <span class="dt">y =</span> arrtime, <span class="dt">fill =</span> <span class="st">`</span><span class="dt">n()</span><span class="st">`</span>))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
 </div>
 <div id="under-the-hood-ii" class="section level2">
 <h2><span class="header-section-number">4.10</span> Under the hood (II)</h2>
@@ -513,19 +433,10 @@ departure</code></pre></div>
 <li>Use the <code>db_bin()</code> command to see the resulting tidy eval formula</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">db_bin</span>(field)</code></pre></div>
-<pre><code>## (((max(field, na.rm = TRUE) - min(field, na.rm = TRUE))/(30)) * 
-##     ifelse((as.integer(floor(((field) - min(field, na.rm = TRUE))/((max(field, 
-##         na.rm = TRUE) - min(field, na.rm = TRUE))/(30))))) == 
-##         (30), (as.integer(floor(((field) - min(field, na.rm = TRUE))/((max(field, 
-##         na.rm = TRUE) - min(field, na.rm = TRUE))/(30))))) - 
-##         1, (as.integer(floor(((field) - min(field, na.rm = TRUE))/((max(field, 
-##         na.rm = TRUE) - min(field, na.rm = TRUE))/(30))))))) + 
-##     min(field, na.rm = TRUE)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>trasnlate_sql()</code> and <code>simulate_odbc_postgresql()</code> to see an example of what the resulting SQL statement looks like</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">translate_sql</span>(<span class="op">!!</span><span class="st"> </span><span class="kw">db_bin</span>(field), <span class="dt">con =</span> <span class="kw">simulate_odbc_postgresql</span>())</code></pre></div>
-<pre><code>## &lt;SQL&gt; (((max(`field`) OVER () - min(`field`) OVER ()) / (30.0)) * CASE WHEN ((CAST(FLOOR(((`field`) - min(`field`) OVER ()) / ((max(`field`) OVER () - min(`field`) OVER ()) / (30.0))) AS INTEGER)) = (30.0)) THEN ((CAST(FLOOR(((`field`) - min(`field`) OVER ()) / ((max(`field`) OVER () - min(`field`) OVER ()) / (30.0))) AS INTEGER)) - 1.0) WHEN NOT((CAST(FLOOR(((`field`) - min(`field`) OVER ()) / ((max(`field`) OVER () - min(`field`) OVER ()) / (30.0))) AS INTEGER)) = (30.0)) THEN ((CAST(FLOOR(((`field`) - min(`field`) OVER ()) / ((max(`field`) OVER () - min(`field`) OVER ()) / (30.0))) AS INTEGER))) END) + min(`field`) OVER ()</code></pre>
 
 </div>
 </div>

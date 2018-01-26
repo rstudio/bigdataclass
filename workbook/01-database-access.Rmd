@@ -93,7 +93,23 @@ dbListTables(con)
 odbc::dbGetQuery(con, "SELECT * FROM datawarehouse.airport LIMIT 10")
 ```
 
-4. Disconnect from the database using `dbDisconnect()`
+4. Use the SQL chunk
+```{sql, connection = con}
+SELECT * FROM datawarehouse.airport LIMIT 10
+```
+
+5. Use the `output.var` option to load results to a variable
+```{sql, connection = con, output.var = "sql_top10"}
+SELECT * FROM datawarehouse.airport LIMIT 10
+```
+
+6. Test the variable
+```{r}
+sql_top10
+```
+
+
+7. Disconnect from the database using `dbDisconnect()`
 ```{r}
 dbDisconnect(con)
 ```
@@ -182,7 +198,7 @@ source("options.R")
 getOption("database_userid")
 ```
 
-3. Pass the credentials using the environment variables
+4. Pass the credentials using the environment variables
 ```{r, eval = FALSE}
 con <- dbConnect(
   odbc::odbc(),

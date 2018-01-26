@@ -377,12 +377,12 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today              
 ##   &lt;dttm&gt;             
-## 1 2018-01-26 00:08:57
-## 2 2018-01-26 00:08:57
-## 3 2018-01-26 00:08:57
-## 4 2018-01-26 00:08:57
-## 5 2018-01-26 00:08:57
-## 6 2018-01-26 00:08:57</code></pre>
+## 1 2018-01-26 00:47:16
+## 2 2018-01-26 00:47:16
+## 3 2018-01-26 00:47:16
+## 4 2018-01-26 00:47:16
+## 5 2018-01-26 00:47:16
+## 6 2018-01-26 00:47:16</code></pre>
 </div>
 <div id="using-bang-bang" class="section level2">
 <h2><span class="header-section-number">2.5</span> Using bang-bang</h2>
@@ -403,7 +403,7 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-01-26T00:08:57Z&#39; AS &quot;today&quot;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-01-26T00:47:16Z&#39; AS &quot;today&quot;
 ## FROM datawarehouse.airport</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Preview how <code>Sys.time()</code> is translated when prefixing <code>!!</code></li>

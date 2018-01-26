@@ -99,15 +99,6 @@ models
 
 
 
-
-
-
-
-
-
-
-
-
 ```{r, include = FALSE}
 spark_disconnect(sc)
 ```
