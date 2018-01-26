@@ -1,26 +1,20 @@
-# Modeling
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-```{r, include = FALSE}
+# Modeling
 
-library(dplyr)
+```{r, include = FALSE}
+library(tidyverse)
+library(DBI)
 library(dbplyr)
 library(dbplot)
-library(ggplot2)
-library(purrr)
-library(DBI)
+library(tidypredict)
 # Class catchup
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
-airports <- tbl(con, in_schema("datawarehouse", "airport")) %>%
-  mutate(crsarrtime = crsarrtime)
-
-flights <- tbl(con, in_schema("datawarehouse", "flight"))
+airports <- tbl(con, in_schema("datawarehouse", "airport")) 
+table_flights <- tbl(con, in_schema("datawarehouse", "flight"))
 carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
-
-
 set.seed(100)
 ```
 
@@ -29,17 +23,17 @@ set.seed(100)
 
 1. Use `build_sql()` and `remote_query()` to combine a the `dplyr` command with a custom SQL statement
 ```{r}
-sample_table<-  dbGetQuery(con, build_sql(remote_query(flights), " TABLESAMPLE SYSTEM (0.1)"))
+sql_sample <-  dbGetQuery(con, build_sql(remote_query(table_flights), " TABLESAMPLE SYSTEM (0.1)"))
 ```
 
 2. Preview the sample data
 ```{r, eval = FALSE}
-View(sample_table, 1000)
+View(sql_sample)
 ```
 
 3. Test the efficacy of the sampling with a plot
 ```{r}
-dbplot_histogram(sample_table, distance)
+dbplot_histogram(sql_sample, distance)
 ```
 
 ## Sample with ID
@@ -47,26 +41,31 @@ dbplot_histogram(sample_table, distance)
 
 1. Use `max()` to get the upper limit for *flightid*
 ```{r}
-limit <- flights %>%
-  summarise(max(flightid, na.rm = TRUE)) %>%
-  pull()
+limit <- table_flights %>%
+  summarise(
+    max = max(flightid, na.rm = TRUE),
+    min = min(flightid, na.rm = TRUE)
+  ) %>%
+  collect()
 ```
 
 2. Use `sample` to get 0.1% of IDs
 ```{r}
-sampling <- sample(1:limit, round(limit * 0.001))
+sampling <- sample(
+  limit$min:limit$max, 
+  round((limit$max -limit$min) * 0.001))
 ```
 
 3. Use `%in%` to match the sample IDs in the *flight* table
 ```{r}
-new_sample <- flights %>%
+id_sample <- table_flights %>%
   filter(flightid %in% sampling) %>%
   collect()
 ```
 
  Verify sample with a histogram
 ```{r}
-dbplot_histogram(new_sample, distance)
+dbplot_histogram(id_sample, distance)
 ```
 
 
@@ -75,7 +74,7 @@ dbplot_histogram(new_sample, distance)
 
 1. Create a filtered dataset for with 1 month of data
 ```{r}
-db_month <- flights %>%
+db_month <- table_flights %>%
   filter(month == 1)
 ```
 
@@ -109,7 +108,7 @@ tally(db_month)
 7. Create a function with the previous steps, but replacing the month number with an argument.  Collect the data at the end
 ```{r}
 sample_segment <- function(x, size = 600) {
-  db_month <- flights %>%
+  db_month <- table_flights %>%
     filter(month == x)
   rows <- as.integer(pull(tally(db_month)))
   db_month <- db_month %>%
@@ -128,13 +127,13 @@ head(sample_segment(3), 100)
 
 9. Use `map_df()` to run the function for each month
 ```{r}
-new_sample <- 1:12 %>%
+strat_sample <- 1:12 %>%
   map_df(~sample_segment(.x))
 ```
 
 10. Verify sample with a histogram
 ```{r}
-dbplot_histogram(new_sample, distance)
+dbplot_histogram(strat_sample, distance)
 ```
 
 ## Create a model & test
@@ -203,7 +202,7 @@ tidypredict_sql(model_lm, con)
 
 3. Run the prediction inside `dplyr`
 ```{r}
-flights %>%
+table_flights %>%
   filter(month == 2,
          dayofmonth == 1) %>%
     mutate(
@@ -221,7 +220,7 @@ flights %>%
 
 4. View the SQL behind the `dplyr` command
 ```{r}
-flights %>%
+table_flights %>%
   filter(month == 2,
          dayofmonth == 1) %>%
     mutate(
@@ -269,7 +268,9 @@ library(readr)
 write_csv(pm, "parsedmodel.csv")
 ``` 
 
-```{r, include = FALSE}
+4. Disconnect from the database
+
+```{r}
 dbDisconnect(con)
 ```
 

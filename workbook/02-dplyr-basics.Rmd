@@ -1,13 +1,11 @@
-
-```{r, include = FALSE}
+```{r, section02, include = FALSE}
 knitr::opts_chunk$set(eval = TRUE)
 ```
 
-
 # `dplyr` Basics
 
-```{r, include = FALSE}
 
+```{r, include = FALSE}
 library(dplyr)
 library(dbplyr)
 library(DBI)
@@ -18,16 +16,15 @@ library(DBI)
 *Basics to how to point a variable in R to a table or view inside the database*
 
 
-1. Load the `dplyr` and `dbplyr` libraries
+1. Load the `dplyr`, `DBI` and `dbplyr` libraries
 ```{r, dplyr}
 library(dplyr)
 library(dbplyr)
+library(DBI)
 ```
 
 2. *(Optional)* Open a connection to the database if it's currently closed
 ```{r}
-library(DBI)
-
 con <- dbConnect(odbc::odbc(), "Postgres Dev")
 ```
 
@@ -50,36 +47,9 @@ airports
 
 6. Set up the pointers to the other of the tables
 ```{r}
-flights <- tbl(con, in_schema("datawarehouse", "flight"))
+flights <- tbl(con, in_schema("datawarehouse", "vflight"))
 carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 ```
-
-## Basic aggregation
-*A couple of `dplyr` commands that run in-database*
-
-1. How many records are in the **airport** table?
-```{r}
-tbl(con, in_schema("datawarehouse", "vflight"))  %>%
-  group_by(month) %>%
-  tally()
-```
-
-2. What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?
-```{r}
-airports %>%
-  summarise(
-    avg_airport_length = mean(length(airport), na.rm = TRUE),
-    max_airport_name = max(length(airportname), na.rm = TRUE),
-    min_airport_name = min(length(airportname), na.rm = TRUE),
-    total_records = n()
-  )
-```
-
-**Additional exercises:**
-
-1. How many records are in the **carrier** table?
-
-2. How many characters is the longest **carriername**?
 
 ## Under the hood 
 * Use `show_query()` to preview the SQL statement that will be sent to the database*
@@ -91,20 +61,22 @@ show_query(airports)
 
 2. Easily view the resulting query by adding `show_query()` in another piped command
 ```{r}
-carriers %>%
-  summarise(n())
+airports %>%
+  show_query()
 ```
 
-3. Run the same for last exercise in the previous section
+3. Insert `head()` in between the two statements to see how the SQL changes
 ```{r}
 airports %>%
-  summarise(
-    avg_airport_length = mean(length(airport), na.rm = TRUE),
-    max_airport_name = max(length(airportname), na.rm = TRUE),
-    min_airport_name = min(length(airportname), na.rm = TRUE),
-    total_records = n()
-  ) %>%
+  head() %>%
   show_query()
+```
+
+4. Use `sql_render()` and `simulate_mssql()` to see how the SQL statement changes from vendor to vendor
+```{r}
+airports %>%
+  head() %>%
+  sql_render(con = simulate_mssql()) 
 ```
 
 ## Un-translated R commands
@@ -131,25 +103,6 @@ airports %>%
   select(today) %>%
   head()
 ```
-## knitr SQL engine
-
-1. Copy the result of `show_query()` 
-```{r}
-airports %>%
-  summarise(
-    avg_airport_length = mean(length(airport), na.rm = TRUE),
-    max_airport_name = max(length(airportname), na.rm = TRUE),
-    min_airport_name = min(length(airportname), na.rm = TRUE),
-    total_records = n()
-  ) %>%
-  show_query()
-```
-
-2. Paste the result in this SQL chunk
-```{sql, connection = con}
-SELECT AVG(LENGTH("airport")) AS "avg_airport_length", MAX(LENGTH("airportname")) AS "max_airport_name", MIN(LENGTH("airportname")) AS "min_airport_name", COUNT(*) AS "total_records"
-FROM datawarehouse.airport
-```
 
 ## Using bang-bang
 *Intro on passing unevaluated code to a dplyr verb*
@@ -172,9 +125,64 @@ airports %>%
 ```{r}
 airports %>%
   mutate(today = !!Sys.time()) %>%
+  select(today) %>%
   head()
 ```
 
+## knitr SQL engine
+
+1. Copy the result of the latest `show_query()` exercise
+```{r}
+airports %>%
+  mutate(today = !!Sys.time()) %>%
+  show_query()
+```
+
+2. Paste the result in this SQL chunk
+```{sql, connection = con}
+SELECT "airport", "airportname", "city", "state", "country", "lat", "long", '2018-01-26T14:50:10Z' AS "today"
+FROM datawarehouse.airport
+```
+
+
+## Basic aggregation
+*A couple of `dplyr` commands that run in-database*
+
+1. How many records are in the **airport** table?
+```{r}
+tbl(con, in_schema("datawarehouse", "airport"))  %>%
+  tally()
+```
+
+2. What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?
+```{r}
+airports %>%
+  summarise(
+    avg_airport_length = mean(str_length(airport), na.rm = TRUE),
+    max_airport_name = max(str_length(airportname), na.rm = TRUE),
+    min_airport_name = min(str_length(airportname), na.rm = TRUE),
+    total_records = n()
+  )
+```
+
+3. How many records are in the **carrier** table?
+```{r}
+carriers %>%
+  tally()
+```
+
+4. How many characters is the longest **carriername**?
+```{r}
+carriers %>%
+  summarise(x = max(str_length(carriername), na.rm = TRUE))
+```
+
+5. What is the SQL statement sent in exercise 4?
+```{r}
+carriers %>%
+  summarise(x = max(str_length(carriername), na.rm = TRUE)) %>%
+  show_query()
+```
 
 ```{r, include = FALSE}
 dbDisconnect(con)

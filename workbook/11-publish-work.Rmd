@@ -71,17 +71,18 @@ library(lubridate)
 
 dw <- config::get("datawarehouse-dev")
 
-con <- dbConnect(odbc::odbc(),
-   Driver = dw$driver,
-   Server = dw$server,
-   UID    = dw$uid,
-   PWD    = dw$pwd,
-   Port   = dw$port,
-   Database = dw$database
+con <- dbConnect(
+  odbc::odbc(),
+  Driver = dw$driver,
+  Server = dw$server,
+  UID = dw$uid,
+  PWD = dw$pwd,
+  Port = dw$port,
+  Database = dw$database
 )
 flights <- tbl(con, in_schema("datawarehouse", "flight"))
 
-#head(flights)
+# head(flights)
 
 parsedmodel <- read_csv("parsedmodel.csv")
 
@@ -100,9 +101,10 @@ predictions <- flights %>%
   ) %>%
   tidypredict_to_column(parsedmodel) %>%
   select(
-    pred_flightid = flightid, 
+    pred_flightid = flightid,
     pred_fit = fit,
-    check_score = nasdelay)
+    check_score = nasdelay
+  )
 
 update_statement <- build_sql(
   "UPDATE datawarehouse.flight SET nasdelay = pred_fit FROM (",
@@ -111,7 +113,6 @@ update_statement <- build_sql(
   "WHERE pred_flightid = flightid",
   con = con
 )
-
 
 dbSendQuery(con, update_statement)
 

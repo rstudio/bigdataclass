@@ -1,0 +1,8 @@
+default:
+  datawarehouse-dev:
+    driver: 'PostgreSQL' 
+    server: 'localhost'
+    uid: 'rstudio_admin'
+    pwd: 'admin_user_be_careful'  
+    port: 5432
+    database: 'postgres'

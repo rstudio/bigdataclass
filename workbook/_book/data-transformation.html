@@ -110,10 +110,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
-<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
-<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
-<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
-<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.5</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
@@ -226,7 +227,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 10  3.00 616090         
 ## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Order the results by the month number</li>
+<li>Order the results by the month number by using <code>arrange()</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
@@ -315,20 +316,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Which are the top 5 carriers (airlines) with the most flights?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(uniquecarrier) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(carriername) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
 <pre><code>## # Source:     lazy query [?? x 2]
 ## # Database:   postgres [rstudio_dev@localhost:/postgres]
 ## # Ordered by: desc(n)
-##   uniquecarrier n              
-##   &lt;chr&gt;         &lt;S3: integer64&gt;
-## 1 WN            1201754        
-## 2 AA            604885         
-## 3 OO            567159         
-## 4 MQ            490693         
-## 5 US            453589</code></pre>
+##   carriername                                                  n          
+##   &lt;chr&gt;                                                        &lt;S3: integ&gt;
+## 1 Southwest Airlines Co.                                       1201754    
+## 2 American Airlines Inc.                                       604885     
+## 3 Skywest Airlines Inc.                                        567159     
+## 4 American Eagle Airlines Inc.                                 490693     
+## 5 US Airways Inc. (Merged with America West 9/05. Reporting f… 453589</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Figure the percent ratio of flights per month</li>
 </ol>
@@ -353,6 +354,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  9 10.0  556205           0.0793
 ## 10 12.0  544958           0.0777
 ## # ... with more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Figure the percent ratio of flights per carrier</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(carriername) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> n<span class="op">/</span><span class="kw">sum</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 3]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
+## # Ordered by: desc(n)
+##    carriername                                          n          percent
+##    &lt;chr&gt;                                                &lt;S3: inte&gt;   &lt;dbl&gt;
+##  1 Southwest Airlines Co.                               1201754     0.171 
+##  2 American Airlines Inc.                               604885      0.0863
+##  3 Skywest Airlines Inc.                                567159      0.0809
+##  4 American Eagle Airlines Inc.                         490693      0.0700
+##  5 US Airways Inc. (Merged with America West 9/05. Rep… 453589      0.0647
+##  6 Delta Air Lines Inc.                                 451931      0.0645
+##  7 United Air Lines Inc.                                449515      0.0641
+##  8 Expressjet Airlines Inc.                             374510      0.0534
+##  9 Northwest Airlines Inc.                              347652      0.0496
+## 10 Continental Air Lines Inc.                           298455      0.0426
+## # ... with more rows</code></pre>
 </div>
 <div id="aggregate-mulitple-columns" class="section level2">
 <h2><span class="header-section-number">3.3</span> Aggregate mulitple columns</h2>
@@ -372,7 +397,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Use <code>summarise_at()</code> to pre-select the fields that will receive the function</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">c</span>(<span class="st">&quot;depdelay&quot;</span>, <span class="st">&quot;arrdelay&quot;</span>),mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">c</span>(<span class="st">&quot;depdelay&quot;</span>, <span class="st">&quot;arrdelay&quot;</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 2]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   depdelay arrdelay
@@ -384,17 +409,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise_if</span>(is.numeric,mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Applying predicate on the first 100 rows</code></pre>
-<pre><code>## # Source:   lazy query [?? x 25]
+<pre><code>## # Source:   lazy query [?? x 19]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##    year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
-##   &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-## 1  2008  6.38       15.7      3.92    1308       1326    1449       1495
-## # ... with 17 more variables: flightnum &lt;dbl&gt;, actualelapsedtime &lt;dbl&gt;,
-## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
-## #   distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;,
-## #   diverted &lt;dbl&gt;, carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;,
-## #   nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;,
-## #   flightid &lt;dbl&gt;</code></pre>
+##   originlat originlong destlat destlong  year month dayofmonth dayofweek
+##       &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+## 1      36.9      -95.1    36.9    -95.1  2008  6.38       15.7      3.92
+## # ... with 11 more variables: deptime &lt;dbl&gt;, crsdeptime &lt;dbl&gt;,
+## #   arrtime &lt;dbl&gt;, crsarrtime &lt;dbl&gt;, flightnum &lt;dbl&gt;,
+## #   actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
+## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, distance &lt;dbl&gt;</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Combine with <code>group_by()</code> to create more complex results</li>
 </ol>
@@ -423,10 +446,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><em>Important tips to record preview data</em></p>
 <p>How many flights in July 18th were one or more hours late?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
-         month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
-         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
+<span class="st">  </span><span class="kw">filter</span>(
+    depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+    month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   n              
@@ -436,38 +461,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Use <code>filter()</code> to retrieve only the needed data, and <code>head()</code> to limit the preview even further.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
-         month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
-         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+    month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 30]
+<pre><code>## # Source:   lazy query [?? x 32]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##     year month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
-##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-##  1  2008  7.00       18.0      5.00  2052         1940  2222         2120
-##  2  2008  7.00       18.0      5.00  2016         1900  2102         1955
-##  3  2008  7.00       18.0      5.00  2139         2035    39.0       2355
-##  4  2008  7.00       18.0      5.00  2039         1930  2157         2100
-##  5  2008  7.00       18.0      5.00  2112         2010  2205         2105
-##  6  2008  7.00       18.0      5.00  2217         2010  2310         2110
-##  7  2008  7.00       18.0      5.00    32.0       2135   112         2225
-##  8  2008  7.00       18.0      5.00  2006         1840  2209         2100
-##  9  2008  7.00       18.0      5.00  1803         1655  2045         1950
-## 10  2008  7.00       18.0      5.00  1911         1750  2145         2035
-## # ... with more rows, and 22 more variables: uniquecarrier &lt;chr&gt;,
-## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
-## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
-## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
-## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
-## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, flightid &lt;int&gt;</code></pre>
+##    uniquecarrier carriername   origin originname    origincity originstate
+##    &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      
+##  1 UA            United Air L… ORD    Chicago O&#39;Ha… Chicago    IL         
+##  2 UA            United Air L… ORD    Chicago O&#39;Ha… Chicago    IL         
+##  3 UA            United Air L… IAD    Washington D… Chantilly  VA         
+##  4 UA            United Air L… SAN    San Diego In… San Diego  CA         
+##  5 UA            United Air L… SAN    San Diego In… San Diego  CA         
+##  6 UA            United Air L… CLT    Charlotte/Do… Charlotte  NC         
+##  7 UA            United Air L… ORD    Chicago O&#39;Ha… Chicago    IL         
+##  8 UA            United Air L… ORD    Chicago O&#39;Ha… Chicago    IL         
+##  9 UA            United Air L… PHL    Philadelphia… Philadelp… PA         
+## 10 UA            United Air L… DEN    Denver Intl   Denver     CO         
+## # ... with more rows, and 26 more variables: origincountry &lt;chr&gt;,
+## #   originlat &lt;dbl&gt;, originlong &lt;dbl&gt;, dest &lt;chr&gt;, destname &lt;chr&gt;,
+## #   destcity &lt;chr&gt;, deststate &lt;chr&gt;, destcountry &lt;chr&gt;, destlat &lt;dbl&gt;,
+## #   destlong &lt;dbl&gt;, year &lt;dbl&gt;, month &lt;dbl&gt;, dayofmonth &lt;dbl&gt;,
+## #   dayofweek &lt;dbl&gt;, deptime &lt;dbl&gt;, crsdeptime &lt;dbl&gt;, arrtime &lt;dbl&gt;,
+## #   crsarrtime &lt;dbl&gt;, flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;,
+## #   actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
+## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, distance &lt;dbl&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Use <code>collect()</code> and <code>View()</code> to preview the data in the IDE. Make sure to <strong>always</strong> limit the number of returned rows.</li>
+<li>Use <code>collect()</code> and <code>View()</code> to preview the data in the IDE. Make sure to <strong>always</strong> limit the number of returned rows. <a href="https://github.com/tidyverse/tibble/issues/373" class="uri">https://github.com/tidyverse/tibble/issues/373</a></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
-         month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
-         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+    month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>
+  ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">View</span>(<span class="st">&quot;my_preview&quot;</span>)</code></pre></div>
@@ -482,7 +512,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">season =</span> <span class="kw">case_when</span>(
       month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summer&quot;</span>,
       month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
       <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
     )
@@ -491,12 +521,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 2]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##   season  n              
-##   &lt;chr&gt;   &lt;S3: integer64&gt;
-## 1 Fall    1620385        
-## 2 Spring  1820509        
-## 3 Winter  1719959        
-## 4 Summmer 1848875</code></pre>
+##   season n              
+##   &lt;chr&gt;  &lt;S3: integer64&gt;
+## 1 Fall   1620385        
+## 2 Spring 1820509        
+## 3 Winter 1719959        
+## 4 Summer 1848875</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Add a specific case for “Winter”</li>
 </ol>
@@ -504,7 +534,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">season =</span> <span class="kw">case_when</span>(
       month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summer&quot;</span>,
       month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
       month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
     )
@@ -513,12 +543,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 2]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##   season  n              
-##   &lt;chr&gt;   &lt;S3: integer64&gt;
-## 1 Fall    1620385        
-## 2 Spring  1820509        
-## 3 Winter  1719959        
-## 4 Summmer 1848875</code></pre>
+##   season n              
+##   &lt;chr&gt;  &lt;S3: integer64&gt;
+## 1 Fall   1620385        
+## 2 Spring 1820509        
+## 3 Winter 1719959        
+## 4 Summer 1848875</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Append an entry for Monday at the end of the case statement</li>
 </ol>
@@ -526,7 +556,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">season =</span> <span class="kw">case_when</span>(
       month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summer&quot;</span>,
       month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
       month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>,
       dayofweek <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Monday&quot;</span>
@@ -536,12 +566,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 2]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##   season  n              
-##   &lt;chr&gt;   &lt;S3: integer64&gt;
-## 1 Fall    1620385        
-## 2 Spring  1820509        
-## 3 Winter  1719959        
-## 4 Summmer 1848875</code></pre>
+##   season n              
+##   &lt;chr&gt;  &lt;S3: integer64&gt;
+## 1 Fall   1620385        
+## 2 Spring 1820509        
+## 3 Winter 1719959        
+## 4 Summer 1848875</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Move the “Monday” entry to the top of the case statement</li>
 </ol>
@@ -550,7 +580,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="dt">season =</span> <span class="kw">case_when</span>(
       dayofweek <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Monday&quot;</span>,
       month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summer&quot;</span>,
       month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
       month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
     )
@@ -559,13 +589,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 2]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##   season  n              
-##   &lt;chr&gt;   &lt;S3: integer64&gt;
-## 1 Fall    1376740        
-## 2 Spring  1554210        
-## 3 Winter  1464948        
-## 4 Monday  1036201        
-## 5 Summmer 1577629</code></pre>
+##   season n              
+##   &lt;chr&gt;  &lt;S3: integer64&gt;
+## 1 Fall   1376740        
+## 2 Spring 1554210        
+## 3 Winter 1464948        
+## 4 Summer 1577629        
+## 5 Monday 1036201</code></pre>
 </div>
 <div id="data-enrichment" class="section level2">
 <h2><span class="header-section-number">3.6</span> Data enrichment</h2>
@@ -575,59 +605,51 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">planes &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>planes</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Using <code>DBI</code>, copy the <code>planes</code> data to the datawarehouse as a temporary table</li>
+<li>Using <code>DBI</code>, copy the <code>planes</code> data to the datawarehouse as a temporary table, and load it to a variable</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;planes&quot;</span>, planes, <span class="dt">temporary =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;planes&quot;</span>, planes, <span class="dt">temporary =</span> <span class="ot">TRUE</span>)
+tbl_planes &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&quot;planes&quot;</span>)</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Using <code>dplyr</code>, create a variable pointer to the new table</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl_planes &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&quot;planes&quot;</span>)
-tbl_planes</code></pre></div>
-<pre><code>## # Source:   table&lt;planes&gt; [?? x 9]
-## # Database: postgres [rstudio_dev@localhost:/postgres]
-##    tailnum  year type      manufacturer  model  engines seats speed engine
-##    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
-##  1 N10156   2004 Fixed wi… EMBRAER       EMB-1…       2    55    NA Turbo…
-##  2 N102UW   1998 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
-##  3 N103US   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
-##  4 N104UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
-##  5 N10575   2002 Fixed wi… EMBRAER       EMB-1…       2    55    NA Turbo…
-##  6 N105UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
-##  7 N107US   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
-##  8 N108UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
-##  9 N109UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
-## 10 N110UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
-## # ... with more rows</code></pre>
-<ol start="4" style="list-style-type: decimal">
 <li>Create a “lazy” variable that joins the flights table to the new temp table</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">left_join</span>(tbl_planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) </code></pre></div>
-<ol start="5" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>View a sample of flights of planes with more than 100 seats</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(seats <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 38]
+<pre><code>## # Source:   lazy query [?? x 40]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
-##   year.x month dayofmonth dayofweek deptime crsdeptime arrtime crsarrtime
-##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-## 1   2008  7.00       18.0      5.00    1801       1755    1939       1935
-## 2   2008  7.00       18.0      5.00     958        950    1127       1130
-## 3   2008  7.00       18.0      5.00     627        620     802        800
-## 4   2008  7.00       18.0      5.00    2052       1940    2222       2120
-## 5   2008  7.00       18.0      5.00    1203       1205    1256       1300
-## 6   2008  7.00       18.0      5.00    1422       1420    1513       1515
-## # ... with 30 more variables: uniquecarrier &lt;chr&gt;, flightnum &lt;dbl&gt;,
-## #   tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;,
-## #   airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;,
-## #   dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
-## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
-## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
-## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, flightid &lt;int&gt;,
-## #   year.y &lt;int&gt;, type &lt;chr&gt;, manufacturer &lt;chr&gt;, model &lt;chr&gt;,
-## #   engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+##   uniquecarrier carriername   origin originname     origincity originstate
+##   &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;      
+## 1 UA            United Air L… DEN    Denver Intl    Denver     CO         
+## 2 UA            United Air L… DEN    Denver Intl    Denver     CO         
+## 3 UA            United Air L… DEN    Denver Intl    Denver     CO         
+## 4 UA            United Air L… SAN    San Diego Int… San Diego  CA         
+## 5 UA            United Air L… SAN    San Diego Int… San Diego  CA         
+## 6 UA            United Air L… SAN    San Diego Int… San Diego  CA         
+## # ... with 34 more variables: origincountry &lt;chr&gt;, originlat &lt;dbl&gt;,
+## #   originlong &lt;dbl&gt;, dest &lt;chr&gt;, destname &lt;chr&gt;, destcity &lt;chr&gt;,
+## #   deststate &lt;chr&gt;, destcountry &lt;chr&gt;, destlat &lt;dbl&gt;, destlong &lt;dbl&gt;,
+## #   year.x &lt;dbl&gt;, month &lt;dbl&gt;, dayofmonth &lt;dbl&gt;, dayofweek &lt;dbl&gt;,
+## #   deptime &lt;dbl&gt;, crsdeptime &lt;dbl&gt;, arrtime &lt;dbl&gt;, crsarrtime &lt;dbl&gt;,
+## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
+## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
+## #   distance &lt;dbl&gt;, year.y &lt;int&gt;, type &lt;chr&gt;, manufacturer &lt;chr&gt;,
+## #   model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>How many flights are from McDonnel Douglas planes</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(manufacturer <span class="op">==</span><span class="st"> &quot;MCDONNELL DOUGLAS&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   n              
+##   &lt;S3: integer64&gt;
+## 1 137250</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>See how many flights each plane McDonnel Douglas had</li>
 </ol>
@@ -666,6 +688,10 @@ tbl_planes</code></pre></div>
 ##   planes          avg_flights max_flights     min_flights    
 ##   &lt;S3: integer64&gt;       &lt;dbl&gt; &lt;S3: integer64&gt; &lt;S3: integer64&gt;
 ## 1 102                    1346 1850            1068</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Disconnect from the database</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
 
 </div>
 </div>

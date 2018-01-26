@@ -1,12 +1,10 @@
-# Data Visualizations
-
-```{r, include = FALSE}
+```{r, section04, include = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
+# Data Visualizations
 
-```{r, include = FALSE}
-
+```{r, catchup, include = FALSE}
 library(dplyr)
 library(dbplyr)
 library(dbplot)
@@ -15,16 +13,9 @@ library(ggplot2)
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
 airports <- tbl(con, in_schema("datawarehouse", "airport")) %>%
   mutate(crsarrtime = crsarrtime)
-
-
-flights <- tbl(con, in_schema("datawarehouse", "flight"))
+flights <- tbl(con, in_schema("datawarehouse", "vflight"))
 carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
-
-
-
 ```
-
-
 
 ## Simple plot
 *Practice pushing the calculations to the database*
@@ -74,7 +65,7 @@ flights %>%
   geom_line(aes(x = month, y = x)) 
 ```
 
-3. Plot the average distance 
+3. Plot the average distance. Copy the code from the previous exercise and change the variable
 ```{r}
 flights %>%
   group_by(month) %>%
@@ -111,7 +102,7 @@ flights %>%
     geom_col(aes(x = uniquecarrier, y = n))
 ```
 
-1. Improve the plot's look
+3. Improve the plot's look
 ```{r}
 flights %>%
   group_by(uniquecarrier) %>%
@@ -183,7 +174,6 @@ flights %>%
 
 1. Install and load `dbplot`
 ```{r, eval = FALSE}
-install.packages("dbplot")
 library(dbplot)
 ```
 
@@ -275,7 +265,6 @@ departure %>%
   geom_raster(aes(x = deptime, y = arrtime, fill = `n()`))
 ```
 
-
 ## Under the hood (II)
 *Review how `dbplot` pushes histogram and raster calculations to the database*
 
@@ -289,8 +278,8 @@ db_bin(field)
 translate_sql(!! db_bin(field), con = simulate_odbc_postgresql())
 ```
 
+3. Disconnect from the database
 
-
-```{r, include = FALSE}
+```{r}
 dbDisconnect(con)
 ```

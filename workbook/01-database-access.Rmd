@@ -1,12 +1,14 @@
+```{r, section01, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
 
+# Access a database
 
 ```{r, include = FALSE}
 library(dplyr)
 library(dbplyr)
 library(DBI)
 ```
-
-# Access a database
 
 ## Connect to a database
 
@@ -133,6 +135,12 @@ con <- dbConnect(
 
 2. When prompted, type in **rstudio_dev** for the user, and **dev_user** as the password
 
+3. Disconnect from the database using `dbDisconnect()`
+```{r}
+dbDisconnect(con)
+```
+
+
 ## Secure credentials in a file
 
 *Credentials can be saved in a YAML file and then read using the `config` package: http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config *
@@ -160,6 +168,13 @@ con <- dbConnect(odbc::odbc(),
 )
 ```
 
+5. Disconnect from the database using `dbDisconnect()`
+```{r}
+dbDisconnect(con)
+```
+
+
+
 ## Environment variables
 *Use .Renviron file to store credentials*
 
@@ -182,6 +197,12 @@ con <- dbConnect(
   Database = "postgres"
 )
 ```
+
+4. Disconnect from the database using `dbDisconnect()`
+```{r}
+dbDisconnect(con)
+```
+
 
 ## Use options()
 *Set options() in a separate R script*
@@ -211,8 +232,7 @@ con <- dbConnect(
 )
 ```
 
-
-
-```{r, include = FALSE}
+5. Disconnect from the database using `dbDisconnect()`
+```{r}
 dbDisconnect(con)
 ```

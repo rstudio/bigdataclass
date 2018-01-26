@@ -1,16 +1,12 @@
-#Intro to `sparklyr`
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
+#Intro to `sparklyr`
+
 ```{r, include = FALSE}
-
-library(dplyr)
-library(purrr)
-library(readr)
+library(tidyverse)
 library(sparklyr)
-
 ```
 
 ## New Spark session
@@ -120,17 +116,12 @@ cached_flights <- spark_flights %>%
   mutate_all(as.numeric)
 ```
 
-2. Register the data subset as a new table called *sub_flights*
+2. Use `tbl_cache()` to extract the data into Spark memory
 ```{r}
-sdf_register(cached_flights, "sub_flights")
+cached_flights <- compute(cached_flights, "sub_flights")
 ```
 
-3. Use `tbl_cache()` to extract the data into Spark memory
-```{r}
-tbl_cache(sc, "sub_flights")
-```
-
-4. Confirm new variable pointer works
+3. Confirm new variable pointer works
 ```{r}
 cached_flights %>%
   tally()

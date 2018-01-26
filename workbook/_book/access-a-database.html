@@ -110,10 +110,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
-<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.2</b> Basic aggregation</a></li>
-<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.3</b> Under the hood</a></li>
-<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.4</b> Un-translated R commands</a></li>
-<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.5</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
@@ -320,6 +321,148 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
 ## 9  51.87796 -176.64603
 ## 10 57.74997 -152.49386</code></pre>
 <ol start="4" style="list-style-type: decimal">
+<li>Use the SQL chunk</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> * <span class="kw">FROM</span> datawarehouse.airport <span class="kw">LIMIT</span> <span class="dv">10</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-6">Table 1.1: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">airport</th>
+<th align="left">airportname</th>
+<th align="left">city</th>
+<th align="left">state</th>
+<th align="left">country</th>
+<th align="right">lat</th>
+<th align="right">long</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ABE</td>
+<td align="left">Lehigh Valley International</td>
+<td align="left">Allentown</td>
+<td align="left">PA</td>
+<td align="left">USA</td>
+<td align="right">40.65236</td>
+<td align="right">-75.44040</td>
+</tr>
+<tr class="even">
+<td align="left">ABI</td>
+<td align="left">Abilene Regional</td>
+<td align="left">Abilene</td>
+<td align="left">TX</td>
+<td align="left">USA</td>
+<td align="right">32.41132</td>
+<td align="right">-99.68190</td>
+</tr>
+<tr class="odd">
+<td align="left">ABQ</td>
+<td align="left">Albuquerque International</td>
+<td align="left">Albuquerque</td>
+<td align="left">NM</td>
+<td align="left">USA</td>
+<td align="right">35.04022</td>
+<td align="right">-106.60919</td>
+</tr>
+<tr class="even">
+<td align="left">ABY</td>
+<td align="left">Southwest Georgia Regional</td>
+<td align="left">Albany</td>
+<td align="left">GA</td>
+<td align="left">USA</td>
+<td align="right">31.53552</td>
+<td align="right">-84.19447</td>
+</tr>
+<tr class="odd">
+<td align="left">ACK</td>
+<td align="left">Nantucket Memorial</td>
+<td align="left">Nantucket</td>
+<td align="left">MA</td>
+<td align="left">USA</td>
+<td align="right">41.25305</td>
+<td align="right">-70.06018</td>
+</tr>
+<tr class="even">
+<td align="left">ACT</td>
+<td align="left">Waco Regional</td>
+<td align="left">Waco</td>
+<td align="left">TX</td>
+<td align="left">USA</td>
+<td align="right">31.61129</td>
+<td align="right">-97.23052</td>
+</tr>
+<tr class="odd">
+<td align="left">ACV</td>
+<td align="left">Arcata</td>
+<td align="left">Arcata/Eureka</td>
+<td align="left">CA</td>
+<td align="left">USA</td>
+<td align="right">40.97812</td>
+<td align="right">-124.10862</td>
+</tr>
+<tr class="even">
+<td align="left">ACY</td>
+<td align="left">Atlantic City International</td>
+<td align="left">Atlantic City</td>
+<td align="left">NJ</td>
+<td align="left">USA</td>
+<td align="right">39.45758</td>
+<td align="right">-74.57717</td>
+</tr>
+<tr class="odd">
+<td align="left">ADK</td>
+<td align="left">Adak</td>
+<td align="left">Adak</td>
+<td align="left">AK</td>
+<td align="left">USA</td>
+<td align="right">51.87796</td>
+<td align="right">-176.64603</td>
+</tr>
+<tr class="even">
+<td align="left">ADQ</td>
+<td align="left">Kodiak</td>
+<td align="left">Kodiak</td>
+<td align="left">AK</td>
+<td align="left">USA</td>
+<td align="right">57.74997</td>
+<td align="right">-152.49386</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>Use the <code>output.var</code> option to load results to a variable</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> * <span class="kw">FROM</span> datawarehouse.airport <span class="kw">LIMIT</span> <span class="dv">10</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Test the variable</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql_top10</code></pre></div>
+<pre><code>##    airport                 airportname          city state country
+## 1      ABE Lehigh Valley International     Allentown    PA     USA
+## 2      ABI            Abilene Regional       Abilene    TX     USA
+## 3      ABQ   Albuquerque International   Albuquerque    NM     USA
+## 4      ABY  Southwest Georgia Regional        Albany    GA     USA
+## 5      ACK          Nantucket Memorial     Nantucket    MA     USA
+## 6      ACT               Waco Regional          Waco    TX     USA
+## 7      ACV                      Arcata Arcata/Eureka    CA     USA
+## 8      ACY Atlantic City International Atlantic City    NJ     USA
+## 9      ADK                        Adak          Adak    AK     USA
+## 10     ADQ                      Kodiak        Kodiak    AK     USA
+##         lat       long
+## 1  40.65236  -75.44040
+## 2  32.41132  -99.68190
+## 3  35.04022 -106.60919
+## 4  31.53552  -84.19447
+## 5  41.25305  -70.06018
+## 6  31.61129  -97.23052
+## 7  40.97812 -124.10862
+## 8  39.45758  -74.57717
+## 9  51.87796 -176.64603
+## 10 57.74997 -152.49386</code></pre>
+<ol start="7" style="list-style-type: decimal">
 <li>Disconnect from the database using <code>dbDisconnect()</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
@@ -340,8 +483,11 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
   <span class="dt">Database =</span> <span class="st">&quot;postgres&quot;</span>
 )</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>When prompted, type in <strong>rstudio_dev</strong> for the user, and <strong>dev_user</strong> as the password</li>
+<li><p>When prompted, type in <strong>rstudio_dev</strong> for the user, and <strong>dev_user</strong> as the password</p></li>
+<li><p>Disconnect from the database using <code>dbDisconnect()</code></p></li>
 </ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+<pre><code>## Warning: Connection already closed.</code></pre>
 </div>
 <div id="secure-credentials-in-a-file" class="section level2">
 <h2><span class="header-section-number">1.6</span> Secure credentials in a file</h2>
@@ -367,6 +513,10 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
    <span class="dt">Port   =</span> dw<span class="op">$</span>port,
    <span class="dt">Database =</span> dw<span class="op">$</span>database
 )</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Disconnect from the database using <code>dbDisconnect()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
 </div>
 <div id="environment-variables" class="section level2">
 <h2><span class="header-section-number">1.7</span> Environment variables</h2>
@@ -389,6 +539,11 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
   <span class="dt">Port =</span> <span class="dv">5432</span>,
   <span class="dt">Database =</span> <span class="st">&quot;postgres&quot;</span>
 )</code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Disconnect from the database using <code>dbDisconnect()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+<pre><code>## Warning: Connection already closed.</code></pre>
 </div>
 <div id="use-options" class="section level2">
 <h2><span class="header-section-number">1.8</span> Use options()</h2>
@@ -403,7 +558,7 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getOption</span>(<span class="st">&quot;database_userid&quot;</span>)</code></pre></div>
 <pre><code>## [1] &quot;rstudio_dev&quot;</code></pre>
-<ol start="3" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Pass the credentials using the environment variables</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(
@@ -415,6 +570,11 @@ con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span cl
   <span class="dt">Port =</span> <span class="dv">5432</span>,
   <span class="dt">Database =</span> <span class="st">&quot;postgres&quot;</span>
 )</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Disconnect from the database using <code>dbDisconnect()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+<pre><code>## Warning: Connection already closed.</code></pre>
 
 </div>
 </div>
