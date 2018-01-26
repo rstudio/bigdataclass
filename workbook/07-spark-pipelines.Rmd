@@ -17,8 +17,12 @@ file_columns <- top_rows %>%
   rename_all(tolower) %>%
   map(function(x) "character")
 
+conf <- spark_config()
+conf$`sparklyr.cores.local` <- 4
+conf$`sparklyr.shell.driver-memory` <- "8G"
+conf$spark.memory.fraction <- 0.9
 
-sc <- spark_connect(master = "local", version = "2.1.0")
+sc <- spark_connect(master = "local", config = conf,version = "2.0.0")
 spark_flights <- spark_read_csv(
   sc,
   name = "flights",
@@ -126,7 +130,7 @@ list.files("saved_pipeline")
 1. Open a new Spark connection and reload the data
 ```{r}
 library(sparklyr)
-sc <- spark_connect(master = "local", version = "2.1.0")
+sc <- spark_connect(master = "local", version = "2.0.0")
 spark_flights <- spark_read_csv(
   sc,
   name = "flights",

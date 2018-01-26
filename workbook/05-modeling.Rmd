@@ -1,7 +1,7 @@
 # Modeling
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE, cache = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 ```{r, include = FALSE}
