@@ -1,10 +1,11 @@
-```{r, section11, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
-```
+---
+title: "Share and Production"
+output: html_notebook
+---
 
-#Share and Production
+## Class catchup
 
-```{r, include = FALSE}
+```{r}
 library(tidyverse)
 library(dbplyr)
 library(DBI)
@@ -20,8 +21,7 @@ airline_list <- carriers %>%
   map(~.$carrier)     
 ```
 
-## Publish dashboard
-*Use RStudio Connect to publish work internally in the enterprise*
+## 11.1 - Publish dashboard
 
 1. Open the dashboard `app.R` file
 
@@ -33,11 +33,7 @@ airline_list <- carriers %>%
 
 5. Select RStudio Connect
 
-<img src="images/select-connect.PNG" width = 400>
-
 6. Copy and paste **your** RStudio Server URL and add `:3939`
-
-<img src="images/rsc-server.PNG" width = 400>
 
 7. Enter your credentials
 
@@ -49,8 +45,7 @@ airline_list <- carriers %>%
 
 11. Click Publish
 
-## Schedule scoring
-*Use the tidypredict model to score and write back to the database*
+## 11.2 - Schedule scoring
 
 1. Create a new RMarkdown
 
@@ -125,8 +120,7 @@ dbSendQuery(con, update_statement)
 
 12. Click Save
 
-## Scheduled pipeline
-*See how to automate the pipeline model to run on a daily basis*
+## 11.3 - Scheduled pipeline
 
 1. Create a new **RMarkdown** document
 
