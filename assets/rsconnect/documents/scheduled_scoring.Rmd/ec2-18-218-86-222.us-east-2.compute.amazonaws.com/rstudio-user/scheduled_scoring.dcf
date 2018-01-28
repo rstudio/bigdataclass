@@ -1,0 +1,12 @@
+name: scheduled_scoring
+title: scheduled_scoring
+username: rstudio-user
+account: rstudio-user
+server: ec2-18-218-86-222.us-east-2.compute.amazonaws.com
+hostUrl: http://ec2-18-218-86-222.us-east-2.compute.amazonaws.com:3939/__api__
+appId: 3
+bundleId: 3
+url: http://ec2-18-218-86-222.us-east-2.compute.amazonaws.com:3939/content/3/
+when: 1517164872.66456
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,40 @@
+---
+title: "Spark Pipeline Re-fit"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(sparklyr)
+library(lubridate)
+top_rows <- read.csv("/usr/share/flights/data/flight_2008_1.csv", nrows = 5)
+file_columns <- top_rows %>%
+  rename_all(tolower) %>%
+  map(function(x) "character")
+conf <- spark_config()
+conf$`sparklyr.cores.local` <- 4
+conf$`sparklyr.shell.driver-memory` <- "8G"
+conf$spark.memory.fraction <- 0.9
+sc <- spark_connect(master = "local", config = conf, version = "2.0.0")
+spark_flights <- spark_read_csv(
+  sc,
+  name = "flights",
+  path = "/usr/share/flights/data/",
+  memory = FALSE,
+  columns = file_columns,
+  infer_schema = FALSE
+)
+```
+
+
+```{r}
+pipeline <- ml_load(sc, "/tmp/saved_pipeline")
+pipeline
+sample <- tbl(sc, "flights") %>%
+  sample_frac(0.001) 
+new_model <- ml_fit(pipeline, sample)
+new_model
+ml_save(new_model, "/tmp/new_model", overwrite = TRUE)
+list.files("/tmp/new_model")
+spark_disconnect(sc)
+```

@@ -1,0 +1,42 @@
+---
+title: "Scheduled Scoring"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(dbplyr)
+library(tidypredict)
+library(DBI)
+library(lubridate)
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+table_flights <- tbl(con, in_schema("datawarehouse", "flight"))
+
+parsedmodel <- read_csv("parsedmodel.csv")
+
+predictions <- table_flights %>%
+  filter(month == 2,
+         dayofmonth == 1) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select(p_flightid = flightid, season, depdelay) %>%
+  tidypredict_to_column(parsedmodel) %>%
+  remote_query()
+```
+
+
+```{r}
+update_statement <- build_sql(
+  "UPDATE datawarehouse.flight SET nasdelay = fit FROM (",
+  predictions,
+  ") as p ",
+  "WHERE flightid = p_flightid",
+  con = con
+)
+dbSendQuery(con, update_statement)
+```
