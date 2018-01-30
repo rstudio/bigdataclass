@@ -12,7 +12,7 @@ library(ggplot2)
 # Class catchup
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
 airports <- tbl(con, in_schema("datawarehouse", "airport"))
-flights <- tbl(con, in_schema("datawarehouse", "vflight"))
+flights <- tbl(con, in_schema("datawarehouse", "flight"))
 carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 ```
 

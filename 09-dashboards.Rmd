@@ -10,6 +10,7 @@ library(tidyverse)
 library(dbplyr)
 library(DBI)
 library(dbplot)
+
 # Class catchup
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
 airports <- tbl(con, in_schema("datawarehouse", "airport"))
@@ -21,6 +22,9 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 
 1. Create and preview a simple `shinydashboard` 
 ```{r, eval = FALSE}
+library(shinydashboard)
+library(shiny)
+library(DT)
 
 ui <- dashboardPage(
   dashboardHeader(title = "Quick Example"),

@@ -25,6 +25,7 @@ spark_flights <- spark_read_csv(
   columns = file_columns,
   infer_schema = FALSE
 )
+
 ```
 
 ## Recreate the transformations 
@@ -132,7 +133,7 @@ sc <- spark_connect(master = "local", version = "2.0.0")
 spark_flights <- spark_read_csv(
   sc,
   name = "flights",
-  path = "/usr/share/flights/flights_2008.csv",
+  path = "/usr/share/flights/data/",
   memory = FALSE,
   columns = file_columns,
   infer_schema = FALSE
@@ -146,7 +147,7 @@ reload
 ```
 
 
-4.  Create a new table called *current*. It needs to pull today's flights
+3.  Create a new table called *current*. It needs to pull today's flights
 ```{r}
 library(lubridate)
 
@@ -159,12 +160,12 @@ current <- tbl(sc, "flights") %>%
 show_query(current)
 ```
 
-5.  Create a new table called *current*. It needs to pull today's flights
+4.  Create a new table called *current*. It needs to pull today's flights
 ```{r}
 head(current)
 ```
 
-6. Run predictions against the new data set
+5. Run predictions against the new data set
 ```{r}
 new_predictions <- ml_transform(
   x = reload,
@@ -173,7 +174,7 @@ new_predictions <- ml_transform(
 
 ```
 
-7. Get a quick count of expected delayed flights
+6. Get a quick count of expected delayed flights
 ```{r}
 new_predictions %>%
   summarise(late_fligths = sum(prediction, na.rm = TRUE))
@@ -184,8 +185,8 @@ new_predictions %>%
 
 1. Use `ml_load()` to reload the pipeline into the Spark session
 ```{r}
-pipeline <- ml_load(sc, "saved_pipeline")
-pipeline
+flights_pipeline <- ml_load(sc, "saved_pipeline")
+flights_pipeline
 ```
 
 2. Create a new sample data set using `sample_frac()`
@@ -196,7 +197,7 @@ sample <- tbl(sc, "flights") %>%
 
 3. Re-fit the model using `ml_fit()` and the new sample data
 ```{r}
-new_model <- ml_fit(pipeline, sample)
+new_model <- ml_fit(flights_pipeline, sample)
 new_model
 ```
 

@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.Binarizer","timestamp":1517180908048,"sparkVersion":"2.0.0","uid":"binarizer_45491fa6f002","paramMap":{"outputCol":"delayed","threshold":15.0,"inputCol":"arrdelay"}}

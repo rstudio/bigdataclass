@@ -1,0 +1,148 @@
+---
+title: "Text mining with sparklyr"
+output: html_notebook
+---
+
+## 12.1 -  Data Import
+
+1. Open a Spark session
+```{r}
+library(sparklyr)
+library(dplyr)
+
+conf <- spark_config()
+conf$`sparklyr.cores.local` <- 4
+conf$`sparklyr.shell.driver-memory` <- "8G"
+conf$spark.memory.fraction <- 0.9
+
+sc <- spark_connect(master = "local", config = conf,version = "2.0.0")
+```
+
+
+1. The `spark_read_text()` is a new function which works like `readLines()` but for `sparklyr`. Use it to read the *mark_twain.txt* file into Spark.
+```{r}
+twain_path <- paste0("file:///usr/share/bonus/mark_twain.txt")
+twain <-  spark_read_text(sc, "twain", twain_path) 
+```
+
+2. Read the *arthur_doyle.txt* file into Spark
+```{r}
+doyle_path <-  paste0("file:///usr/share/bonus/arthur_doyle.txt")
+doyle <-  spark_read_text(sc, "doyle", doyle_path) 
+```
+
+
+## 12.2 - Prepare the data
+
+1. Use `sdf_bind_rows()` to append the two files together
+```{r}
+all_words <- doyle %>%
+  mutate(author = "doyle") %>%
+  sdf_bind_rows({
+    twain %>%
+      mutate(author = "twain")
+  }) %>%
+  filter(nchar(line) > 0)
+```
+
+2. Use Hive's *regexp_replace* to remove punctuation
+```{r}
+all_words <- all_words %>%
+  mutate(line = regexp_replace(line, "[_\"\'():;,.!?\\-]", " ")) 
+```
+
+3. Use `ft_tokenizer()` to separate each word. 
+```{r}
+all_words <- all_words %>%
+    ft_tokenizer(input.col = "line",
+               output.col = "word_list")
+
+head(all_words, 4)
+```
+
+4. Remove "stop words" with the `ft_stop_words_remover()` transformer
+```{r}
+all_words <- all_words %>%
+  ft_stop_words_remover(input.col = "word_list",
+                        output.col = "wo_stop_words")
+
+head(all_words, 4)
+```
+
+5. Un-nest the tokens with **explode** 
+```{r}
+all_words <- all_words %>%
+  mutate(word = explode(wo_stop_words)) %>%
+  select(word, author) %>%
+  filter(nchar(word) > 2)
+  
+head(all_words, 4)
+```
+
+6. Cache the *all_words* variable using `compute()`  
+```{r}
+all_words <- all_words %>%
+  compute("all_words")
+```
+
+
+## 12.3 - Data Analysis
+
+1. Words used the most by author
+
+```{r}
+word_count <- all_words %>%
+  group_by(author, word) %>%
+  tally() %>%
+  arrange(desc(n)) 
+  
+word_count
+```
+
+2. Figure out which words are used by Doyle but not Twain
+
+```{r}
+doyle_unique <- filter(word_count, author == "doyle") %>%
+  anti_join(filter(word_count, author == "twain"), by = "word") %>%
+  arrange(desc(n)) %>%
+  compute("doyle_unique")
+
+doyle_unique
+```
+
+3. Use `wordcloud` to visualize the data in the previous step
+```{r}
+doyle_unique %>%
+  head(100) %>%
+  collect() %>%
+  with(wordcloud::wordcloud(
+    word, 
+    n,
+    colors = c("#999999", "#E69F00", "#56B4E9","#56B4E9")))
+```
+
+4. Find out how many times Twain used the word "sherlock"
+```{r}
+
+all_words %>%
+  filter(author == "twain",
+         word == "sherlock") %>%
+  tally()
+```
+
+5. Against the `twain` variable, use Hive's *instr* and *lower* to make all ever word lower cap, and then look for "sherlock" in the line
+```{r}
+
+twain %>%
+  mutate(line = lower(line)) %>%
+  filter(instr(line, "sherlock") > 0) %>%
+  pull(line)
+
+```
+
+Most of these lines are in a short story by Mark Twain called [A Double Barrelled Detective Story](https://www.gutenberg.org/files/3180/3180-h/3180-h.htm#link2H_4_0008). As per the [Wikipedia](https://en.wikipedia.org/wiki/A_Double_Barrelled_Detective_Story) page about this story, this is a satire by Twain on the mystery novel genre, published in 1902.
+
+
+```{r}
+spark_disconnect(sc)
+```

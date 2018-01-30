@@ -229,7 +229,7 @@ pm
 
 2. Verify that the resulting table can be used to get the fit formula
 ```{r}
-
+tidypredict_test(model_lm)
 ```
 
 3. Using `read_csv()`, save the parsed model for later use
