@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="distributed-r.html">
+<link rel="next" href="intro-to-dashboards.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-with-id"><i class="fa fa-check"></i><b>5.2</b> Sample with ID</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.3</b> Sample manually</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.4</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
+<li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distributed-r.html"><a href="distributed-r.html"><i class="fa fa-check"></i><b>7</b> Distributed R</a><ul>
+<li class="chapter" data-level="7.1" data-path="distributed-r.html"><a href="distributed-r.html#basic-distribution"><i class="fa fa-check"></i><b>7.1</b> Basic distribution</a></li>
+<li class="chapter" data-level="7.2" data-path="distributed-r.html"><a href="distributed-r.html#use-group_by"><i class="fa fa-check"></i><b>7.2</b> Use group_by</a></li>
+<li class="chapter" data-level="7.3" data-path="distributed-r.html"><a href="distributed-r.html#distributing-packages"><i class="fa fa-check"></i><b>7.3</b> Distributing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>9</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>9.1</b> Basic structure</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>9.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>9.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>9.4</b> Integrate the dropdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>10</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="10.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>10.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>10.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="10.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>10.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="10.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>10.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>11</b> Share and Production</a><ul>
+<li class="chapter" data-level="11.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>11.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="11.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>11.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="11.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>11.3</b> Scheduled pipeline</a></li>
+<li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
+<li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spark-pipelines" class="section level1">
+<h1><span class="header-section-number">8</span> Spark pipelines</h1>
+<div id="recreate-the-transformations" class="section level2">
+<h2><span class="header-section-number">8.1</span> Recreate the transformations</h2>
+<p><em>Overview of how most of the existing code will be reused</em></p>
+<ol style="list-style-type: decimal">
+<li>Register a new table called <em>current</em> containing a sample of the base <em>flights</em> table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_data &lt;-<span class="st"> </span><span class="kw">sdf_partition</span>(
+  <span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>),
+  <span class="dt">training =</span> <span class="fl">0.01</span>,
+  <span class="dt">testing =</span> <span class="fl">0.01</span>,
+  <span class="dt">rest =</span> <span class="fl">0.98</span>
+)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Recreate the <code>dplyr</code> code in the <code>cached_flights</code> variable from the previous unit</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pipeline_df &lt;-<span class="st"> </span>model_data<span class="op">$</span>training <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">arrdelay =</span> <span class="kw">ifelse</span>(arrdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>, arrdelay),
+    <span class="dt">depdelay =</span> <span class="kw">ifelse</span>(depdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>, depdelay)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(
+    month,
+    dayofmonth,
+    arrtime,
+    arrdelay,
+    depdelay,
+    crsarrtime,
+    crsdeptime,
+    distance
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate_all</span>(as.numeric)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a new Spark pipeline</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_pipeline &lt;-<span class="st"> </span><span class="kw">ml_pipeline</span>(sc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_dplyr_transformer</span>(
+    <span class="dt">tbl =</span> pipeline_df
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_binarizer</span>(
+    <span class="dt">input_col =</span> <span class="st">&quot;arrdelay&quot;</span>,
+    <span class="dt">output_col =</span> <span class="st">&quot;delayed&quot;</span>,
+    <span class="dt">threshold =</span> <span class="dv">15</span>
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_bucketizer</span>(
+    <span class="dt">input_col =</span> <span class="st">&quot;crsdeptime&quot;</span>,
+    <span class="dt">output_col =</span> <span class="st">&quot;dephour&quot;</span>,
+    <span class="dt">splits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1200</span>, <span class="dv">1600</span>, <span class="dv">2000</span>, <span class="dv">2400</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_r_formula</span>(delayed <span class="op">~</span><span class="st"> </span>arrdelay <span class="op">+</span><span class="st"> </span>dephour) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ml_logistic_regression</span>()
+
+flights_pipeline</code></pre></div>
+<pre><code>## Pipeline (Estimator) with 5 stages
+## &lt;pipeline_48894091d631&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_4889709b1de9&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_488915dc3fc5&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_48892eb462c1&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormula (Estimator)
+##   |    &lt;r_formula_488934917e7e&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Parameters)
+##   |      formula: delayed ~ arrdelay + dephour
+##   |--5 LogisticRegression (Estimator)
+##   |    &lt;logistic_regression_4889771b69ab&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Parameters)
+##   |      elastic_net_param: 0
+##   |      fit_intercept: TRUE
+##   |      max_iter: 100
+##   |      reg_param: 0
+##   |      standardization: TRUE
+##   |      threshold: 0.5
+##   |      tol: 1e-06</code></pre>
+</div>
+<div id="fit-evaluate-save" class="section level2">
+<h2><span class="header-section-number">8.2</span> Fit, evaluate, save</h2>
+<ol style="list-style-type: decimal">
+<li>Fit (train) the pipeline’s model</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(flights_pipeline, model_data<span class="op">$</span>training)
+model</code></pre></div>
+<pre><code>## PipelineModel (Transformer) with 5 stages
+## &lt;pipeline_48894091d631&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_4889709b1de9&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_488915dc3fc5&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_48892eb462c1&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormulaModel (Transformer)
+##   |    &lt;r_formula_488934917e7e&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Transformer Info)
+##   |      formula:  chr &quot;delayed ~ arrdelay + dephour&quot; 
+##   |--5 LogisticRegressionModel (Transformer)
+##   |    &lt;logistic_regression_4889771b69ab&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Transformer Info)
+##   |      coefficients:  num [1:2] 26.326 -0.158 
+##   |      intercept:  num -408 
+##   |      num_classes:  int 2 
+##   |      num_features:  int 2 
+##   |      threshold:  num 0.5</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use the newly fitted model to perform predictions using <code>ml_transform()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions &lt;-<span class="st"> </span><span class="kw">ml_transform</span>(
+  <span class="dt">x =</span> model,
+  <span class="dt">dataset =</span> model_data<span class="op">$</span>testing
+)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>group_by()</code> to see how the model performed</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(delayed, prediction) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: spark_connection
+## # Groups:   delayed
+##   delayed prediction     n
+##     &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+## 1    0          0    55403
+## 2    1.00       1.00 14717</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Save the model into disk using <code>ml_save()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(model, <span class="st">&quot;saved_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="st">&quot;saved_model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;metadata&quot; &quot;stages&quot;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Save the pipeline using <code>ml_save()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(flights_pipeline, <span class="st">&quot;saved_pipeline&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="st">&quot;saved_pipeline&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;metadata&quot; &quot;stages&quot;</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Close the Spark session</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre></div>
+</div>
+<div id="reload-model" class="section level2">
+<h2><span class="header-section-number">8.3</span> Reload model</h2>
+<p><em>Use the saved model inside a different Spark session</em></p>
+<ol style="list-style-type: decimal">
+<li>Open a new Spark connection and reload the data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sparklyr)
+sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;2.0.0&quot;</span>)
+spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(
+  sc,
+  <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>,
+  <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/data/&quot;</span>,
+  <span class="dt">memory =</span> <span class="ot">FALSE</span>,
+  <span class="dt">columns =</span> file_columns,
+  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>
+)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>ml_load()</code> to reload the model directly into the Spark session</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reload &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_model&quot;</span>)
+reload</code></pre></div>
+<pre><code>## PipelineModel (Transformer) with 5 stages
+## &lt;pipeline_48894091d631&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_4889709b1de9&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_488915dc3fc5&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_48892eb462c1&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormulaModel (Transformer)
+##   |    &lt;r_formula_488934917e7e&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |--5 LogisticRegressionModel (Transformer)
+##   |    &lt;logistic_regression_4889771b69ab&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Transformer Info)
+##   |      coefficients:  num [1:2] 26.326 -0.158 
+##   |      intercept:  num -408 
+##   |      num_classes:  int 2 
+##   |      num_features:  int 2 
+##   |      threshold:  num 0.5</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a new table called <em>current</em>. It needs to pull today’s flights</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
+
+current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    month <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">month</span>(<span class="kw">now</span>()),
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">day</span>(<span class="kw">now</span>())
+  )
+
+<span class="kw">show_query</span>(current)</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT *
+## FROM `flights`
+## WHERE ((`month` = 2.0) AND (`dayofmonth` = 1))</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a new table called <em>current</em>. It needs to pull today’s flights</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(current)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 31]
+## # Database: spark_connection
+##   flightid year  month dayofmonth dayofweek deptime crsdeptime arrtime
+##   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;  
+## 1 694864   2008  2     1          5         1219    1200       1454   
+## 2 694875   2008  2     1          5         0       1540       0      
+## 3 694884   2008  2     1          5         1237    1242       1407   
+## 4 694902   2008  2     1          5         1406    1415       1540   
+## 5 694993   2008  2     1          5         1153    1159       1338   
+## 6 694997   2008  2     1          5         2145    2055       2232   
+## # ... with 23 more variables: crsarrtime &lt;chr&gt;, uniquecarrier &lt;chr&gt;,
+## #   flightnum &lt;chr&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;chr&gt;,
+## #   crselapsedtime &lt;chr&gt;, airtime &lt;chr&gt;, arrdelay &lt;chr&gt;, depdelay &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;chr&gt;, taxiin &lt;chr&gt;, taxiout &lt;chr&gt;,
+## #   cancelled &lt;chr&gt;, cancellationcode &lt;chr&gt;, diverted &lt;chr&gt;,
+## #   carrierdelay &lt;chr&gt;, weatherdelay &lt;chr&gt;, nasdelay &lt;chr&gt;,
+## #   securitydelay &lt;chr&gt;, lateaircraftdelay &lt;chr&gt;, score &lt;chr&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Run predictions against the new data set</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_predictions &lt;-<span class="st"> </span><span class="kw">ml_transform</span>(
+  <span class="dt">x =</span> reload,
+  <span class="dt">dataset =</span> current
+)</code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Get a quick count of expected delayed flights</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_predictions <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">late_fligths =</span> <span class="kw">sum</span>(prediction, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: spark_connection
+##   late_fligths
+##          &lt;dbl&gt;
+## 1         7664</code></pre>
+</div>
+<div id="reload-pipeline" class="section level2">
+<h2><span class="header-section-number">8.4</span> Reload pipeline</h2>
+<p><em>Overview of how to use new data to re-fit the pipeline, thus creating a new pipeline model</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>ml_load()</code> to reload the pipeline into the Spark session</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_pipeline &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_pipeline&quot;</span>)
+flights_pipeline</code></pre></div>
+<pre><code>## Pipeline (Estimator) with 5 stages
+## &lt;pipeline_48894091d631&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_4889709b1de9&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_488915dc3fc5&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_48892eb462c1&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormula (Estimator)
+##   |    &lt;r_formula_488934917e7e&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Parameters)
+##   |      formula: delayed ~ arrdelay + dephour
+##   |--5 LogisticRegression (Estimator)
+##   |    &lt;logistic_regression_4889771b69ab&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Parameters)
+##   |      elastic_net_param: 0
+##   |      fit_intercept: TRUE
+##   |      max_iter: 100
+##   |      reg_param: 0
+##   |      standardization: TRUE
+##   |      threshold: 0.5
+##   |      tol: 1e-06</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Create a new sample data set using <code>sample_frac()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sample_frac</span>(<span class="fl">0.001</span>) </code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Re-fit the model using <code>ml_fit()</code> and the new sample data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(flights_pipeline, sample)
+new_model</code></pre></div>
+<pre><code>## PipelineModel (Transformer) with 5 stages
+## &lt;pipeline_48894091d631&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_4889709b1de9&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_488915dc3fc5&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_48892eb462c1&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormulaModel (Transformer)
+##   |    &lt;r_formula_488934917e7e&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Transformer Info)
+##   |      formula:  chr &quot;delayed ~ arrdelay + dephour&quot; 
+##   |--5 LogisticRegressionModel (Transformer)
+##   |    &lt;logistic_regression_4889771b69ab&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Transformer Info)
+##   |      coefficients:  num [1:2] 23.77421 -0.00874 
+##   |      intercept:  num -369 
+##   |      num_classes:  int 2 
+##   |      num_features:  int 2 
+##   |      threshold:  num 0.5</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Save the newly fitted model</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(new_model, <span class="st">&quot;new_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="st">&quot;new_model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;metadata&quot; &quot;stages&quot;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Disconnect from Spark</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="distributed-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro-to-dashboards.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>

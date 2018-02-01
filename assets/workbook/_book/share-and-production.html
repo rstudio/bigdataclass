@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="dashboard-drill-down.html">
+<link rel="next" href="text-mining-with-sparklyr.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-with-id"><i class="fa fa-check"></i><b>5.2</b> Sample with ID</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.3</b> Sample manually</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.4</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
+<li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distributed-r.html"><a href="distributed-r.html"><i class="fa fa-check"></i><b>7</b> Distributed R</a><ul>
+<li class="chapter" data-level="7.1" data-path="distributed-r.html"><a href="distributed-r.html#basic-distribution"><i class="fa fa-check"></i><b>7.1</b> Basic distribution</a></li>
+<li class="chapter" data-level="7.2" data-path="distributed-r.html"><a href="distributed-r.html#use-group_by"><i class="fa fa-check"></i><b>7.2</b> Use group_by</a></li>
+<li class="chapter" data-level="7.3" data-path="distributed-r.html"><a href="distributed-r.html#distributing-packages"><i class="fa fa-check"></i><b>7.3</b> Distributing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>9</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>9.1</b> Basic structure</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>9.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>9.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>9.4</b> Integrate the dropdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>10</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="10.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>10.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>10.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="10.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>10.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="10.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>10.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>11</b> Share and Production</a><ul>
+<li class="chapter" data-level="11.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>11.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="11.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>11.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="11.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>11.3</b> Scheduled pipeline</a></li>
+<li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
+<li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="share-and-production" class="section level1">
+<h1><span class="header-section-number">11</span> Share and Production</h1>
+<div id="publish-dashboard" class="section level2">
+<h2><span class="header-section-number">11.1</span> Publish dashboard</h2>
+<p><em>Use RStudio Connect to publish work internally in the enterprise</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Open the dashboard <code>app.R</code> file</p></li>
+<li><p>Click on File</p></li>
+<li><p>Click on Publish</p></li>
+<li><p>Connect Account click Next</p></li>
+<li><p>Select RStudio Connect</p></li>
+</ol>
+<p><img src="images/select-connect.PNG" width = 400></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Copy and paste <strong>your</strong> RStudio Server URL and add <code>:3939</code></li>
+</ol>
+<p><img src="images/rsc-server.PNG" width = 400></p>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Enter your credentials</p></li>
+<li><p>Complete the form</p></li>
+<li><p>Click Proceed</p></li>
+<li><p>Click on Connect</p></li>
+<li><p>Click Publish</p></li>
+</ol>
+</div>
+<div id="schedule-scoring" class="section level2">
+<h2><span class="header-section-number">11.2</span> Schedule scoring</h2>
+<p><em>Use the tidypredict model to score and write back to the database</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Create a new RMarkdown</p></li>
+<li><p>Start the new RMarkdown by loading all the needed libraries, connecting to the DB and setting <code>table_flights</code></p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(dbplyr)
+<span class="kw">library</span>(tidypredict)
+<span class="kw">library</span>(DBI)
+<span class="kw">library</span>(lubridate)
+con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(), <span class="st">&quot;Postgres Dev&quot;</span>)
+table_flights &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;flight&quot;</span>))</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Read the parsed model saved in exercise 5.6</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">parsedmodel &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;parsedmodel.csv&quot;</span>)</code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Copy the code from exercise 5.5 step 4. Load the code into a variable called <em>predictions</em>. Change the model variable to <em>parsedmodel</em></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>( season, depdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidypredict_to_column</span>(parsedmodel) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">remote_query</span>()</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Change the <code>select()</code> verb to include <code>flightid</code>, and rename to <code>p_flightid</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="dt">p_flightid =</span> flightid, season, depdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidypredict_to_column</span>(parsedmodel) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">remote_query</span>() </code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Append to the end, the SQL code needed to run the update inside the database</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">update_statement &lt;-<span class="st"> </span><span class="kw">build_sql</span>(
+  <span class="st">&quot;UPDATE datawarehouse.flight SET nasdelay = fit FROM (&quot;</span>,
+  predictions,
+  <span class="st">&quot;) as p &quot;</span>,
+  <span class="st">&quot;WHERE flightid = p_flightid&quot;</span>,
+  <span class="dt">con =</span> con
+)
+con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(), <span class="st">&quot;Postgres Dev&quot;</span>)
+<span class="kw">dbSendQuery</span>(con, update_statement)</code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li><p><code>knit</code> the document to confirm it works</p></li>
+<li><p>Click on File and then Publish</p></li>
+<li><p>Select <em>Publish just this document</em>. Confirm that the <code>parsemodel.csv</code> file is included in the list of files that are to be published.</p></li>
+<li><p>In RStudio Connect, select <code>Schedule</code></p></li>
+<li><p>Click on <code>Schedule output for default</code></p></li>
+<li><p>Click on <code>Run every weekday (Monday to Friday)</code></p></li>
+<li><p>Click Save</p></li>
+</ol>
+</div>
+<div id="scheduled-pipeline" class="section level2">
+<h2><span class="header-section-number">11.3</span> Scheduled pipeline</h2>
+<p><em>See how to automate the pipeline model to run on a daily basis</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Create a new <strong>RMarkdown</strong> document</p></li>
+<li><p>Copy the code from the <strong>Class catchup</strong> section in Spark Pipeline, unit 8</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(sparklyr)
+<span class="kw">library</span>(lubridate)
+top_rows &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/usr/share/flights/data/flight_2008_1.csv&quot;</span>, <span class="dt">nrows =</span> <span class="dv">5</span>)
+file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)
+conf &lt;-<span class="st"> </span><span class="kw">spark_config</span>()
+conf<span class="op">$</span><span class="st">`</span><span class="dt">sparklyr.cores.local</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="dv">4</span>
+conf<span class="op">$</span><span class="st">`</span><span class="dt">sparklyr.shell.driver-memory</span><span class="st">`</span> &lt;-<span class="st"> &quot;8G&quot;</span>
+conf<span class="op">$</span>spark.memory.fraction &lt;-<span class="st"> </span><span class="fl">0.9</span>
+sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>, <span class="dt">config =</span> conf, <span class="dt">version =</span> <span class="st">&quot;2.0.0&quot;</span>)
+spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(
+  sc,
+  <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>,
+  <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/data/&quot;</span>,
+  <span class="dt">memory =</span> <span class="ot">FALSE</span>,
+  <span class="dt">columns =</span> file_columns,
+  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>
+)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Move the <em>saved_model</em> folder under <em>/tmp</em></p></li>
+<li><p>Copy all the code from exercise 8.3 starting with step 2</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reload &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_model&quot;</span>)
+reload
+<span class="kw">library</span>(lubridate)
+current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    month <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">month</span>(<span class="kw">now</span>()),
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">day</span>(<span class="kw">now</span>())
+  )
+<span class="kw">show_query</span>(current)
+<span class="kw">head</span>(current)
+new_predictions &lt;-<span class="st"> </span><span class="kw">ml_transform</span>(
+  <span class="dt">x =</span> reload,
+  <span class="dt">dataset =</span> current
+)
+new_predictions <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">late_fligths =</span> <span class="kw">sum</span>(prediction, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Change the <code>ml_load()</code> location to <code>&quot;/tmp/saved_model&quot;</code></p></li>
+<li><p>Close the Spark session</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li><p><code>knit</code> the document to confirm it works</p></li>
+<li><p>Click on File and then Publish</p></li>
+<li><p>Select <em>Publish just this document</em></p></li>
+<li><p>Click <em>Publish anyway</em> on the warning</p></li>
+<li><p>In RStudio Connect, select <code>Schedule</code></p></li>
+<li><p>Click on <code>Schedule output for default</code></p></li>
+<li><p>Click on <code>Run every weekday (Monday to Friday)</code></p></li>
+<li><p>Click Save</p></li>
+</ol>
+</div>
+<div id="scheduled-re-fitting" class="section level2">
+<h2><span class="header-section-number">11.4</span> Scheduled re-fitting</h2>
+<p><em>See how to automate the pipeline to re-fit on a monthly basis</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Create a new <strong>RMarkdown</strong> document</p></li>
+<li><p>Copy the code from the <strong>Class catchup</strong> section in Spark Pipeline, unit 8</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(sparklyr)
+<span class="kw">library</span>(lubridate)
+top_rows &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/usr/share/flights/data/flight_2008_1.csv&quot;</span>, <span class="dt">nrows =</span> <span class="dv">5</span>)
+file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)
+conf &lt;-<span class="st"> </span><span class="kw">spark_config</span>()
+conf<span class="op">$</span><span class="st">`</span><span class="dt">sparklyr.cores.local</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="dv">4</span>
+conf<span class="op">$</span><span class="st">`</span><span class="dt">sparklyr.shell.driver-memory</span><span class="st">`</span> &lt;-<span class="st"> &quot;8G&quot;</span>
+conf<span class="op">$</span>spark.memory.fraction &lt;-<span class="st"> </span><span class="fl">0.9</span>
+sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>, <span class="dt">config =</span> conf, <span class="dt">version =</span> <span class="st">&quot;2.0.0&quot;</span>)
+spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(
+  sc,
+  <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>,
+  <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/data/&quot;</span>,
+  <span class="dt">memory =</span> <span class="ot">FALSE</span>,
+  <span class="dt">columns =</span> file_columns,
+  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>
+)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Move the <em>saved_pipeline</em> folder under <em>/tmp</em></p></li>
+<li><p>Copy all the code from exercise 8.4</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pipeline &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;/tmp/saved_pipeline&quot;</span>)
+pipeline
+sample &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span class="st">&quot;flights&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sample_frac</span>(<span class="fl">0.001</span>) 
+new_model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(pipeline, sample)
+new_model
+<span class="kw">ml_save</span>(new_model, <span class="st">&quot;new_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
+<span class="kw">list.files</span>(<span class="st">&quot;new_model&quot;</span>)
+<span class="kw">spark_disconnect</span>(sc)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Change the <code>ml_load()</code> location to <code>&quot;/tmp/saved_pipeline&quot;</code></p></li>
+<li><p><code>knit</code> the document to confirm it works</p></li>
+<li><p>Click on File and then Publish</p></li>
+<li><p>Select <em>Publish just this document</em></p></li>
+<li><p>Click <em>Publish anyway</em> on the warning</p></li>
+<li><p>In RStudio Connect, select <code>Schedule</code></p></li>
+<li><p>Click on <code>Schedule output for default</code></p></li>
+<li><p>On the <em>Schedule Type</em> dropdown, select <em>Monthly</em></p></li>
+<li><p>Click Save</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dashboard-drill-down.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="text-mining-with-sparklyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>

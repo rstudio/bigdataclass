@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="access-a-database.html">
+<link rel="next" href="data-transformation.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-with-id"><i class="fa fa-check"></i><b>5.2</b> Sample with ID</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.3</b> Sample manually</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.4</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
+<li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distributed-r.html"><a href="distributed-r.html"><i class="fa fa-check"></i><b>7</b> Distributed R</a><ul>
+<li class="chapter" data-level="7.1" data-path="distributed-r.html"><a href="distributed-r.html#basic-distribution"><i class="fa fa-check"></i><b>7.1</b> Basic distribution</a></li>
+<li class="chapter" data-level="7.2" data-path="distributed-r.html"><a href="distributed-r.html#use-group_by"><i class="fa fa-check"></i><b>7.2</b> Use group_by</a></li>
+<li class="chapter" data-level="7.3" data-path="distributed-r.html"><a href="distributed-r.html#distributing-packages"><i class="fa fa-check"></i><b>7.3</b> Distributing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>9</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>9.1</b> Basic structure</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>9.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>9.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>9.4</b> Integrate the dropdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>10</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="10.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>10.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>10.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="10.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>10.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="10.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>10.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>11</b> Share and Production</a><ul>
+<li class="chapter" data-level="11.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>11.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="11.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>11.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="11.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>11.3</b> Scheduled pipeline</a></li>
+<li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
+<li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dplyr-basics" class="section level1">
+<h1><span class="header-section-number">2</span> <code>dplyr</code> Basics</h1>
+<div id="create-a-table-variable" class="section level2">
+<h2><span class="header-section-number">2.1</span> Create a table variable</h2>
+<p><em>Basics to how to point a variable in R to a table or view inside the database</em></p>
+<ol style="list-style-type: decimal">
+<li>Load the <code>dplyr</code>, <code>DBI</code> and <code>dbplyr</code> libraries</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(dbplyr)
+<span class="kw">library</span>(DBI)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><em>(Optional)</em> Open a connection to the database if it’s currently closed</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(), <span class="st">&quot;Postgres Dev&quot;</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the <code>tbl()</code> and <code>in_schema()</code> functions to create a reference to a table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;airport&quot;</span>))</code></pre></div>
+<pre><code>## # Source:   table&lt;datawarehouse.airport&gt; [?? x 7]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    airport airportname                 city     state country   lat   long
+##    &lt;chr&gt;   &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 ABE     Lehigh Valley International Allento… PA    USA      40.7 - 75.4
+##  2 ABI     Abilene Regional            Abilene  TX    USA      32.4 - 99.7
+##  3 ABQ     Albuquerque International   Albuque… NM    USA      35.0 -107  
+##  4 ABY     Southwest Georgia Regional  Albany   GA    USA      31.5 - 84.2
+##  5 ACK     Nantucket Memorial          Nantuck… MA    USA      41.3 - 70.1
+##  6 ACT     Waco Regional               Waco     TX    USA      31.6 - 97.2
+##  7 ACV     Arcata                      Arcata/… CA    USA      41.0 -124  
+##  8 ACY     Atlantic City International Atlanti… NJ    USA      39.5 - 74.6
+##  9 ADK     Adak                        Adak     AK    USA      51.9 -177  
+## 10 ADQ     Kodiak                      Kodiak   AK    USA      57.7 -152  
+## # ... with more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Load the reference, not the table data, into a variable</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;airport&quot;</span>))</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Call the variable to see preview the data in the table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports</code></pre></div>
+<pre><code>## # Source:   table&lt;datawarehouse.airport&gt; [?? x 7]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    airport airportname                 city     state country   lat   long
+##    &lt;chr&gt;   &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 ABE     Lehigh Valley International Allento… PA    USA      40.7 - 75.4
+##  2 ABI     Abilene Regional            Abilene  TX    USA      32.4 - 99.7
+##  3 ABQ     Albuquerque International   Albuque… NM    USA      35.0 -107  
+##  4 ABY     Southwest Georgia Regional  Albany   GA    USA      31.5 - 84.2
+##  5 ACK     Nantucket Memorial          Nantuck… MA    USA      41.3 - 70.1
+##  6 ACT     Waco Regional               Waco     TX    USA      31.6 - 97.2
+##  7 ACV     Arcata                      Arcata/… CA    USA      41.0 -124  
+##  8 ACY     Atlantic City International Atlanti… NJ    USA      39.5 - 74.6
+##  9 ADK     Adak                        Adak     AK    USA      51.9 -177  
+## 10 ADQ     Kodiak                      Kodiak   AK    USA      57.7 -152  
+## # ... with more rows</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Set up the pointers to the other of the tables</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;vflight&quot;</span>))
+carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;carrier&quot;</span>))</code></pre></div>
+</div>
+<div id="under-the-hood" class="section level2">
+<h2><span class="header-section-number">2.2</span> Under the hood</h2>
+<ul>
+<li>Use <code>show_query()</code> to preview the SQL statement that will be sent to the database*</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>SQL statement that actually runs when we ran <code>airports</code> as a command</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">show_query</span>(airports)</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT *
+## FROM datawarehouse.airport</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Easily view the resulting query by adding <code>show_query()</code> in another piped command</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT *
+## FROM datawarehouse.airport</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Insert <code>head()</code> in between the two statements to see how the SQL changes</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT *
+## FROM datawarehouse.airport
+## LIMIT 6</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use <code>sql_render()</code> and <code>simulate_mssql()</code> to see how the SQL statement changes from vendor to vendor</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sql_render</span>(<span class="dt">con =</span> <span class="kw">simulate_mssql</span>()) </code></pre></div>
+<pre><code>## &lt;SQL&gt; SELECT  TOP 6 *
+## FROM datawarehouse.airport</code></pre>
+</div>
+<div id="un-translated-r-commands" class="section level2">
+<h2><span class="header-section-number">2.3</span> Un-translated R commands</h2>
+<p><em>Review of how <code>dbplyr</code> handles R commands that have not been translated into a like-SQL command</em></p>
+<ol style="list-style-type: decimal">
+<li>Preview how <code>Sys.time()</code> is translated</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, SYS.TIME() AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use PostgreSQL’s native commands, in this case <code>now()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">now</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, NOW() AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Run the <code>dplyr</code> code to confirm it works</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">now</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(today) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   today              
+##   &lt;dttm&gt;             
+## 1 2018-02-01 20:24:14
+## 2 2018-02-01 20:24:14
+## 3 2018-02-01 20:24:14
+## 4 2018-02-01 20:24:14
+## 5 2018-02-01 20:24:14
+## 6 2018-02-01 20:24:14</code></pre>
+</div>
+<div id="using-bang-bang" class="section level2">
+<h2><span class="header-section-number">2.4</span> Using bang-bang</h2>
+<p><em>Intro on passing unevaluated code to a dplyr verb</em></p>
+<ol style="list-style-type: decimal">
+<li>Preview how <code>Sys.time()</code> is translated</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, SYS.TIME() AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Preview how <code>Sys.time()</code> is translated when prefixing <code>!!</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-02-01T20:24:14Z&#39; AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Preview how <code>Sys.time()</code> is translated when prefixing <code>!!</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(today) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   today               
+##   &lt;chr&gt;               
+## 1 2018-02-01T20:24:14Z
+## 2 2018-02-01T20:24:14Z
+## 3 2018-02-01T20:24:14Z
+## 4 2018-02-01T20:24:14Z
+## 5 2018-02-01T20:24:14Z
+## 6 2018-02-01T20:24:14Z</code></pre>
+</div>
+<div id="knitr-sql-engine" class="section level2">
+<h2><span class="header-section-number">2.5</span> knitr SQL engine</h2>
+<ol style="list-style-type: decimal">
+<li>Copy the result of the latest <code>show_query()</code> exercise</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-02-01T20:24:14Z&#39; AS &quot;today&quot;
+## FROM datawarehouse.airport</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Paste the result in this SQL chunk</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="ot">&quot;airport&quot;</span>, <span class="ot">&quot;airportname&quot;</span>, <span class="ot">&quot;city&quot;</span>, <span class="ot">&quot;state&quot;</span>, <span class="ot">&quot;country&quot;</span>, <span class="ot">&quot;lat&quot;</span>, <span class="ot">&quot;long&quot;</span>, <span class="st">&#39;2018-01-26T14:50:10Z&#39;</span> <span class="kw">AS</span> <span class="ot">&quot;today&quot;</span>
+<span class="kw">FROM</span> datawarehouse.airport</code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-40">Table 2.1: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">airport</th>
+<th align="left">airportname</th>
+<th align="left">city</th>
+<th align="left">state</th>
+<th align="left">country</th>
+<th align="right">lat</th>
+<th align="right">long</th>
+<th align="left">today</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ABE</td>
+<td align="left">Lehigh Valley International</td>
+<td align="left">Allentown</td>
+<td align="left">PA</td>
+<td align="left">USA</td>
+<td align="right">40.65236</td>
+<td align="right">-75.44040</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="even">
+<td align="left">ABI</td>
+<td align="left">Abilene Regional</td>
+<td align="left">Abilene</td>
+<td align="left">TX</td>
+<td align="left">USA</td>
+<td align="right">32.41132</td>
+<td align="right">-99.68190</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="odd">
+<td align="left">ABQ</td>
+<td align="left">Albuquerque International</td>
+<td align="left">Albuquerque</td>
+<td align="left">NM</td>
+<td align="left">USA</td>
+<td align="right">35.04022</td>
+<td align="right">-106.60919</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="even">
+<td align="left">ABY</td>
+<td align="left">Southwest Georgia Regional</td>
+<td align="left">Albany</td>
+<td align="left">GA</td>
+<td align="left">USA</td>
+<td align="right">31.53552</td>
+<td align="right">-84.19447</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="odd">
+<td align="left">ACK</td>
+<td align="left">Nantucket Memorial</td>
+<td align="left">Nantucket</td>
+<td align="left">MA</td>
+<td align="left">USA</td>
+<td align="right">41.25305</td>
+<td align="right">-70.06018</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="even">
+<td align="left">ACT</td>
+<td align="left">Waco Regional</td>
+<td align="left">Waco</td>
+<td align="left">TX</td>
+<td align="left">USA</td>
+<td align="right">31.61129</td>
+<td align="right">-97.23052</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="odd">
+<td align="left">ACV</td>
+<td align="left">Arcata</td>
+<td align="left">Arcata/Eureka</td>
+<td align="left">CA</td>
+<td align="left">USA</td>
+<td align="right">40.97812</td>
+<td align="right">-124.10862</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="even">
+<td align="left">ACY</td>
+<td align="left">Atlantic City International</td>
+<td align="left">Atlantic City</td>
+<td align="left">NJ</td>
+<td align="left">USA</td>
+<td align="right">39.45758</td>
+<td align="right">-74.57717</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="odd">
+<td align="left">ADK</td>
+<td align="left">Adak</td>
+<td align="left">Adak</td>
+<td align="left">AK</td>
+<td align="left">USA</td>
+<td align="right">51.87796</td>
+<td align="right">-176.64603</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+<tr class="even">
+<td align="left">ADQ</td>
+<td align="left">Kodiak</td>
+<td align="left">Kodiak</td>
+<td align="left">AK</td>
+<td align="left">USA</td>
+<td align="right">57.74997</td>
+<td align="right">-152.49386</td>
+<td align="left">2018-01-26T14:50:10Z</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="basic-aggregation" class="section level2">
+<h2><span class="header-section-number">2.6</span> Basic aggregation</h2>
+<p><em>A couple of <code>dplyr</code> commands that run in-database</em></p>
+<ol style="list-style-type: decimal">
+<li>How many records are in the <strong>airport</strong> table?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;airport&quot;</span>))  <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   n              
+##   &lt;S3: integer64&gt;
+## 1 305</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What is the average character length of the airport codes? How many characters is the longest and the shortest airport name?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">avg_airport_length =</span> <span class="kw">mean</span>(<span class="kw">str_length</span>(airport), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">max_airport_name =</span> <span class="kw">max</span>(<span class="kw">str_length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">min_airport_name =</span> <span class="kw">min</span>(<span class="kw">str_length</span>(airportname), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">total_records =</span> <span class="kw">n</span>()
+  )</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   avg_airport_length max_airport_name min_airport_name total_records  
+##                &lt;dbl&gt;            &lt;int&gt;            &lt;int&gt; &lt;S3: integer64&gt;
+## 1               3.00               40                3 305</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>How many records are in the <strong>carrier</strong> table?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   n              
+##   &lt;S3: integer64&gt;
+## 1 20</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>How many characters is the longest <strong>carriername</strong>?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">x =</span> <span class="kw">max</span>(<span class="kw">str_length</span>(carriername), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##       x
+##   &lt;int&gt;
+## 1    83</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>What is the SQL statement sent in exercise 4?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">carriers <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">x =</span> <span class="kw">max</span>(<span class="kw">str_length</span>(carriername), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT MAX(LENGTH(&quot;carriername&quot;)) AS &quot;x&quot;
+## FROM datawarehouse.carrier</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="access-a-database.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>

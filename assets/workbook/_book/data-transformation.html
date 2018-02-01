@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="dplyr-basics.html">
+<link rel="next" href="data-visualizations.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-with-id"><i class="fa fa-check"></i><b>5.2</b> Sample with ID</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.3</b> Sample manually</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.4</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
+<li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distributed-r.html"><a href="distributed-r.html"><i class="fa fa-check"></i><b>7</b> Distributed R</a><ul>
+<li class="chapter" data-level="7.1" data-path="distributed-r.html"><a href="distributed-r.html#basic-distribution"><i class="fa fa-check"></i><b>7.1</b> Basic distribution</a></li>
+<li class="chapter" data-level="7.2" data-path="distributed-r.html"><a href="distributed-r.html#use-group_by"><i class="fa fa-check"></i><b>7.2</b> Use group_by</a></li>
+<li class="chapter" data-level="7.3" data-path="distributed-r.html"><a href="distributed-r.html#distributing-packages"><i class="fa fa-check"></i><b>7.3</b> Distributing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>9</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>9.1</b> Basic structure</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>9.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>9.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>9.4</b> Integrate the dropdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>10</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="10.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>10.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>10.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="10.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>10.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="10.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>10.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>11</b> Share and Production</a><ul>
+<li class="chapter" data-level="11.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>11.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="11.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>11.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="11.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>11.3</b> Scheduled pipeline</a></li>
+<li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
+<li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-transformation" class="section level1">
+<h1><span class="header-section-number">3</span> Data transformation</h1>
+<div id="group-and-sort-records" class="section level2">
+<h2><span class="header-section-number">3.1</span> Group and sort records</h2>
+<p><em>Learn how to use <code>group_by()</code> and <code>arrange()</code> to better understand aggregated data</em></p>
+<ol style="list-style-type: decimal">
+<li>How many flights are there per month?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    month n              
+##    &lt;dbl&gt; &lt;S3: integer64&gt;
+##  1 10.0  556205         
+##  2  4.00 598126         
+##  3 12.0  544958         
+##  4  5.00 606293         
+##  5  2.00 569236         
+##  6  7.00 627931         
+##  7 11.0  523272         
+##  8  9.00 540908         
+##  9  1.00 605765         
+## 10  3.00 616090         
+## # ... with more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Order the results by the month number by using <code>arrange()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(month)</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
+## # Ordered by: month
+##    month n              
+##    &lt;dbl&gt; &lt;S3: integer64&gt;
+##  1  1.00 605765         
+##  2  2.00 569236         
+##  3  3.00 616090         
+##  4  4.00 598126         
+##  5  5.00 606293         
+##  6  6.00 608665         
+##  7  7.00 627931         
+##  8  8.00 612279         
+##  9  9.00 540908         
+## 10 10.0  556205         
+## # ... with more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Order the results by the number of flights, starting with the month with most flights by using <code>desc()</code> inside the <code>arrange()</code> command</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) </code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
+## # Ordered by: desc(n)
+##    month n              
+##    &lt;dbl&gt; &lt;S3: integer64&gt;
+##  1  7.00 627931         
+##  2  3.00 616090         
+##  3  8.00 612279         
+##  4  6.00 608665         
+##  5  5.00 606293         
+##  6  1.00 605765         
+##  7  4.00 598126         
+##  8  2.00 569236         
+##  9 10.0  556205         
+## 10 12.0  544958         
+## # ... with more rows</code></pre>
+</div>
+<div id="answering-questions-with-dplyr" class="section level2">
+<h2><span class="header-section-number">3.2</span> Answering questions with <code>dplyr</code></h2>
+<p><em>Quick review of how to translate questions into <code>dplyr</code> code</em></p>
+<ol style="list-style-type: decimal">
+<li>Which are the top 4 months with the most flight activity?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">4</span>)</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
+## # Ordered by: desc(n)
+##   month n              
+##   &lt;dbl&gt; &lt;S3: integer64&gt;
+## 1  7.00 627931         
+## 2  3.00 616090         
+## 3  8.00 612279         
+## 4  6.00 608665</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What were the top 5 calendar days with most flight activity?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month, dayofmonth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 3]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
+## # Groups:     month
+## # Ordered by: desc(n)
+##   month dayofmonth n              
+##   &lt;dbl&gt;      &lt;dbl&gt; &lt;S3: integer64&gt;
+## 1  7.00       18.0 21128          
+## 2  7.00       11.0 21125          
+## 3  7.00       25.0 21102          
+## 4  7.00       10.0 21058          
+## 5  7.00       17.0 21055</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Which are the top 5 carriers (airlines) with the most flights?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(carriername) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 2]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
+## # Ordered by: desc(n)
+##   carriername                                                  n          
+##   &lt;chr&gt;                                                        &lt;S3: integ&gt;
+## 1 Southwest Airlines Co.                                       1201754    
+## 2 American Airlines Inc.                                       604885     
+## 3 Skywest Airlines Inc.                                        567159     
+## 4 American Eagle Airlines Inc.                                 490693     
+## 5 US Airways Inc. (Merged with America West 9/05. Reporting f… 453589</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Figure the percent ratio of flights per month</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> n<span class="op">/</span><span class="kw">sum</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 3]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
+## # Ordered by: desc(n)
+##    month n               percent
+##    &lt;dbl&gt; &lt;S3: integer64&gt;   &lt;dbl&gt;
+##  1  7.00 627931           0.0896
+##  2  3.00 616090           0.0879
+##  3  8.00 612279           0.0873
+##  4  6.00 608665           0.0868
+##  5  5.00 606293           0.0865
+##  6  1.00 605765           0.0864
+##  7  4.00 598126           0.0853
+##  8  2.00 569236           0.0812
+##  9 10.0  556205           0.0793
+## 10 12.0  544958           0.0777
+## # ... with more rows</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Figure the percent ratio of flights per carrier</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(carriername) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> n<span class="op">/</span><span class="kw">sum</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:     lazy query [?? x 3]
+## # Database:   postgres [rstudio_dev@localhost:/postgres]
+## # Ordered by: desc(n)
+##    carriername                                          n          percent
+##    &lt;chr&gt;                                                &lt;S3: inte&gt;   &lt;dbl&gt;
+##  1 Southwest Airlines Co.                               1201754     0.171 
+##  2 American Airlines Inc.                               604885      0.0863
+##  3 Skywest Airlines Inc.                                567159      0.0809
+##  4 American Eagle Airlines Inc.                         490693      0.0700
+##  5 US Airways Inc. (Merged with America West 9/05. Rep… 453589      0.0647
+##  6 Delta Air Lines Inc.                                 451931      0.0645
+##  7 United Air Lines Inc.                                449515      0.0641
+##  8 Expressjet Airlines Inc.                             374510      0.0534
+##  9 Northwest Airlines Inc.                              347652      0.0496
+## 10 Continental Air Lines Inc.                           298455      0.0426
+## # ... with more rows</code></pre>
+</div>
+<div id="aggregate-mulitple-columns" class="section level2">
+<h2><span class="header-section-number">3.3</span> Aggregate mulitple columns</h2>
+<p><em>Practice using <code>summarise _</code> functions</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>summarise_all()</code> to send the same function to all fields</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(depdelay, arrdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_all</span>(mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   depdelay arrdelay
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1     9.78     7.99</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>summarise_at()</code> to pre-select the fields that will receive the function</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">c</span>(<span class="st">&quot;depdelay&quot;</span>, <span class="st">&quot;arrdelay&quot;</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   depdelay arrdelay
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1     9.78     7.99</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>summarise_if()</code> to summarize only if the field meets a criterion</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_if</span>(is.numeric,mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Applying predicate on the first 100 rows</code></pre>
+<pre><code>## # Source:   lazy query [?? x 30]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   carrierdelay originlat originlong destlat destlong flightid  year month
+##          &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1         3.43      36.9      -95.1    36.9    -95.1  3504864  2008  6.38
+## # ... with 22 more variables: dayofmonth &lt;dbl&gt;, dayofweek &lt;dbl&gt;,
+## #   deptime &lt;dbl&gt;, crsdeptime &lt;dbl&gt;, arrtime &lt;dbl&gt;, crsarrtime &lt;dbl&gt;,
+## #   flightnum &lt;dbl&gt;, actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;,
+## #   airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, distance &lt;dbl&gt;,
+## #   taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;, diverted &lt;dbl&gt;,
+## #   weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;,
+## #   lateaircraftdelay &lt;dbl&gt;, score &lt;dbl&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Combine with <code>group_by()</code> to create more complex results</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(month, depdelay, arrdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_all</span>(mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    month depdelay arrdelay
+##    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 10.0      3.78    0.412
+##  2  4.00     8.06    6.68 
+##  3 12.0     16.8    16.1  
+##  4  5.00     7.56    5.91 
+##  5  2.00    13.2    12.6  
+##  6  7.00    11.6     9.78 
+##  7 11.0      5.38    2.00 
+##  8  9.00     3.89    0.684
+##  9  1.00    11.1     9.88 
+## 10  3.00    12.2    10.9  
+## # ... with more rows</code></pre>
+</div>
+<div id="view-record-level-data" class="section level2">
+<h2><span class="header-section-number">3.4</span> View record level data</h2>
+<p><em>Important tips to record preview data</em></p>
+<p>How many flights in July 18th were one or more hours late?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+    month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   n              
+##   &lt;S3: integer64&gt;
+## 1 1239</code></pre>
+<ol style="list-style-type: decimal">
+<li>Use <code>filter()</code> to retrieve only the needed data, and <code>head()</code> to limit the preview even further.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+    month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 44]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    uniquecarrier carrierdelay carriername   origin originname   origincity
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;     
+##  1 WN                     0   Southwest Ai… ABQ    Albuquerque… Albuquerq…
+##  2 WN                    42.0 Southwest Ai… ABQ    Albuquerque… Albuquerq…
+##  3 WN                   122   Southwest Ai… ABQ    Albuquerque… Albuquerq…
+##  4 WN                     0   Southwest Ai… ABQ    Albuquerque… Albuquerq…
+##  5 WN                    71.0 Southwest Ai… ABQ    Albuquerque… Albuquerq…
+##  6 WN                    14.0 Southwest Ai… ABQ    Albuquerque… Albuquerq…
+##  7 WN                    84.0 Southwest Ai… AUS    Austin-Berg… Austin    
+##  8 WN                    56.0 Southwest Ai… AUS    Austin-Berg… Austin    
+##  9 WN                     0   Southwest Ai… BNA    Nashville I… Nashville 
+## 10 WN                    32.0 Southwest Ai… BNA    Nashville I… Nashville 
+## # ... with more rows, and 38 more variables: originstate &lt;chr&gt;,
+## #   origincountry &lt;chr&gt;, originlat &lt;dbl&gt;, originlong &lt;dbl&gt;, dest &lt;chr&gt;,
+## #   destname &lt;chr&gt;, destcity &lt;chr&gt;, deststate &lt;chr&gt;, destcountry &lt;chr&gt;,
+## #   destlat &lt;dbl&gt;, destlong &lt;dbl&gt;, flightid &lt;int&gt;, year &lt;dbl&gt;,
+## #   month &lt;dbl&gt;, dayofmonth &lt;dbl&gt;, dayofweek &lt;dbl&gt;, deptime &lt;dbl&gt;,
+## #   crsdeptime &lt;dbl&gt;, arrtime &lt;dbl&gt;, crsarrtime &lt;dbl&gt;, flightnum &lt;dbl&gt;,
+## #   tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;,
+## #   airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, distance &lt;dbl&gt;,
+## #   taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;,
+## #   diverted &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, score &lt;int&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>collect()</code> and <code>View()</code> to preview the data in the IDE. Make sure to <strong>always</strong> limit the number of returned rows. <a href="https://github.com/tidyverse/tibble/issues/373" class="uri">https://github.com/tidyverse/tibble/issues/373</a></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    depdelay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>,
+    month <span class="op">==</span><span class="st"> </span><span class="dv">7</span>,
+    dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">18</span>
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">View</span>(<span class="st">&quot;my_preview&quot;</span>)</code></pre></div>
+</div>
+<div id="case-statements" class="section level2">
+<h2><span class="header-section-number">3.5</span> Case statements</h2>
+<p><em>See how to use the flexibility of case statements for special cases</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>case_when()</code> to bucket each month one of four seasons</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(season) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   season n              
+##   &lt;chr&gt;  &lt;S3: integer64&gt;
+## 1 Fall   1620385        
+## 2 Spring 1820509        
+## 3 Winter 1719959        
+## 4 Summer 1848875</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Add a specific case for “Winter”</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(season) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   season n              
+##   &lt;chr&gt;  &lt;S3: integer64&gt;
+## 1 Fall   1620385        
+## 2 Spring 1820509        
+## 3 Winter 1719959        
+## 4 Summer 1848875</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Append an entry for Monday at the end of the case statement</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>,
+      dayofweek <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Monday&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(season) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   season n              
+##   &lt;chr&gt;  &lt;S3: integer64&gt;
+## 1 Fall   1620385        
+## 2 Spring 1820509        
+## 3 Winter 1719959        
+## 4 Summer 1848875</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Move the “Monday” entry to the top of the case statement</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      dayofweek <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Monday&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(season) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   season n              
+##   &lt;chr&gt;  &lt;S3: integer64&gt;
+## 1 Fall   1376740        
+## 2 Spring 1554210        
+## 3 Winter 1464948        
+## 4 Summer 1577629        
+## 5 Monday 1036201</code></pre>
+</div>
+<div id="data-enrichment" class="section level2">
+<h2><span class="header-section-number">3.6</span> Data enrichment</h2>
+<p><em>Upload a small dataset in order to combine it with the datawarehouse data</em></p>
+<ol style="list-style-type: decimal">
+<li>Load the <code>planes</code> data into memory</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">planes &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>planes</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Using <code>DBI</code>, copy the <code>planes</code> data to the datawarehouse as a temporary table, and load it to a variable</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;planes&quot;</span>, planes, <span class="dt">temporary =</span> <span class="ot">TRUE</span>)
+tbl_planes &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&quot;planes&quot;</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a “lazy” variable that joins the flights table to the new temp table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(tbl_planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) </code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>View a sample of flights of planes with more than 100 seats</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(seats <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 52]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   uniquecarrier carrierdelay carriername    origin originname   origincity
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;     
+## 1 WN                       0 Southwest Air… TUS    Tucson Inte… Tucson    
+## 2 WN                       0 Southwest Air… ABQ    Albuquerque… Albuquerq…
+## 3 WN                       0 Southwest Air… ABQ    Albuquerque… Albuquerq…
+## 4 WN                       0 Southwest Air… ABQ    Albuquerque… Albuquerq…
+## 5 WN                       0 Southwest Air… ABQ    Albuquerque… Albuquerq…
+## 6 WN                       0 Southwest Air… ABQ    Albuquerque… Albuquerq…
+## # ... with 46 more variables: originstate &lt;chr&gt;, origincountry &lt;chr&gt;,
+## #   originlat &lt;dbl&gt;, originlong &lt;dbl&gt;, dest &lt;chr&gt;, destname &lt;chr&gt;,
+## #   destcity &lt;chr&gt;, deststate &lt;chr&gt;, destcountry &lt;chr&gt;, destlat &lt;dbl&gt;,
+## #   destlong &lt;dbl&gt;, flightid &lt;int&gt;, year.x &lt;dbl&gt;, month &lt;dbl&gt;,
+## #   dayofmonth &lt;dbl&gt;, dayofweek &lt;dbl&gt;, deptime &lt;dbl&gt;, crsdeptime &lt;dbl&gt;,
+## #   arrtime &lt;dbl&gt;, crsarrtime &lt;dbl&gt;, flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;,
+## #   actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
+## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;,
+## #   taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;,
+## #   diverted &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
+## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, score &lt;int&gt;,
+## #   year.y &lt;int&gt;, type &lt;chr&gt;, manufacturer &lt;chr&gt;, model &lt;chr&gt;,
+## #   engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>How many flights are from McDonnel Douglas planes</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(manufacturer <span class="op">==</span><span class="st"> &quot;MCDONNELL DOUGLAS&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   n              
+##   &lt;S3: integer64&gt;
+## 1 137250</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>See how many flights each plane McDonnel Douglas had</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(manufacturer <span class="op">==</span><span class="st"> &quot;MCDONNELL DOUGLAS&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##    tailnum n              
+##    &lt;chr&gt;   &lt;S3: integer64&gt;
+##  1 N599AA  1243           
+##  2 N494AA  1360           
+##  3 N492AA  1331           
+##  4 N505AA  1373           
+##  5 N777NC  1850           
+##  6 N475AA  1358           
+##  7 N583AA  1403           
+##  8 N560AA  1340           
+##  9 N480AA  1204           
+## 10 N470AA  1455           
+## # ... with more rows</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Get the total number of planes, and the average, minimum &amp; maximum number of flights for the manufacturer</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(manufacturer <span class="op">==</span><span class="st"> &quot;MCDONNELL DOUGLAS&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">planes =</span> <span class="kw">n</span>(),
+            <span class="dt">avg_flights =</span> <span class="kw">mean</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">max_flights =</span> <span class="kw">max</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">min_flights =</span> <span class="kw">min</span>(n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   planes          avg_flights max_flights     min_flights    
+##   &lt;S3: integer64&gt;       &lt;dbl&gt; &lt;S3: integer64&gt; &lt;S3: integer64&gt;
+## 1 102                    1346 1850            1068</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Disconnect from the database</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dplyr-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-visualizations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>

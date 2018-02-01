@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="data-visualizations.html">
+<link rel="next" href="intro-to-sparklyr.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-with-id"><i class="fa fa-check"></i><b>5.2</b> Sample with ID</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.3</b> Sample manually</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.4</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
+<li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distributed-r.html"><a href="distributed-r.html"><i class="fa fa-check"></i><b>7</b> Distributed R</a><ul>
+<li class="chapter" data-level="7.1" data-path="distributed-r.html"><a href="distributed-r.html#basic-distribution"><i class="fa fa-check"></i><b>7.1</b> Basic distribution</a></li>
+<li class="chapter" data-level="7.2" data-path="distributed-r.html"><a href="distributed-r.html#use-group_by"><i class="fa fa-check"></i><b>7.2</b> Use group_by</a></li>
+<li class="chapter" data-level="7.3" data-path="distributed-r.html"><a href="distributed-r.html#distributing-packages"><i class="fa fa-check"></i><b>7.3</b> Distributing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>9</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>9.1</b> Basic structure</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>9.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>9.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>9.4</b> Integrate the dropdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>10</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="10.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>10.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>10.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="10.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>10.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="10.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>10.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>11</b> Share and Production</a><ul>
+<li class="chapter" data-level="11.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>11.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="11.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>11.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="11.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>11.3</b> Scheduled pipeline</a></li>
+<li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
+<li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeling" class="section level1">
+<h1><span class="header-section-number">5</span> Modeling</h1>
+<div id="sql-native-sampling" class="section level2">
+<h2><span class="header-section-number">5.1</span> SQL Native sampling</h2>
+<p><em>Use PostgreSQL TABLESAMPLE clause</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>build_sql()</code> and <code>remote_query()</code> to combine a the <code>dplyr</code> command with a custom SQL statement</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql_sample &lt;-<span class="st">  </span><span class="kw">dbGetQuery</span>(con, <span class="kw">build_sql</span>(<span class="kw">remote_query</span>(table_flights), <span class="st">&quot; TABLESAMPLE SYSTEM (0.1)&quot;</span>))</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Preview the sample data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql_sample</code></pre></div>
+<pre><code>##      flightid year month dayofmonth dayofweek deptime crsdeptime arrtime
+## 1       33574 2008     1         13         7    1503       1505    1635
+## 2       33575 2008     1         13         7     806        805     939
+## 3       33576 2008     1         13         7    1000       1005    1133
+## 4       33577 2008     1         13         7    1259       1305    1428
+## 5       33578 2008     1         13         7    1646       1645    1826
+## 6       33579 2008     1         13         7    1949       1945    2126
+## 7       33580 2008     1         13         7     710        710     933
+## 8       33581 2008     1         13         7    1002       1005    1322
+## 9       33582 2008     1         13         7    1356       1400    1705
+## 10      33583 2008     1         13         7    2119       2100      31
+## 11      33584 2008     1         13         7     709        710    1034
+## 12      33585 2008     1         13         7    1909       1740    2227
+## 13      33586 2008     1         13         7    1030       1030    1150
+## 14      33587 2008     1         13         7    1423       1415    1539
+## 15      33588 2008     1         13         7    2115       2040    2238
+## 16      33589 2008     1         13         7    1903       1810    2031
+## 17      33590 2008     1         13         7    1402       1405    1539
+## 18      33591 2008     1         13         7     900        900    1035
+## 19      33592 2008     1         13         7    1227       1230    1346
+## 20      33593 2008     1         13         7    1932       1915    2107
+## 21      33594 2008     1         13         7    1720       1645    1856
+## 22      33595 2008     1         13         7    1608       1505    1915
+## 23      33596 2008     1         13         7    1653       1650    2025
+## 24      33597 2008     1         13         7     732        735    1123
+## 25      33598 2008     1         13         7    1929       1935    2023
+## 26      33599 2008     1         13         7     731        735     835
+## 27      33600 2008     1         13         7    1151       1145    1245
+## 28      33601 2008     1         13         7     706        705     819
+## 29      33602 2008     1         13         7    1607       1610    1722
+## 30      33603 2008     1         13         7     710        715    1017
+## 31      33604 2008     1         13         7     939        940    1102
+## 32      33698 2008     1         13         7    1046       1035    1151
+##      crsarrtime uniquecarrier flightnum tailnum actualelapsedtime
+## 1          1640            WN      2817  N745SW                92
+## 2           940            WN      3310  N337SW                93
+## 3          1140            WN      3398  N455WN                93
+## 4          1435            WN      3490  N308SA                89
+## 5          1820            WN      3685  N727SW               100
+## 6          2120            WN      3766  N718SW                97
+## 7          1015            WN       110  N748SW               323
+## 8          1330            WN       127  N428WN               200
+## 9          1720            WN       396  N789SW               189
+## 10           15            WN      1076  N292WN               192
+## 11         1035            WN      1462  N492WN               205
+## 12         2055            WN      2532  N252WN               198
+## 13         1205            WN       892  N257WN               140
+## 14         1550            WN      2113  N790SW               136
+## 15         2215            WN      3221  N678AA               143
+## 16         1945            WN      3413  N366SW               148
+## 17         1535            WN        54  N522SW                97
+## 18         1030            WN      1086  N636WN                95
+## 19         1355            WN      1375  N636WN                79
+## 20         2045            WN      2115  N636WN                95
+## 21         1815            WN      2133  N506SW                96
+## 22         1900            WN      3915  N227WN               307
+## 23         2025            WN       300  N714CB               212
+## 24         1105            WN       806  N217JC               231
+## 25         2050            WN       217  N603SW                54
+## 26          850            WN       420  N736SA                64
+## 27         1300            WN      1357  N388SW                54
+## 28          825            WN      1531  N348SW                73
+## 29         1735            WN      3307  N715SW                75
+## 30         1030            WN      1589  N276WN               127
+## 31         1105            WN       226  N768SW                83
+## 32         1150            WN      1591  N613SW                65
+##      crselapsedtime airtime arrdelay depdelay origin dest distance taxiin
+## 1                95      79       -5       -2    MHT  BWI      377      5
+## 2                95      77       -1        1    MHT  BWI      377      6
+## 3                95      75       -7       -5    MHT  BWI      377      4
+## 4                90      79       -7       -6    MHT  BWI      377      4
+## 5                95      83        6        1    MHT  BWI      377      3
+## 6                95      85        6        4    MHT  BWI      377      3
+## 7               365     306      -42        0    MHT  LAS     2356      7
+## 8               205     180       -8       -3    MHT  MCO     1142      7
+## 9               200     179      -15       -4    MHT  MCO     1142      4
+## 10              195     176       16       19    MHT  MCO     1142      6
+## 11              205     186       -1       -1    MHT  MCO     1142      6
+## 12              195     182       92       89    MHT  MCO     1142      4
+## 13              155     124      -15        0    MHT  MDW      838      5
+## 14              155     123      -11        8    MHT  MDW      838      6
+## 15              155     129       23       35    MHT  MDW      838      5
+## 16              155     123       46       53    MHT  MDW      838      8
+## 17               90      76        4       -3    MHT  PHL      290     14
+## 18               90      74        5        0    MHT  PHL      290     12
+## 19               85      65       -9       -3    MHT  PHL      290      7
+## 20               90      74       22       17    MHT  PHL      290     11
+## 21               90      76       41       35    MHT  PHL      290      6
+## 22              355     293       15       63    MHT  PHX     2279      5
+## 23              215     195        0        3    MHT  TPA     1204      5
+## 24              210     213       18       -3    MHT  TPA     1204      3
+## 25               75      43      -27       -6    MSY  BHM      321      3
+## 26               75      42      -15       -4    MSY  BHM      321     15
+## 27               75      45      -15        6    MSY  BHM      321      4
+## 28               80      64       -6        1    MSY  BNA      471      3
+## 29               85      63      -13       -3    MSY  BNA      471      6
+## 30              135     115      -13       -5    MSY  BWI      998      6
+## 31               85      70       -3       -1    MSY  DAL      437      5
+## 32               75      56        1       11    OAK  ONT      361      3
+##      taxiout cancelled cancellationcode diverted carrierdelay weatherdelay
+## 1          8         0             &lt;NA&gt;        0            0            0
+## 2         10         0             &lt;NA&gt;        0            0            0
+## 3         14         0             &lt;NA&gt;        0            0            0
+## 4          6         0             &lt;NA&gt;        0            0            0
+## 5         14         0             &lt;NA&gt;        0            0            0
+## 6          9         0             &lt;NA&gt;        0            0            0
+## 7         10         0             &lt;NA&gt;        0            0            0
+## 8         13         0             &lt;NA&gt;        0            0            0
+## 9          6         0             &lt;NA&gt;        0            0            0
+## 10        10         0             &lt;NA&gt;        0            3            0
+## 11        13         0             &lt;NA&gt;        0            0            0
+## 12        12         0             &lt;NA&gt;        0            0            0
+## 13        11         0             &lt;NA&gt;        0            0            0
+## 14         7         0             &lt;NA&gt;        0            0            0
+## 15         9         0             &lt;NA&gt;        0            0            0
+## 16        17         0             &lt;NA&gt;        0            0            0
+## 17         7         0             &lt;NA&gt;        0            0            0
+## 18         9         0             &lt;NA&gt;        0            0            0
+## 19         7         0             &lt;NA&gt;        0            0            0
+## 20        10         0             &lt;NA&gt;        0            2            0
+## 21        14         0             &lt;NA&gt;        0           22            0
+## 22         9         0             &lt;NA&gt;        0            0            0
+## 23        12         0             &lt;NA&gt;        0            0            0
+## 24        15         0             &lt;NA&gt;        0            0            0
+## 25         8         0             &lt;NA&gt;        0            0            0
+## 26         7         0             &lt;NA&gt;        0            0            0
+## 27         5         0             &lt;NA&gt;        0            0            0
+## 28         6         0             &lt;NA&gt;        0            0            0
+## 29         6         0             &lt;NA&gt;        0            0            0
+## 30         6         0             &lt;NA&gt;        0            0            0
+## 31         8         0             &lt;NA&gt;        0            0            0
+## 32         6         0             &lt;NA&gt;        0            0            0
+##         nasdelay securitydelay lateaircraftdelay score
+## 1      0.0000000             0                 0    NA
+## 2      0.0000000             0                 0    NA
+## 3      0.0000000             0                 0    NA
+## 4      0.0000000             0                 0    NA
+## 5      0.0000000             0                 0    NA
+## 6      0.0000000             0                 0    NA
+## 7      0.0000000             0                 0    NA
+## 8      0.0000000             0                 0    NA
+## 9      0.0000000             0                 0    NA
+## 10     0.0000000             0                13    NA
+## 11     0.0000000             0                 0    NA
+## 12     3.0000000             0                89    NA
+## 13     0.0000000             0                 0    NA
+## 14     0.0000000             0                 0    NA
+## 15     0.0000000             0                23    NA
+## 16    36.0000000             0                10    NA
+## 17     0.0000000             0                 0    NA
+## 18     0.0000000             0                 0    NA
+## 19     0.0000000             0                 0    NA
+## 20     5.0000000             0                15    NA
+## 21     6.0000000             0                13    NA
+## 22     0.0000000             0                15    NA
+## 23     0.0000000             0                 0    NA
+## 24    18.0000000             0                 0    NA
+## 25     0.0000000             0                 0    NA
+## 26     0.0000000             0                 0    NA
+## 27     0.0000000             0                 0    NA
+## 28     0.0000000             0                 0    NA
+## 29     0.0000000             0                 0    NA
+## 30     0.0000000             0                 0    NA
+## 31     0.0000000             0                 0    NA
+## 32     0.0000000             0                 0    NA
+##  [ reached getOption(&quot;max.print&quot;) -- omitted 6534 rows ]</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Test the efficacy of the sampling with a plot</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(sql_sample, distance)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+</div>
+<div id="sample-with-id" class="section level2">
+<h2><span class="header-section-number">5.2</span> Sample with ID</h2>
+<p><em>Use a record’s unique ID to produce a sample</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>max()</code> to get the upper limit for <em>flightid</em></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">limit &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">max =</span> <span class="kw">max</span>(flightid, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">min =</span> <span class="kw">min</span>(flightid, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>()</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>sample</code> to get 0.1% of IDs</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(
+  limit<span class="op">$</span>min<span class="op">:</span>limit<span class="op">$</span>max, 
+  <span class="kw">round</span>((limit<span class="op">$</span>max <span class="op">-</span>limit<span class="op">$</span>min) <span class="op">*</span><span class="st"> </span><span class="fl">0.001</span>))</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>%in%</code> to match the sample IDs in the <em>flight</em> table</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">id_sample &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(flightid <span class="op">%in%</span><span class="st"> </span>sampling) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>()</code></pre></div>
+<p>Verify sample with a histogram</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(id_sample, distance)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+</div>
+<div id="sample-manually" class="section level2">
+<h2><span class="header-section-number">5.3</span> Sample manually</h2>
+<p><em>Use <code>row_number()</code>, <code>sample()</code> and <code>map_df()</code> to create a sample data set</em></p>
+<ol style="list-style-type: decimal">
+<li>Create a filtered dataset for with 1 month of data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Get the row count</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rows &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">pull</span>(<span class="kw">tally</span>(db_month)))</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>row_number()</code> to create a new column to number each row</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">row =</span> <span class="kw">row_number</span>()) </code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a random set of 600 numbers, limited by the number of rows</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>rows, <span class="dv">600</span>)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Use <code>%in%</code> to filter the matched sample row IDs with the random set</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(row <span class="op">%in%</span><span class="st"> </span>sampling)</code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Verify number of rows</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tally</span>(db_month)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   n              
+##   &lt;S3: integer64&gt;
+## 1 600</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Create a function with the previous steps, but replacing the month number with an argument. Collect the data at the end</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_segment &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">size =</span> <span class="dv">600</span>) {
+  db_month &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span>x)
+  rows &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">pull</span>(<span class="kw">tally</span>(db_month)))
+  db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">row =</span> <span class="kw">row_number</span>())
+  sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>rows, size)
+  db_month <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(row <span class="op">%in%</span><span class="st"> </span>sampling) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">collect</span>()
+}</code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>Test the function</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sample_segment</span>(<span class="dv">3</span>), <span class="dv">100</span>)</code></pre></div>
+<pre><code>## # A tibble: 100 x 32
+##    flightid  year month dayofmonth dayofweek deptime crsdeptime arrtime
+##       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+##  1  1177397  2008  3.00       3.00      1.00    1255       1300    1757
+##  2  1178163  2008  3.00       4.00      2.00       0       1100       0
+##  3  1178843  2008  3.00       4.00      2.00    2014       2020    2313
+##  4  1179181  2008  3.00       4.00      2.00    1234       1240    1538
+##  5  1179383  2008  3.00       4.00      2.00     910        910    1611
+##  6  1183508  2008  3.00       5.00      3.00    1503       1505    1843
+##  7  1184320  2008  3.00       5.00      3.00    1501       1500    1624
+##  8  1185900  2008  3.00       6.00      4.00    2044       1800    2138
+##  9  1188586  2008  3.00       7.00      5.00    2105       1745    2317
+## 10  1191354  2008  3.00       7.00      5.00    1740       1700    2345
+## # ... with 90 more rows, and 24 more variables: crsarrtime &lt;dbl&gt;,
+## #   uniquecarrier &lt;chr&gt;, flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;,
+## #   actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
+## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;,
+## #   cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;, carrierdelay &lt;dbl&gt;,
+## #   weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;,
+## #   lateaircraftdelay &lt;dbl&gt;, score &lt;int&gt;, row &lt;S3: integer64&gt;</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Use <code>map_df()</code> to run the function for each month</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">strat_sample &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map_df</span>(<span class="op">~</span><span class="kw">sample_segment</span>(.x))</code></pre></div>
+<ol start="10" style="list-style-type: decimal">
+<li>Verify sample with a histogram</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(strat_sample, distance)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+</div>
+<div id="create-a-model-test" class="section level2">
+<h2><span class="header-section-number">5.4</span> Create a model &amp; test</h2>
+<ol style="list-style-type: decimal">
+<li>Prepare a model data set</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_data &lt;-<span class="st"> </span>strat_sample <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(arrdelay, season, depdelay) </code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Create a simple <code>lm()</code> model</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(arrdelay <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> model_data)
+<span class="kw">summary</span>(model_lm)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = arrdelay ~ ., data = model_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -319.63   -7.38   -1.31    5.46  153.40 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -3.555680   0.333985 -10.646  &lt; 2e-16 ***
+## seasonSpring   1.899032   0.471854   4.025 5.77e-05 ***
+## seasonSummmer  2.164639   0.472263   4.584 4.65e-06 ***
+## seasonWinter   2.574540   0.473742   5.434 5.68e-08 ***
+## depdelay       0.986506   0.004536 217.469  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.14 on 7195 degrees of freedom
+## Multiple R-squared:  0.8698, Adjusted R-squared:  0.8698 
+## F-statistic: 1.202e+04 on 4 and 7195 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a test data set by combining the sampling and model data set routines</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_sample &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map_df</span>(<span class="op">~</span><span class="kw">sample_segment</span>(.x, <span class="dv">100</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(arrdelay, season, depdelay) </code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Run a simple routine to check accuracy</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_sample <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> <span class="kw">predict</span>(model_lm, test_sample),
+         <span class="dt">over =</span> <span class="kw">abs</span>(p <span class="op">-</span><span class="st"> </span>arrdelay) <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(over) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> <span class="kw">round</span>(n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n), <span class="dv">2</span>))</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   over      n percent
+##   &lt;lgl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1 F       398   0.330
+## 2 T       802   0.670</code></pre>
+</div>
+<div id="score-inside-database" class="section level2">
+<h2><span class="header-section-number">5.5</span> Score inside database</h2>
+<p><em>Learn about tidypredict to run predictions inside the database</em></p>
+<ol style="list-style-type: decimal">
+<li>Load the library, and see the results of passing the model as an argument to <code>tidypredict_fit()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidypredict)
+
+<span class="kw">tidypredict_fit</span>(model_lm)</code></pre></div>
+<pre><code>## ((((-3.55567950836314) + ((ifelse((season) == (&quot;Spring&quot;), 1, 
+##     0)) * (1.89903163366937))) + ((ifelse((season) == (&quot;Summmer&quot;), 
+##     1, 0)) * (2.16463859693503))) + ((ifelse((season) == (&quot;Winter&quot;), 
+##     1, 0)) * (2.57453965992478))) + ((depdelay) * (0.98650585644528))</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>tidypredict_sql()</code> to see the resulting SQL statement</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_sql</span>(model_lm, con)</code></pre></div>
+<pre><code>## &lt;SQL&gt; ((((-3.55567950836314) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (0.0) END) * (1.89903163366937))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (0.0) END) * (2.16463859693503))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (0.0) END) * (2.57453965992478))) + ((&quot;depdelay&quot;) * (0.98650585644528))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Run the prediction inside <code>dplyr</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>( season, depdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidypredict_to_column</span>(model_lm) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: postgres [rstudio_dev@localhost:/postgres]
+##   season depdelay     fit
+##   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Winter    19.0   17.8  
+## 2 Winter     0    - 0.981
+## 3 Winter   - 5.00 - 5.91 
+## 4 Winter   - 9.00 - 9.86 
+## 5 Winter   - 6.00 - 6.90 
+## 6 Winter    50.0   48.3</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>View the SQL behind the <code>dplyr</code> command</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>,
+         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+    <span class="dt">season =</span> <span class="kw">case_when</span>(
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
+      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
+      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>( season, depdelay) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidypredict_to_column</span>(model_lm) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">remote_query</span>()</code></pre></div>
+<pre><code>## &lt;SQL&gt; SELECT &quot;season&quot;, &quot;depdelay&quot;, ((((-3.55567950836314) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Spring&#39;)) THEN (0.0) END) * (1.89903163366937))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Summmer&#39;)) THEN (0.0) END) * (2.16463859693503))) + ((CASE WHEN ((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (1.0) WHEN NOT((&quot;season&quot;) = (&#39;Winter&#39;)) THEN (0.0) END) * (2.57453965992478))) + ((&quot;depdelay&quot;) * (0.98650585644528)) AS &quot;fit&quot;
+## FROM (SELECT &quot;season&quot;, &quot;depdelay&quot;
+## FROM (SELECT &quot;flightid&quot;, &quot;year&quot;, &quot;month&quot;, &quot;dayofmonth&quot;, &quot;dayofweek&quot;, &quot;deptime&quot;, &quot;crsdeptime&quot;, &quot;arrtime&quot;, &quot;crsarrtime&quot;, &quot;uniquecarrier&quot;, &quot;flightnum&quot;, &quot;tailnum&quot;, &quot;actualelapsedtime&quot;, &quot;crselapsedtime&quot;, &quot;airtime&quot;, &quot;arrdelay&quot;, &quot;depdelay&quot;, &quot;origin&quot;, &quot;dest&quot;, &quot;distance&quot;, &quot;taxiin&quot;, &quot;taxiout&quot;, &quot;cancelled&quot;, &quot;cancellationcode&quot;, &quot;diverted&quot;, &quot;carrierdelay&quot;, &quot;weatherdelay&quot;, &quot;nasdelay&quot;, &quot;securitydelay&quot;, &quot;lateaircraftdelay&quot;, &quot;score&quot;, CASE
+## WHEN (&quot;month&quot; &gt;= 3.0 AND &quot;month&quot; &lt;= 5.0) THEN (&#39;Spring&#39;)
+## WHEN (&quot;month&quot; &gt;= 6.0 AND &quot;month&quot; &lt;= 8.0) THEN (&#39;Summmer&#39;)
+## WHEN (&quot;month&quot; &gt;= 9.0 AND &quot;month&quot; &lt;= 11.0) THEN (&#39;Fall&#39;)
+## WHEN (&quot;month&quot; = 12.0 OR &quot;month&quot; &lt;= 2.0) THEN (&#39;Winter&#39;)
+## END AS &quot;season&quot;
+## FROM (SELECT *
+## FROM datawarehouse.flight
+## WHERE ((&quot;month&quot; = 2.0) AND (&quot;dayofmonth&quot; = 1.0))) &quot;rdmsrldtdf&quot;) &quot;xsktnwfckl&quot;) &quot;pifkbjpiqq&quot;</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Compare predictions to ensure results are within range</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span><span class="kw">tidypredict_test</span>(model_lm)
+test</code></pre></div>
+<pre><code>## tidypredict test results
+## Difference threshold: 1e-12
+## 
+##  All results are within the difference threshold</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>View the records that exceeded the threshold</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test<span class="op">$</span>raw_results <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(fit_threshold)</code></pre></div>
+<pre><code>## [1] rowid         fit           fit_te        fit_diff      fit_threshold
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+<div id="parsed-model" class="section level2">
+<h2><span class="header-section-number">5.6</span> Parsed model</h2>
+<p><em>Quick review of the model parser</em></p>
+<ol style="list-style-type: decimal">
+<li>Use the <code>parse_model()</code> function to see how <code>tidypredict</code> interprets the model</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pm &lt;-<span class="st"> </span><span class="kw">parse_model</span>(model_lm)
+pm</code></pre></div>
+<pre><code>## # A tibble: 10 x 11
+##    labels     estimate type   field_1 field_2     qr_1      qr_2      qr_3
+##    &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 (Intercep…  - 3.56  term   &lt;NA&gt;    &lt;NA&gt;    - 0.0118 - 0.00680 - 0.00962
+##  2 seasonSpr…    1.90  term   &lt;NA&gt;    Spring    0        0.0272    0.00962
+##  3 seasonSum…    2.16  term   &lt;NA&gt;    Summmer   0        0         0.0289 
+##  4 seasonWin…    2.57  term   &lt;NA&gt;    Winter    0        0         0      
+##  5 depdelay      0.987 term   {{:}}   &lt;NA&gt;      0        0         0      
+##  6 labels        0     varia… depdel… season   NA       NA        NA      
+##  7 model        NA     varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
+##  8 version      NA     varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
+##  9 residual     NA     varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
+## 10 sigma2       NA     varia… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
+## # ... with 3 more variables: qr_4 &lt;dbl&gt;, qr_5 &lt;dbl&gt;, vals &lt;chr&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Verify that the resulting table can be used to get the fit formula</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_fit</span>(pm)</code></pre></div>
+<pre><code>## ((((-3.55567950836314) + ((ifelse((season) == (&quot;Spring&quot;), 1, 
+##     0)) * (1.89903163366937))) + ((ifelse((season) == (&quot;Summmer&quot;), 
+##     1, 0)) * (2.16463859693503))) + ((ifelse((season) == (&quot;Winter&quot;), 
+##     1, 0)) * (2.57453965992478))) + ((depdelay) * (0.98650585644528))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Save the parsed model for later use</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
+<span class="kw">write_csv</span>(pm, <span class="st">&quot;parsedmodel.csv&quot;</span>)</code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Disconnect from the database</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-visualizations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro-to-sparklyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>

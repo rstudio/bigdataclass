@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="modeling.html">
+<link rel="next" href="distributed-r.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-with-id"><i class="fa fa-check"></i><b>5.2</b> Sample with ID</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.3</b> Sample manually</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.4</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
+<li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distributed-r.html"><a href="distributed-r.html"><i class="fa fa-check"></i><b>7</b> Distributed R</a><ul>
+<li class="chapter" data-level="7.1" data-path="distributed-r.html"><a href="distributed-r.html#basic-distribution"><i class="fa fa-check"></i><b>7.1</b> Basic distribution</a></li>
+<li class="chapter" data-level="7.2" data-path="distributed-r.html"><a href="distributed-r.html#use-group_by"><i class="fa fa-check"></i><b>7.2</b> Use group_by</a></li>
+<li class="chapter" data-level="7.3" data-path="distributed-r.html"><a href="distributed-r.html#distributing-packages"><i class="fa fa-check"></i><b>7.3</b> Distributing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>9</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>9.1</b> Basic structure</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>9.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>9.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>9.4</b> Integrate the dropdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>10</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="10.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>10.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>10.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="10.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>10.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="10.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>10.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>11</b> Share and Production</a><ul>
+<li class="chapter" data-level="11.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>11.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="11.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>11.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="11.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>11.3</b> Scheduled pipeline</a></li>
+<li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
+<li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intro-to-sparklyr" class="section level1">
+<h1><span class="header-section-number">6</span> Intro to <code>sparklyr</code></h1>
+<div id="new-spark-session" class="section level2">
+<h2><span class="header-section-number">6.1</span> New Spark session</h2>
+<p><em>Learn to open a new Spark session</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>spark_connect()</code> to create a new local Spark session</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;2.0.0&quot;</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Click on the <code>SparkUI</code> button to view the current Spark session’s UI</p></li>
+<li><p>Click on the <code>Log</code> button to see the message history</p></li>
+</ol>
+</div>
+<div id="data-transfer" class="section level2">
+<h2><span class="header-section-number">6.2</span> Data transfer</h2>
+<p><em>Practice uploading data to Spark</em></p>
+<ol style="list-style-type: decimal">
+<li>Copy the <code>mtcars</code> dataset into the session</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_mtcars &lt;-<span class="st"> </span><span class="kw">sdf_copy_to</span>(sc, mtcars, <span class="st">&quot;my_mtcars&quot;</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><p>In the <strong>Connections</strong> pane, expande the <code>my_mtcars</code> table</p></li>
+<li><p>Go to the Spark UI, note the new jobs</p></li>
+<li><p>In the UI, click the Storage button, note the new table</p></li>
+<li><p>Click on the <strong>In-memory table my_mtcars</strong> link</p></li>
+</ol>
+</div>
+<div id="simple-dplyr-example" class="section level2">
+<h2><span class="header-section-number">6.3</span> Simple dplyr example</h2>
+<p><em>See how Spark handles <code>dplyr</code> commands</em></p>
+<ol style="list-style-type: decimal">
+<li>Run the following code snipett</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_mtcars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_wt =</span> <span class="kw">mean</span>(wt, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: spark_connection
+##      am avg_wt
+##   &lt;dbl&gt;  &lt;dbl&gt;
+## 1  0      3.77
+## 2  1.00   2.41</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Go to the Spark UI and click the <strong>SQL</strong> button</p></li>
+<li><p>Click on the top item inside the <strong>Completed Queries</strong> table</p></li>
+<li><p>At the bottom of the diagram, expand <strong>Details</strong></p></li>
+</ol>
+</div>
+<div id="map-data" class="section level2">
+<h2><span class="header-section-number">6.4</span> Map data</h2>
+<p><em>See the machanics of how Spark is able to use files as a data source</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Examine the contents of the /usr/share/flights/data folder</p></li>
+<li><p>Read the top 5 rows of the <code>flight_2008_1</code> CSV file. It is located under /usr/share/flights</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
+top_rows &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/usr/share/flights/data/flight_2008_1.csv&quot;</span>, <span class="dt">nrows =</span> <span class="dv">5</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a list based on the column names, and add a list item with “character” as its value.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(purrr)
+file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)
+<span class="kw">head</span>(file_columns)</code></pre></div>
+<pre><code>## $flightid
+## [1] &quot;character&quot;
+## 
+## $year
+## [1] &quot;character&quot;
+## 
+## $month
+## [1] &quot;character&quot;
+## 
+## $dayofmonth
+## [1] &quot;character&quot;
+## 
+## $dayofweek
+## [1] &quot;character&quot;
+## 
+## $deptime
+## [1] &quot;character&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use <code>spark_read()</code> to “map” the file’s structure and location to the Spark context</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(
+  sc,
+  <span class="dt">name =</span> <span class="st">&quot;flights&quot;</span>,
+  <span class="dt">path =</span> <span class="st">&quot;/usr/share/flights/data/&quot;</span>,
+  <span class="dt">memory =</span> <span class="ot">FALSE</span>,
+  <span class="dt">columns =</span> file_columns,
+  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span>
+)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li><p>In the Connections pane, click on the table icon by the <code>flights</code> variable</p></li>
+<li><p>Verify that the new variable pointer work using <code>tally()</code></p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: spark_connection
+##         n
+##     &lt;dbl&gt;
+## 1 7009728</code></pre>
+</div>
+<div id="caching-data" class="section level2">
+<h2><span class="header-section-number">6.5</span> Caching data</h2>
+<p><em>Learn how to cache a subset of the data in Spark</em></p>
+<ol style="list-style-type: decimal">
+<li>Create a subset of the <em>flights</em> table object</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights &lt;-<span class="st"> </span>spark_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">arrdelay =</span> <span class="kw">ifelse</span>(arrdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>, arrdelay),
+    <span class="dt">depdelay =</span> <span class="kw">ifelse</span>(depdelay <span class="op">==</span><span class="st"> &quot;NA&quot;</span>, <span class="dv">0</span>, depdelay)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(
+    month,
+    dayofmonth,
+    arrtime,
+    arrdelay,
+    depdelay,
+    crsarrtime,
+    crsdeptime,
+    distance
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate_all</span>(as.numeric)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>compute()</code> to extract the data into Spark memory</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights &lt;-<span class="st"> </span><span class="kw">compute</span>(cached_flights, <span class="st">&quot;sub_flights&quot;</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Confirm new variable pointer works</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: spark_connection
+##         n
+##     &lt;dbl&gt;
+## 1 7009728</code></pre>
+</div>
+<div id="sdf-functions" class="section level2">
+<h2><span class="header-section-number">6.6</span> <code>sdf</code> Functions</h2>
+<p><em>Overview of a few <code>sdf_</code> functions: <a href="http://spark.rstudio.com/reference/#section-spark-dataframes" class="uri">http://spark.rstudio.com/reference/#section-spark-dataframes</a> </em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>sdf_pivot</code> to create a column for each value in month</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sdf_pivot</span>(month <span class="op">~</span><span class="st"> </span>dayofmonth)</code></pre></div>
+<pre><code>## # Source:   table&lt;sparklyr_tmp_488940b3a522&gt; [?? x 32]
+## # Database: spark_connection
+##    month `1.0` `2.0` `3.0` `4.0` `5.0` `6.0` `7.0` `8.0` `9.0` `10.0`
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1  1.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+##  2  2.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+##  3  3.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+##  4  4.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+##  5  5.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+##  6  6.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+##  7  7.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+##  8  8.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+##  9  9.00  1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+## 10 10.0   1.00  2.00  3.00  4.00  5.00  6.00  7.00  8.00  9.00   10.0
+## # ... with more rows, and 21 more variables: `11.0` &lt;dbl&gt;, `12.0` &lt;dbl&gt;,
+## #   `13.0` &lt;dbl&gt;, `14.0` &lt;dbl&gt;, `15.0` &lt;dbl&gt;, `16.0` &lt;dbl&gt;, `17.0` &lt;dbl&gt;,
+## #   `18.0` &lt;dbl&gt;, `19.0` &lt;dbl&gt;, `20.0` &lt;dbl&gt;, `21.0` &lt;dbl&gt;, `22.0` &lt;dbl&gt;,
+## #   `23.0` &lt;dbl&gt;, `24.0` &lt;dbl&gt;, `25.0` &lt;dbl&gt;, `26.0` &lt;dbl&gt;, `27.0` &lt;dbl&gt;,
+## #   `28.0` &lt;dbl&gt;, `29.0` &lt;dbl&gt;, `30.0` &lt;dbl&gt;, `31.0` &lt;dbl&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>sdf_partition()</code> to sepparate the data into discrete groups</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">partition &lt;-<span class="st"> </span>cached_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sdf_partition</span>(<span class="dt">training =</span> <span class="fl">0.01</span>, <span class="dt">testing =</span> <span class="fl">0.09</span>, <span class="dt">other =</span> <span class="fl">0.9</span>)
+
+<span class="kw">tally</span>(partition<span class="op">$</span>training)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: spark_connection
+##       n
+##   &lt;dbl&gt;
+## 1 70371</code></pre>
+</div>
+<div id="feature-transformers" class="section level2">
+<h2><span class="header-section-number">6.7</span> Feature transformers</h2>
+<p><em>See how to use Spark’s feature transformers: <a href="http://spark.rstudio.com/reference/#section-spark-feature-transformers" class="uri">http://spark.rstudio.com/reference/#section-spark-feature-transformers</a> </em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>ft_binarizer()</code> to identify “delayed” flights</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_binarizer</span>(
+    <span class="dt">input.col =</span> <span class="st">&quot;depdelay&quot;</span>,
+    <span class="dt">output.col =</span> <span class="st">&quot;delayed&quot;</span>,
+    <span class="dt">threshold =</span> <span class="dv">15</span>
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(
+    depdelay,
+    delayed
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: spark_connection
+##    depdelay delayed
+##       &lt;dbl&gt;   &lt;dbl&gt;
+##  1   - 4.00    0   
+##  2   - 1.00    0   
+##  3    15.0     0   
+##  4   - 2.00    0   
+##  5     2.00    0   
+##  6   - 4.00    0   
+##  7    19.0     1.00
+##  8     1.00    0   
+##  9     0       0   
+## 10   - 3.00    0   
+## # ... with more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>ft_bucketizer()</code> to split the data into groups</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_bucketizer</span>(
+    <span class="dt">input.col =</span> <span class="st">&quot;crsdeptime&quot;</span>,
+    <span class="dt">output.col =</span> <span class="st">&quot;dephour&quot;</span>,
+    <span class="dt">splits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1200</span>, <span class="dv">1600</span>, <span class="dv">2000</span>, <span class="dv">2400</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(
+    crsdeptime,
+    dephour
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: spark_connection
+##    crsdeptime dephour
+##         &lt;dbl&gt;   &lt;dbl&gt;
+##  1        910    2.00
+##  2        835    2.00
+##  3       1555    3.00
+##  4        730    1.00
+##  5       2045    5.00
+##  6       1135    2.00
+##  7       1310    3.00
+##  8       1220    3.00
+##  9       1515    3.00
+## 10        630    1.00
+## # ... with more rows</code></pre>
+</div>
+<div id="fit-a-model-with-sparklyr" class="section level2">
+<h2><span class="header-section-number">6.8</span> Fit a model with <code>sparklyr</code></h2>
+<p><em>Build on the recently learned transformation techniques to feed data into a model</em></p>
+<ol style="list-style-type: decimal">
+<li>Combine the <code>ft_</code> and <code>sdf_</code> functions to prepare the da</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data &lt;-<span class="st"> </span>cached_flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(arrdelay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_binarizer</span>(
+    <span class="dt">input.col =</span> <span class="st">&quot;arrdelay&quot;</span>,
+    <span class="dt">output.col =</span> <span class="st">&quot;delayed&quot;</span>,
+    <span class="dt">threshold =</span> <span class="dv">15</span>
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_bucketizer</span>(
+    <span class="dt">input.col =</span> <span class="st">&quot;crsdeptime&quot;</span>,
+    <span class="dt">output.col =</span> <span class="st">&quot;dephour&quot;</span>,
+    <span class="dt">splits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1200</span>, <span class="dv">1600</span>, <span class="dv">2000</span>, <span class="dv">2400</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dephour =</span> <span class="kw">paste0</span>(<span class="st">&quot;h&quot;</span>, <span class="kw">as.integer</span>(dephour))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sdf_partition</span>(<span class="dt">training =</span> <span class="fl">0.01</span>, <span class="dt">testing =</span> <span class="fl">0.09</span>, <span class="dt">other =</span> <span class="fl">0.9</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Cache the training data</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">training &lt;-<span class="st"> </span><span class="kw">sdf_register</span>(sample_data<span class="op">$</span>training, <span class="st">&quot;training&quot;</span>)
+<span class="kw">tbl_cache</span>(sc, <span class="st">&quot;training&quot;</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Run a logistic regression model in Spark</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_model &lt;-<span class="st"> </span>training <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ml_logistic_regression</span>(delayed <span class="op">~</span><span class="st"> </span>depdelay <span class="op">+</span><span class="st"> </span>dephour)</code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>View the model results</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(delayed_model)</code></pre></div>
+<pre><code>## Call: ml_logistic_regression.tbl_spark(., delayed ~ depdelay + dephour)  
+## 
+## Coefficients:
+## (Intercept)    depdelay  dephour_h2  dephour_h3  dephour_h4  dephour_h1 
+##  -3.3415603   0.1354438   0.7611644   0.6611222   0.7257145   0.7890273 
+##  dephour_h5 
+##   0.5930768</code></pre>
+</div>
+<div id="run-predictions-in-spark" class="section level2">
+<h2><span class="header-section-number">6.9</span> Run predictions in Spark</h2>
+<p><em>Quick review of running predictions and reviewing accuracy</em></p>
+<ol style="list-style-type: decimal">
+<li>Use <code>sdf_predict()</code> agains the test dataset</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing &lt;-<span class="st"> </span><span class="kw">sdf_predict</span>(delayed_model, sample_data<span class="op">$</span>testing)
+delayed_testing <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 19]
+## # Database: spark_connection
+##   month dayofmonth arrtime arrdelay depdelay crsarrtime crsdeptime
+##   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1  7.00       1.00       0        0        0        850        720
+## 2  7.00       1.00       0        0        0        935        900
+## 3  7.00       1.00       0        0        0       1241       1120
+## 4  7.00       1.00       0        0        0       1245       1120
+## 5  7.00       1.00       0        0        0       1831       1645
+## 6  7.00       1.00       0        0        0       2210       1830
+## # ... with 12 more variables: distance &lt;dbl&gt;, delayed &lt;dbl&gt;,
+## #   dephour &lt;chr&gt;, features &lt;list&gt;, label488970156214 &lt;dbl&gt;, label &lt;dbl&gt;,
+## #   rawPrediction &lt;list&gt;, probability &lt;list&gt;, prediction &lt;dbl&gt;,
+## #   predicted_label &lt;chr&gt;, probability_0_0 &lt;dbl&gt;, probability_1_0 &lt;dbl&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>group_by()</code> to see how effective the new model is</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(delayed, prediction) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 3]
+## # Database: spark_connection
+## # Groups:   delayed
+##   delayed prediction      n
+##     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+## 1    0          1.00  10034
+## 2    0          0    488078
+## 3    1.00       1.00  90564
+## 4    1.00       0     41753</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="distributed-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>

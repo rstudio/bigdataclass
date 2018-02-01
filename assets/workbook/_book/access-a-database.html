@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="dplyr-basics.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
+<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
+<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
+<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
+<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
+<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
+<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
+<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
+<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
+<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
+<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
+<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
+<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
+<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
+<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
+<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
+<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
+<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
+<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-with-id"><i class="fa fa-check"></i><b>5.2</b> Sample with ID</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.3</b> Sample manually</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.4</b> Create a model &amp; test</a></li>
+<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
+<li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>6</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>6.1</b> New Spark session</a></li>
+<li class="chapter" data-level="6.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>6.2</b> Data transfer</a></li>
+<li class="chapter" data-level="6.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>6.3</b> Simple dplyr example</a></li>
+<li class="chapter" data-level="6.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>6.4</b> Map data</a></li>
+<li class="chapter" data-level="6.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>6.5</b> Caching data</a></li>
+<li class="chapter" data-level="6.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>6.6</b> <code>sdf</code> Functions</a></li>
+<li class="chapter" data-level="6.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>6.7</b> Feature transformers</a></li>
+<li class="chapter" data-level="6.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>6.8</b> Fit a model with <code>sparklyr</code></a></li>
+<li class="chapter" data-level="6.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>6.9</b> Run predictions in Spark</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distributed-r.html"><a href="distributed-r.html"><i class="fa fa-check"></i><b>7</b> Distributed R</a><ul>
+<li class="chapter" data-level="7.1" data-path="distributed-r.html"><a href="distributed-r.html#basic-distribution"><i class="fa fa-check"></i><b>7.1</b> Basic distribution</a></li>
+<li class="chapter" data-level="7.2" data-path="distributed-r.html"><a href="distributed-r.html#use-group_by"><i class="fa fa-check"></i><b>7.2</b> Use group_by</a></li>
+<li class="chapter" data-level="7.3" data-path="distributed-r.html"><a href="distributed-r.html#distributing-packages"><i class="fa fa-check"></i><b>7.3</b> Distributing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
+<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
+<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
+<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
+<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>9</b> Intro to dashboards</a><ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>9.1</b> Basic structure</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>9.2</b> Dropdown data</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>9.3</b> Update dashboard items</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>9.4</b> Integrate the dropdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>10</b> Dashboard drill-down</a><ul>
+<li class="chapter" data-level="10.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>10.1</b> Add a tabset to the dashboard</a></li>
+<li class="chapter" data-level="10.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>10.2</b> Add interactivity</a></li>
+<li class="chapter" data-level="10.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>10.3</b> Add title to the new tab</a></li>
+<li class="chapter" data-level="10.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>10.4</b> pool pakcage</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>11</b> Share and Production</a><ul>
+<li class="chapter" data-level="11.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>11.1</b> Publish dashboard</a></li>
+<li class="chapter" data-level="11.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>11.2</b> Schedule scoring</a></li>
+<li class="chapter" data-level="11.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>11.3</b> Scheduled pipeline</a></li>
+<li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
+<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
+<li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="access-a-database" class="section level1">
+<h1><span class="header-section-number">1</span> Access a database</h1>
+<div id="connect-to-a-database" class="section level2">
+<h2><span class="header-section-number">1.1</span> Connect to a database</h2>
+<p><em>The simpliest way to connect to a database. More complex examples will be examined later in the class.</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Click on the <code>Connections</code> tab</p></li>
+<li><p>Click on the <code>New Connection</code> button</p></li>
+</ol>
+<p><img src="images/connections-tab.PNG" width = 600></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Select <code>Postgres Dev</code></li>
+</ol>
+<p><img src="images/postgres-dsn.PNG" width = 300></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Click OK</li>
+</ol>
+<p><img src="images/new-connection.PNG" width = 300></p>
+</div>
+<div id="explore-the-database-using-the-rstudio-ide" class="section level2">
+<h2><span class="header-section-number">1.2</span> Explore the database using the RStudio IDE</h2>
+<p><em>Becoming familiar with the new interface for databases inside the RStudio IDE</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Expand the <code>datawarehouse</code> schema</p></li>
+<li><p>Expand the <code>airport</code> table</p></li>
+<li><p>Click on the table icon to the right of the <code>airport</code> table</p></li>
+<li><p><em>(Optional)</em> Expand and explore the other tables</p></li>
+<li><p>Click on the <em>disconnect</em> icon to close the connection</p></li>
+</ol>
+<p><img src="images/connected.PNG" width = 500></p>
+</div>
+<div id="list-drivers-and-dsns" class="section level2">
+<h2><span class="header-section-number">1.3</span> List drivers and DSNs</h2>
+<p><em>Learn how to use the <code>odbc</code> package to get DB info from your machine</em></p>
+<ol style="list-style-type: decimal">
+<li>To get a list of drivers available in the server</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(odbc)
+
+<span class="kw">odbcListDrivers</span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</code></pre></div>
+<pre><code>##             name attribute
+## 1 AmazonRedshift    Driver
+## 2           Hive    Driver
+## 3         Impala    Driver
+## 4         Oracle    Driver
+## 5     PostgreSQL    Driver
+## 6     Salesforce    Driver
+## 7      SQLServer    Driver
+## 8       Teradata    Driver</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Click on the <em>ellipsis</em> button located in the <strong>Files</strong> tab</li>
+</ol>
+<p><img src="images/ellipsis.PNG" width = 300></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Type: <code>/etc</code></li>
+</ol>
+<p><img src="images/gotofolder.PNG" width = 300></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Locate and open the <code>odbcinst.ini</code> file</p></li>
+<li><p>To see a list of DSNs available in the server</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odbcListDataSources</span>()</code></pre></div>
+<pre><code>##            name description
+## 1  Postgres Dev  PostgreSQL
+## 2 Postgres Prod  PostgreSQL</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Using the <em>ellipsis</em> button again, navigate to <code>/etc/odbc.ini</code></li>
+</ol>
+</div>
+<div id="connect-to-a-database-using-code" class="section level2">
+<h2><span class="header-section-number">1.4</span> Connect to a database using code</h2>
+<p><em>Use the <code>odbc</code> package along with <code>DBI</code> to open a connection to a database</em></p>
+<ol style="list-style-type: decimal">
+<li>Run the following code to connect</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DBI)
+con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(), <span class="st">&quot;Postgres Dev&quot;</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>dbListTables()</code> to retrieve a list of tables</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbListTables</span>(con)</code></pre></div>
+<pre><code>## [1] &quot;airport&quot;     &quot;carrier&quot;     &quot;flight&quot;      &quot;flightscore&quot; &quot;vflight&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>dbGetQuery()</code> to run a quick query</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">odbc<span class="op">::</span><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;SELECT * FROM datawarehouse.airport LIMIT 10&quot;</span>)</code></pre></div>
+<pre><code>##    airport                 airportname          city state country
+## 1      ABE Lehigh Valley International     Allentown    PA     USA
+## 2      ABI            Abilene Regional       Abilene    TX     USA
+## 3      ABQ   Albuquerque International   Albuquerque    NM     USA
+## 4      ABY  Southwest Georgia Regional        Albany    GA     USA
+## 5      ACK          Nantucket Memorial     Nantucket    MA     USA
+## 6      ACT               Waco Regional          Waco    TX     USA
+## 7      ACV                      Arcata Arcata/Eureka    CA     USA
+## 8      ACY Atlantic City International Atlantic City    NJ     USA
+## 9      ADK                        Adak          Adak    AK     USA
+## 10     ADQ                      Kodiak        Kodiak    AK     USA
+##         lat       long
+## 1  40.65236  -75.44040
+## 2  32.41132  -99.68190
+## 3  35.04022 -106.60919
+## 4  31.53552  -84.19447
+## 5  41.25305  -70.06018
+## 6  31.61129  -97.23052
+## 7  40.97812 -124.10862
+## 8  39.45758  -74.57717
+## 9  51.87796 -176.64603
+## 10 57.74997 -152.49386</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use the SQL chunk</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> * <span class="kw">FROM</span> datawarehouse.airport <span class="kw">LIMIT</span> <span class="dv">10</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-6">Table 1.1: </span>Displaying records 1 - 10</caption>
+<thead>
+<tr class="header">
+<th align="left">airport</th>
+<th align="left">airportname</th>
+<th align="left">city</th>
+<th align="left">state</th>
+<th align="left">country</th>
+<th align="right">lat</th>
+<th align="right">long</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ABE</td>
+<td align="left">Lehigh Valley International</td>
+<td align="left">Allentown</td>
+<td align="left">PA</td>
+<td align="left">USA</td>
+<td align="right">40.65236</td>
+<td align="right">-75.44040</td>
+</tr>
+<tr class="even">
+<td align="left">ABI</td>
+<td align="left">Abilene Regional</td>
+<td align="left">Abilene</td>
+<td align="left">TX</td>
+<td align="left">USA</td>
+<td align="right">32.41132</td>
+<td align="right">-99.68190</td>
+</tr>
+<tr class="odd">
+<td align="left">ABQ</td>
+<td align="left">Albuquerque International</td>
+<td align="left">Albuquerque</td>
+<td align="left">NM</td>
+<td align="left">USA</td>
+<td align="right">35.04022</td>
+<td align="right">-106.60919</td>
+</tr>
+<tr class="even">
+<td align="left">ABY</td>
+<td align="left">Southwest Georgia Regional</td>
+<td align="left">Albany</td>
+<td align="left">GA</td>
+<td align="left">USA</td>
+<td align="right">31.53552</td>
+<td align="right">-84.19447</td>
+</tr>
+<tr class="odd">
+<td align="left">ACK</td>
+<td align="left">Nantucket Memorial</td>
+<td align="left">Nantucket</td>
+<td align="left">MA</td>
+<td align="left">USA</td>
+<td align="right">41.25305</td>
+<td align="right">-70.06018</td>
+</tr>
+<tr class="even">
+<td align="left">ACT</td>
+<td align="left">Waco Regional</td>
+<td align="left">Waco</td>
+<td align="left">TX</td>
+<td align="left">USA</td>
+<td align="right">31.61129</td>
+<td align="right">-97.23052</td>
+</tr>
+<tr class="odd">
+<td align="left">ACV</td>
+<td align="left">Arcata</td>
+<td align="left">Arcata/Eureka</td>
+<td align="left">CA</td>
+<td align="left">USA</td>
+<td align="right">40.97812</td>
+<td align="right">-124.10862</td>
+</tr>
+<tr class="even">
+<td align="left">ACY</td>
+<td align="left">Atlantic City International</td>
+<td align="left">Atlantic City</td>
+<td align="left">NJ</td>
+<td align="left">USA</td>
+<td align="right">39.45758</td>
+<td align="right">-74.57717</td>
+</tr>
+<tr class="odd">
+<td align="left">ADK</td>
+<td align="left">Adak</td>
+<td align="left">Adak</td>
+<td align="left">AK</td>
+<td align="left">USA</td>
+<td align="right">51.87796</td>
+<td align="right">-176.64603</td>
+</tr>
+<tr class="even">
+<td align="left">ADQ</td>
+<td align="left">Kodiak</td>
+<td align="left">Kodiak</td>
+<td align="left">AK</td>
+<td align="left">USA</td>
+<td align="right">57.74997</td>
+<td align="right">-152.49386</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>Use the <code>output.var</code> option to load results to a variable</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">SELECT</span> * <span class="kw">FROM</span> datawarehouse.airport <span class="kw">LIMIT</span> <span class="dv">10</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Test the variable</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql_top10</code></pre></div>
+<pre><code>##    airport                 airportname          city state country
+## 1      ABE Lehigh Valley International     Allentown    PA     USA
+## 2      ABI            Abilene Regional       Abilene    TX     USA
+## 3      ABQ   Albuquerque International   Albuquerque    NM     USA
+## 4      ABY  Southwest Georgia Regional        Albany    GA     USA
+## 5      ACK          Nantucket Memorial     Nantucket    MA     USA
+## 6      ACT               Waco Regional          Waco    TX     USA
+## 7      ACV                      Arcata Arcata/Eureka    CA     USA
+## 8      ACY Atlantic City International Atlantic City    NJ     USA
+## 9      ADK                        Adak          Adak    AK     USA
+## 10     ADQ                      Kodiak        Kodiak    AK     USA
+##         lat       long
+## 1  40.65236  -75.44040
+## 2  32.41132  -99.68190
+## 3  35.04022 -106.60919
+## 4  31.53552  -84.19447
+## 5  41.25305  -70.06018
+## 6  31.61129  -97.23052
+## 7  40.97812 -124.10862
+## 8  39.45758  -74.57717
+## 9  51.87796 -176.64603
+## 10 57.74997 -152.49386</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Disconnect from the database using <code>dbDisconnect()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+</div>
+<div id="connect-to-a-database-without-a-dsn" class="section level2">
+<h2><span class="header-section-number">1.5</span> Connect to a database without a DSN</h2>
+<p><em>A more complex way of connecting to a database, using best practices: <a href="http://db.rstudio.com/best-practices/managing-credentials/#prompt-for-credentials" class="uri">http://db.rstudio.com/best-practices/managing-credentials/#prompt-for-credentials</a> </em></p>
+<ol style="list-style-type: decimal">
+<li>Use the following code to start a new connection that does not use the pre-defined DSN</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(
+  odbc<span class="op">::</span><span class="kw">odbc</span>(),
+  <span class="dt">Driver =</span> <span class="st">&quot;PostgreSQL&quot;</span>,
+  <span class="dt">Server =</span> <span class="st">&quot;localhost&quot;</span>,
+  <span class="dt">UID    =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database user&quot;</span>),
+  <span class="dt">PWD    =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;Database password&quot;</span>),
+  <span class="dt">Port =</span> <span class="dv">5432</span>,
+  <span class="dt">Database =</span> <span class="st">&quot;postgres&quot;</span>
+)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><p>When prompted, type in <strong>rstudio_dev</strong> for the user, and <strong>dev_user</strong> as the password</p></li>
+<li><p>Disconnect from the database using <code>dbDisconnect()</code></p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+<pre><code>## Warning: Connection already closed.</code></pre>
+</div>
+<div id="secure-credentials-in-a-file" class="section level2">
+<h2><span class="header-section-number">1.6</span> Secure credentials in a file</h2>
+<p><em>Credentials can be saved in a YAML file and then read using the <code>config</code> package: <a href="http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config" class="uri">http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config</a> </em></p>
+<ol style="list-style-type: decimal">
+<li><p>Open and explore the <code>config.yml</code> file available in your working directory</p></li>
+<li><p>Load the <code>datawarehouse-dev</code> vaelus to a variable</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dw &lt;-<span class="st"> </span>config<span class="op">::</span><span class="kw">get</span>(<span class="st">&quot;datawarehouse-dev&quot;</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Check that the variable loaded propery, by checking the <code>driver</code> value</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dw<span class="op">$</span>driver</code></pre></div>
+<pre><code>## [1] &quot;PostgreSQL&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use info in the config.yml file to connect to the database</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(odbc<span class="op">::</span><span class="kw">odbc</span>(),
+   <span class="dt">Driver =</span> dw<span class="op">$</span>driver,
+   <span class="dt">Server =</span> dw<span class="op">$</span>server,
+   <span class="dt">UID    =</span> dw<span class="op">$</span>uid,
+   <span class="dt">PWD    =</span> dw<span class="op">$</span>pwd,
+   <span class="dt">Port   =</span> dw<span class="op">$</span>port,
+   <span class="dt">Database =</span> dw<span class="op">$</span>database
+)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Disconnect from the database using <code>dbDisconnect()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+</div>
+<div id="environment-variables" class="section level2">
+<h2><span class="header-section-number">1.7</span> Environment variables</h2>
+<p><em>Use .Renviron file to store credentials</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Open and explore the <code>.Renviron</code> file available in your working directory</p></li>
+<li><p>Confirm that the environment variables are loaded by using <code>Sys.getenv()</code></p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.getenv</span>(<span class="st">&quot;uid&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;rstudio_dev&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Pass the credentials using the environment variables</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(
+  odbc<span class="op">::</span><span class="kw">odbc</span>(),
+  <span class="dt">Driver =</span> <span class="st">&quot;PostgreSQL&quot;</span>,
+  <span class="dt">Server =</span> <span class="st">&quot;localhost&quot;</span>,
+  <span class="dt">UID    =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;uid&quot;</span>),
+  <span class="dt">PWD    =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;pwd&quot;</span>),
+  <span class="dt">Port =</span> <span class="dv">5432</span>,
+  <span class="dt">Database =</span> <span class="st">&quot;postgres&quot;</span>
+)</code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Disconnect from the database using <code>dbDisconnect()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+</div>
+<div id="use-options" class="section level2">
+<h2><span class="header-section-number">1.8</span> Use options()</h2>
+<p><em>Set options() in a separate R script</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Open and explore the <code>options.R</code> script available in your working directory</p></li>
+<li><p>Source the <code>options.R</code> script</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;options.R&quot;</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Confirm that the environment variables are loaded by using <code>Sys.getenv()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getOption</span>(<span class="st">&quot;database_userid&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;rstudio_dev&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Pass the credentials using the environment variables</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(
+  odbc<span class="op">::</span><span class="kw">odbc</span>(),
+  <span class="dt">Driver =</span> <span class="st">&quot;PostgreSQL&quot;</span>,
+  <span class="dt">Server =</span> <span class="st">&quot;localhost&quot;</span>,
+  <span class="dt">UID    =</span> <span class="kw">getOption</span>(<span class="st">&quot;database_userid&quot;</span>),
+  <span class="dt">PWD    =</span> <span class="kw">getOption</span>(<span class="st">&quot;database_password&quot;</span>),
+  <span class="dt">Port =</span> <span class="dv">5432</span>,
+  <span class="dt">Database =</span> <span class="st">&quot;postgres&quot;</span>
+)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Disconnect from the database using <code>dbDisconnect()</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+<pre><code>## Warning: Connection already closed.</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dplyr-basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>
