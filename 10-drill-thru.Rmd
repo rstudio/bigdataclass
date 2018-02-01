@@ -123,7 +123,7 @@ observeEvent(input$monthly_cell_clicked, {
 updateTabsetPanel(session, "tabs", selected = tab_title)
 ```
 
-## 10-4 - pool pakcage
+## 10-4 - pool package
 
 1.Change `dbConnect()` to `dbPool()`
 ```{r, eval = FALSE}
