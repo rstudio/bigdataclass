@@ -202,7 +202,7 @@ table_flights %>%
   head()
 ```
 
-4. View the SQL behind the `dplyr` command. Use `remote_sql()`
+4. View the SQL behind the `dplyr` command. Use `remote_query()`
 ```{r}
 
 ```
@@ -232,7 +232,7 @@ pm
 tidypredict_test(model_lm)
 ```
 
-3. Using `read_csv()`, save the parsed model for later use
+3. Using `write_csv()`, save the parsed model for later use
 ```{r}
 
 ``` 
