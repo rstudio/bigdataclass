@@ -75,7 +75,20 @@ predictions <- table_flights %>%
 
 5. Change the `select()` verb to include `flightid`, and rename to `p_flightid` 
 ```{r}
-select(p_flightid = flightid, season, depdelay) %>%
+predictions <- table_flights %>%
+  filter(month == 2,
+         dayofmonth == 1) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  select(p_flightid = flightid, season, depdelay) %>%
+  tidypredict_to_column(parsedmodel) %>%
+  remote_query() 
 ```
 
 
@@ -88,6 +101,7 @@ update_statement <- build_sql(
   "WHERE flightid = p_flightid",
   con = con
 )
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
 dbSendQuery(con, update_statement)
 ```
 
