@@ -171,7 +171,7 @@ cached_flights %>%
 
 ## 6.8 - Fit a model with sparklyr
 
-1. Combine the `ft_` and `sdf_` functions to prepare the da
+1. Combine the `ft_` and `sdf_` functions to prepare the data
 ```{r}
 sample_data <- cached_flights %>%
   filter(!is.na(arrdelay)) %>%
