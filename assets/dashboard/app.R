@@ -13,7 +13,7 @@ library(DT)
 
 con <- pool::dbPool(odbc::odbc(), dsn =  "Postgres Dev")
 onStop(function() {
-  poolClose(con)
+  pool::poolClose(con)
 })
 
 airports <- tbl(con, in_schema("datawarehouse", "airport"))
