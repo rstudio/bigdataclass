@@ -185,7 +185,7 @@ flights %>%
 
 ## 4.9 - Using the `calculate` functions
 
-1. Use the `db_comptue_raster()` function to get the underlying results that feed the plot
+1. Use the `db_compute_raster()` function to get the underlying results that feed the plot
 ```{r}
 departure <- flights %>%
   db_compute_raster(deptime, arrtime)
@@ -208,7 +208,7 @@ departure %>%
 db_bin(field)
 ```
 
-2. Use `trasnlate_sql()` and `simulate_odbc_postgresql()` to see an example of what the resulting SQL statement looks like
+2. Use `translate_sql()` and `simulate_odbc_postgresql()` to see an example of what the resulting SQL statement looks like
 ```{r}
 
 ```
