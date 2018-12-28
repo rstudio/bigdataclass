@@ -55,12 +55,13 @@ spark_mtcars %>%
 ## Map data
 *See the machanics of how Spark is able to use files as a data source*
 
-1. Examine the contents of the /usr/share/flights/data folder
+1. Examine the contents of the /usr/share/class/flights/data folder
 
-2. Read the top 5 rows of the `flight_2008_1` CSV file.  It is located under /usr/share/flights
+2. Read the top 5 rows of the `flight_2008_1` CSV file.  It is located under /usr/share/class/flights
+
 ```{r}
 library(readr)
-top_rows <- read.csv("/usr/share/flights/data/flight_2008_1.csv", nrows = 5)
+top_rows <- read.csv("/usr/share/class/flights/data/flight_2008_1.csv", nrows = 5)
 ```
 
 3. Create a list based on the column names, and add a list item with "character" as its value.
@@ -77,7 +78,7 @@ head(file_columns)
 spark_flights <- spark_read_csv(
   sc,
   name = "flights",
-  path = "/usr/share/flights/data/",
+  path = "/usr/share/class/flights/data/",
   memory = FALSE,
   columns = file_columns,
   infer_schema = FALSE
@@ -151,8 +152,8 @@ tally(partition$training)
 ```{r}
 cached_flights %>%
   ft_binarizer(
-    input.col = "depdelay",
-    output.col = "delayed",
+    input_col = "depdelay",
+    output_col = "delayed",
     threshold = 15
   ) %>%
   select(
@@ -164,10 +165,11 @@ cached_flights %>%
 
 2. Use `ft_bucketizer()` to split the data into groups
 ```{r}
+
 cached_flights %>%
   ft_bucketizer(
-    input.col = "crsdeptime",
-    output.col = "dephour",
+    input_col = "crsdeptime",
+    output_col = "dephour",
     splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
   ) %>%
   select(
@@ -185,13 +187,13 @@ cached_flights %>%
 sample_data <- cached_flights %>%
   filter(!is.na(arrdelay)) %>%
   ft_binarizer(
-    input.col = "arrdelay",
-    output.col = "delayed",
+    input_col = "arrdelay",
+    output_col = "delayed",
     threshold = 15
   ) %>%
   ft_bucketizer(
-    input.col = "crsdeptime",
-    output.col = "dephour",
+    input_col = "crsdeptime",
+    output_col = "dephour",
     splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
   ) %>%
   mutate(dephour = paste0("h", as.integer(dephour))) %>%
