@@ -1,5 +1,5 @@
 ```{r, section08, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 #Spark pipelines
@@ -168,7 +168,7 @@ head(current)
 5. Run predictions against the new data set
 ```{r}
 new_predictions <- ml_transform(
-  x = reload,
+  x = ml_load(sc, "saved_model"),
   dataset = current
 )
 
