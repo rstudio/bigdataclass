@@ -129,7 +129,7 @@ dbSendQuery(con, update_statement)
 library(tidyverse)
 library(sparklyr)
 library(lubridate)
-top_rows <- read.csv("/usr/share/flights/data/flight_2008_1.csv", nrows = 5)
+top_rows <- read.csv("/usr/share/class/flights/data/flight_2008_1.csv", nrows = 5)
 file_columns <- top_rows %>%
   rename_all(tolower) %>%
   map(function(x) "character")
@@ -141,7 +141,7 @@ sc <- spark_connect(master = "local", config = conf, version = "2.0.0")
 spark_flights <- spark_read_csv(
   sc,
   name = "flights",
-  path = "/usr/share/flights/data/",
+  path = "/usr/share/class/flights/data/",
   memory = FALSE,
   columns = file_columns,
   infer_schema = FALSE
@@ -204,7 +204,7 @@ spark_disconnect(sc)
 library(tidyverse)
 library(sparklyr)
 library(lubridate)
-top_rows <- read.csv("/usr/share/flights/data/flight_2008_1.csv", nrows = 5)
+top_rows <- read.csv("/usr/share/class/flights/data/flight_2008_1.csv", nrows = 5)
 file_columns <- top_rows %>%
   rename_all(tolower) %>%
   map(function(x) "character")
@@ -216,7 +216,7 @@ sc <- spark_connect(master = "local", config = conf, version = "2.0.0")
 spark_flights <- spark_read_csv(
   sc,
   name = "flights",
-  path = "/usr/share/flights/data/",
+  path = "/usr/share/class/flights/data/",
   memory = FALSE,
   columns = file_columns,
   infer_schema = FALSE
