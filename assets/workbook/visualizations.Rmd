@@ -5,6 +5,7 @@ knitr::opts_chunk$set(eval = TRUE)
 # Data Visualizations
 
 ```{r, catchup4, include = FALSE}
+library(DBI)
 library(dplyr)
 library(dbplyr)
 library(dbplot)
