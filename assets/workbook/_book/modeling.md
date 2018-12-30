@@ -1,228 +1,26 @@
-<!DOCTYPE html>
-<html >
 
-<head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
-
-  <meta property="og:title" content="" />
-  <meta property="og:type" content="book" />
-  
-  
-  
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
-  
-  
-  
+# Modeling
 
 
 
+## SQL Native sampling 
+*Use PostgreSQL TABLESAMPLE clause*
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-  
-<link rel="prev" href="data-visualizations.html">
-<link rel="next" href="advanced-operations.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+1. Use `build_sql()` and `remote_query()` to combine a the `dplyr` command with a custom SQL statement
 
+```r
+sql_sample <-  dbGetQuery(con, build_sql(remote_query(table_flights), " TABLESAMPLE SYSTEM (0.1)"))
+```
 
+2. Preview the sample data
 
+```r
+sql_sample
+```
 
-
-
-
-
-
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
-
-</head>
-
-<body>
-
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
-<li class="chapter" data-level="1" data-path="access-a-database.html"><a href="access-a-database.html"><i class="fa fa-check"></i><b>1</b> Access a database</a><ul>
-<li class="chapter" data-level="1.1" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database"><i class="fa fa-check"></i><b>1.1</b> Connect to a database</a></li>
-<li class="chapter" data-level="1.2" data-path="access-a-database.html"><a href="access-a-database.html#explore-the-database-using-the-rstudio-ide"><i class="fa fa-check"></i><b>1.2</b> Explore the database using the RStudio IDE</a></li>
-<li class="chapter" data-level="1.3" data-path="access-a-database.html"><a href="access-a-database.html#list-drivers-and-dsns"><i class="fa fa-check"></i><b>1.3</b> List drivers and DSNs</a></li>
-<li class="chapter" data-level="1.4" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-using-code"><i class="fa fa-check"></i><b>1.4</b> Connect to a database using code</a></li>
-<li class="chapter" data-level="1.5" data-path="access-a-database.html"><a href="access-a-database.html#connect-to-a-database-without-a-dsn"><i class="fa fa-check"></i><b>1.5</b> Connect to a database without a DSN</a></li>
-<li class="chapter" data-level="1.6" data-path="access-a-database.html"><a href="access-a-database.html#secure-credentials-in-a-file"><i class="fa fa-check"></i><b>1.6</b> Secure credentials in a file</a></li>
-<li class="chapter" data-level="1.7" data-path="access-a-database.html"><a href="access-a-database.html#environment-variables"><i class="fa fa-check"></i><b>1.7</b> Environment variables</a></li>
-<li class="chapter" data-level="1.8" data-path="access-a-database.html"><a href="access-a-database.html#use-options"><i class="fa fa-check"></i><b>1.8</b> Use options()</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="dplyr-basics.html"><a href="dplyr-basics.html"><i class="fa fa-check"></i><b>2</b> <code>dplyr</code> Basics</a><ul>
-<li class="chapter" data-level="2.1" data-path="dplyr-basics.html"><a href="dplyr-basics.html#create-a-table-variable"><i class="fa fa-check"></i><b>2.1</b> Create a table variable</a></li>
-<li class="chapter" data-level="2.2" data-path="dplyr-basics.html"><a href="dplyr-basics.html#under-the-hood"><i class="fa fa-check"></i><b>2.2</b> Under the hood</a></li>
-<li class="chapter" data-level="2.3" data-path="dplyr-basics.html"><a href="dplyr-basics.html#un-translated-r-commands"><i class="fa fa-check"></i><b>2.3</b> Un-translated R commands</a></li>
-<li class="chapter" data-level="2.4" data-path="dplyr-basics.html"><a href="dplyr-basics.html#using-bang-bang"><i class="fa fa-check"></i><b>2.4</b> Using bang-bang</a></li>
-<li class="chapter" data-level="2.5" data-path="dplyr-basics.html"><a href="dplyr-basics.html#knitr-sql-engine"><i class="fa fa-check"></i><b>2.5</b> knitr SQL engine</a></li>
-<li class="chapter" data-level="2.6" data-path="dplyr-basics.html"><a href="dplyr-basics.html#basic-aggregation"><i class="fa fa-check"></i><b>2.6</b> Basic aggregation</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
-<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#group-and-sort-records"><i class="fa fa-check"></i><b>3.1</b> Group and sort records</a></li>
-<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#answering-questions-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Answering questions with <code>dplyr</code></a></li>
-<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#aggregate-mulitple-columns"><i class="fa fa-check"></i><b>3.3</b> Aggregate mulitple columns</a></li>
-<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#view-record-level-data"><i class="fa fa-check"></i><b>3.4</b> View record level data</a></li>
-<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#case-statements"><i class="fa fa-check"></i><b>3.5</b> Case statements</a></li>
-<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#data-enrichment"><i class="fa fa-check"></i><b>3.6</b> Data enrichment</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>4</b> Data Visualizations</a><ul>
-<li class="chapter" data-level="4.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>4.1</b> Simple plot</a></li>
-<li class="chapter" data-level="4.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>4.2</b> Plot in one code segment</a></li>
-<li class="chapter" data-level="4.3" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-specific-data-segments"><i class="fa fa-check"></i><b>4.3</b> Plot specific data segments</a></li>
-<li class="chapter" data-level="4.4" data-path="data-visualizations.html"><a href="data-visualizations.html#two-or-more-queries"><i class="fa fa-check"></i><b>4.4</b> Two or more queries</a></li>
-<li class="chapter" data-level="4.5" data-path="data-visualizations.html"><a href="data-visualizations.html#visualize-using-dbplot"><i class="fa fa-check"></i><b>4.5</b> Visualize using <code>dbplot</code></a></li>
-<li class="chapter" data-level="4.6" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-a-different-aggregation"><i class="fa fa-check"></i><b>4.6</b> Plot a different aggregation</a></li>
-<li class="chapter" data-level="4.7" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>4.7</b> Create a histogram</a></li>
-<li class="chapter" data-level="4.8" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>4.8</b> Raster plot</a></li>
-<li class="chapter" data-level="4.9" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>4.9</b> Using the <code>calculate</code> functions</a></li>
-<li class="chapter" data-level="4.10" data-path="data-visualizations.html"><a href="data-visualizations.html#under-the-hood-ii"><i class="fa fa-check"></i><b>4.10</b> Under the hood (II)</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>5</b> Modeling</a><ul>
-<li class="chapter" data-level="5.1" data-path="modeling.html"><a href="modeling.html#sql-native-sampling"><i class="fa fa-check"></i><b>5.1</b> SQL Native sampling</a></li>
-<li class="chapter" data-level="5.2" data-path="modeling.html"><a href="modeling.html#sample-with-id"><i class="fa fa-check"></i><b>5.2</b> Sample with ID</a></li>
-<li class="chapter" data-level="5.3" data-path="modeling.html"><a href="modeling.html#sample-manually"><i class="fa fa-check"></i><b>5.3</b> Sample manually</a></li>
-<li class="chapter" data-level="5.4" data-path="modeling.html"><a href="modeling.html#create-a-model-test"><i class="fa fa-check"></i><b>5.4</b> Create a model &amp; test</a></li>
-<li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
-<li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>6</b> Advanced Operations</a><ul>
-<li class="chapter" data-level="6.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>6.1</b> Simple wrapper function</a></li>
-<li class="chapter" data-level="6.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>6.2</b> Multiple variables</a></li>
-<li class="chapter" data-level="6.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>6.3</b> Multiple queries</a></li>
-<li class="chapter" data-level="6.4" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries-with-an-overlaping-range"><i class="fa fa-check"></i><b>6.4</b> Multiple queries with an overlaping range</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>7</b> Intro to <code>sparklyr</code></a><ul>
-<li class="chapter" data-level="7.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>7.1</b> New Spark session</a></li>
-<li class="chapter" data-level="7.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>7.2</b> Data transfer</a></li>
-<li class="chapter" data-level="7.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#simple-dplyr-example"><i class="fa fa-check"></i><b>7.3</b> Simple dplyr example</a></li>
-<li class="chapter" data-level="7.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#map-data"><i class="fa fa-check"></i><b>7.4</b> Map data</a></li>
-<li class="chapter" data-level="7.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#caching-data"><i class="fa fa-check"></i><b>7.5</b> Caching data</a></li>
-<li class="chapter" data-level="7.6" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#sdf-functions"><i class="fa fa-check"></i><b>7.6</b> <code>sdf</code> Functions</a></li>
-<li class="chapter" data-level="7.7" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>7.7</b> Feature transformers</a></li>
-<li class="chapter" data-level="7.8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#fit-a-model-with-sparklyr"><i class="fa fa-check"></i><b>7.8</b> Fit a model with <code>sparklyr</code></a></li>
-<li class="chapter" data-level="7.9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#run-predictions-in-spark"><i class="fa fa-check"></i><b>7.9</b> Run predictions in Spark</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>8</b> Spark pipelines</a><ul>
-<li class="chapter" data-level="8.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#recreate-the-transformations"><i class="fa fa-check"></i><b>8.1</b> Recreate the transformations</a></li>
-<li class="chapter" data-level="8.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#fit-evaluate-save"><i class="fa fa-check"></i><b>8.2</b> Fit, evaluate, save</a></li>
-<li class="chapter" data-level="8.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-model"><i class="fa fa-check"></i><b>8.3</b> Reload model</a></li>
-<li class="chapter" data-level="8.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#reload-pipeline"><i class="fa fa-check"></i><b>8.4</b> Reload pipeline</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html"><i class="fa fa-check"></i><b>9</b> Intro to dashboards</a><ul>
-<li class="chapter" data-level="9.1" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#basic-structure"><i class="fa fa-check"></i><b>9.1</b> Basic structure</a></li>
-<li class="chapter" data-level="9.2" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#dropdown-data"><i class="fa fa-check"></i><b>9.2</b> Dropdown data</a></li>
-<li class="chapter" data-level="9.3" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#update-dashboard-items"><i class="fa fa-check"></i><b>9.3</b> Update dashboard items</a></li>
-<li class="chapter" data-level="9.4" data-path="intro-to-dashboards.html"><a href="intro-to-dashboards.html#integrate-the-dropdown"><i class="fa fa-check"></i><b>9.4</b> Integrate the dropdown</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html"><i class="fa fa-check"></i><b>10</b> Dashboard drill-down</a><ul>
-<li class="chapter" data-level="10.1" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-a-tabset-to-the-dashboard"><i class="fa fa-check"></i><b>10.1</b> Add a tabset to the dashboard</a></li>
-<li class="chapter" data-level="10.2" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-interactivity"><i class="fa fa-check"></i><b>10.2</b> Add interactivity</a></li>
-<li class="chapter" data-level="10.3" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#add-title-to-the-new-tab"><i class="fa fa-check"></i><b>10.3</b> Add title to the new tab</a></li>
-<li class="chapter" data-level="10.4" data-path="dashboard-drill-down.html"><a href="dashboard-drill-down.html#pool-pakcage"><i class="fa fa-check"></i><b>10.4</b> pool pakcage</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="share-and-production.html"><a href="share-and-production.html"><i class="fa fa-check"></i><b>11</b> Share and Production</a><ul>
-<li class="chapter" data-level="11.1" data-path="share-and-production.html"><a href="share-and-production.html#publish-dashboard"><i class="fa fa-check"></i><b>11.1</b> Publish dashboard</a></li>
-<li class="chapter" data-level="11.2" data-path="share-and-production.html"><a href="share-and-production.html#schedule-scoring"><i class="fa fa-check"></i><b>11.2</b> Schedule scoring</a></li>
-<li class="chapter" data-level="11.3" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-pipeline"><i class="fa fa-check"></i><b>11.3</b> Scheduled pipeline</a></li>
-<li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
-<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
-<li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
-<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
-<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
-</ul></li>
-</ul>
-
-      </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="modeling" class="section level1">
-<h1><span class="header-section-number">5</span> Modeling</h1>
-<div id="sql-native-sampling" class="section level2">
-<h2><span class="header-section-number">5.1</span> SQL Native sampling</h2>
-<p><em>Use PostgreSQL TABLESAMPLE clause</em></p>
-<ol style="list-style-type: decimal">
-<li>Use <code>build_sql()</code> and <code>remote_query()</code> to combine a the <code>dplyr</code> command with a custom SQL statement</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql_sample &lt;-<span class="st">  </span><span class="kw">dbGetQuery</span>(con, <span class="kw">build_sql</span>(<span class="kw">remote_query</span>(table_flights), <span class="st">&quot; TABLESAMPLE SYSTEM (0.1)&quot;</span>))</code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Preview the sample data</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql_sample</code></pre></div>
-<pre><code>##      flightid year month dayofmonth dayofweek deptime crsdeptime arrtime
+```
+##      flightid year month dayofmonth dayofweek deptime crsdeptime arrtime
 ## 1       33622 2008     1         13         7    1505       1450    1729
 ## 2       33623 2008     1         13         7    1948       1950    2208
 ## 3       33624 2008     1         13         7     830        835    1032
@@ -3524,7 +3322,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 73          805            WN      1944  N665WN                58
 ## 74         1705            WN      2028  N327SW                75
 ## 75         1205            WN      3075  N602SW                93
-## 76         2135            WN      3763    &lt;NA&gt;                NA
+## 76         2135            WN      3763    <NA>                NA
 ## 77         1615            WN      3398  N754SW               297
 ## 78         1820            WN      3484  N631SW               127
 ## 79         1140            WN       281  N482WN               153
@@ -3553,7 +3351,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 102        1150            WN      1778  N753SW               148
 ## 103        1825            WN      2987  N205WN               148
 ## 104        1010            WN        32  N376SW                86
-## 105        1620            WN        90    &lt;NA&gt;                NA
+## 105        1620            WN        90    <NA>                NA
 ## 106        1935            WN       349  N317WN                73
 ## 107         850            WN      2988  N602SW               105
 ## 108        1955            WN      1280  N406WN               325
@@ -3587,7 +3385,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 136        2300            WN      1464  N251WN                59
 ## 137         855            WN      1508  N765SW                67
 ## 138        2145            WN      1624  N453WN                53
-## 139        1325            WN      1686    &lt;NA&gt;                NA
+## 139        1325            WN      1686    <NA>                NA
 ## 140        1925            WN      2271  N679AA                54
 ## 141        1625            WN      2610  N389SW                54
 ## 142        1000            WN      2635  N641SW                59
@@ -3701,7 +3499,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 250         820            WN      2205  N448WN                54
 ## 251        1415            WN      3485  N258WN                59
 ## 252        1138            XE      2263  N16999                78
-## 253        2318            XE      3070    &lt;NA&gt;                NA
+## 253        2318            XE      3070    <NA>                NA
 ## 254        1953            XE      2138  N13958               142
 ## 255        1545            XE      2598  N16927                88
 ## 256        2140            XE      3074  N17928               123
@@ -3756,7 +3554,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 305        1332            XE      2964  N14905                46
 ## 306        1658            XE      2217  N14993               118
 ## 307        1655            XE      2000  N14905               123
-## 308        1005            XE      2752    &lt;NA&gt;                NA
+## 308        1005            XE      2752    <NA>                NA
 ## 309        1237            XE      2845  N14930                81
 ## 310        1612            XE      3078  N11107               151
 ## 311        1124            XE      2252  N13132               241
@@ -3864,7 +3662,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 413         522            UA      1562  N407UA               198
 ## 414         522            UA      1562  N473UA               205
 ## 415         522            UA      1562  N467UA               221
-## 416        1210            UA      1563    &lt;NA&gt;                NA
+## 416        1210            UA      1563    <NA>                NA
 ## 417        1210            UA      1563  N481UA               114
 ## 418        1210            UA      1563  N449UA               115
 ## 419        1210            UA      1563  N478UA               110
@@ -3995,7 +3793,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 544         940            MQ      3154  N810AE                81
 ## 545         940            MQ      3154  N841AE                81
 ## 546         940            MQ      3154  N841AE                76
-## 547         940            MQ      3154    &lt;NA&gt;                NA
+## 547         940            MQ      3154    <NA>                NA
 ## 548         940            MQ      3154  N818AE               105
 ## 549         940            MQ      3154  N821AE                87
 ## 550         940            MQ      3154  N821AE                68
@@ -4169,7 +3967,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 718        1020            AA      1981  N516AA               283
 ## 719        1020            AA      1981  N4YGAA               275
 ## 720        1020            AA      1981  N218AA               291
-## 721        1020            AA      1981    &lt;NA&gt;                NA
+## 721        1020            AA      1981    <NA>                NA
 ## 722        1020            AA      1981  N596AA               286
 ## 723        1020            AA      1981  N4YAAA               261
 ## 724        1020            AA      1981  N570AA               239
@@ -4181,7 +3979,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 730        2020            AA      1982  N447AA               107
 ## 731        2020            AA      1982  N448AA                61
 ## 732        2020            AA      1982  N432AA                78
-## 733        2020            AA      1982    &lt;NA&gt;                NA
+## 733        2020            AA      1982    <NA>                NA
 ## 734        2020            AA      1982  N537AA                69
 ## 735        2020            AA      1982  N505AA                62
 ## 736        2020            AA      1982  N565AA                70
@@ -4234,7 +4032,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 783        1520            WN       918  N354SW                60
 ## 784        1850            WN      1089  N312SW                65
 ## 785         725            WN       452  N746SW                57
-## 786        1920            WN       878    &lt;NA&gt;                NA
+## 786        1920            WN       878    <NA>                NA
 ## 787        1630            WN       978  N259WN                57
 ## 788        1955            WN      1114  N798SW                59
 ## 789        1510            WN      1182  N743SW                62
@@ -4334,7 +4132,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 883        2155            OH      5217  N629BR               173
 ## 884         943            OH      5218  N656CA               105
 ## 885        1524            OH      5220  N721CA               223
-## 886        1330            OH      5222    &lt;NA&gt;                NA
+## 886        1330            OH      5222    <NA>                NA
 ## 887        2137            OH      5224  N785CA                79
 ## 888        1421            OH      5226  N523CA               138
 ## 889        2000            OH      5227  N783CA                76
@@ -4473,7 +4271,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1022       1716            US       338  N316AW               203
 ## 1023       2029            US      1041  N918UW               239
 ## 1024       1824            US      1188  N921UW               251
-## 1025       1913            US      1012    &lt;NA&gt;                NA
+## 1025       1913            US      1012    <NA>                NA
 ## 1026       1648            US      1283  N930UW               220
 ## 1027       2023            US      1414  N702UW               234
 ## 1028       1650            WN      2639  N701GS               233
@@ -4634,7 +4432,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1183       1135            MQ      3792  N620AE                79
 ## 1184       1135            MQ      3792  N928AE                73
 ## 1185       1405            MQ      3793  N850AE               114
-## 1186       1405            MQ      3793    &lt;NA&gt;                NA
+## 1186       1405            MQ      3793    <NA>                NA
 ## 1187       1405            MQ      3793  N847AE               120
 ## 1188       1405            MQ      3793  N803AE                NA
 ## 1189       1405            MQ      3793  N808AE               120
@@ -4658,9 +4456,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1207       1405            MQ      3793  N697AB               126
 ## 1208       1405            MQ      3793  N819AE               130
 ## 1209       1610            MQ      3794  N850AE               165
-## 1210       1610            MQ      3794    &lt;NA&gt;                NA
+## 1210       1610            MQ      3794    <NA>                NA
 ## 1211       1610            MQ      3794  N847AE               183
-## 1212       1610            MQ      3794    &lt;NA&gt;                NA
+## 1212       1610            MQ      3794    <NA>                NA
 ## 1213       1610            MQ      3794  N808AE               150
 ## 1214       1610            MQ      3794  N837AE               162
 ## 1215       1610            MQ      3794  N942AE               145
@@ -4696,7 +4494,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1245       1710            MQ      3831  N647AE               135
 ## 1246       1710            MQ      3831  N685AE               126
 ## 1247       1710            MQ      3831  N673AE               135
-## 1248       1710            MQ      3831    &lt;NA&gt;                NA
+## 1248       1710            MQ      3831    <NA>                NA
 ## 1249       1710            MQ      3831  N686AE               128
 ## 1250       1710            MQ      3831  N906AE               131
 ## 1251       1710            MQ      3831  N614AE               124
@@ -4790,7 +4588,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1339       1220            CO      1633  N33637               246
 ## 1340       1100            CO       661  N33637               205
 ## 1341       1906            CO       392  N31412               173
-## 1342       1746            CO      1180    &lt;NA&gt;                NA
+## 1342       1746            CO      1180    <NA>                NA
 ## 1343        837            CO       559  N27734               183
 ## 1344       1955            CO       254  N14242               266
 ## 1345       1335            CO      1004  N70353               173
@@ -4948,7 +4746,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1497       1033            XE      2122  N14522                70
 ## 1498       1053            XE      2943  N14952               171
 ## 1499        825            XE      2309  N21144               201
-## 1500       1752            XE      3073    &lt;NA&gt;                NA
+## 1500       1752            XE      3073    <NA>                NA
 ## 1501        822            XE      2891  N14939                74
 ## 1502       2235            XE      3133  N29515               107
 ## 1503       1043            XE      2708  N12142               166
@@ -5134,7 +4932,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1683       1909            UA      1676  N465UA               344
 ## 1684       1909            UA      1676  N453UA               344
 ## 1685       1909            UA      1676  N447UA               314
-## 1686       1909            UA      1676    &lt;NA&gt;                NA
+## 1686       1909            UA      1676    <NA>                NA
 ## 1687       1909            UA      1676  N479UA               327
 ## 1688       1909            UA      1676  N478UA               326
 ## 1689       2021            UA      1676  N476UA               337
@@ -5170,10 +4968,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1719       1235            MQ      3959  N508AE               181
 ## 1720       1235            MQ      3959  N502AE                94
 ## 1721       1235            MQ      3959  N502AE                93
-## 1722       1235            MQ      3959    &lt;NA&gt;                NA
+## 1722       1235            MQ      3959    <NA>                NA
 ## 1723       1235            MQ      3959  N506AE                96
 ## 1724       1235            MQ      3959  N508AE               109
-## 1725       1905            MQ      3997    &lt;NA&gt;                NA
+## 1725       1905            MQ      3997    <NA>                NA
 ## 1726       1235            AA      1048  N633AA               177
 ## 1727       1140            AA      1049  N5CYAA               255
 ## 1728       1140            AA      1049  N618AA               246
@@ -5196,7 +4994,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1745       1140            AA      1049  N5BSAA               288
 ## 1746       1140            AA      1049  N5EYAA               283
 ## 1747       1140            AA      1049  N5DVAA               268
-## 1748       1140            AA      1049    &lt;NA&gt;                NA
+## 1748       1140            AA      1049    <NA>                NA
 ## 1749       1140            AA      1049  N5FMAA               262
 ## 1750       1140            AA      1049  N5CEAA               258
 ## 1751       1140            AA      1049  N5DNAA               267
@@ -5209,7 +5007,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1758       1535            AA      1050  N4WPAA               232
 ## 1759       1535            AA      1050  N433AA               230
 ## 1760       1535            AA      1050  N4XCAA               227
-## 1761       1535            AA      1050    &lt;NA&gt;                NA
+## 1761       1535            AA      1050    <NA>                NA
 ## 1762        925            AA      2099  N596AA               242
 ## 1763        925            AA      2099  N219AA               296
 ## 1764        925            AA      2099  N4XFAA               243
@@ -5226,8 +5024,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1775        925            AA      2099  N570AA               278
 ## 1776        925            AA      2099  N200AA               247
 ## 1777        925            AA      2099  N4XRAA               297
-## 1778        925            AA      2099    &lt;NA&gt;                NA
-## 1779        925            AA      2099    &lt;NA&gt;                NA
+## 1778        925            AA      2099    <NA>                NA
+## 1779        925            AA      2099    <NA>                NA
 ## 1780        925            AA      2099  N562AA               277
 ## 1781        925            AA      2099  N4XFAA               286
 ## 1782        925            AA      2099  N4XTAA               279
@@ -5308,7 +5106,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1857       2159            XE       318  N11191                98
 ## 1858       2159            XE       318  N14203               101
 ## 1859       2159            XE       318  N11191                97
-## 1860       2159            XE       318    &lt;NA&gt;                NA
+## 1860       2159            XE       318    <NA>                NA
 ## 1861       2159            XE       318  N14203               101
 ## 1862       2159            XE       318  N16561               102
 ## 1863       2159            XE       318  N16546               101
@@ -5436,7 +5234,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 1985       1359            MQ      4254  N855AE                54
 ## 1986       1359            MQ      4254  N813AE                47
 ## 1987       1359            MQ      4254  N837AE                46
-## 1988       1359            MQ      4254    &lt;NA&gt;                NA
+## 1988       1359            MQ      4254    <NA>                NA
 ## 1989       1359            MQ      4254  N819AE                66
 ## 1990       1359            MQ      4254  N718AE                44
 ## 1991       1359            MQ      4254  N816AE                90
@@ -5577,7 +5375,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2126       1610            9E      5672  89829E               106
 ## 2127       1610            9E      5672  86319E               101
 ## 2128       1610            9E      5672  80309E               120
-## 2129       1610            9E      5672    &lt;NA&gt;                NA
+## 2129       1610            9E      5672    <NA>                NA
 ## 2130       1610            9E      5672  84779E                99
 ## 2131       1610            9E      5672  89149E               101
 ## 2132       1610            9E      5672  89649E               105
@@ -5625,9 +5423,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2174       1920            AA      1074  N585AA                NA
 ## 2175       1925            AA      1074  N4YSAA               128
 ## 2176       1925            AA      1074  N403AA               162
-## 2177       1925            AA      1074    &lt;NA&gt;                NA
-## 2178       1925            AA      1074    &lt;NA&gt;                NA
-## 2179       1925            AA      1074    &lt;NA&gt;                NA
+## 2177       1925            AA      1074    <NA>                NA
+## 2178       1925            AA      1074    <NA>                NA
+## 2179       1925            AA      1074    <NA>                NA
 ## 2180       1925            AA      1074  N481AA               125
 ## 2181       1925            AA      1074  N551AA               114
 ## 2182       1925            AA      1074  N443AA               117
@@ -5636,7 +5434,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2185       1925            AA      1074  N404AA               117
 ## 2186       1925            AA      1074  N207AA               145
 ## 2187       1925            AA      1074  N248AA               141
-## 2188       2040            AA      1079    &lt;NA&gt;                NA
+## 2188       2040            AA      1079    <NA>                NA
 ## 2189       1005            AA      1664  N3AVAA               154
 ## 2190       1005            AA      1664  N3AUAA               130
 ## 2191       1005            AA      1664  N3ASAA               118
@@ -5648,11 +5446,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2197       1005            AA      1664  N3AAAA               122
 ## 2198       1005            AA      1664  N3DHAA               121
 ## 2199       1005            AA      1664  N3AEAA               111
-## 2200       1005            AA      1664    &lt;NA&gt;                NA
+## 2200       1005            AA      1664    <NA>                NA
 ## 2201       1005            AA      1664  N3BEAA               122
 ## 2202       1005            AA      1664  N3CVAA               117
 ## 2203       1005            AA      1664  N3BEAA               118
-## 2204       1005            AA      1664    &lt;NA&gt;                NA
+## 2204       1005            AA      1664    <NA>                NA
 ## 2205       1005            AA      1664  N3CAAA               122
 ## 2206       1005            AA      1664  N3DLAA               126
 ## 2207       1005            AA      1664  N3BHAA               122
@@ -5669,11 +5467,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2218       2120            AA      1665  N583AA               187
 ## 2219       1305            AA      1665  N411AA               231
 ## 2220       1305            AA      1665  N466AA               234
-## 2221       1305            AA      1665    &lt;NA&gt;                NA
-## 2222       1305            AA      1665    &lt;NA&gt;                NA
-## 2223       1305            AA      1665    &lt;NA&gt;                NA
+## 2221       1305            AA      1665    <NA>                NA
+## 2222       1305            AA      1665    <NA>                NA
+## 2223       1305            AA      1665    <NA>                NA
 ## 2224       1305            AA      1665  N446AA               214
-## 2225       1950            AA      1702    &lt;NA&gt;                NA
+## 2225       1950            AA      1702    <NA>                NA
 ## 2226        755            AA      1718  N218AA                82
 ## 2227        755            AA      1718  N293AA                79
 ## 2228        755            AA      1718  N453AA                71
@@ -5686,7 +5484,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2235        755            AA      1718  N532AA                76
 ## 2236        755            AA      1718  N4YAAA                76
 ## 2237        755            AA      1718  N532AA                83
-## 2238       1150            AA      1718    &lt;NA&gt;                NA
+## 2238       1150            AA      1718    <NA>                NA
 ## 2239       1150            AA      1718  N4YAAA               117
 ## 2240       1150            AA      1718  N573AA               120
 ## 2241       1150            AA      1718  N475AA               120
@@ -5694,7 +5492,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2243       1150            AA      1718  N571AA               156
 ## 2244       1205            AA      1718  N237AA               139
 ## 2245       1205            AA      1718  N538AA               129
-## 2246       1205            AA      1718    &lt;NA&gt;                NA
+## 2246       1205            AA      1718    <NA>                NA
 ## 2247       1205            AA      1718  N291AA               122
 ## 2248       1205            AA      1718  N467AA               133
 ## 2249       1205            AA      1718  N283AA               124
@@ -5781,7 +5579,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2330       1140            WN         8  N629SW               171
 ## 2331       1805            WN       959  N328SW                54
 ## 2332        920            WN      1317  N203WN                55
-## 2333       1605            WN       616    &lt;NA&gt;                NA
+## 2333       1605            WN       616    <NA>                NA
 ## 2334       1720            WN      3997  N225WN                59
 ## 2335       1050            WN      3552  N660SW               158
 ## 2336       1905            WN      1999  N737JW               296
@@ -6164,7 +5962,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2713       1745            MQ      4209  N854AE                79
 ## 2714       1745            MQ      4209  N813AE                78
 ## 2715       1745            MQ      4209  N690AE                66
-## 2716       1745            MQ      4209    &lt;NA&gt;                NA
+## 2716       1745            MQ      4209    <NA>                NA
 ## 2717       1745            MQ      4209  N837AE                77
 ## 2718       1745            MQ      4209  N804AE               124
 ## 2719       1745            MQ      4209  N832AE                76
@@ -6252,7 +6050,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2801       1355            AA       413  N5CXAA               249
 ## 2802       1355            AA       413  N5CBAA               267
 ## 2803       1355            AA       413  N641AA               273
-## 2804       1355            AA       413    &lt;NA&gt;                NA
+## 2804       1355            AA       413    <NA>                NA
 ## 2805       1355            AA       413  N5FSAA               261
 ## 2806        930            AA       414  N279AA                69
 ## 2807        930            AA       414  N227AA                98
@@ -6391,7 +6189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 2940       1140            OH      5237  N958CA                63
 ## 2941       1533            OH      5239  N914CA               112
 ## 2942       1552            OH      5240  N510CA                41
-## 2943       2209            OH      5241    &lt;NA&gt;                NA
+## 2943       2209            OH      5241    <NA>                NA
 ## 2944        946            OH      5243  N659BR                78
 ## 2945        802            OH      5243  N528CA                93
 ## 2946       1730            OH      5245  N918CA               130
@@ -6493,7 +6291,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 3042        638            UA        74  N672UA               291
 ## 3043        637            UA        74  N522UA               297
 ## 3044        617            UA        74  N665UA               304
-## 3045        638            UA        74    &lt;NA&gt;                NA
+## 3045        638            UA        74    <NA>                NA
 ## 3046        638            UA        74  N669UA               322
 ## 3047        638            UA        74  N673UA               304
 ## 3048        638            UA        74  N664UA               321
@@ -6538,7 +6336,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 3087       1020            UA        94  N834UA               124
 ## 3088       1020            UA        94  N803UA               124
 ## 3089       1020            UA        94  N845UA               134
-## 3090       1020            UA        94    &lt;NA&gt;                NA
+## 3090       1020            UA        94    <NA>                NA
 ## 3091       1020            UA        94  N814UA               121
 ## 3092       1020            UA        94  N421UA               167
 ## 3093       1020            UA        94  N426UA               119
@@ -6561,21 +6359,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 3110       1914            UA       688  N307UA               110
 ## 3111       1920            UA       688  N308UA               134
 ## 3112       1920            UA       688  N308UA               153
-## 3113       1930            UA       688    &lt;NA&gt;                NA
+## 3113       1930            UA       688    <NA>                NA
 ## 3114       1920            UA       688  N377UA               228
 ## 3115       1920            UA       688  N307UA               166
-## 3116       1920            UA       688    &lt;NA&gt;                NA
+## 3116       1920            UA       688    <NA>                NA
 ## 3117       1920            UA       688  N382UA               138
-## 3118       1920            UA       688    &lt;NA&gt;                NA
+## 3118       1920            UA       688    <NA>                NA
 ## 3119       1920            UA       688  N383UA               139
-## 3120       1930            UA       688    &lt;NA&gt;                NA
+## 3120       1930            UA       688    <NA>                NA
 ## 3121       1920            UA       688  N373UA               132
-## 3122       1920            UA       688    &lt;NA&gt;                NA
+## 3122       1920            UA       688    <NA>                NA
 ## 3123       1920            UA       688  N370UA               123
 ## 3124       1920            UA       688  N398UA               175
 ## 3125       1920            UA       688  N331UA               126
 ## 3126       1920            UA       688  N374UA               119
-## 3127       1930            UA       688    &lt;NA&gt;                NA
+## 3127       1930            UA       688    <NA>                NA
 ## 3128       1920            UA       688  N312UA               146
 ## 3129       1920            UA       688  N929UA               151
 ## 3130       1920            UA       688  N339UA               127
@@ -6584,14 +6382,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 3133       1920            UA       688  N373UA               149
 ## 3134       1930            UA       688  N334UA               173
 ## 3135       1920            UA       688  N339UA               168
-## 3136       1920            UA       688    &lt;NA&gt;                NA
+## 3136       1920            UA       688    <NA>                NA
 ## 3137       1845            UA       689  N853UA               138
 ## 3138       1845            UA       689  N415UA               152
 ## 3139       1845            UA       689  N463UA               140
 ## 3140       1845            UA       689  N430UA               143
 ## 3141       1850            UA       689  N534UA               147
 ## 3142       1850            UA       689  N569UA               130
-## 3143       1854            UA       689    &lt;NA&gt;                NA
+## 3143       1854            UA       689    <NA>                NA
 ## 3144       1850            UA       689  N513UA                NA
 ## 3145       1850            UA       689  N586UA               171
 ## 3146       2111            US      1636  N457UW                45
@@ -6630,7 +6428,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 3179       1816            US      1401  N458UW               128
 ## 3180       1516            US      1457  N420US               123
 ## 3181       2214            US      1687  N917UW               113
-## 3182       1202            US      1128    &lt;NA&gt;                NA
+## 3182       1202            US      1128    <NA>                NA
 ## 3183       1624            US      1600  N704US               102
 ## 3184       2357            US      1774  N767UW               115
 ## 3185       1814            US      1992  N517AU                97
@@ -9901,3231 +9699,3231 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 3224             81      58       -3        2    CLT  DCA      331      4
 ## 3225             80      53       24       14    CLT  DCA      331      5
 ##      taxiout cancelled cancellationcode diverted carrierdelay weatherdelay
-## 1          5         0             &lt;NA&gt;        0           NA           NA
-## 2          5         0             &lt;NA&gt;        0           NA           NA
-## 3          8         0             &lt;NA&gt;        0           NA           NA
-## 4          8         0             &lt;NA&gt;        0           NA           NA
-## 5          8         0             &lt;NA&gt;        0           NA           NA
-## 6          6         0             &lt;NA&gt;        0            3            0
-## 7          5         0             &lt;NA&gt;        0           NA           NA
-## 8          7         0             &lt;NA&gt;        0           NA           NA
-## 9          8         0             &lt;NA&gt;        0           30            0
-## 10         7         0             &lt;NA&gt;        0           NA           NA
-## 11         7         0             &lt;NA&gt;        0           39            0
-## 12         9         0             &lt;NA&gt;        0           NA           NA
-## 13        11         0             &lt;NA&gt;        0           NA           NA
-## 14         8         0             &lt;NA&gt;        0           NA           NA
-## 15         8         0             &lt;NA&gt;        0           NA           NA
-## 16         8         0             &lt;NA&gt;        0           NA           NA
-## 17        12         0             &lt;NA&gt;        0           NA           NA
-## 18         8         0             &lt;NA&gt;        0           NA           NA
-## 19         8         0             &lt;NA&gt;        0           NA           NA
-## 20         6         0             &lt;NA&gt;        0            0            0
-## 21        11         0             &lt;NA&gt;        0           NA           NA
-## 22         7         0             &lt;NA&gt;        0           NA           NA
-## 23         7         0             &lt;NA&gt;        0            5            0
-## 24        12         0             &lt;NA&gt;        0           NA           NA
-## 25         6         0             &lt;NA&gt;        0           NA           NA
-## 26         7         0             &lt;NA&gt;        0           NA           NA
-## 27         7         0             &lt;NA&gt;        0           NA           NA
-## 28         8         0             &lt;NA&gt;        0           NA           NA
-## 29        10         0             &lt;NA&gt;        0           NA           NA
-## 30        11         0             &lt;NA&gt;        0           NA           NA
-## 31         6         0             &lt;NA&gt;        0           NA           NA
-## 32        15         0             &lt;NA&gt;        0            0            0
-## 33         9         0             &lt;NA&gt;        0           NA           NA
-## 34         7         0             &lt;NA&gt;        0           NA           NA
-## 35         7         0             &lt;NA&gt;        0           NA           NA
-## 36         7         0             &lt;NA&gt;        0           NA           NA
-## 37        10         0             &lt;NA&gt;        0            5            0
-## 38         8         0             &lt;NA&gt;        0           NA           NA
-## 39        12         0             &lt;NA&gt;        0            0            0
-## 40         7         0             &lt;NA&gt;        0            6            0
-## 41         7         0             &lt;NA&gt;        0           NA           NA
-## 42        12         0             &lt;NA&gt;        0           10            0
-## 43        11         0             &lt;NA&gt;        0           NA           NA
-## 44        67         0             &lt;NA&gt;        0            0            0
-## 45         7         0             &lt;NA&gt;        0           NA           NA
-## 46        16         0             &lt;NA&gt;        0           11            0
-## 47        10         0             &lt;NA&gt;        0            1            0
-## 48        13         0             &lt;NA&gt;        0            0           33
-## 49        15         0             &lt;NA&gt;        0           14            0
-## 50        10         0             &lt;NA&gt;        0           NA           NA
-## 51         9         0             &lt;NA&gt;        0           NA           NA
-## 52        15         0             &lt;NA&gt;        0            1            0
-## 53        11         0             &lt;NA&gt;        0           NA           NA
-## 54         6         0             &lt;NA&gt;        0           NA           NA
-## 55         6         0             &lt;NA&gt;        0           NA           NA
-## 56         9         0             &lt;NA&gt;        0           NA           NA
-## 57         5         0             &lt;NA&gt;        0           NA           NA
-## 58         5         0             &lt;NA&gt;        0            0            0
-## 59         8         0             &lt;NA&gt;        0           NA           NA
-## 60         6         0             &lt;NA&gt;        0           NA           NA
-## 61         6         0             &lt;NA&gt;        0           NA           NA
-## 62         7         0             &lt;NA&gt;        0           NA           NA
-## 63         6         0             &lt;NA&gt;        0           NA           NA
-## 64         4         0             &lt;NA&gt;        0           NA           NA
-## 65         7         0             &lt;NA&gt;        0           NA           NA
-## 66         5         0             &lt;NA&gt;        0           NA           NA
-## 67         7         0             &lt;NA&gt;        0           NA           NA
-## 68         6         0             &lt;NA&gt;        0           NA           NA
-## 69         6         0             &lt;NA&gt;        0           NA           NA
-## 70         8         0             &lt;NA&gt;        0           NA           NA
-## 71         7         0             &lt;NA&gt;        0           NA           NA
-## 72        28         0             &lt;NA&gt;        0           NA           NA
-## 73         7         0             &lt;NA&gt;        0           NA           NA
-## 74        21         0             &lt;NA&gt;        0            0            0
-## 75        31         0             &lt;NA&gt;        0            0            0
+## 1          5         0             <NA>        0           NA           NA
+## 2          5         0             <NA>        0           NA           NA
+## 3          8         0             <NA>        0           NA           NA
+## 4          8         0             <NA>        0           NA           NA
+## 5          8         0             <NA>        0           NA           NA
+## 6          6         0             <NA>        0            3            0
+## 7          5         0             <NA>        0           NA           NA
+## 8          7         0             <NA>        0           NA           NA
+## 9          8         0             <NA>        0           30            0
+## 10         7         0             <NA>        0           NA           NA
+## 11         7         0             <NA>        0           39            0
+## 12         9         0             <NA>        0           NA           NA
+## 13        11         0             <NA>        0           NA           NA
+## 14         8         0             <NA>        0           NA           NA
+## 15         8         0             <NA>        0           NA           NA
+## 16         8         0             <NA>        0           NA           NA
+## 17        12         0             <NA>        0           NA           NA
+## 18         8         0             <NA>        0           NA           NA
+## 19         8         0             <NA>        0           NA           NA
+## 20         6         0             <NA>        0            0            0
+## 21        11         0             <NA>        0           NA           NA
+## 22         7         0             <NA>        0           NA           NA
+## 23         7         0             <NA>        0            5            0
+## 24        12         0             <NA>        0           NA           NA
+## 25         6         0             <NA>        0           NA           NA
+## 26         7         0             <NA>        0           NA           NA
+## 27         7         0             <NA>        0           NA           NA
+## 28         8         0             <NA>        0           NA           NA
+## 29        10         0             <NA>        0           NA           NA
+## 30        11         0             <NA>        0           NA           NA
+## 31         6         0             <NA>        0           NA           NA
+## 32        15         0             <NA>        0            0            0
+## 33         9         0             <NA>        0           NA           NA
+## 34         7         0             <NA>        0           NA           NA
+## 35         7         0             <NA>        0           NA           NA
+## 36         7         0             <NA>        0           NA           NA
+## 37        10         0             <NA>        0            5            0
+## 38         8         0             <NA>        0           NA           NA
+## 39        12         0             <NA>        0            0            0
+## 40         7         0             <NA>        0            6            0
+## 41         7         0             <NA>        0           NA           NA
+## 42        12         0             <NA>        0           10            0
+## 43        11         0             <NA>        0           NA           NA
+## 44        67         0             <NA>        0            0            0
+## 45         7         0             <NA>        0           NA           NA
+## 46        16         0             <NA>        0           11            0
+## 47        10         0             <NA>        0            1            0
+## 48        13         0             <NA>        0            0           33
+## 49        15         0             <NA>        0           14            0
+## 50        10         0             <NA>        0           NA           NA
+## 51         9         0             <NA>        0           NA           NA
+## 52        15         0             <NA>        0            1            0
+## 53        11         0             <NA>        0           NA           NA
+## 54         6         0             <NA>        0           NA           NA
+## 55         6         0             <NA>        0           NA           NA
+## 56         9         0             <NA>        0           NA           NA
+## 57         5         0             <NA>        0           NA           NA
+## 58         5         0             <NA>        0            0            0
+## 59         8         0             <NA>        0           NA           NA
+## 60         6         0             <NA>        0           NA           NA
+## 61         6         0             <NA>        0           NA           NA
+## 62         7         0             <NA>        0           NA           NA
+## 63         6         0             <NA>        0           NA           NA
+## 64         4         0             <NA>        0           NA           NA
+## 65         7         0             <NA>        0           NA           NA
+## 66         5         0             <NA>        0           NA           NA
+## 67         7         0             <NA>        0           NA           NA
+## 68         6         0             <NA>        0           NA           NA
+## 69         6         0             <NA>        0           NA           NA
+## 70         8         0             <NA>        0           NA           NA
+## 71         7         0             <NA>        0           NA           NA
+## 72        28         0             <NA>        0           NA           NA
+## 73         7         0             <NA>        0           NA           NA
+## 74        21         0             <NA>        0            0            0
+## 75        31         0             <NA>        0            0            0
 ## 76        NA         1                C        0           NA           NA
-## 77        27         0             &lt;NA&gt;        0           NA           NA
-## 78         6         0             &lt;NA&gt;        0           NA           NA
-## 79         7         0             &lt;NA&gt;        0           NA           NA
-## 80         8         0             &lt;NA&gt;        0           NA           NA
-## 81         8         0             &lt;NA&gt;        0           NA           NA
-## 82         7         0             &lt;NA&gt;        0           NA           NA
-## 83        10         0             &lt;NA&gt;        0           NA           NA
-## 84         8         0             &lt;NA&gt;        0            1            0
-## 85         7         0             &lt;NA&gt;        0           NA           NA
-## 86        12         0             &lt;NA&gt;        0           NA           NA
-## 87         8         0             &lt;NA&gt;        0           NA           NA
-## 88         7         0             &lt;NA&gt;        0           NA           NA
-## 89        15         0             &lt;NA&gt;        0           NA           NA
-## 90        17         0             &lt;NA&gt;        0           NA           NA
-## 91         7         0             &lt;NA&gt;        0           NA           NA
-## 92        10         0             &lt;NA&gt;        0           NA           NA
-## 93         8         0             &lt;NA&gt;        0           NA           NA
-## 94        13         0             &lt;NA&gt;        0           NA           NA
-## 95         6         0             &lt;NA&gt;        0           NA           NA
-## 96         6         0             &lt;NA&gt;        0           NA           NA
-## 97         6         0             &lt;NA&gt;        0           NA           NA
-## 98         6         0             &lt;NA&gt;        0           NA           NA
-## 99         7         0             &lt;NA&gt;        0           NA           NA
-## 100       10         0             &lt;NA&gt;        0           NA           NA
-## 101       11         0             &lt;NA&gt;        0            0            0
-## 102        6         0             &lt;NA&gt;        0           NA           NA
-## 103        9         0             &lt;NA&gt;        0           NA           NA
-## 104       18         0             &lt;NA&gt;        0           NA           NA
+## 77        27         0             <NA>        0           NA           NA
+## 78         6         0             <NA>        0           NA           NA
+## 79         7         0             <NA>        0           NA           NA
+## 80         8         0             <NA>        0           NA           NA
+## 81         8         0             <NA>        0           NA           NA
+## 82         7         0             <NA>        0           NA           NA
+## 83        10         0             <NA>        0           NA           NA
+## 84         8         0             <NA>        0            1            0
+## 85         7         0             <NA>        0           NA           NA
+## 86        12         0             <NA>        0           NA           NA
+## 87         8         0             <NA>        0           NA           NA
+## 88         7         0             <NA>        0           NA           NA
+## 89        15         0             <NA>        0           NA           NA
+## 90        17         0             <NA>        0           NA           NA
+## 91         7         0             <NA>        0           NA           NA
+## 92        10         0             <NA>        0           NA           NA
+## 93         8         0             <NA>        0           NA           NA
+## 94        13         0             <NA>        0           NA           NA
+## 95         6         0             <NA>        0           NA           NA
+## 96         6         0             <NA>        0           NA           NA
+## 97         6         0             <NA>        0           NA           NA
+## 98         6         0             <NA>        0           NA           NA
+## 99         7         0             <NA>        0           NA           NA
+## 100       10         0             <NA>        0           NA           NA
+## 101       11         0             <NA>        0            0            0
+## 102        6         0             <NA>        0           NA           NA
+## 103        9         0             <NA>        0           NA           NA
+## 104       18         0             <NA>        0           NA           NA
 ## 105       NA         1                A        0           NA           NA
-## 106        6         0             &lt;NA&gt;        0            0            0
-## 107       24         0             &lt;NA&gt;        0            8            0
-## 108       11         0             &lt;NA&gt;        0           NA           NA
-## 109       13         0             &lt;NA&gt;        0           NA           NA
-## 110       33         0             &lt;NA&gt;        0            0            0
-## 111       17         0             &lt;NA&gt;        0           NA           NA
-## 112       12         0             &lt;NA&gt;        0           NA           NA
-## 113       50         0             &lt;NA&gt;        0            0            0
-## 114       34         0             &lt;NA&gt;        0           NA           NA
-## 115       10         0             &lt;NA&gt;        0           NA           NA
-## 116       11         0             &lt;NA&gt;        0           NA           NA
-## 117       10         0             &lt;NA&gt;        0           NA           NA
-## 118       10         0             &lt;NA&gt;        0           NA           NA
-## 119       12         0             &lt;NA&gt;        0           NA           NA
-## 120       12         0             &lt;NA&gt;        0           NA           NA
-## 121       13         0             &lt;NA&gt;        0           NA           NA
-## 122       13         0             &lt;NA&gt;        0           NA           NA
-## 123       11         0             &lt;NA&gt;        0           NA           NA
-## 124       10         0             &lt;NA&gt;        0           NA           NA
-## 125       35         0             &lt;NA&gt;        0           NA           NA
-## 126       13         0             &lt;NA&gt;        0           NA           NA
-## 127       15         0             &lt;NA&gt;        0           NA           NA
-## 128       17         0             &lt;NA&gt;        0           NA           NA
-## 129       41         0             &lt;NA&gt;        0           NA           NA
-## 130       19         0             &lt;NA&gt;        0           NA           NA
-## 131       13         0             &lt;NA&gt;        0           NA           NA
-## 132        5         0             &lt;NA&gt;        0           NA           NA
-## 133       18         0             &lt;NA&gt;        0           11            0
-## 134        9         0             &lt;NA&gt;        0           NA           NA
-## 135        8         0             &lt;NA&gt;        0           NA           NA
-## 136        6         0             &lt;NA&gt;        0           NA           NA
-## 137       22         0             &lt;NA&gt;        0           NA           NA
-## 138        8         0             &lt;NA&gt;        0           NA           NA
+## 106        6         0             <NA>        0            0            0
+## 107       24         0             <NA>        0            8            0
+## 108       11         0             <NA>        0           NA           NA
+## 109       13         0             <NA>        0           NA           NA
+## 110       33         0             <NA>        0            0            0
+## 111       17         0             <NA>        0           NA           NA
+## 112       12         0             <NA>        0           NA           NA
+## 113       50         0             <NA>        0            0            0
+## 114       34         0             <NA>        0           NA           NA
+## 115       10         0             <NA>        0           NA           NA
+## 116       11         0             <NA>        0           NA           NA
+## 117       10         0             <NA>        0           NA           NA
+## 118       10         0             <NA>        0           NA           NA
+## 119       12         0             <NA>        0           NA           NA
+## 120       12         0             <NA>        0           NA           NA
+## 121       13         0             <NA>        0           NA           NA
+## 122       13         0             <NA>        0           NA           NA
+## 123       11         0             <NA>        0           NA           NA
+## 124       10         0             <NA>        0           NA           NA
+## 125       35         0             <NA>        0           NA           NA
+## 126       13         0             <NA>        0           NA           NA
+## 127       15         0             <NA>        0           NA           NA
+## 128       17         0             <NA>        0           NA           NA
+## 129       41         0             <NA>        0           NA           NA
+## 130       19         0             <NA>        0           NA           NA
+## 131       13         0             <NA>        0           NA           NA
+## 132        5         0             <NA>        0           NA           NA
+## 133       18         0             <NA>        0           11            0
+## 134        9         0             <NA>        0           NA           NA
+## 135        8         0             <NA>        0           NA           NA
+## 136        6         0             <NA>        0           NA           NA
+## 137       22         0             <NA>        0           NA           NA
+## 138        8         0             <NA>        0           NA           NA
 ## 139       NA         1                A        0           NA           NA
-## 140        6         0             &lt;NA&gt;        0           NA           NA
-## 141        9         0             &lt;NA&gt;        0           NA           NA
-## 142       15         0             &lt;NA&gt;        0           NA           NA
-## 143       10         0             &lt;NA&gt;        0           NA           NA
-## 144        8         0             &lt;NA&gt;        0           NA           NA
-## 145       10         0             &lt;NA&gt;        0           NA           NA
-## 146        8         0             &lt;NA&gt;        0           NA           NA
-## 147        8         0             &lt;NA&gt;        0           NA           NA
-## 148        8         0             &lt;NA&gt;        0           NA           NA
-## 149       11         0             &lt;NA&gt;        0           NA           NA
-## 150        7         0             &lt;NA&gt;        0            0            0
-## 151       13         0             &lt;NA&gt;        0           NA           NA
-## 152        9         0             &lt;NA&gt;        0           NA           NA
-## 153        7         0             &lt;NA&gt;        0           NA           NA
-## 154       10         0             &lt;NA&gt;        0           NA           NA
-## 155        8         0             &lt;NA&gt;        0           44            0
-## 156        7         0             &lt;NA&gt;        0           NA           NA
-## 157        9         0             &lt;NA&gt;        0           NA           NA
-## 158        6         0             &lt;NA&gt;        0           NA           NA
-## 159        9         0             &lt;NA&gt;        0           NA           NA
-## 160        5         0             &lt;NA&gt;        0           NA           NA
-## 161        7         0             &lt;NA&gt;        0           NA           NA
-## 162        7         0             &lt;NA&gt;        0           NA           NA
-## 163        7         0             &lt;NA&gt;        0           NA           NA
-## 164        6         0             &lt;NA&gt;        0           NA           NA
-## 165        9         0             &lt;NA&gt;        0           NA           NA
-## 166        6         0             &lt;NA&gt;        0            0            0
-## 167        9         0             &lt;NA&gt;        0            1            0
-## 168        7         0             &lt;NA&gt;        0           NA           NA
-## 169        9         0             &lt;NA&gt;        0           NA           NA
-## 170        8         0             &lt;NA&gt;        0           NA           NA
-## 171        8         0             &lt;NA&gt;        0           NA           NA
-## 172        7         0             &lt;NA&gt;        0           NA           NA
-## 173        9         0             &lt;NA&gt;        0           NA           NA
-## 174        9         0             &lt;NA&gt;        0           NA           NA
-## 175        9         0             &lt;NA&gt;        0            0            0
-## 176        9         0             &lt;NA&gt;        0            1            0
-## 177       10         0             &lt;NA&gt;        0           NA           NA
-## 178        9         0             &lt;NA&gt;        0           NA           NA
-## 179        7         0             &lt;NA&gt;        0           NA           NA
-## 180        9         0             &lt;NA&gt;        0           NA           NA
-## 181        9         0             &lt;NA&gt;        0           NA           NA
-## 182        7         0             &lt;NA&gt;        0           NA           NA
-## 183       25         0             &lt;NA&gt;        0           NA           NA
-## 184        8         0             &lt;NA&gt;        0           NA           NA
-## 185        7         0             &lt;NA&gt;        0           NA           NA
-## 186       15         0             &lt;NA&gt;        0           NA           NA
-## 187        8         0             &lt;NA&gt;        0           NA           NA
-## 188        8         0             &lt;NA&gt;        0           NA           NA
-## 189       12         0             &lt;NA&gt;        0           NA           NA
-## 190       10         0             &lt;NA&gt;        1           NA           NA
-## 191        8         0             &lt;NA&gt;        0           NA           NA
-## 192        9         0             &lt;NA&gt;        0           NA           NA
-## 193        8         0             &lt;NA&gt;        0           NA           NA
-## 194        8         0             &lt;NA&gt;        0           NA           NA
-## 195        9         0             &lt;NA&gt;        0           NA           NA
-## 196       10         0             &lt;NA&gt;        0           NA           NA
-## 197       11         0             &lt;NA&gt;        0           NA           NA
-## 198        9         0             &lt;NA&gt;        0           NA           NA
-## 199        7         0             &lt;NA&gt;        0           NA           NA
-## 200        8         0             &lt;NA&gt;        0           NA           NA
-## 201       10         0             &lt;NA&gt;        0           NA           NA
-## 202        9         0             &lt;NA&gt;        0           NA           NA
-## 203        7         0             &lt;NA&gt;        0           NA           NA
-## 204        7         0             &lt;NA&gt;        0           NA           NA
-## 205        7         0             &lt;NA&gt;        0           44            0
-## 206        8         0             &lt;NA&gt;        0           NA           NA
-## 207       10         0             &lt;NA&gt;        0           NA           NA
-## 208       11         0             &lt;NA&gt;        0           NA           NA
-## 209       12         0             &lt;NA&gt;        0           NA           NA
-## 210        7         0             &lt;NA&gt;        0           NA           NA
-## 211        9         0             &lt;NA&gt;        0           NA           NA
-## 212       13         0             &lt;NA&gt;        0           NA           NA
-## 213        7         0             &lt;NA&gt;        0           NA           NA
-## 214       10         0             &lt;NA&gt;        0            0            0
-## 215        8         0             &lt;NA&gt;        0           NA           NA
-## 216       11         0             &lt;NA&gt;        0           NA           NA
-## 217       10         0             &lt;NA&gt;        0            0            0
-## 218        9         0             &lt;NA&gt;        0           NA           NA
-## 219       13         0             &lt;NA&gt;        0           NA           NA
-## 220       11         0             &lt;NA&gt;        0           NA           NA
-## 221       12         0             &lt;NA&gt;        0           NA           NA
-## 222        6         0             &lt;NA&gt;        0           NA           NA
-## 223        7         0             &lt;NA&gt;        0          110            0
-## 224        8         0             &lt;NA&gt;        0           NA           NA
-## 225       16         0             &lt;NA&gt;        0           NA           NA
-## 226        8         0             &lt;NA&gt;        0           NA           NA
-## 227        5         0             &lt;NA&gt;        0           NA           NA
-## 228       11         0             &lt;NA&gt;        0           NA           NA
-## 229       12         0             &lt;NA&gt;        0           NA           NA
-## 230        6         0             &lt;NA&gt;        0           NA           NA
-## 231        5         0             &lt;NA&gt;        0           NA           NA
-## 232       21         0             &lt;NA&gt;        0           NA           NA
-## 233        5         0             &lt;NA&gt;        0           NA           NA
-## 234       16         0             &lt;NA&gt;        0            3            0
-## 235        5         0             &lt;NA&gt;        0           NA           NA
-## 236       11         0             &lt;NA&gt;        0           21            0
-## 237        5         0             &lt;NA&gt;        0           NA           NA
-## 238        8         0             &lt;NA&gt;        0           NA           NA
-## 239       10         0             &lt;NA&gt;        0           NA           NA
-## 240        8         0             &lt;NA&gt;        0           NA           NA
-## 241       11         0             &lt;NA&gt;        0            0            0
-## 242        6         0             &lt;NA&gt;        0           NA           NA
-## 243       22         0             &lt;NA&gt;        0           NA           NA
-## 244       10         0             &lt;NA&gt;        0           NA           NA
-## 245        6         0             &lt;NA&gt;        0           NA           NA
-## 246        8         0             &lt;NA&gt;        0           NA           NA
-## 247        6         0             &lt;NA&gt;        0           NA           NA
-## 248       13         0             &lt;NA&gt;        0           NA           NA
-## 249       11         0             &lt;NA&gt;        0           NA           NA
-## 250        8         0             &lt;NA&gt;        0           NA           NA
-## 251        7         0             &lt;NA&gt;        0           NA           NA
-## 252       12         0             &lt;NA&gt;        0            8            0
+## 140        6         0             <NA>        0           NA           NA
+## 141        9         0             <NA>        0           NA           NA
+## 142       15         0             <NA>        0           NA           NA
+## 143       10         0             <NA>        0           NA           NA
+## 144        8         0             <NA>        0           NA           NA
+## 145       10         0             <NA>        0           NA           NA
+## 146        8         0             <NA>        0           NA           NA
+## 147        8         0             <NA>        0           NA           NA
+## 148        8         0             <NA>        0           NA           NA
+## 149       11         0             <NA>        0           NA           NA
+## 150        7         0             <NA>        0            0            0
+## 151       13         0             <NA>        0           NA           NA
+## 152        9         0             <NA>        0           NA           NA
+## 153        7         0             <NA>        0           NA           NA
+## 154       10         0             <NA>        0           NA           NA
+## 155        8         0             <NA>        0           44            0
+## 156        7         0             <NA>        0           NA           NA
+## 157        9         0             <NA>        0           NA           NA
+## 158        6         0             <NA>        0           NA           NA
+## 159        9         0             <NA>        0           NA           NA
+## 160        5         0             <NA>        0           NA           NA
+## 161        7         0             <NA>        0           NA           NA
+## 162        7         0             <NA>        0           NA           NA
+## 163        7         0             <NA>        0           NA           NA
+## 164        6         0             <NA>        0           NA           NA
+## 165        9         0             <NA>        0           NA           NA
+## 166        6         0             <NA>        0            0            0
+## 167        9         0             <NA>        0            1            0
+## 168        7         0             <NA>        0           NA           NA
+## 169        9         0             <NA>        0           NA           NA
+## 170        8         0             <NA>        0           NA           NA
+## 171        8         0             <NA>        0           NA           NA
+## 172        7         0             <NA>        0           NA           NA
+## 173        9         0             <NA>        0           NA           NA
+## 174        9         0             <NA>        0           NA           NA
+## 175        9         0             <NA>        0            0            0
+## 176        9         0             <NA>        0            1            0
+## 177       10         0             <NA>        0           NA           NA
+## 178        9         0             <NA>        0           NA           NA
+## 179        7         0             <NA>        0           NA           NA
+## 180        9         0             <NA>        0           NA           NA
+## 181        9         0             <NA>        0           NA           NA
+## 182        7         0             <NA>        0           NA           NA
+## 183       25         0             <NA>        0           NA           NA
+## 184        8         0             <NA>        0           NA           NA
+## 185        7         0             <NA>        0           NA           NA
+## 186       15         0             <NA>        0           NA           NA
+## 187        8         0             <NA>        0           NA           NA
+## 188        8         0             <NA>        0           NA           NA
+## 189       12         0             <NA>        0           NA           NA
+## 190       10         0             <NA>        1           NA           NA
+## 191        8         0             <NA>        0           NA           NA
+## 192        9         0             <NA>        0           NA           NA
+## 193        8         0             <NA>        0           NA           NA
+## 194        8         0             <NA>        0           NA           NA
+## 195        9         0             <NA>        0           NA           NA
+## 196       10         0             <NA>        0           NA           NA
+## 197       11         0             <NA>        0           NA           NA
+## 198        9         0             <NA>        0           NA           NA
+## 199        7         0             <NA>        0           NA           NA
+## 200        8         0             <NA>        0           NA           NA
+## 201       10         0             <NA>        0           NA           NA
+## 202        9         0             <NA>        0           NA           NA
+## 203        7         0             <NA>        0           NA           NA
+## 204        7         0             <NA>        0           NA           NA
+## 205        7         0             <NA>        0           44            0
+## 206        8         0             <NA>        0           NA           NA
+## 207       10         0             <NA>        0           NA           NA
+## 208       11         0             <NA>        0           NA           NA
+## 209       12         0             <NA>        0           NA           NA
+## 210        7         0             <NA>        0           NA           NA
+## 211        9         0             <NA>        0           NA           NA
+## 212       13         0             <NA>        0           NA           NA
+## 213        7         0             <NA>        0           NA           NA
+## 214       10         0             <NA>        0            0            0
+## 215        8         0             <NA>        0           NA           NA
+## 216       11         0             <NA>        0           NA           NA
+## 217       10         0             <NA>        0            0            0
+## 218        9         0             <NA>        0           NA           NA
+## 219       13         0             <NA>        0           NA           NA
+## 220       11         0             <NA>        0           NA           NA
+## 221       12         0             <NA>        0           NA           NA
+## 222        6         0             <NA>        0           NA           NA
+## 223        7         0             <NA>        0          110            0
+## 224        8         0             <NA>        0           NA           NA
+## 225       16         0             <NA>        0           NA           NA
+## 226        8         0             <NA>        0           NA           NA
+## 227        5         0             <NA>        0           NA           NA
+## 228       11         0             <NA>        0           NA           NA
+## 229       12         0             <NA>        0           NA           NA
+## 230        6         0             <NA>        0           NA           NA
+## 231        5         0             <NA>        0           NA           NA
+## 232       21         0             <NA>        0           NA           NA
+## 233        5         0             <NA>        0           NA           NA
+## 234       16         0             <NA>        0            3            0
+## 235        5         0             <NA>        0           NA           NA
+## 236       11         0             <NA>        0           21            0
+## 237        5         0             <NA>        0           NA           NA
+## 238        8         0             <NA>        0           NA           NA
+## 239       10         0             <NA>        0           NA           NA
+## 240        8         0             <NA>        0           NA           NA
+## 241       11         0             <NA>        0            0            0
+## 242        6         0             <NA>        0           NA           NA
+## 243       22         0             <NA>        0           NA           NA
+## 244       10         0             <NA>        0           NA           NA
+## 245        6         0             <NA>        0           NA           NA
+## 246        8         0             <NA>        0           NA           NA
+## 247        6         0             <NA>        0           NA           NA
+## 248       13         0             <NA>        0           NA           NA
+## 249       11         0             <NA>        0           NA           NA
+## 250        8         0             <NA>        0           NA           NA
+## 251        7         0             <NA>        0           NA           NA
+## 252       12         0             <NA>        0            8            0
 ## 253       NA         1                C        0           NA           NA
-## 254        8         0             &lt;NA&gt;        0           NA           NA
-## 255       11         0             &lt;NA&gt;        0           NA           NA
-## 256       34         0             &lt;NA&gt;        0           NA           NA
-## 257        8         0             &lt;NA&gt;        0           NA           NA
-## 258       10         0             &lt;NA&gt;        0           NA           NA
-## 259       15         0             &lt;NA&gt;        0            0            0
-## 260       18         0             &lt;NA&gt;        0           NA           NA
-## 261       10         0             &lt;NA&gt;        0           NA           NA
-## 262       14         0             &lt;NA&gt;        0           NA           NA
-## 263        7         0             &lt;NA&gt;        0           NA           NA
-## 264       16         0             &lt;NA&gt;        0           NA           NA
-## 265       13         0             &lt;NA&gt;        0           NA           NA
-## 266       14         0             &lt;NA&gt;        0            0            0
-## 267       11         0             &lt;NA&gt;        0           NA           NA
-## 268       37         0             &lt;NA&gt;        0            0            0
-## 269       13         0             &lt;NA&gt;        0           NA           NA
-## 270        6         0             &lt;NA&gt;        0           NA           NA
-## 271       20         0             &lt;NA&gt;        0           NA           NA
-## 272       21         0             &lt;NA&gt;        0           NA           NA
-## 273       12         0             &lt;NA&gt;        0           NA           NA
-## 274       26         0             &lt;NA&gt;        0            0           12
-## 275       37         0             &lt;NA&gt;        0           NA           NA
-## 276        9         0             &lt;NA&gt;        0           NA           NA
-## 277       23         0             &lt;NA&gt;        0           NA           NA
-## 278       17         0             &lt;NA&gt;        0           NA           NA
-## 279       27         0             &lt;NA&gt;        0            0            0
-## 280       44         0             &lt;NA&gt;        0            0            0
-## 281       12         0             &lt;NA&gt;        0           NA           NA
-## 282       12         0             &lt;NA&gt;        0           NA           NA
-## 283       19         0             &lt;NA&gt;        0           NA           NA
-## 284       23         0             &lt;NA&gt;        0            0            0
-## 285        9         0             &lt;NA&gt;        0           NA           NA
-## 286       14         0             &lt;NA&gt;        0           NA           NA
-## 287       30         0             &lt;NA&gt;        0            0            0
-## 288       17         0             &lt;NA&gt;        0            0            0
-## 289        9         0             &lt;NA&gt;        0            0            0
-## 290       15         0             &lt;NA&gt;        0           NA           NA
-## 291       19         0             &lt;NA&gt;        0           NA           NA
-## 292       14         0             &lt;NA&gt;        0           NA           NA
-## 293       17         0             &lt;NA&gt;        0           NA           NA
-## 294       12         0             &lt;NA&gt;        0           NA           NA
-## 295       13         0             &lt;NA&gt;        0           NA           NA
-## 296       21         0             &lt;NA&gt;        0            0            0
-## 297       14         0             &lt;NA&gt;        0           NA           NA
-## 298       19         0             &lt;NA&gt;        0           NA           NA
-## 299       23         0             &lt;NA&gt;        0           NA           NA
-## 300       28         0             &lt;NA&gt;        0           NA           NA
-## 301       13         0             &lt;NA&gt;        0           NA           NA
-## 302       18         0             &lt;NA&gt;        0            0            0
-## 303       11         0             &lt;NA&gt;        0           NA           NA
-## 304       12         0             &lt;NA&gt;        0           NA           NA
-## 305       11         0             &lt;NA&gt;        0           NA           NA
-## 306        9         0             &lt;NA&gt;        0           NA           NA
-## 307       14         0             &lt;NA&gt;        0           91            0
+## 254        8         0             <NA>        0           NA           NA
+## 255       11         0             <NA>        0           NA           NA
+## 256       34         0             <NA>        0           NA           NA
+## 257        8         0             <NA>        0           NA           NA
+## 258       10         0             <NA>        0           NA           NA
+## 259       15         0             <NA>        0            0            0
+## 260       18         0             <NA>        0           NA           NA
+## 261       10         0             <NA>        0           NA           NA
+## 262       14         0             <NA>        0           NA           NA
+## 263        7         0             <NA>        0           NA           NA
+## 264       16         0             <NA>        0           NA           NA
+## 265       13         0             <NA>        0           NA           NA
+## 266       14         0             <NA>        0            0            0
+## 267       11         0             <NA>        0           NA           NA
+## 268       37         0             <NA>        0            0            0
+## 269       13         0             <NA>        0           NA           NA
+## 270        6         0             <NA>        0           NA           NA
+## 271       20         0             <NA>        0           NA           NA
+## 272       21         0             <NA>        0           NA           NA
+## 273       12         0             <NA>        0           NA           NA
+## 274       26         0             <NA>        0            0           12
+## 275       37         0             <NA>        0           NA           NA
+## 276        9         0             <NA>        0           NA           NA
+## 277       23         0             <NA>        0           NA           NA
+## 278       17         0             <NA>        0           NA           NA
+## 279       27         0             <NA>        0            0            0
+## 280       44         0             <NA>        0            0            0
+## 281       12         0             <NA>        0           NA           NA
+## 282       12         0             <NA>        0           NA           NA
+## 283       19         0             <NA>        0           NA           NA
+## 284       23         0             <NA>        0            0            0
+## 285        9         0             <NA>        0           NA           NA
+## 286       14         0             <NA>        0           NA           NA
+## 287       30         0             <NA>        0            0            0
+## 288       17         0             <NA>        0            0            0
+## 289        9         0             <NA>        0            0            0
+## 290       15         0             <NA>        0           NA           NA
+## 291       19         0             <NA>        0           NA           NA
+## 292       14         0             <NA>        0           NA           NA
+## 293       17         0             <NA>        0           NA           NA
+## 294       12         0             <NA>        0           NA           NA
+## 295       13         0             <NA>        0           NA           NA
+## 296       21         0             <NA>        0            0            0
+## 297       14         0             <NA>        0           NA           NA
+## 298       19         0             <NA>        0           NA           NA
+## 299       23         0             <NA>        0           NA           NA
+## 300       28         0             <NA>        0           NA           NA
+## 301       13         0             <NA>        0           NA           NA
+## 302       18         0             <NA>        0            0            0
+## 303       11         0             <NA>        0           NA           NA
+## 304       12         0             <NA>        0           NA           NA
+## 305       11         0             <NA>        0           NA           NA
+## 306        9         0             <NA>        0           NA           NA
+## 307       14         0             <NA>        0           91            0
 ## 308       NA         1                B        0           NA           NA
-## 309       15         0             &lt;NA&gt;        0           NA           NA
-## 310       14         0             &lt;NA&gt;        0           NA           NA
-## 311       64         0             &lt;NA&gt;        0            0            0
-## 312        8         0             &lt;NA&gt;        0           NA           NA
-## 313       15         0             &lt;NA&gt;        0           NA           NA
-## 314       15         0             &lt;NA&gt;        0           NA           NA
-## 315       14         0             &lt;NA&gt;        0           NA           NA
-## 316       13         0             &lt;NA&gt;        0           NA           NA
-## 317       14         0             &lt;NA&gt;        0            0            0
-## 318        9         0             &lt;NA&gt;        0           80            0
-## 319        9         0             &lt;NA&gt;        0           NA           NA
-## 320       13         0             &lt;NA&gt;        0           NA           NA
-## 321       18         0             &lt;NA&gt;        0           NA           NA
-## 322       27         0             &lt;NA&gt;        0           11            0
-## 323       11         0             &lt;NA&gt;        0           NA           NA
-## 324       15         0             &lt;NA&gt;        0           NA           NA
-## 325       26         0             &lt;NA&gt;        0           NA           NA
-## 326       14         0             &lt;NA&gt;        0           NA           NA
-## 327       12         0             &lt;NA&gt;        0           NA           NA
-## 328       19         0             &lt;NA&gt;        0           NA           NA
-## 329       14         0             &lt;NA&gt;        0           NA           NA
-## 330       19         0             &lt;NA&gt;        0           NA           NA
-## 331       10         0             &lt;NA&gt;        0           NA           NA
-## 332       16         0             &lt;NA&gt;        0           NA           NA
-## 333       21         0             &lt;NA&gt;        0           NA           NA
-## 334       14         0             &lt;NA&gt;        0           NA           NA
-## 335       12         0             &lt;NA&gt;        0           NA           NA
-## 336       14         0             &lt;NA&gt;        0           NA           NA
-## 337       22         0             &lt;NA&gt;        0           16            0
-## 338       14         0             &lt;NA&gt;        0           NA           NA
-## 339       11         0             &lt;NA&gt;        0            3            0
-## 340       11         0             &lt;NA&gt;        0           NA           NA
-## 341       10         0             &lt;NA&gt;        0           NA           NA
-## 342       44         0             &lt;NA&gt;        0            0            6
-## 343       10         0             &lt;NA&gt;        0            0            0
-## 344       13         0             &lt;NA&gt;        0           NA           NA
-## 345       14         0             &lt;NA&gt;        0           NA           NA
-## 346       13         0             &lt;NA&gt;        0           NA           NA
-## 347       13         0             &lt;NA&gt;        0           NA           NA
-## 348       22         0             &lt;NA&gt;        0           NA           NA
-## 349       35         0             &lt;NA&gt;        0           NA           NA
-## 350       21         0             &lt;NA&gt;        0           NA           NA
-## 351       10         0             &lt;NA&gt;        0           23            0
-## 352       28         0             &lt;NA&gt;        0           NA           NA
-## 353       16         0             &lt;NA&gt;        0            0            0
-## 354       27         0             &lt;NA&gt;        0           NA           NA
-## 355       12         0             &lt;NA&gt;        0           NA           NA
-## 356       18         0             &lt;NA&gt;        0           19            0
-## 357       12         0             &lt;NA&gt;        0           NA           NA
-## 358       12         0             &lt;NA&gt;        0           NA           NA
-## 359       15         0             &lt;NA&gt;        0           NA           NA
-## 360       17         0             &lt;NA&gt;        0           NA           NA
-## 361       15         0             &lt;NA&gt;        0           NA           NA
-## 362       14         0             &lt;NA&gt;        0           NA           NA
-## 363       13         0             &lt;NA&gt;        0           NA           NA
-## 364       11         0             &lt;NA&gt;        0           NA           NA
-## 365       14         0             &lt;NA&gt;        0           NA           NA
-## 366       18         0             &lt;NA&gt;        0           63            0
-## 367       11         0             &lt;NA&gt;        0           NA           NA
-## 368       21         0             &lt;NA&gt;        0           75            0
-## 369       16         0             &lt;NA&gt;        0           NA           NA
-## 370       18         0             &lt;NA&gt;        0           19            0
-## 371       17         0             &lt;NA&gt;        0           NA           NA
-## 372       50         0             &lt;NA&gt;        0            0            0
-## 373       15         0             &lt;NA&gt;        0           NA           NA
-## 374       10         0             &lt;NA&gt;        0            0            0
-## 375       13         0             &lt;NA&gt;        0           NA           NA
-## 376       11         0             &lt;NA&gt;        0           NA           NA
-## 377       10         0             &lt;NA&gt;        0           NA           NA
-## 378       14         0             &lt;NA&gt;        0           NA           NA
-## 379       15         0             &lt;NA&gt;        0           NA           NA
-## 380        9         0             &lt;NA&gt;        0           21            0
-## 381       15         0             &lt;NA&gt;        0           40            0
-## 382       16         0             &lt;NA&gt;        0           NA           NA
-## 383       24         0             &lt;NA&gt;        0            0            0
+## 309       15         0             <NA>        0           NA           NA
+## 310       14         0             <NA>        0           NA           NA
+## 311       64         0             <NA>        0            0            0
+## 312        8         0             <NA>        0           NA           NA
+## 313       15         0             <NA>        0           NA           NA
+## 314       15         0             <NA>        0           NA           NA
+## 315       14         0             <NA>        0           NA           NA
+## 316       13         0             <NA>        0           NA           NA
+## 317       14         0             <NA>        0            0            0
+## 318        9         0             <NA>        0           80            0
+## 319        9         0             <NA>        0           NA           NA
+## 320       13         0             <NA>        0           NA           NA
+## 321       18         0             <NA>        0           NA           NA
+## 322       27         0             <NA>        0           11            0
+## 323       11         0             <NA>        0           NA           NA
+## 324       15         0             <NA>        0           NA           NA
+## 325       26         0             <NA>        0           NA           NA
+## 326       14         0             <NA>        0           NA           NA
+## 327       12         0             <NA>        0           NA           NA
+## 328       19         0             <NA>        0           NA           NA
+## 329       14         0             <NA>        0           NA           NA
+## 330       19         0             <NA>        0           NA           NA
+## 331       10         0             <NA>        0           NA           NA
+## 332       16         0             <NA>        0           NA           NA
+## 333       21         0             <NA>        0           NA           NA
+## 334       14         0             <NA>        0           NA           NA
+## 335       12         0             <NA>        0           NA           NA
+## 336       14         0             <NA>        0           NA           NA
+## 337       22         0             <NA>        0           16            0
+## 338       14         0             <NA>        0           NA           NA
+## 339       11         0             <NA>        0            3            0
+## 340       11         0             <NA>        0           NA           NA
+## 341       10         0             <NA>        0           NA           NA
+## 342       44         0             <NA>        0            0            6
+## 343       10         0             <NA>        0            0            0
+## 344       13         0             <NA>        0           NA           NA
+## 345       14         0             <NA>        0           NA           NA
+## 346       13         0             <NA>        0           NA           NA
+## 347       13         0             <NA>        0           NA           NA
+## 348       22         0             <NA>        0           NA           NA
+## 349       35         0             <NA>        0           NA           NA
+## 350       21         0             <NA>        0           NA           NA
+## 351       10         0             <NA>        0           23            0
+## 352       28         0             <NA>        0           NA           NA
+## 353       16         0             <NA>        0            0            0
+## 354       27         0             <NA>        0           NA           NA
+## 355       12         0             <NA>        0           NA           NA
+## 356       18         0             <NA>        0           19            0
+## 357       12         0             <NA>        0           NA           NA
+## 358       12         0             <NA>        0           NA           NA
+## 359       15         0             <NA>        0           NA           NA
+## 360       17         0             <NA>        0           NA           NA
+## 361       15         0             <NA>        0           NA           NA
+## 362       14         0             <NA>        0           NA           NA
+## 363       13         0             <NA>        0           NA           NA
+## 364       11         0             <NA>        0           NA           NA
+## 365       14         0             <NA>        0           NA           NA
+## 366       18         0             <NA>        0           63            0
+## 367       11         0             <NA>        0           NA           NA
+## 368       21         0             <NA>        0           75            0
+## 369       16         0             <NA>        0           NA           NA
+## 370       18         0             <NA>        0           19            0
+## 371       17         0             <NA>        0           NA           NA
+## 372       50         0             <NA>        0            0            0
+## 373       15         0             <NA>        0           NA           NA
+## 374       10         0             <NA>        0            0            0
+## 375       13         0             <NA>        0           NA           NA
+## 376       11         0             <NA>        0           NA           NA
+## 377       10         0             <NA>        0           NA           NA
+## 378       14         0             <NA>        0           NA           NA
+## 379       15         0             <NA>        0           NA           NA
+## 380        9         0             <NA>        0           21            0
+## 381       15         0             <NA>        0           40            0
+## 382       16         0             <NA>        0           NA           NA
+## 383       24         0             <NA>        0            0            0
 ## 384       NA         1                B        0           NA           NA
-## 385        5         0             &lt;NA&gt;        0            0            0
-## 386       20         0             &lt;NA&gt;        0           NA           NA
-## 387       12         0             &lt;NA&gt;        0           NA           NA
-## 388       15         0             &lt;NA&gt;        0            0            0
-## 389       13         0             &lt;NA&gt;        0           NA           NA
-## 390       24         0             &lt;NA&gt;        0           NA           NA
-## 391       11         0             &lt;NA&gt;        0           NA           NA
-## 392       11         0             &lt;NA&gt;        0           NA           NA
-## 393       12         0             &lt;NA&gt;        0           NA           NA
-## 394       13         0             &lt;NA&gt;        0           NA           NA
-## 395       14         0             &lt;NA&gt;        0           NA           NA
-## 396       10         0             &lt;NA&gt;        0           NA           NA
-## 397       33         0             &lt;NA&gt;        0            0            0
-## 398       11         0             &lt;NA&gt;        0           NA           NA
-## 399       26         0             &lt;NA&gt;        0           NA           NA
-## 400       12         0             &lt;NA&gt;        0           NA           NA
-## 401       22         0             &lt;NA&gt;        0           NA           NA
-## 402       14         0             &lt;NA&gt;        0           NA           NA
-## 403       10         0             &lt;NA&gt;        0           NA           NA
-## 404       14         0             &lt;NA&gt;        0           NA           NA
-## 405       10         0             &lt;NA&gt;        0           NA           NA
-## 406       13         0             &lt;NA&gt;        0           NA           NA
-## 407       24         0             &lt;NA&gt;        0           NA           NA
-## 408       20         0             &lt;NA&gt;        0           NA           NA
-## 409       12         0             &lt;NA&gt;        0           NA           NA
-## 410       12         0             &lt;NA&gt;        0           NA           NA
-## 411       24         0             &lt;NA&gt;        0           NA           NA
-## 412       22         0             &lt;NA&gt;        0           NA           NA
-## 413       16         0             &lt;NA&gt;        0           NA           NA
-## 414       16         0             &lt;NA&gt;        0           NA           NA
-## 415       29         0             &lt;NA&gt;        0           NA           NA
+## 385        5         0             <NA>        0            0            0
+## 386       20         0             <NA>        0           NA           NA
+## 387       12         0             <NA>        0           NA           NA
+## 388       15         0             <NA>        0            0            0
+## 389       13         0             <NA>        0           NA           NA
+## 390       24         0             <NA>        0           NA           NA
+## 391       11         0             <NA>        0           NA           NA
+## 392       11         0             <NA>        0           NA           NA
+## 393       12         0             <NA>        0           NA           NA
+## 394       13         0             <NA>        0           NA           NA
+## 395       14         0             <NA>        0           NA           NA
+## 396       10         0             <NA>        0           NA           NA
+## 397       33         0             <NA>        0            0            0
+## 398       11         0             <NA>        0           NA           NA
+## 399       26         0             <NA>        0           NA           NA
+## 400       12         0             <NA>        0           NA           NA
+## 401       22         0             <NA>        0           NA           NA
+## 402       14         0             <NA>        0           NA           NA
+## 403       10         0             <NA>        0           NA           NA
+## 404       14         0             <NA>        0           NA           NA
+## 405       10         0             <NA>        0           NA           NA
+## 406       13         0             <NA>        0           NA           NA
+## 407       24         0             <NA>        0           NA           NA
+## 408       20         0             <NA>        0           NA           NA
+## 409       12         0             <NA>        0           NA           NA
+## 410       12         0             <NA>        0           NA           NA
+## 411       24         0             <NA>        0           NA           NA
+## 412       22         0             <NA>        0           NA           NA
+## 413       16         0             <NA>        0           NA           NA
+## 414       16         0             <NA>        0           NA           NA
+## 415       29         0             <NA>        0           NA           NA
 ## 416       NA         1                B        0           NA           NA
-## 417       12         0             &lt;NA&gt;        0           NA           NA
-## 418       13         0             &lt;NA&gt;        0           NA           NA
-## 419       10         0             &lt;NA&gt;        0           NA           NA
-## 420       13         0             &lt;NA&gt;        0            7            0
-## 421       14         0             &lt;NA&gt;        0           NA           NA
-## 422       18         0             &lt;NA&gt;        0           NA           NA
-## 423       17         0             &lt;NA&gt;        0           NA           NA
-## 424       18         0             &lt;NA&gt;        0            9            0
-## 425       10         0             &lt;NA&gt;        0           NA           NA
-## 426        9         0             &lt;NA&gt;        0           NA           NA
-## 427       10         0             &lt;NA&gt;        0           40            0
-## 428       20         0             &lt;NA&gt;        0           NA           NA
-## 429       27         0             &lt;NA&gt;        0            0            0
-## 430       14         0             &lt;NA&gt;        0            0            0
-## 431       22         0             &lt;NA&gt;        0            0            0
-## 432       18         0             &lt;NA&gt;        0           NA           NA
-## 433       38         0             &lt;NA&gt;        0            5            0
-## 434       21         0             &lt;NA&gt;        0           NA           NA
-## 435       10         0             &lt;NA&gt;        0           NA           NA
-## 436       18         0             &lt;NA&gt;        0           NA           NA
-## 437       15         0             &lt;NA&gt;        0           NA           NA
-## 438       12         0             &lt;NA&gt;        0           NA           NA
-## 439       26         0             &lt;NA&gt;        0           18            0
-## 440       21         0             &lt;NA&gt;        0           NA           NA
-## 441       17         0             &lt;NA&gt;        0           15            0
-## 442       26         0             &lt;NA&gt;        0           NA           NA
-## 443       17         0             &lt;NA&gt;        0           NA           NA
-## 444       20         0             &lt;NA&gt;        0           NA           NA
-## 445       18         0             &lt;NA&gt;        0            0            0
-## 446       14         0             &lt;NA&gt;        0           NA           NA
-## 447       26         0             &lt;NA&gt;        0           NA           NA
-## 448       19         0             &lt;NA&gt;        0           NA           NA
-## 449       21         0             &lt;NA&gt;        0           NA           NA
-## 450       12         0             &lt;NA&gt;        0           NA           NA
-## 451       20         0             &lt;NA&gt;        0           NA           NA
-## 452       18         0             &lt;NA&gt;        0           NA           NA
-## 453       11         0             &lt;NA&gt;        0            1            0
-## 454       24         0             &lt;NA&gt;        0           NA           NA
-## 455       22         0             &lt;NA&gt;        0            0            0
-## 456       17         0             &lt;NA&gt;        0            6            0
-## 457       18         0             &lt;NA&gt;        0           14            0
-## 458       14         0             &lt;NA&gt;        0           62            0
-## 459       19         0             &lt;NA&gt;        0           NA           NA
-## 460       16         0             &lt;NA&gt;        0           NA           NA
-## 461       22         0             &lt;NA&gt;        0           NA           NA
-## 462       16         0             &lt;NA&gt;        0           NA           NA
-## 463       22         0             &lt;NA&gt;        0           NA           NA
-## 464        9         0             &lt;NA&gt;        0           NA           NA
-## 465       10         0             &lt;NA&gt;        0           NA           NA
-## 466       12         0             &lt;NA&gt;        0           NA           NA
-## 467       14         0             &lt;NA&gt;        0           NA           NA
-## 468       11         0             &lt;NA&gt;        0           NA           NA
-## 469       11         0             &lt;NA&gt;        0           NA           NA
-## 470       15         0             &lt;NA&gt;        0           NA           NA
-## 471        9         0             &lt;NA&gt;        0           NA           NA
-## 472       12         0             &lt;NA&gt;        0           NA           NA
-## 473       13         0             &lt;NA&gt;        0           NA           NA
-## 474       12         0             &lt;NA&gt;        0           NA           NA
-## 475       20         0             &lt;NA&gt;        0           NA           NA
-## 476        9         0             &lt;NA&gt;        0           NA           NA
-## 477       16         0             &lt;NA&gt;        0            0            0
-## 478        8         0             &lt;NA&gt;        0           NA           NA
-## 479       12         0             &lt;NA&gt;        0           NA           NA
-## 480       15         0             &lt;NA&gt;        0            0            0
-## 481       12         0             &lt;NA&gt;        0            6            0
-## 482        9         0             &lt;NA&gt;        0           NA           NA
-## 483        9         0             &lt;NA&gt;        0           NA           NA
-## 484       13         0             &lt;NA&gt;        0            6            0
-## 485       12         0             &lt;NA&gt;        0           NA           NA
-## 486       10         0             &lt;NA&gt;        0           NA           NA
-## 487       13         0             &lt;NA&gt;        0           NA           NA
-## 488       23         0             &lt;NA&gt;        0           NA           NA
-## 489       43         0             &lt;NA&gt;        0            0            0
-## 490       14         0             &lt;NA&gt;        0           NA           NA
-## 491       23         0             &lt;NA&gt;        0           NA           NA
-## 492       18         0             &lt;NA&gt;        0           NA           NA
-## 493       40         0             &lt;NA&gt;        0            0            0
-## 494       20         0             &lt;NA&gt;        0           NA           NA
-## 495       20         0             &lt;NA&gt;        0           NA           NA
-## 496       12         0             &lt;NA&gt;        0           NA           NA
-## 497       21         0             &lt;NA&gt;        0           NA           NA
-## 498       10         0             &lt;NA&gt;        0           NA           NA
-## 499       17         0             &lt;NA&gt;        0           NA           NA
-## 500       14         0             &lt;NA&gt;        0           NA           NA
-## 501        9         0             &lt;NA&gt;        0           NA           NA
-## 502       11         0             &lt;NA&gt;        0           NA           NA
-## 503       10         0             &lt;NA&gt;        0           NA           NA
-## 504        8         0             &lt;NA&gt;        0           69            0
-## 505       10         0             &lt;NA&gt;        0           NA           NA
-## 506       12         0             &lt;NA&gt;        0            0            0
-## 507       20         0             &lt;NA&gt;        0           NA           NA
-## 508        8         0             &lt;NA&gt;        0           NA           NA
-## 509       13         0             &lt;NA&gt;        0           NA           NA
-## 510       10         0             &lt;NA&gt;        0           NA           NA
+## 417       12         0             <NA>        0           NA           NA
+## 418       13         0             <NA>        0           NA           NA
+## 419       10         0             <NA>        0           NA           NA
+## 420       13         0             <NA>        0            7            0
+## 421       14         0             <NA>        0           NA           NA
+## 422       18         0             <NA>        0           NA           NA
+## 423       17         0             <NA>        0           NA           NA
+## 424       18         0             <NA>        0            9            0
+## 425       10         0             <NA>        0           NA           NA
+## 426        9         0             <NA>        0           NA           NA
+## 427       10         0             <NA>        0           40            0
+## 428       20         0             <NA>        0           NA           NA
+## 429       27         0             <NA>        0            0            0
+## 430       14         0             <NA>        0            0            0
+## 431       22         0             <NA>        0            0            0
+## 432       18         0             <NA>        0           NA           NA
+## 433       38         0             <NA>        0            5            0
+## 434       21         0             <NA>        0           NA           NA
+## 435       10         0             <NA>        0           NA           NA
+## 436       18         0             <NA>        0           NA           NA
+## 437       15         0             <NA>        0           NA           NA
+## 438       12         0             <NA>        0           NA           NA
+## 439       26         0             <NA>        0           18            0
+## 440       21         0             <NA>        0           NA           NA
+## 441       17         0             <NA>        0           15            0
+## 442       26         0             <NA>        0           NA           NA
+## 443       17         0             <NA>        0           NA           NA
+## 444       20         0             <NA>        0           NA           NA
+## 445       18         0             <NA>        0            0            0
+## 446       14         0             <NA>        0           NA           NA
+## 447       26         0             <NA>        0           NA           NA
+## 448       19         0             <NA>        0           NA           NA
+## 449       21         0             <NA>        0           NA           NA
+## 450       12         0             <NA>        0           NA           NA
+## 451       20         0             <NA>        0           NA           NA
+## 452       18         0             <NA>        0           NA           NA
+## 453       11         0             <NA>        0            1            0
+## 454       24         0             <NA>        0           NA           NA
+## 455       22         0             <NA>        0            0            0
+## 456       17         0             <NA>        0            6            0
+## 457       18         0             <NA>        0           14            0
+## 458       14         0             <NA>        0           62            0
+## 459       19         0             <NA>        0           NA           NA
+## 460       16         0             <NA>        0           NA           NA
+## 461       22         0             <NA>        0           NA           NA
+## 462       16         0             <NA>        0           NA           NA
+## 463       22         0             <NA>        0           NA           NA
+## 464        9         0             <NA>        0           NA           NA
+## 465       10         0             <NA>        0           NA           NA
+## 466       12         0             <NA>        0           NA           NA
+## 467       14         0             <NA>        0           NA           NA
+## 468       11         0             <NA>        0           NA           NA
+## 469       11         0             <NA>        0           NA           NA
+## 470       15         0             <NA>        0           NA           NA
+## 471        9         0             <NA>        0           NA           NA
+## 472       12         0             <NA>        0           NA           NA
+## 473       13         0             <NA>        0           NA           NA
+## 474       12         0             <NA>        0           NA           NA
+## 475       20         0             <NA>        0           NA           NA
+## 476        9         0             <NA>        0           NA           NA
+## 477       16         0             <NA>        0            0            0
+## 478        8         0             <NA>        0           NA           NA
+## 479       12         0             <NA>        0           NA           NA
+## 480       15         0             <NA>        0            0            0
+## 481       12         0             <NA>        0            6            0
+## 482        9         0             <NA>        0           NA           NA
+## 483        9         0             <NA>        0           NA           NA
+## 484       13         0             <NA>        0            6            0
+## 485       12         0             <NA>        0           NA           NA
+## 486       10         0             <NA>        0           NA           NA
+## 487       13         0             <NA>        0           NA           NA
+## 488       23         0             <NA>        0           NA           NA
+## 489       43         0             <NA>        0            0            0
+## 490       14         0             <NA>        0           NA           NA
+## 491       23         0             <NA>        0           NA           NA
+## 492       18         0             <NA>        0           NA           NA
+## 493       40         0             <NA>        0            0            0
+## 494       20         0             <NA>        0           NA           NA
+## 495       20         0             <NA>        0           NA           NA
+## 496       12         0             <NA>        0           NA           NA
+## 497       21         0             <NA>        0           NA           NA
+## 498       10         0             <NA>        0           NA           NA
+## 499       17         0             <NA>        0           NA           NA
+## 500       14         0             <NA>        0           NA           NA
+## 501        9         0             <NA>        0           NA           NA
+## 502       11         0             <NA>        0           NA           NA
+## 503       10         0             <NA>        0           NA           NA
+## 504        8         0             <NA>        0           69            0
+## 505       10         0             <NA>        0           NA           NA
+## 506       12         0             <NA>        0            0            0
+## 507       20         0             <NA>        0           NA           NA
+## 508        8         0             <NA>        0           NA           NA
+## 509       13         0             <NA>        0           NA           NA
+## 510       10         0             <NA>        0           NA           NA
 ## 511       NA         1                B        0           NA           NA
-## 512        9         0             &lt;NA&gt;        0           NA           NA
-## 513        8         0             &lt;NA&gt;        0           NA           NA
-## 514       20         0             &lt;NA&gt;        0           NA           NA
-## 515       13         0             &lt;NA&gt;        0           NA           NA
-## 516       10         0             &lt;NA&gt;        0           NA           NA
-## 517        8         0             &lt;NA&gt;        0           NA           NA
-## 518       10         0             &lt;NA&gt;        0           22            0
-## 519        5         0             &lt;NA&gt;        0           NA           NA
-## 520        8         0             &lt;NA&gt;        0           NA           NA
-## 521        7         0             &lt;NA&gt;        0           NA           NA
-## 522       10         0             &lt;NA&gt;        0           NA           NA
-## 523       10         0             &lt;NA&gt;        0           NA           NA
-## 524       45         0             &lt;NA&gt;        0            0            0
-## 525       13         0             &lt;NA&gt;        0           NA           NA
-## 526       10         0             &lt;NA&gt;        0           65            0
-## 527       18         0             &lt;NA&gt;        0           NA           NA
-## 528        9         0             &lt;NA&gt;        0           NA           NA
-## 529        8         0             &lt;NA&gt;        0           58            0
-## 530        9         0             &lt;NA&gt;        0           NA           NA
-## 531       11         0             &lt;NA&gt;        0           NA           NA
-## 532       11         0             &lt;NA&gt;        0           NA           NA
-## 533       36         0             &lt;NA&gt;        0           40            0
-## 534        9         0             &lt;NA&gt;        0           NA           NA
-## 535       11         0             &lt;NA&gt;        0           NA           NA
-## 536        8         0             &lt;NA&gt;        0           12            0
-## 537        8         0             &lt;NA&gt;        0           NA           NA
-## 538       20         0             &lt;NA&gt;        0            0            0
-## 539        7         0             &lt;NA&gt;        0           NA           NA
-## 540       11         0             &lt;NA&gt;        0           NA           NA
-## 541       14         0             &lt;NA&gt;        0           NA           NA
-## 542       14         0             &lt;NA&gt;        0           NA           NA
-## 543       15         0             &lt;NA&gt;        0           NA           NA
-## 544       13         0             &lt;NA&gt;        0            0            0
-## 545       16         0             &lt;NA&gt;        0           NA           NA
-## 546       12         0             &lt;NA&gt;        0           NA           NA
+## 512        9         0             <NA>        0           NA           NA
+## 513        8         0             <NA>        0           NA           NA
+## 514       20         0             <NA>        0           NA           NA
+## 515       13         0             <NA>        0           NA           NA
+## 516       10         0             <NA>        0           NA           NA
+## 517        8         0             <NA>        0           NA           NA
+## 518       10         0             <NA>        0           22            0
+## 519        5         0             <NA>        0           NA           NA
+## 520        8         0             <NA>        0           NA           NA
+## 521        7         0             <NA>        0           NA           NA
+## 522       10         0             <NA>        0           NA           NA
+## 523       10         0             <NA>        0           NA           NA
+## 524       45         0             <NA>        0            0            0
+## 525       13         0             <NA>        0           NA           NA
+## 526       10         0             <NA>        0           65            0
+## 527       18         0             <NA>        0           NA           NA
+## 528        9         0             <NA>        0           NA           NA
+## 529        8         0             <NA>        0           58            0
+## 530        9         0             <NA>        0           NA           NA
+## 531       11         0             <NA>        0           NA           NA
+## 532       11         0             <NA>        0           NA           NA
+## 533       36         0             <NA>        0           40            0
+## 534        9         0             <NA>        0           NA           NA
+## 535       11         0             <NA>        0           NA           NA
+## 536        8         0             <NA>        0           12            0
+## 537        8         0             <NA>        0           NA           NA
+## 538       20         0             <NA>        0            0            0
+## 539        7         0             <NA>        0           NA           NA
+## 540       11         0             <NA>        0           NA           NA
+## 541       14         0             <NA>        0           NA           NA
+## 542       14         0             <NA>        0           NA           NA
+## 543       15         0             <NA>        0           NA           NA
+## 544       13         0             <NA>        0            0            0
+## 545       16         0             <NA>        0           NA           NA
+## 546       12         0             <NA>        0           NA           NA
 ## 547       NA         1                B        0           NA           NA
-## 548       33         0             &lt;NA&gt;        0            0            0
-## 549       13         0             &lt;NA&gt;        0           NA           NA
-## 550        8         0             &lt;NA&gt;        0           NA           NA
-## 551       10         0             &lt;NA&gt;        0           NA           NA
-## 552       11         0             &lt;NA&gt;        0           NA           NA
-## 553       19         0             &lt;NA&gt;        0           NA           NA
-## 554        7         0             &lt;NA&gt;        0           NA           NA
-## 555       12         0             &lt;NA&gt;        0           NA           NA
-## 556        9         0             &lt;NA&gt;        0           NA           NA
-## 557        9         0             &lt;NA&gt;        0           NA           NA
-## 558       25         0             &lt;NA&gt;        0           NA           NA
-## 559        6         0             &lt;NA&gt;        0           NA           NA
-## 560       13         0             &lt;NA&gt;        0           NA           NA
-## 561        8         0             &lt;NA&gt;        0           NA           NA
-## 562       11         0             &lt;NA&gt;        0           NA           NA
-## 563       10         0             &lt;NA&gt;        0           NA           NA
-## 564       10         0             &lt;NA&gt;        0           NA           NA
-## 565       16         0             &lt;NA&gt;        0           NA           NA
-## 566        7         0             &lt;NA&gt;        0           NA           NA
-## 567        8         0             &lt;NA&gt;        0           NA           NA
-## 568       59         0             &lt;NA&gt;        0            0            0
-## 569       12         0             &lt;NA&gt;        0            0            0
-## 570       29         0             &lt;NA&gt;        0           NA           NA
-## 571       14         0             &lt;NA&gt;        0           NA           NA
-## 572       87         0             &lt;NA&gt;        0            0            0
-## 573       34         0             &lt;NA&gt;        0            0            0
-## 574       14         0             &lt;NA&gt;        0           NA           NA
-## 575       17         0             &lt;NA&gt;        0           NA           NA
-## 576       12         0             &lt;NA&gt;        0           NA           NA
-## 577       22         0             &lt;NA&gt;        0           NA           NA
-## 578       12         0             &lt;NA&gt;        0           NA           NA
-## 579       11         0             &lt;NA&gt;        0           NA           NA
-## 580       13         0             &lt;NA&gt;        0           NA           NA
-## 581       13         0             &lt;NA&gt;        0           NA           NA
-## 582       24         0             &lt;NA&gt;        0            0            0
-## 583       30         0             &lt;NA&gt;        0           NA           NA
-## 584       34         0             &lt;NA&gt;        0            0            3
-## 585       11         0             &lt;NA&gt;        0           NA           NA
-## 586       24         0             &lt;NA&gt;        0           NA           NA
-## 587       13         0             &lt;NA&gt;        0           NA           NA
-## 588       13         0             &lt;NA&gt;        0           NA           NA
-## 589       32         0             &lt;NA&gt;        0           NA           NA
-## 590       30         0             &lt;NA&gt;        0            0            0
-## 591       14         0             &lt;NA&gt;        0           NA           NA
-## 592       11         0             &lt;NA&gt;        0           NA           NA
-## 593       15         0             &lt;NA&gt;        0           NA           NA
-## 594       12         0             &lt;NA&gt;        0           NA           NA
-## 595        8         0             &lt;NA&gt;        0           NA           NA
-## 596       18         0             &lt;NA&gt;        0           NA           NA
-## 597       22         0             &lt;NA&gt;        0           NA           NA
-## 598       17         0             &lt;NA&gt;        0           NA           NA
-## 599       28         0             &lt;NA&gt;        0           14            0
-## 600       12         0             &lt;NA&gt;        0           NA           NA
-## 601       10         0             &lt;NA&gt;        0           NA           NA
-## 602       21         0             &lt;NA&gt;        0           NA           NA
-## 603       27         0             &lt;NA&gt;        0           NA           NA
-## 604       15         0             &lt;NA&gt;        0           NA           NA
-## 605       14         0             &lt;NA&gt;        0           NA           NA
-## 606       19         0             &lt;NA&gt;        0           NA           NA
-## 607       19         0             &lt;NA&gt;        0            0            0
-## 608       13         0             &lt;NA&gt;        0           NA           NA
-## 609        9         0             &lt;NA&gt;        0           NA           NA
-## 610       14         0             &lt;NA&gt;        0           NA           NA
-## 611       14         0             &lt;NA&gt;        0           NA           NA
-## 612       14         0             &lt;NA&gt;        0           NA           NA
-## 613       18         0             &lt;NA&gt;        0           NA           NA
-## 614       10         0             &lt;NA&gt;        0           NA           NA
-## 615       16         0             &lt;NA&gt;        0           NA           NA
-## 616       14         0             &lt;NA&gt;        0           NA           NA
-## 617       15         0             &lt;NA&gt;        0           NA           NA
-## 618       14         0             &lt;NA&gt;        0           NA           NA
-## 619       14         0             &lt;NA&gt;        0           NA           NA
-## 620       12         0             &lt;NA&gt;        0           NA           NA
-## 621       19         0             &lt;NA&gt;        0           NA           NA
-## 622       16         0             &lt;NA&gt;        0            4            0
-## 623       13         0             &lt;NA&gt;        0           NA           NA
-## 624       20         0             &lt;NA&gt;        0            0            0
-## 625       14         0             &lt;NA&gt;        0           NA           NA
-## 626       18         0             &lt;NA&gt;        0           NA           NA
-## 627       19         0             &lt;NA&gt;        0            0           10
-## 628       12         0             &lt;NA&gt;        0           NA           NA
-## 629       31         0             &lt;NA&gt;        0            0            5
-## 630       13         0             &lt;NA&gt;        0           NA           NA
-## 631       24         0             &lt;NA&gt;        0           10            0
-## 632       19         0             &lt;NA&gt;        0           NA           NA
-## 633       24         0             &lt;NA&gt;        0           NA           NA
-## 634       15         0             &lt;NA&gt;        0           NA           NA
-## 635       12         0             &lt;NA&gt;        0           NA           NA
-## 636        8         0             &lt;NA&gt;        0            0            0
-## 637       10         0             &lt;NA&gt;        0           NA           NA
-## 638       10         0             &lt;NA&gt;        0           NA           NA
-## 639       17         0             &lt;NA&gt;        0           NA           NA
-## 640       22         0             &lt;NA&gt;        0           NA           NA
-## 641       12         0             &lt;NA&gt;        0            3            0
-## 642       13         0             &lt;NA&gt;        0            0            0
-## 643       10         0             &lt;NA&gt;        0           NA           NA
-## 644       12         0             &lt;NA&gt;        0           64            0
-## 645       42         0             &lt;NA&gt;        0            0            0
-## 646       11         0             &lt;NA&gt;        0           NA           NA
-## 647       12         0             &lt;NA&gt;        0           NA           NA
-## 648        9         0             &lt;NA&gt;        0           NA           NA
-## 649       12         0             &lt;NA&gt;        0           NA           NA
-## 650       49         0             &lt;NA&gt;        0            0            0
-## 651       10         0             &lt;NA&gt;        0           NA           NA
-## 652       37         0             &lt;NA&gt;        0            0            0
-## 653       18         0             &lt;NA&gt;        0            0            0
-## 654       12         0             &lt;NA&gt;        0           NA           NA
-## 655       13         0             &lt;NA&gt;        0           NA           NA
-## 656        9         0             &lt;NA&gt;        0           NA           NA
-## 657       12         0             &lt;NA&gt;        0           NA           NA
-## 658       11         0             &lt;NA&gt;        0           NA           NA
-## 659        8         0             &lt;NA&gt;        0           NA           NA
-## 660        8         0             &lt;NA&gt;        0           NA           NA
-## 661        7         0             &lt;NA&gt;        0           NA           NA
-## 662       10         0             &lt;NA&gt;        0           NA           NA
-## 663       10         0             &lt;NA&gt;        0           NA           NA
-## 664       10         0             &lt;NA&gt;        0           NA           NA
-## 665       11         0             &lt;NA&gt;        0           NA           NA
-## 666        9         0             &lt;NA&gt;        0            0            0
-## 667       14         0             &lt;NA&gt;        0           NA           NA
-## 668       10         0             &lt;NA&gt;        0           NA           NA
-## 669       12         0             &lt;NA&gt;        0           NA           NA
-## 670       15         0             &lt;NA&gt;        0            0            0
-## 671        6         0             &lt;NA&gt;        0           NA           NA
-## 672       14         0             &lt;NA&gt;        0           NA           NA
-## 673       11         0             &lt;NA&gt;        0           NA           NA
-## 674       11         0             &lt;NA&gt;        0           NA           NA
-## 675       12         0             &lt;NA&gt;        0           NA           NA
-## 676       12         0             &lt;NA&gt;        0           NA           NA
-## 677       11         0             &lt;NA&gt;        0           NA           NA
-## 678       12         0             &lt;NA&gt;        0           NA           NA
-## 679       14         0             &lt;NA&gt;        0           NA           NA
-## 680       23         0             &lt;NA&gt;        0           NA           NA
-## 681       10         0             &lt;NA&gt;        0           NA           NA
-## 682       11         0             &lt;NA&gt;        0           NA           NA
-## 683       16         0             &lt;NA&gt;        0            0            0
-## 684       27         0             &lt;NA&gt;        0            0            0
-## 685       16         0             &lt;NA&gt;        0           NA           NA
-## 686       10         0             &lt;NA&gt;        0           NA           NA
-## 687       16         0             &lt;NA&gt;        1           NA           NA
-## 688        7         0             &lt;NA&gt;        0           NA           NA
-## 689       11         0             &lt;NA&gt;        0           NA           NA
-## 690        9         0             &lt;NA&gt;        0           NA           NA
-## 691       16         0             &lt;NA&gt;        0           NA           NA
-## 692        8         0             &lt;NA&gt;        0           NA           NA
-## 693       12         0             &lt;NA&gt;        0           NA           NA
-## 694       15         0             &lt;NA&gt;        0           NA           NA
-## 695        7         0             &lt;NA&gt;        0           NA           NA
-## 696        8         0             &lt;NA&gt;        0           NA           NA
-## 697       13         0             &lt;NA&gt;        0           NA           NA
-## 698        9         0             &lt;NA&gt;        0           NA           NA
-## 699       13         0             &lt;NA&gt;        0           NA           NA
-## 700       11         0             &lt;NA&gt;        0           NA           NA
-## 701       13         0             &lt;NA&gt;        0           NA           NA
-## 702       21         0             &lt;NA&gt;        0           NA           NA
-## 703       14         0             &lt;NA&gt;        0           NA           NA
-## 704        8         0             &lt;NA&gt;        0           NA           NA
-## 705       12         0             &lt;NA&gt;        0           NA           NA
-## 706       11         0             &lt;NA&gt;        0           NA           NA
-## 707        9         0             &lt;NA&gt;        0           NA           NA
-## 708        9         0             &lt;NA&gt;        0           NA           NA
-## 709        8         0             &lt;NA&gt;        0           NA           NA
-## 710        9         0             &lt;NA&gt;        0           NA           NA
-## 711       10         0             &lt;NA&gt;        0            0            0
-## 712       13         0             &lt;NA&gt;        0           NA           NA
-## 713       19         0             &lt;NA&gt;        0            0            0
-## 714       13         0             &lt;NA&gt;        0           15            0
-## 715       14         0             &lt;NA&gt;        0            0            0
-## 716       11         0             &lt;NA&gt;        0           NA           NA
-## 717       13         0             &lt;NA&gt;        0           NA           NA
-## 718       14         0             &lt;NA&gt;        0            0            0
-## 719       13         0             &lt;NA&gt;        0           NA           NA
-## 720       16         0             &lt;NA&gt;        0            0            0
+## 548       33         0             <NA>        0            0            0
+## 549       13         0             <NA>        0           NA           NA
+## 550        8         0             <NA>        0           NA           NA
+## 551       10         0             <NA>        0           NA           NA
+## 552       11         0             <NA>        0           NA           NA
+## 553       19         0             <NA>        0           NA           NA
+## 554        7         0             <NA>        0           NA           NA
+## 555       12         0             <NA>        0           NA           NA
+## 556        9         0             <NA>        0           NA           NA
+## 557        9         0             <NA>        0           NA           NA
+## 558       25         0             <NA>        0           NA           NA
+## 559        6         0             <NA>        0           NA           NA
+## 560       13         0             <NA>        0           NA           NA
+## 561        8         0             <NA>        0           NA           NA
+## 562       11         0             <NA>        0           NA           NA
+## 563       10         0             <NA>        0           NA           NA
+## 564       10         0             <NA>        0           NA           NA
+## 565       16         0             <NA>        0           NA           NA
+## 566        7         0             <NA>        0           NA           NA
+## 567        8         0             <NA>        0           NA           NA
+## 568       59         0             <NA>        0            0            0
+## 569       12         0             <NA>        0            0            0
+## 570       29         0             <NA>        0           NA           NA
+## 571       14         0             <NA>        0           NA           NA
+## 572       87         0             <NA>        0            0            0
+## 573       34         0             <NA>        0            0            0
+## 574       14         0             <NA>        0           NA           NA
+## 575       17         0             <NA>        0           NA           NA
+## 576       12         0             <NA>        0           NA           NA
+## 577       22         0             <NA>        0           NA           NA
+## 578       12         0             <NA>        0           NA           NA
+## 579       11         0             <NA>        0           NA           NA
+## 580       13         0             <NA>        0           NA           NA
+## 581       13         0             <NA>        0           NA           NA
+## 582       24         0             <NA>        0            0            0
+## 583       30         0             <NA>        0           NA           NA
+## 584       34         0             <NA>        0            0            3
+## 585       11         0             <NA>        0           NA           NA
+## 586       24         0             <NA>        0           NA           NA
+## 587       13         0             <NA>        0           NA           NA
+## 588       13         0             <NA>        0           NA           NA
+## 589       32         0             <NA>        0           NA           NA
+## 590       30         0             <NA>        0            0            0
+## 591       14         0             <NA>        0           NA           NA
+## 592       11         0             <NA>        0           NA           NA
+## 593       15         0             <NA>        0           NA           NA
+## 594       12         0             <NA>        0           NA           NA
+## 595        8         0             <NA>        0           NA           NA
+## 596       18         0             <NA>        0           NA           NA
+## 597       22         0             <NA>        0           NA           NA
+## 598       17         0             <NA>        0           NA           NA
+## 599       28         0             <NA>        0           14            0
+## 600       12         0             <NA>        0           NA           NA
+## 601       10         0             <NA>        0           NA           NA
+## 602       21         0             <NA>        0           NA           NA
+## 603       27         0             <NA>        0           NA           NA
+## 604       15         0             <NA>        0           NA           NA
+## 605       14         0             <NA>        0           NA           NA
+## 606       19         0             <NA>        0           NA           NA
+## 607       19         0             <NA>        0            0            0
+## 608       13         0             <NA>        0           NA           NA
+## 609        9         0             <NA>        0           NA           NA
+## 610       14         0             <NA>        0           NA           NA
+## 611       14         0             <NA>        0           NA           NA
+## 612       14         0             <NA>        0           NA           NA
+## 613       18         0             <NA>        0           NA           NA
+## 614       10         0             <NA>        0           NA           NA
+## 615       16         0             <NA>        0           NA           NA
+## 616       14         0             <NA>        0           NA           NA
+## 617       15         0             <NA>        0           NA           NA
+## 618       14         0             <NA>        0           NA           NA
+## 619       14         0             <NA>        0           NA           NA
+## 620       12         0             <NA>        0           NA           NA
+## 621       19         0             <NA>        0           NA           NA
+## 622       16         0             <NA>        0            4            0
+## 623       13         0             <NA>        0           NA           NA
+## 624       20         0             <NA>        0            0            0
+## 625       14         0             <NA>        0           NA           NA
+## 626       18         0             <NA>        0           NA           NA
+## 627       19         0             <NA>        0            0           10
+## 628       12         0             <NA>        0           NA           NA
+## 629       31         0             <NA>        0            0            5
+## 630       13         0             <NA>        0           NA           NA
+## 631       24         0             <NA>        0           10            0
+## 632       19         0             <NA>        0           NA           NA
+## 633       24         0             <NA>        0           NA           NA
+## 634       15         0             <NA>        0           NA           NA
+## 635       12         0             <NA>        0           NA           NA
+## 636        8         0             <NA>        0            0            0
+## 637       10         0             <NA>        0           NA           NA
+## 638       10         0             <NA>        0           NA           NA
+## 639       17         0             <NA>        0           NA           NA
+## 640       22         0             <NA>        0           NA           NA
+## 641       12         0             <NA>        0            3            0
+## 642       13         0             <NA>        0            0            0
+## 643       10         0             <NA>        0           NA           NA
+## 644       12         0             <NA>        0           64            0
+## 645       42         0             <NA>        0            0            0
+## 646       11         0             <NA>        0           NA           NA
+## 647       12         0             <NA>        0           NA           NA
+## 648        9         0             <NA>        0           NA           NA
+## 649       12         0             <NA>        0           NA           NA
+## 650       49         0             <NA>        0            0            0
+## 651       10         0             <NA>        0           NA           NA
+## 652       37         0             <NA>        0            0            0
+## 653       18         0             <NA>        0            0            0
+## 654       12         0             <NA>        0           NA           NA
+## 655       13         0             <NA>        0           NA           NA
+## 656        9         0             <NA>        0           NA           NA
+## 657       12         0             <NA>        0           NA           NA
+## 658       11         0             <NA>        0           NA           NA
+## 659        8         0             <NA>        0           NA           NA
+## 660        8         0             <NA>        0           NA           NA
+## 661        7         0             <NA>        0           NA           NA
+## 662       10         0             <NA>        0           NA           NA
+## 663       10         0             <NA>        0           NA           NA
+## 664       10         0             <NA>        0           NA           NA
+## 665       11         0             <NA>        0           NA           NA
+## 666        9         0             <NA>        0            0            0
+## 667       14         0             <NA>        0           NA           NA
+## 668       10         0             <NA>        0           NA           NA
+## 669       12         0             <NA>        0           NA           NA
+## 670       15         0             <NA>        0            0            0
+## 671        6         0             <NA>        0           NA           NA
+## 672       14         0             <NA>        0           NA           NA
+## 673       11         0             <NA>        0           NA           NA
+## 674       11         0             <NA>        0           NA           NA
+## 675       12         0             <NA>        0           NA           NA
+## 676       12         0             <NA>        0           NA           NA
+## 677       11         0             <NA>        0           NA           NA
+## 678       12         0             <NA>        0           NA           NA
+## 679       14         0             <NA>        0           NA           NA
+## 680       23         0             <NA>        0           NA           NA
+## 681       10         0             <NA>        0           NA           NA
+## 682       11         0             <NA>        0           NA           NA
+## 683       16         0             <NA>        0            0            0
+## 684       27         0             <NA>        0            0            0
+## 685       16         0             <NA>        0           NA           NA
+## 686       10         0             <NA>        0           NA           NA
+## 687       16         0             <NA>        1           NA           NA
+## 688        7         0             <NA>        0           NA           NA
+## 689       11         0             <NA>        0           NA           NA
+## 690        9         0             <NA>        0           NA           NA
+## 691       16         0             <NA>        0           NA           NA
+## 692        8         0             <NA>        0           NA           NA
+## 693       12         0             <NA>        0           NA           NA
+## 694       15         0             <NA>        0           NA           NA
+## 695        7         0             <NA>        0           NA           NA
+## 696        8         0             <NA>        0           NA           NA
+## 697       13         0             <NA>        0           NA           NA
+## 698        9         0             <NA>        0           NA           NA
+## 699       13         0             <NA>        0           NA           NA
+## 700       11         0             <NA>        0           NA           NA
+## 701       13         0             <NA>        0           NA           NA
+## 702       21         0             <NA>        0           NA           NA
+## 703       14         0             <NA>        0           NA           NA
+## 704        8         0             <NA>        0           NA           NA
+## 705       12         0             <NA>        0           NA           NA
+## 706       11         0             <NA>        0           NA           NA
+## 707        9         0             <NA>        0           NA           NA
+## 708        9         0             <NA>        0           NA           NA
+## 709        8         0             <NA>        0           NA           NA
+## 710        9         0             <NA>        0           NA           NA
+## 711       10         0             <NA>        0            0            0
+## 712       13         0             <NA>        0           NA           NA
+## 713       19         0             <NA>        0            0            0
+## 714       13         0             <NA>        0           15            0
+## 715       14         0             <NA>        0            0            0
+## 716       11         0             <NA>        0           NA           NA
+## 717       13         0             <NA>        0           NA           NA
+## 718       14         0             <NA>        0            0            0
+## 719       13         0             <NA>        0           NA           NA
+## 720       16         0             <NA>        0            0            0
 ## 721       NA         1                B        0           NA           NA
-## 722       22         0             &lt;NA&gt;        0            0            0
-## 723       19         0             &lt;NA&gt;        0           NA           NA
-## 724       11         0             &lt;NA&gt;        0           NA           NA
-## 725       22         0             &lt;NA&gt;        0            0            0
-## 726       14         0             &lt;NA&gt;        0           NA           NA
-## 727       15         0             &lt;NA&gt;        0           NA           NA
-## 728       19         0             &lt;NA&gt;        0            0            0
-## 729        9         0             &lt;NA&gt;        0           NA           NA
-## 730       13         0             &lt;NA&gt;        0            0            0
-## 731        9         0             &lt;NA&gt;        0           NA           NA
-## 732       16         0             &lt;NA&gt;        0           NA           NA
+## 722       22         0             <NA>        0            0            0
+## 723       19         0             <NA>        0           NA           NA
+## 724       11         0             <NA>        0           NA           NA
+## 725       22         0             <NA>        0            0            0
+## 726       14         0             <NA>        0           NA           NA
+## 727       15         0             <NA>        0           NA           NA
+## 728       19         0             <NA>        0            0            0
+## 729        9         0             <NA>        0           NA           NA
+## 730       13         0             <NA>        0            0            0
+## 731        9         0             <NA>        0           NA           NA
+## 732       16         0             <NA>        0           NA           NA
 ## 733       NA         1                C        0           NA           NA
-## 734       11         0             &lt;NA&gt;        0            0            0
-## 735        9         0             &lt;NA&gt;        0           NA           NA
-## 736       13         0             &lt;NA&gt;        0            0            0
-## 737       13         0             &lt;NA&gt;        0            0            0
-## 738        9         0             &lt;NA&gt;        0           NA           NA
-## 739       49         0             &lt;NA&gt;        0            0            0
-## 740       10         0             &lt;NA&gt;        0           NA           NA
-## 741       29         0             &lt;NA&gt;        0           NA           NA
-## 742       17         0             &lt;NA&gt;        0            0            0
-## 743       17         0             &lt;NA&gt;        0            0            0
-## 744       22         0             &lt;NA&gt;        0           NA           NA
-## 745       53         0             &lt;NA&gt;        0            0            0
-## 746       29         0             &lt;NA&gt;        0           NA           NA
-## 747       15         0             &lt;NA&gt;        0           NA           NA
-## 748       16         0             &lt;NA&gt;        0           NA           NA
-## 749       23         0             &lt;NA&gt;        0            0            0
-## 750       16         0             &lt;NA&gt;        0           NA           NA
-## 751       23         0             &lt;NA&gt;        0           NA           NA
-## 752       12         0             &lt;NA&gt;        0           NA           NA
-## 753       14         0             &lt;NA&gt;        0           NA           NA
-## 754       16         0             &lt;NA&gt;        0           NA           NA
-## 755       28         0             &lt;NA&gt;        0           NA           NA
-## 756       20         0             &lt;NA&gt;        0           NA           NA
-## 757       21         0             &lt;NA&gt;        0           NA           NA
-## 758       19         0             &lt;NA&gt;        0           NA           NA
-## 759       21         0             &lt;NA&gt;        0           NA           NA
-## 760       19         0             &lt;NA&gt;        0           NA           NA
-## 761       19         0             &lt;NA&gt;        0           NA           NA
-## 762       10         0             &lt;NA&gt;        0           NA           NA
-## 763       23         0             &lt;NA&gt;        0           NA           NA
-## 764       17         0             &lt;NA&gt;        0            0            0
-## 765       18         0             &lt;NA&gt;        0           NA           NA
-## 766        8         0             &lt;NA&gt;        0           NA           NA
-## 767       19         0             &lt;NA&gt;        0           NA           NA
-## 768       20         0             &lt;NA&gt;        0           NA           NA
-## 769       13         0             &lt;NA&gt;        0           NA           NA
-## 770       27         0             &lt;NA&gt;        0           NA           NA
-## 771       12         0             &lt;NA&gt;        0           NA           NA
-## 772       26         0             &lt;NA&gt;        0           NA           NA
-## 773       16         0             &lt;NA&gt;        0           NA           NA
-## 774        8         0             &lt;NA&gt;        0           NA           NA
-## 775       12         0             &lt;NA&gt;        0           NA           NA
-## 776       14         0             &lt;NA&gt;        0           NA           NA
-## 777       15         0             &lt;NA&gt;        0           NA           NA
-## 778       21         0             &lt;NA&gt;        0           NA           NA
-## 779       36         0             &lt;NA&gt;        0           NA           NA
-## 780       20         0             &lt;NA&gt;        0           NA           NA
-## 781       20         0             &lt;NA&gt;        0           NA           NA
-## 782       13         0             &lt;NA&gt;        0           NA           NA
-## 783        6         0             &lt;NA&gt;        0           NA           NA
-## 784        7         0             &lt;NA&gt;        0            0            0
-## 785        6         0             &lt;NA&gt;        0           NA           NA
+## 734       11         0             <NA>        0            0            0
+## 735        9         0             <NA>        0           NA           NA
+## 736       13         0             <NA>        0            0            0
+## 737       13         0             <NA>        0            0            0
+## 738        9         0             <NA>        0           NA           NA
+## 739       49         0             <NA>        0            0            0
+## 740       10         0             <NA>        0           NA           NA
+## 741       29         0             <NA>        0           NA           NA
+## 742       17         0             <NA>        0            0            0
+## 743       17         0             <NA>        0            0            0
+## 744       22         0             <NA>        0           NA           NA
+## 745       53         0             <NA>        0            0            0
+## 746       29         0             <NA>        0           NA           NA
+## 747       15         0             <NA>        0           NA           NA
+## 748       16         0             <NA>        0           NA           NA
+## 749       23         0             <NA>        0            0            0
+## 750       16         0             <NA>        0           NA           NA
+## 751       23         0             <NA>        0           NA           NA
+## 752       12         0             <NA>        0           NA           NA
+## 753       14         0             <NA>        0           NA           NA
+## 754       16         0             <NA>        0           NA           NA
+## 755       28         0             <NA>        0           NA           NA
+## 756       20         0             <NA>        0           NA           NA
+## 757       21         0             <NA>        0           NA           NA
+## 758       19         0             <NA>        0           NA           NA
+## 759       21         0             <NA>        0           NA           NA
+## 760       19         0             <NA>        0           NA           NA
+## 761       19         0             <NA>        0           NA           NA
+## 762       10         0             <NA>        0           NA           NA
+## 763       23         0             <NA>        0           NA           NA
+## 764       17         0             <NA>        0            0            0
+## 765       18         0             <NA>        0           NA           NA
+## 766        8         0             <NA>        0           NA           NA
+## 767       19         0             <NA>        0           NA           NA
+## 768       20         0             <NA>        0           NA           NA
+## 769       13         0             <NA>        0           NA           NA
+## 770       27         0             <NA>        0           NA           NA
+## 771       12         0             <NA>        0           NA           NA
+## 772       26         0             <NA>        0           NA           NA
+## 773       16         0             <NA>        0           NA           NA
+## 774        8         0             <NA>        0           NA           NA
+## 775       12         0             <NA>        0           NA           NA
+## 776       14         0             <NA>        0           NA           NA
+## 777       15         0             <NA>        0           NA           NA
+## 778       21         0             <NA>        0           NA           NA
+## 779       36         0             <NA>        0           NA           NA
+## 780       20         0             <NA>        0           NA           NA
+## 781       20         0             <NA>        0           NA           NA
+## 782       13         0             <NA>        0           NA           NA
+## 783        6         0             <NA>        0           NA           NA
+## 784        7         0             <NA>        0            0            0
+## 785        6         0             <NA>        0           NA           NA
 ## 786       NA         1                B        0           NA           NA
-## 787        7         0             &lt;NA&gt;        0           NA           NA
-## 788        7         0             &lt;NA&gt;        0           NA           NA
-## 789       11         0             &lt;NA&gt;        0           NA           NA
-## 790        8         0             &lt;NA&gt;        0           NA           NA
-## 791        6         0             &lt;NA&gt;        0           NA           NA
-## 792        8         0             &lt;NA&gt;        0           NA           NA
-## 793       11         0             &lt;NA&gt;        0           NA           NA
-## 794        9         0             &lt;NA&gt;        0           NA           NA
-## 795        7         0             &lt;NA&gt;        0           NA           NA
-## 796        8         0             &lt;NA&gt;        0           NA           NA
-## 797        8         0             &lt;NA&gt;        0            0            0
-## 798        7         0             &lt;NA&gt;        0           NA           NA
-## 799        4         0             &lt;NA&gt;        0           NA           NA
-## 800        7         0             &lt;NA&gt;        0           NA           NA
-## 801       10         0             &lt;NA&gt;        0           NA           NA
-## 802        7         0             &lt;NA&gt;        0           NA           NA
-## 803        5         0             &lt;NA&gt;        0           NA           NA
-## 804        9         0             &lt;NA&gt;        0           NA           NA
-## 805        6         0             &lt;NA&gt;        0           NA           NA
-## 806       13         0             &lt;NA&gt;        0           NA           NA
-## 807        8         0             &lt;NA&gt;        0           NA           NA
-## 808        9         0             &lt;NA&gt;        0           NA           NA
-## 809        6         0             &lt;NA&gt;        0           NA           NA
-## 810        9         0             &lt;NA&gt;        0           NA           NA
-## 811        4         0             &lt;NA&gt;        0           NA           NA
-## 812        7         0             &lt;NA&gt;        0           NA           NA
-## 813        5         0             &lt;NA&gt;        0           NA           NA
-## 814        8         0             &lt;NA&gt;        0           NA           NA
-## 815        7         0             &lt;NA&gt;        0           19            0
-## 816        6         0             &lt;NA&gt;        0           NA           NA
-## 817        8         0             &lt;NA&gt;        0           NA           NA
-## 818       17         0             &lt;NA&gt;        0           NA           NA
-## 819        9         0             &lt;NA&gt;        0           NA           NA
-## 820       21         0             &lt;NA&gt;        0           NA           NA
-## 821       19         0             &lt;NA&gt;        0           NA           NA
-## 822       11         0             &lt;NA&gt;        0           NA           NA
-## 823        9         0             &lt;NA&gt;        0           NA           NA
-## 824       11         0             &lt;NA&gt;        0           NA           NA
-## 825       13         0             &lt;NA&gt;        0           NA           NA
-## 826        8         0             &lt;NA&gt;        0           NA           NA
-## 827        7         0             &lt;NA&gt;        0           NA           NA
-## 828       20         0             &lt;NA&gt;        0           13            0
-## 829        9         0             &lt;NA&gt;        0           NA           NA
-## 830       10         0             &lt;NA&gt;        0           NA           NA
-## 831        9         0             &lt;NA&gt;        0           NA           NA
-## 832        8         0             &lt;NA&gt;        0           NA           NA
-## 833       10         0             &lt;NA&gt;        0           NA           NA
-## 834       11         0             &lt;NA&gt;        0           NA           NA
-## 835        8         0             &lt;NA&gt;        0           NA           NA
-## 836        9         0             &lt;NA&gt;        0           NA           NA
-## 837       10         0             &lt;NA&gt;        0           NA           NA
-## 838       15         0             &lt;NA&gt;        0            5            0
-## 839        8         0             &lt;NA&gt;        0           NA           NA
-## 840       17         0             &lt;NA&gt;        0           NA           NA
-## 841       13         0             &lt;NA&gt;        0           NA           NA
-## 842        8         0             &lt;NA&gt;        0           NA           NA
-## 843        7         0             &lt;NA&gt;        0           NA           NA
-## 844        7         0             &lt;NA&gt;        0           NA           NA
-## 845       14         0             &lt;NA&gt;        0           NA           NA
-## 846       10         0             &lt;NA&gt;        0           NA           NA
-## 847        8         0             &lt;NA&gt;        0           NA           NA
-## 848        8         0             &lt;NA&gt;        0           NA           NA
-## 849        7         0             &lt;NA&gt;        0            0            0
-## 850        8         0             &lt;NA&gt;        0           NA           NA
-## 851        7         0             &lt;NA&gt;        0           NA           NA
-## 852        7         0             &lt;NA&gt;        0           NA           NA
-## 853        7         0             &lt;NA&gt;        0           NA           NA
-## 854       37         0             &lt;NA&gt;        0           10            0
-## 855       13         0             &lt;NA&gt;        0          119            0
-## 856       13         0             &lt;NA&gt;        0           NA           NA
-## 857       15         0             &lt;NA&gt;        0           NA           NA
-## 858        9         0             &lt;NA&gt;        0           NA           NA
-## 859       82         0             &lt;NA&gt;        0            0            0
-## 860       25         0             &lt;NA&gt;        0           NA           NA
-## 861       32         0             &lt;NA&gt;        0           NA           NA
-## 862       15         0             &lt;NA&gt;        0           NA           NA
-## 863       42         0             &lt;NA&gt;        0           NA           NA
-## 864       16         0             &lt;NA&gt;        0            0           32
-## 865       13         0             &lt;NA&gt;        1           NA           NA
-## 866       26         0             &lt;NA&gt;        0           NA           NA
-## 867       11         0             &lt;NA&gt;        0           NA           NA
-## 868       14         0             &lt;NA&gt;        0           NA           NA
-## 869       45         0             &lt;NA&gt;        0           15            0
-## 870       57         0             &lt;NA&gt;        0           NA           NA
-## 871       24         0             &lt;NA&gt;        0           NA           NA
-## 872       11         0             &lt;NA&gt;        0           NA           NA
-## 873       31         0             &lt;NA&gt;        0           NA           NA
-## 874       19         0             &lt;NA&gt;        0           NA           NA
-## 875       34         0             &lt;NA&gt;        0           NA           NA
-## 876       30         0             &lt;NA&gt;        0            0            0
-## 877       41         0             &lt;NA&gt;        0           NA           NA
-## 878       12         0             &lt;NA&gt;        0           NA           NA
-## 879       25         0             &lt;NA&gt;        0           NA           NA
-## 880       22         0             &lt;NA&gt;        0           NA           NA
-## 881       14         0             &lt;NA&gt;        0           NA           NA
-## 882       19         0             &lt;NA&gt;        0            0           34
-## 883       38         0             &lt;NA&gt;        0           NA           NA
-## 884       16         0             &lt;NA&gt;        0           NA           NA
-## 885       86         0             &lt;NA&gt;        0            0            0
+## 787        7         0             <NA>        0           NA           NA
+## 788        7         0             <NA>        0           NA           NA
+## 789       11         0             <NA>        0           NA           NA
+## 790        8         0             <NA>        0           NA           NA
+## 791        6         0             <NA>        0           NA           NA
+## 792        8         0             <NA>        0           NA           NA
+## 793       11         0             <NA>        0           NA           NA
+## 794        9         0             <NA>        0           NA           NA
+## 795        7         0             <NA>        0           NA           NA
+## 796        8         0             <NA>        0           NA           NA
+## 797        8         0             <NA>        0            0            0
+## 798        7         0             <NA>        0           NA           NA
+## 799        4         0             <NA>        0           NA           NA
+## 800        7         0             <NA>        0           NA           NA
+## 801       10         0             <NA>        0           NA           NA
+## 802        7         0             <NA>        0           NA           NA
+## 803        5         0             <NA>        0           NA           NA
+## 804        9         0             <NA>        0           NA           NA
+## 805        6         0             <NA>        0           NA           NA
+## 806       13         0             <NA>        0           NA           NA
+## 807        8         0             <NA>        0           NA           NA
+## 808        9         0             <NA>        0           NA           NA
+## 809        6         0             <NA>        0           NA           NA
+## 810        9         0             <NA>        0           NA           NA
+## 811        4         0             <NA>        0           NA           NA
+## 812        7         0             <NA>        0           NA           NA
+## 813        5         0             <NA>        0           NA           NA
+## 814        8         0             <NA>        0           NA           NA
+## 815        7         0             <NA>        0           19            0
+## 816        6         0             <NA>        0           NA           NA
+## 817        8         0             <NA>        0           NA           NA
+## 818       17         0             <NA>        0           NA           NA
+## 819        9         0             <NA>        0           NA           NA
+## 820       21         0             <NA>        0           NA           NA
+## 821       19         0             <NA>        0           NA           NA
+## 822       11         0             <NA>        0           NA           NA
+## 823        9         0             <NA>        0           NA           NA
+## 824       11         0             <NA>        0           NA           NA
+## 825       13         0             <NA>        0           NA           NA
+## 826        8         0             <NA>        0           NA           NA
+## 827        7         0             <NA>        0           NA           NA
+## 828       20         0             <NA>        0           13            0
+## 829        9         0             <NA>        0           NA           NA
+## 830       10         0             <NA>        0           NA           NA
+## 831        9         0             <NA>        0           NA           NA
+## 832        8         0             <NA>        0           NA           NA
+## 833       10         0             <NA>        0           NA           NA
+## 834       11         0             <NA>        0           NA           NA
+## 835        8         0             <NA>        0           NA           NA
+## 836        9         0             <NA>        0           NA           NA
+## 837       10         0             <NA>        0           NA           NA
+## 838       15         0             <NA>        0            5            0
+## 839        8         0             <NA>        0           NA           NA
+## 840       17         0             <NA>        0           NA           NA
+## 841       13         0             <NA>        0           NA           NA
+## 842        8         0             <NA>        0           NA           NA
+## 843        7         0             <NA>        0           NA           NA
+## 844        7         0             <NA>        0           NA           NA
+## 845       14         0             <NA>        0           NA           NA
+## 846       10         0             <NA>        0           NA           NA
+## 847        8         0             <NA>        0           NA           NA
+## 848        8         0             <NA>        0           NA           NA
+## 849        7         0             <NA>        0            0            0
+## 850        8         0             <NA>        0           NA           NA
+## 851        7         0             <NA>        0           NA           NA
+## 852        7         0             <NA>        0           NA           NA
+## 853        7         0             <NA>        0           NA           NA
+## 854       37         0             <NA>        0           10            0
+## 855       13         0             <NA>        0          119            0
+## 856       13         0             <NA>        0           NA           NA
+## 857       15         0             <NA>        0           NA           NA
+## 858        9         0             <NA>        0           NA           NA
+## 859       82         0             <NA>        0            0            0
+## 860       25         0             <NA>        0           NA           NA
+## 861       32         0             <NA>        0           NA           NA
+## 862       15         0             <NA>        0           NA           NA
+## 863       42         0             <NA>        0           NA           NA
+## 864       16         0             <NA>        0            0           32
+## 865       13         0             <NA>        1           NA           NA
+## 866       26         0             <NA>        0           NA           NA
+## 867       11         0             <NA>        0           NA           NA
+## 868       14         0             <NA>        0           NA           NA
+## 869       45         0             <NA>        0           15            0
+## 870       57         0             <NA>        0           NA           NA
+## 871       24         0             <NA>        0           NA           NA
+## 872       11         0             <NA>        0           NA           NA
+## 873       31         0             <NA>        0           NA           NA
+## 874       19         0             <NA>        0           NA           NA
+## 875       34         0             <NA>        0           NA           NA
+## 876       30         0             <NA>        0            0            0
+## 877       41         0             <NA>        0           NA           NA
+## 878       12         0             <NA>        0           NA           NA
+## 879       25         0             <NA>        0           NA           NA
+## 880       22         0             <NA>        0           NA           NA
+## 881       14         0             <NA>        0           NA           NA
+## 882       19         0             <NA>        0            0           34
+## 883       38         0             <NA>        0           NA           NA
+## 884       16         0             <NA>        0           NA           NA
+## 885       86         0             <NA>        0            0            0
 ## 886       NA         1                B        0           NA           NA
-## 887       11         0             &lt;NA&gt;        0           NA           NA
-## 888        8         0             &lt;NA&gt;        0           NA           NA
-## 889        8         0             &lt;NA&gt;        0           NA           NA
-## 890       12         0             &lt;NA&gt;        0           NA           NA
-## 891       15         0             &lt;NA&gt;        0           NA           NA
-## 892        9         0             &lt;NA&gt;        0           NA           NA
-## 893       11         0             &lt;NA&gt;        0           NA           NA
-## 894       21         0             &lt;NA&gt;        0           NA           NA
-## 895       12         0             &lt;NA&gt;        0           NA           NA
-## 896       10         0             &lt;NA&gt;        0           NA           NA
-## 897        7         0             &lt;NA&gt;        0           NA           NA
-## 898       24         0             &lt;NA&gt;        0           NA           NA
-## 899        8         0             &lt;NA&gt;        0           NA           NA
-## 900       13         0             &lt;NA&gt;        0           NA           NA
-## 901       11         0             &lt;NA&gt;        0           NA           NA
-## 902        9         0             &lt;NA&gt;        0           NA           NA
-## 903        8         0             &lt;NA&gt;        0            0            0
-## 904       11         0             &lt;NA&gt;        0           NA           NA
-## 905       10         0             &lt;NA&gt;        0           NA           NA
-## 906       15         0             &lt;NA&gt;        0           NA           NA
-## 907       17         0             &lt;NA&gt;        0           NA           NA
-## 908       10         0             &lt;NA&gt;        0           29            0
-## 909       14         0             &lt;NA&gt;        0           37            0
+## 887       11         0             <NA>        0           NA           NA
+## 888        8         0             <NA>        0           NA           NA
+## 889        8         0             <NA>        0           NA           NA
+## 890       12         0             <NA>        0           NA           NA
+## 891       15         0             <NA>        0           NA           NA
+## 892        9         0             <NA>        0           NA           NA
+## 893       11         0             <NA>        0           NA           NA
+## 894       21         0             <NA>        0           NA           NA
+## 895       12         0             <NA>        0           NA           NA
+## 896       10         0             <NA>        0           NA           NA
+## 897        7         0             <NA>        0           NA           NA
+## 898       24         0             <NA>        0           NA           NA
+## 899        8         0             <NA>        0           NA           NA
+## 900       13         0             <NA>        0           NA           NA
+## 901       11         0             <NA>        0           NA           NA
+## 902        9         0             <NA>        0           NA           NA
+## 903        8         0             <NA>        0            0            0
+## 904       11         0             <NA>        0           NA           NA
+## 905       10         0             <NA>        0           NA           NA
+## 906       15         0             <NA>        0           NA           NA
+## 907       17         0             <NA>        0           NA           NA
+## 908       10         0             <NA>        0           29            0
+## 909       14         0             <NA>        0           37            0
 ## 910       NA         1                B        0           NA           NA
 ## 911       NA         1                C        0           NA           NA
 ## 912       NA         1                C        0           NA           NA
-## 913        8         0             &lt;NA&gt;        0           48            0
-## 914       11         0             &lt;NA&gt;        0           77            0
-## 915       10         0             &lt;NA&gt;        0           NA           NA
+## 913        8         0             <NA>        0           48            0
+## 914       11         0             <NA>        0           77            0
+## 915       10         0             <NA>        0           NA           NA
 ## 916       NA         1                C        0           NA           NA
-## 917       15         0             &lt;NA&gt;        0           NA           NA
-## 918        8         0             &lt;NA&gt;        0            0            0
-## 919       34         0             &lt;NA&gt;        0            0            0
-## 920       14         0             &lt;NA&gt;        0           NA           NA
-## 921       17         0             &lt;NA&gt;        0           NA           NA
-## 922       15         0             &lt;NA&gt;        0            0            0
-## 923        8         0             &lt;NA&gt;        0           NA           NA
-## 924       10         0             &lt;NA&gt;        0            0            0
-## 925        8         0             &lt;NA&gt;        0            0            0
-## 926       14         0             &lt;NA&gt;        0           NA           NA
-## 927       29         0             &lt;NA&gt;        0           NA           NA
-## 928       14         0             &lt;NA&gt;        0           NA           NA
-## 929       27         0             &lt;NA&gt;        0           NA           NA
-## 930       33         0             &lt;NA&gt;        0           NA           NA
-## 931       32         0             &lt;NA&gt;        0           NA           NA
-## 932       27         0             &lt;NA&gt;        0           NA           NA
-## 933       13         0             &lt;NA&gt;        0           NA           NA
-## 934       31         0             &lt;NA&gt;        0           NA           NA
-## 935       46         0             &lt;NA&gt;        0            0            0
-## 936       27         0             &lt;NA&gt;        0           NA           NA
-## 937       39         0             &lt;NA&gt;        0           NA           NA
-## 938      133         0             &lt;NA&gt;        0            0           18
-## 939       26         0             &lt;NA&gt;        0           NA           NA
-## 940       22         0             &lt;NA&gt;        0           NA           NA
-## 941       36         0             &lt;NA&gt;        0           NA           NA
-## 942       41         0             &lt;NA&gt;        0           45            0
-## 943       30         0             &lt;NA&gt;        0           NA           NA
-## 944       51         0             &lt;NA&gt;        0           13            0
-## 945       22         0             &lt;NA&gt;        0           NA           NA
-## 946       15         0             &lt;NA&gt;        0           NA           NA
-## 947       11         0             &lt;NA&gt;        0            8            0
-## 948       27         0             &lt;NA&gt;        0           21            0
-## 949       18         0             &lt;NA&gt;        0           NA           NA
-## 950       14         0             &lt;NA&gt;        0           NA           NA
-## 951       21         0             &lt;NA&gt;        0           NA           NA
-## 952       21         0             &lt;NA&gt;        0           NA           NA
-## 953       18         0             &lt;NA&gt;        0           NA           NA
-## 954       10         0             &lt;NA&gt;        0           NA           NA
-## 955       13         0             &lt;NA&gt;        0           NA           NA
-## 956       15         0             &lt;NA&gt;        0           NA           NA
-## 957       11         0             &lt;NA&gt;        0            0            0
-## 958       12         0             &lt;NA&gt;        0           NA           NA
-## 959       24         0             &lt;NA&gt;        0            0            0
-## 960        9         0             &lt;NA&gt;        0            0            0
-## 961       18         0             &lt;NA&gt;        0           NA           NA
-## 962       21         0             &lt;NA&gt;        0           NA           NA
-## 963       11         0             &lt;NA&gt;        0           NA           NA
-## 964       15         0             &lt;NA&gt;        0            0            0
-## 965       13         0             &lt;NA&gt;        0           NA           NA
-## 966       16         0             &lt;NA&gt;        0           NA           NA
-## 967       13         0             &lt;NA&gt;        0           NA           NA
-## 968       18         0             &lt;NA&gt;        0           NA           NA
-## 969       30         0             &lt;NA&gt;        0            0            0
-## 970       13         0             &lt;NA&gt;        0           NA           NA
-## 971       10         0             &lt;NA&gt;        0            0            0
-## 972        9         0             &lt;NA&gt;        0            0            0
-## 973       12         0             &lt;NA&gt;        0            0            0
-## 974       26         0             &lt;NA&gt;        0            0            0
-## 975       23         0             &lt;NA&gt;        0           NA           NA
-## 976       13         0             &lt;NA&gt;        0           NA           NA
-## 977       13         0             &lt;NA&gt;        0           30            0
-## 978       11         0             &lt;NA&gt;        0           NA           NA
-## 979       13         0             &lt;NA&gt;        0           NA           NA
-## 980       10         0             &lt;NA&gt;        0            0            0
-## 981       14         0             &lt;NA&gt;        0            0           36
-## 982       12         0             &lt;NA&gt;        1           NA           NA
-## 983       12         0             &lt;NA&gt;        0           NA           NA
-## 984       36         0             &lt;NA&gt;        0           NA           NA
-## 985       14         0             &lt;NA&gt;        0           18            0
-## 986       14         0             &lt;NA&gt;        0            0            0
-## 987       22         0             &lt;NA&gt;        0            0            0
-## 988       41         0             &lt;NA&gt;        0            0            0
-## 989       29         0             &lt;NA&gt;        0            0            0
-## 990       15         0             &lt;NA&gt;        0           NA           NA
-## 991       14         0             &lt;NA&gt;        0           NA           NA
-## 992       39         0             &lt;NA&gt;        0            7            0
-## 993       14         0             &lt;NA&gt;        0           NA           NA
-## 994       10         0             &lt;NA&gt;        0           NA           NA
-## 995       12         0             &lt;NA&gt;        0           NA           NA
-## 996       15         0             &lt;NA&gt;        0           10            0
-## 997       15         0             &lt;NA&gt;        0           NA           NA
-## 998       25         0             &lt;NA&gt;        0           NA           NA
-## 999       17         0             &lt;NA&gt;        0           NA           NA
-## 1000      11         0             &lt;NA&gt;        0           NA           NA
-## 1001      17         0             &lt;NA&gt;        0           NA           NA
-## 1002      12         0             &lt;NA&gt;        0            0            0
-## 1003      12         0             &lt;NA&gt;        0           NA           NA
-## 1004      15         0             &lt;NA&gt;        0           NA           NA
-## 1005       8         0             &lt;NA&gt;        0           NA           NA
-## 1006      12         0             &lt;NA&gt;        0           NA           NA
-## 1007      10         0             &lt;NA&gt;        0           NA           NA
-## 1008      10         0             &lt;NA&gt;        0           NA           NA
-## 1009      20         0             &lt;NA&gt;        0           NA           NA
-## 1010      10         0             &lt;NA&gt;        0           NA           NA
-## 1011       9         0             &lt;NA&gt;        0           NA           NA
-## 1012       9         0             &lt;NA&gt;        0           NA           NA
-## 1013      25         0             &lt;NA&gt;        0           NA           NA
-## 1014       9         0             &lt;NA&gt;        0           NA           NA
-## 1015      26         0             &lt;NA&gt;        0           NA           NA
-## 1016      11         0             &lt;NA&gt;        0           NA           NA
-## 1017      13         0             &lt;NA&gt;        0           NA           NA
-## 1018      15         0             &lt;NA&gt;        0           14            0
-## 1019      10         0             &lt;NA&gt;        0           NA           NA
-## 1020      11         0             &lt;NA&gt;        0           NA           NA
-## 1021      29         0             &lt;NA&gt;        0            6            0
-## 1022      11         0             &lt;NA&gt;        0           NA           NA
-## 1023      23         0             &lt;NA&gt;        0           NA           NA
-## 1024      29         0             &lt;NA&gt;        0           NA           NA
+## 917       15         0             <NA>        0           NA           NA
+## 918        8         0             <NA>        0            0            0
+## 919       34         0             <NA>        0            0            0
+## 920       14         0             <NA>        0           NA           NA
+## 921       17         0             <NA>        0           NA           NA
+## 922       15         0             <NA>        0            0            0
+## 923        8         0             <NA>        0           NA           NA
+## 924       10         0             <NA>        0            0            0
+## 925        8         0             <NA>        0            0            0
+## 926       14         0             <NA>        0           NA           NA
+## 927       29         0             <NA>        0           NA           NA
+## 928       14         0             <NA>        0           NA           NA
+## 929       27         0             <NA>        0           NA           NA
+## 930       33         0             <NA>        0           NA           NA
+## 931       32         0             <NA>        0           NA           NA
+## 932       27         0             <NA>        0           NA           NA
+## 933       13         0             <NA>        0           NA           NA
+## 934       31         0             <NA>        0           NA           NA
+## 935       46         0             <NA>        0            0            0
+## 936       27         0             <NA>        0           NA           NA
+## 937       39         0             <NA>        0           NA           NA
+## 938      133         0             <NA>        0            0           18
+## 939       26         0             <NA>        0           NA           NA
+## 940       22         0             <NA>        0           NA           NA
+## 941       36         0             <NA>        0           NA           NA
+## 942       41         0             <NA>        0           45            0
+## 943       30         0             <NA>        0           NA           NA
+## 944       51         0             <NA>        0           13            0
+## 945       22         0             <NA>        0           NA           NA
+## 946       15         0             <NA>        0           NA           NA
+## 947       11         0             <NA>        0            8            0
+## 948       27         0             <NA>        0           21            0
+## 949       18         0             <NA>        0           NA           NA
+## 950       14         0             <NA>        0           NA           NA
+## 951       21         0             <NA>        0           NA           NA
+## 952       21         0             <NA>        0           NA           NA
+## 953       18         0             <NA>        0           NA           NA
+## 954       10         0             <NA>        0           NA           NA
+## 955       13         0             <NA>        0           NA           NA
+## 956       15         0             <NA>        0           NA           NA
+## 957       11         0             <NA>        0            0            0
+## 958       12         0             <NA>        0           NA           NA
+## 959       24         0             <NA>        0            0            0
+## 960        9         0             <NA>        0            0            0
+## 961       18         0             <NA>        0           NA           NA
+## 962       21         0             <NA>        0           NA           NA
+## 963       11         0             <NA>        0           NA           NA
+## 964       15         0             <NA>        0            0            0
+## 965       13         0             <NA>        0           NA           NA
+## 966       16         0             <NA>        0           NA           NA
+## 967       13         0             <NA>        0           NA           NA
+## 968       18         0             <NA>        0           NA           NA
+## 969       30         0             <NA>        0            0            0
+## 970       13         0             <NA>        0           NA           NA
+## 971       10         0             <NA>        0            0            0
+## 972        9         0             <NA>        0            0            0
+## 973       12         0             <NA>        0            0            0
+## 974       26         0             <NA>        0            0            0
+## 975       23         0             <NA>        0           NA           NA
+## 976       13         0             <NA>        0           NA           NA
+## 977       13         0             <NA>        0           30            0
+## 978       11         0             <NA>        0           NA           NA
+## 979       13         0             <NA>        0           NA           NA
+## 980       10         0             <NA>        0            0            0
+## 981       14         0             <NA>        0            0           36
+## 982       12         0             <NA>        1           NA           NA
+## 983       12         0             <NA>        0           NA           NA
+## 984       36         0             <NA>        0           NA           NA
+## 985       14         0             <NA>        0           18            0
+## 986       14         0             <NA>        0            0            0
+## 987       22         0             <NA>        0            0            0
+## 988       41         0             <NA>        0            0            0
+## 989       29         0             <NA>        0            0            0
+## 990       15         0             <NA>        0           NA           NA
+## 991       14         0             <NA>        0           NA           NA
+## 992       39         0             <NA>        0            7            0
+## 993       14         0             <NA>        0           NA           NA
+## 994       10         0             <NA>        0           NA           NA
+## 995       12         0             <NA>        0           NA           NA
+## 996       15         0             <NA>        0           10            0
+## 997       15         0             <NA>        0           NA           NA
+## 998       25         0             <NA>        0           NA           NA
+## 999       17         0             <NA>        0           NA           NA
+## 1000      11         0             <NA>        0           NA           NA
+## 1001      17         0             <NA>        0           NA           NA
+## 1002      12         0             <NA>        0            0            0
+## 1003      12         0             <NA>        0           NA           NA
+## 1004      15         0             <NA>        0           NA           NA
+## 1005       8         0             <NA>        0           NA           NA
+## 1006      12         0             <NA>        0           NA           NA
+## 1007      10         0             <NA>        0           NA           NA
+## 1008      10         0             <NA>        0           NA           NA
+## 1009      20         0             <NA>        0           NA           NA
+## 1010      10         0             <NA>        0           NA           NA
+## 1011       9         0             <NA>        0           NA           NA
+## 1012       9         0             <NA>        0           NA           NA
+## 1013      25         0             <NA>        0           NA           NA
+## 1014       9         0             <NA>        0           NA           NA
+## 1015      26         0             <NA>        0           NA           NA
+## 1016      11         0             <NA>        0           NA           NA
+## 1017      13         0             <NA>        0           NA           NA
+## 1018      15         0             <NA>        0           14            0
+## 1019      10         0             <NA>        0           NA           NA
+## 1020      11         0             <NA>        0           NA           NA
+## 1021      29         0             <NA>        0            6            0
+## 1022      11         0             <NA>        0           NA           NA
+## 1023      23         0             <NA>        0           NA           NA
+## 1024      29         0             <NA>        0           NA           NA
 ## 1025      NA         1                A        0           NA           NA
-## 1026       8         0             &lt;NA&gt;        0           NA           NA
-## 1027      15         0             &lt;NA&gt;        0            0            0
-## 1028       9         0             &lt;NA&gt;        0           NA           NA
-## 1029       7         0             &lt;NA&gt;        0           NA           NA
-## 1030       7         0             &lt;NA&gt;        0           NA           NA
-## 1031       9         0             &lt;NA&gt;        0           NA           NA
-## 1032       6         0             &lt;NA&gt;        0           NA           NA
-## 1033      11         0             &lt;NA&gt;        0           NA           NA
-## 1034       9         0             &lt;NA&gt;        0           NA           NA
-## 1035      11         0             &lt;NA&gt;        0           NA           NA
-## 1036      10         0             &lt;NA&gt;        0           NA           NA
-## 1037       7         0             &lt;NA&gt;        0           NA           NA
-## 1038       6         0             &lt;NA&gt;        0           NA           NA
-## 1039       8         0             &lt;NA&gt;        0           NA           NA
-## 1040       7         0             &lt;NA&gt;        0           NA           NA
-## 1041       7         0             &lt;NA&gt;        0           NA           NA
-## 1042       5         0             &lt;NA&gt;        0           NA           NA
-## 1043       8         0             &lt;NA&gt;        0           NA           NA
-## 1044       6         0             &lt;NA&gt;        0           NA           NA
-## 1045       7         0             &lt;NA&gt;        0           NA           NA
-## 1046       5         0             &lt;NA&gt;        0           NA           NA
-## 1047       7         0             &lt;NA&gt;        0           NA           NA
-## 1048       8         0             &lt;NA&gt;        0           NA           NA
-## 1049       7         0             &lt;NA&gt;        0           NA           NA
-## 1050       7         0             &lt;NA&gt;        0           NA           NA
-## 1051       9         0             &lt;NA&gt;        0           NA           NA
-## 1052      11         0             &lt;NA&gt;        0           NA           NA
-## 1053       5         0             &lt;NA&gt;        0           NA           NA
-## 1054      10         0             &lt;NA&gt;        0           NA           NA
-## 1055       6         0             &lt;NA&gt;        0           NA           NA
-## 1056       8         0             &lt;NA&gt;        0           NA           NA
-## 1057       6         0             &lt;NA&gt;        0           NA           NA
-## 1058       6         0             &lt;NA&gt;        0           NA           NA
-## 1059       6         0             &lt;NA&gt;        0           NA           NA
-## 1060      10         0             &lt;NA&gt;        0           NA           NA
-## 1061       9         0             &lt;NA&gt;        0           NA           NA
-## 1062       8         0             &lt;NA&gt;        0           NA           NA
-## 1063       9         0             &lt;NA&gt;        0           NA           NA
-## 1064      11         0             &lt;NA&gt;        0           NA           NA
-## 1065      27         0             &lt;NA&gt;        0           NA           NA
-## 1066      25         0             &lt;NA&gt;        0           NA           NA
-## 1067      10         0             &lt;NA&gt;        0           NA           NA
-## 1068      31         0             &lt;NA&gt;        0           NA           NA
-## 1069      30         0             &lt;NA&gt;        0           NA           NA
-## 1070       9         0             &lt;NA&gt;        0            0            0
-## 1071      17         0             &lt;NA&gt;        0           35            0
-## 1072      22         0             &lt;NA&gt;        0           NA           NA
-## 1073      18         0             &lt;NA&gt;        0           NA           NA
-## 1074      11         0             &lt;NA&gt;        0           NA           NA
-## 1075      16         0             &lt;NA&gt;        0           NA           NA
-## 1076      18         0             &lt;NA&gt;        0           NA           NA
-## 1077      13         0             &lt;NA&gt;        0           NA           NA
-## 1078      40         0             &lt;NA&gt;        0           NA           NA
-## 1079      26         0             &lt;NA&gt;        0           NA           NA
-## 1080      14         0             &lt;NA&gt;        0           NA           NA
-## 1081      19         0             &lt;NA&gt;        0           NA           NA
+## 1026       8         0             <NA>        0           NA           NA
+## 1027      15         0             <NA>        0            0            0
+## 1028       9         0             <NA>        0           NA           NA
+## 1029       7         0             <NA>        0           NA           NA
+## 1030       7         0             <NA>        0           NA           NA
+## 1031       9         0             <NA>        0           NA           NA
+## 1032       6         0             <NA>        0           NA           NA
+## 1033      11         0             <NA>        0           NA           NA
+## 1034       9         0             <NA>        0           NA           NA
+## 1035      11         0             <NA>        0           NA           NA
+## 1036      10         0             <NA>        0           NA           NA
+## 1037       7         0             <NA>        0           NA           NA
+## 1038       6         0             <NA>        0           NA           NA
+## 1039       8         0             <NA>        0           NA           NA
+## 1040       7         0             <NA>        0           NA           NA
+## 1041       7         0             <NA>        0           NA           NA
+## 1042       5         0             <NA>        0           NA           NA
+## 1043       8         0             <NA>        0           NA           NA
+## 1044       6         0             <NA>        0           NA           NA
+## 1045       7         0             <NA>        0           NA           NA
+## 1046       5         0             <NA>        0           NA           NA
+## 1047       7         0             <NA>        0           NA           NA
+## 1048       8         0             <NA>        0           NA           NA
+## 1049       7         0             <NA>        0           NA           NA
+## 1050       7         0             <NA>        0           NA           NA
+## 1051       9         0             <NA>        0           NA           NA
+## 1052      11         0             <NA>        0           NA           NA
+## 1053       5         0             <NA>        0           NA           NA
+## 1054      10         0             <NA>        0           NA           NA
+## 1055       6         0             <NA>        0           NA           NA
+## 1056       8         0             <NA>        0           NA           NA
+## 1057       6         0             <NA>        0           NA           NA
+## 1058       6         0             <NA>        0           NA           NA
+## 1059       6         0             <NA>        0           NA           NA
+## 1060      10         0             <NA>        0           NA           NA
+## 1061       9         0             <NA>        0           NA           NA
+## 1062       8         0             <NA>        0           NA           NA
+## 1063       9         0             <NA>        0           NA           NA
+## 1064      11         0             <NA>        0           NA           NA
+## 1065      27         0             <NA>        0           NA           NA
+## 1066      25         0             <NA>        0           NA           NA
+## 1067      10         0             <NA>        0           NA           NA
+## 1068      31         0             <NA>        0           NA           NA
+## 1069      30         0             <NA>        0           NA           NA
+## 1070       9         0             <NA>        0            0            0
+## 1071      17         0             <NA>        0           35            0
+## 1072      22         0             <NA>        0           NA           NA
+## 1073      18         0             <NA>        0           NA           NA
+## 1074      11         0             <NA>        0           NA           NA
+## 1075      16         0             <NA>        0           NA           NA
+## 1076      18         0             <NA>        0           NA           NA
+## 1077      13         0             <NA>        0           NA           NA
+## 1078      40         0             <NA>        0           NA           NA
+## 1079      26         0             <NA>        0           NA           NA
+## 1080      14         0             <NA>        0           NA           NA
+## 1081      19         0             <NA>        0           NA           NA
 ## 1082      NA         1                A        0           NA           NA
-## 1083      45         0             &lt;NA&gt;        0            0            0
-## 1084      37         0             &lt;NA&gt;        0           NA           NA
-## 1085      21         0             &lt;NA&gt;        0          157            0
-## 1086      47         0             &lt;NA&gt;        0            0            0
-## 1087      21         0             &lt;NA&gt;        0           NA           NA
-## 1088      13         0             &lt;NA&gt;        0           NA           NA
-## 1089      41         0             &lt;NA&gt;        0           NA           NA
-## 1090      41         0             &lt;NA&gt;        0            0            0
-## 1091      12         0             &lt;NA&gt;        0           NA           NA
-## 1092      13         0             &lt;NA&gt;        0            1            0
-## 1093      14         0             &lt;NA&gt;        0           NA           NA
-## 1094      26         0             &lt;NA&gt;        0           NA           NA
-## 1095      18         0             &lt;NA&gt;        0           NA           NA
-## 1096      23         0             &lt;NA&gt;        0           NA           NA
-## 1097      12         0             &lt;NA&gt;        0           NA           NA
-## 1098      23         0             &lt;NA&gt;        0           NA           NA
-## 1099      11         0             &lt;NA&gt;        0           NA           NA
-## 1100      18         0             &lt;NA&gt;        0           NA           NA
-## 1101      39         0             &lt;NA&gt;        0           39           41
-## 1102      12         0             &lt;NA&gt;        0           NA           NA
-## 1103      11         0             &lt;NA&gt;        0            0            0
-## 1104      15         0             &lt;NA&gt;        0           NA           NA
-## 1105      26         0             &lt;NA&gt;        0           NA           NA
-## 1106      20         0             &lt;NA&gt;        0           NA           NA
+## 1083      45         0             <NA>        0            0            0
+## 1084      37         0             <NA>        0           NA           NA
+## 1085      21         0             <NA>        0          157            0
+## 1086      47         0             <NA>        0            0            0
+## 1087      21         0             <NA>        0           NA           NA
+## 1088      13         0             <NA>        0           NA           NA
+## 1089      41         0             <NA>        0           NA           NA
+## 1090      41         0             <NA>        0            0            0
+## 1091      12         0             <NA>        0           NA           NA
+## 1092      13         0             <NA>        0            1            0
+## 1093      14         0             <NA>        0           NA           NA
+## 1094      26         0             <NA>        0           NA           NA
+## 1095      18         0             <NA>        0           NA           NA
+## 1096      23         0             <NA>        0           NA           NA
+## 1097      12         0             <NA>        0           NA           NA
+## 1098      23         0             <NA>        0           NA           NA
+## 1099      11         0             <NA>        0           NA           NA
+## 1100      18         0             <NA>        0           NA           NA
+## 1101      39         0             <NA>        0           39           41
+## 1102      12         0             <NA>        0           NA           NA
+## 1103      11         0             <NA>        0            0            0
+## 1104      15         0             <NA>        0           NA           NA
+## 1105      26         0             <NA>        0           NA           NA
+## 1106      20         0             <NA>        0           NA           NA
 ## 1107      NA         1                A        0           NA           NA
-## 1108      15         0             &lt;NA&gt;        0           NA           NA
-## 1109      22         0             &lt;NA&gt;        0            0            0
-## 1110      39         0             &lt;NA&gt;        0            0           25
-## 1111      16         0             &lt;NA&gt;        0          108            0
-## 1112      12         0             &lt;NA&gt;        0            0            0
-## 1113      16         0             &lt;NA&gt;        0            0            0
-## 1114      13         0             &lt;NA&gt;        0            0            0
-## 1115      11         0             &lt;NA&gt;        0           NA           NA
-## 1116      10         0             &lt;NA&gt;        0           NA           NA
-## 1117      20         0             &lt;NA&gt;        0           NA           NA
-## 1118      10         0             &lt;NA&gt;        0           NA           NA
-## 1119      40         0             &lt;NA&gt;        0            0            0
-## 1120      19         0             &lt;NA&gt;        0            0            0
-## 1121      23         0             &lt;NA&gt;        0           NA           NA
-## 1122      20         0             &lt;NA&gt;        0           90            0
-## 1123      17         0             &lt;NA&gt;        0           NA           NA
-## 1124      10         0             &lt;NA&gt;        0           NA           NA
-## 1125      26         0             &lt;NA&gt;        0           NA           NA
-## 1126      13         0             &lt;NA&gt;        0            0          189
-## 1127      14         0             &lt;NA&gt;        0          152            0
-## 1128      18         0             &lt;NA&gt;        0           NA           NA
-## 1129       9         0             &lt;NA&gt;        0            0            0
-## 1130      14         0             &lt;NA&gt;        0           NA           NA
-## 1131      14         0             &lt;NA&gt;        0            0            0
-## 1132      12         0             &lt;NA&gt;        0           NA           NA
-## 1133      11         0             &lt;NA&gt;        0           NA           NA
-## 1134      13         0             &lt;NA&gt;        0            4            0
-## 1135      12         0             &lt;NA&gt;        0           NA           NA
-## 1136      27         0             &lt;NA&gt;        0            0            0
-## 1137      21         0             &lt;NA&gt;        0           NA           NA
-## 1138      26         0             &lt;NA&gt;        0           NA           NA
-## 1139       9         0             &lt;NA&gt;        0           NA           NA
-## 1140      15         0             &lt;NA&gt;        0            0           24
-## 1141       8         0             &lt;NA&gt;        0           NA           NA
-## 1142      12         0             &lt;NA&gt;        0            0           13
-## 1143      12         0             &lt;NA&gt;        0           NA           NA
-## 1144       8         0             &lt;NA&gt;        0           NA           NA
-## 1145      14         0             &lt;NA&gt;        0            0            0
-## 1146      31         0             &lt;NA&gt;        0            0            0
-## 1147      13         0             &lt;NA&gt;        0           NA           NA
-## 1148      14         0             &lt;NA&gt;        0           NA           NA
-## 1149      16         0             &lt;NA&gt;        0            5            0
-## 1150      11         0             &lt;NA&gt;        0           NA           NA
-## 1151       9         0             &lt;NA&gt;        0           NA           NA
-## 1152       9         0             &lt;NA&gt;        0            0            0
-## 1153      27         0             &lt;NA&gt;        0            0            0
-## 1154      11         0             &lt;NA&gt;        0           NA           NA
-## 1155       8         0             &lt;NA&gt;        0            0            0
-## 1156       9         0             &lt;NA&gt;        0            0            0
-## 1157      12         0             &lt;NA&gt;        0            0           16
-## 1158      10         0             &lt;NA&gt;        0            0            0
-## 1159       6         0             &lt;NA&gt;        0           NA           NA
-## 1160       4         0             &lt;NA&gt;        0           NA           NA
-## 1161      10         0             &lt;NA&gt;        0           NA           NA
-## 1162      11         0             &lt;NA&gt;        0           NA           NA
-## 1163       7         0             &lt;NA&gt;        0           NA           NA
-## 1164       5         0             &lt;NA&gt;        0            0            0
-## 1165      11         0             &lt;NA&gt;        0           NA           NA
-## 1166       7         0             &lt;NA&gt;        0            0            0
-## 1167      13         0             &lt;NA&gt;        0            0            0
-## 1168       7         0             &lt;NA&gt;        0           NA           NA
-## 1169      15         0             &lt;NA&gt;        0           NA           NA
-## 1170       8         0             &lt;NA&gt;        0           NA           NA
-## 1171      31         0             &lt;NA&gt;        0            0            6
-## 1172      13         0             &lt;NA&gt;        0           21            0
-## 1173       6         0             &lt;NA&gt;        0           NA           NA
-## 1174      10         0             &lt;NA&gt;        0           10            0
-## 1175       7         0             &lt;NA&gt;        0           NA           NA
-## 1176      19         0             &lt;NA&gt;        0            0            0
-## 1177      10         0             &lt;NA&gt;        0            0            0
-## 1178      21         0             &lt;NA&gt;        0           NA           NA
-## 1179      10         0             &lt;NA&gt;        0           NA           NA
-## 1180      12         0             &lt;NA&gt;        0           NA           NA
-## 1181       9         0             &lt;NA&gt;        0           NA           NA
-## 1182       7         0             &lt;NA&gt;        0           NA           NA
-## 1183      19         0             &lt;NA&gt;        0           NA           NA
-## 1184      11         0             &lt;NA&gt;        0           NA           NA
-## 1185      13         0             &lt;NA&gt;        0           NA           NA
+## 1108      15         0             <NA>        0           NA           NA
+## 1109      22         0             <NA>        0            0            0
+## 1110      39         0             <NA>        0            0           25
+## 1111      16         0             <NA>        0          108            0
+## 1112      12         0             <NA>        0            0            0
+## 1113      16         0             <NA>        0            0            0
+## 1114      13         0             <NA>        0            0            0
+## 1115      11         0             <NA>        0           NA           NA
+## 1116      10         0             <NA>        0           NA           NA
+## 1117      20         0             <NA>        0           NA           NA
+## 1118      10         0             <NA>        0           NA           NA
+## 1119      40         0             <NA>        0            0            0
+## 1120      19         0             <NA>        0            0            0
+## 1121      23         0             <NA>        0           NA           NA
+## 1122      20         0             <NA>        0           90            0
+## 1123      17         0             <NA>        0           NA           NA
+## 1124      10         0             <NA>        0           NA           NA
+## 1125      26         0             <NA>        0           NA           NA
+## 1126      13         0             <NA>        0            0          189
+## 1127      14         0             <NA>        0          152            0
+## 1128      18         0             <NA>        0           NA           NA
+## 1129       9         0             <NA>        0            0            0
+## 1130      14         0             <NA>        0           NA           NA
+## 1131      14         0             <NA>        0            0            0
+## 1132      12         0             <NA>        0           NA           NA
+## 1133      11         0             <NA>        0           NA           NA
+## 1134      13         0             <NA>        0            4            0
+## 1135      12         0             <NA>        0           NA           NA
+## 1136      27         0             <NA>        0            0            0
+## 1137      21         0             <NA>        0           NA           NA
+## 1138      26         0             <NA>        0           NA           NA
+## 1139       9         0             <NA>        0           NA           NA
+## 1140      15         0             <NA>        0            0           24
+## 1141       8         0             <NA>        0           NA           NA
+## 1142      12         0             <NA>        0            0           13
+## 1143      12         0             <NA>        0           NA           NA
+## 1144       8         0             <NA>        0           NA           NA
+## 1145      14         0             <NA>        0            0            0
+## 1146      31         0             <NA>        0            0            0
+## 1147      13         0             <NA>        0           NA           NA
+## 1148      14         0             <NA>        0           NA           NA
+## 1149      16         0             <NA>        0            5            0
+## 1150      11         0             <NA>        0           NA           NA
+## 1151       9         0             <NA>        0           NA           NA
+## 1152       9         0             <NA>        0            0            0
+## 1153      27         0             <NA>        0            0            0
+## 1154      11         0             <NA>        0           NA           NA
+## 1155       8         0             <NA>        0            0            0
+## 1156       9         0             <NA>        0            0            0
+## 1157      12         0             <NA>        0            0           16
+## 1158      10         0             <NA>        0            0            0
+## 1159       6         0             <NA>        0           NA           NA
+## 1160       4         0             <NA>        0           NA           NA
+## 1161      10         0             <NA>        0           NA           NA
+## 1162      11         0             <NA>        0           NA           NA
+## 1163       7         0             <NA>        0           NA           NA
+## 1164       5         0             <NA>        0            0            0
+## 1165      11         0             <NA>        0           NA           NA
+## 1166       7         0             <NA>        0            0            0
+## 1167      13         0             <NA>        0            0            0
+## 1168       7         0             <NA>        0           NA           NA
+## 1169      15         0             <NA>        0           NA           NA
+## 1170       8         0             <NA>        0           NA           NA
+## 1171      31         0             <NA>        0            0            6
+## 1172      13         0             <NA>        0           21            0
+## 1173       6         0             <NA>        0           NA           NA
+## 1174      10         0             <NA>        0           10            0
+## 1175       7         0             <NA>        0           NA           NA
+## 1176      19         0             <NA>        0            0            0
+## 1177      10         0             <NA>        0            0            0
+## 1178      21         0             <NA>        0           NA           NA
+## 1179      10         0             <NA>        0           NA           NA
+## 1180      12         0             <NA>        0           NA           NA
+## 1181       9         0             <NA>        0           NA           NA
+## 1182       7         0             <NA>        0           NA           NA
+## 1183      19         0             <NA>        0           NA           NA
+## 1184      11         0             <NA>        0           NA           NA
+## 1185      13         0             <NA>        0           NA           NA
 ## 1186      NA         1                B        0           NA           NA
-## 1187      14         0             &lt;NA&gt;        0           NA           NA
-## 1188      12         0             &lt;NA&gt;        1           NA           NA
-## 1189      15         0             &lt;NA&gt;        0           NA           NA
-## 1190      17         0             &lt;NA&gt;        0           NA           NA
-## 1191      13         0             &lt;NA&gt;        0           NA           NA
-## 1192      14         0             &lt;NA&gt;        0           18            0
-## 1193      13         0             &lt;NA&gt;        0           15            0
-## 1194      14         0             &lt;NA&gt;        0           NA           NA
-## 1195      11         0             &lt;NA&gt;        0           NA           NA
-## 1196      15         0             &lt;NA&gt;        0           NA           NA
-## 1197      13         0             &lt;NA&gt;        0           NA           NA
-## 1198      13         0             &lt;NA&gt;        0           NA           NA
-## 1199      15         0             &lt;NA&gt;        0           NA           NA
-## 1200      11         0             &lt;NA&gt;        0           NA           NA
-## 1201      30         0             &lt;NA&gt;        0           NA           NA
-## 1202      13         0             &lt;NA&gt;        0           NA           NA
-## 1203      15         0             &lt;NA&gt;        0           NA           NA
-## 1204      16         0             &lt;NA&gt;        0           47            0
-## 1205      13         0             &lt;NA&gt;        0           NA           NA
-## 1206      13         0             &lt;NA&gt;        0            8            0
-## 1207      11         0             &lt;NA&gt;        0           56            0
-## 1208      13         0             &lt;NA&gt;        0           23            0
-## 1209      10         0             &lt;NA&gt;        0           NA           NA
+## 1187      14         0             <NA>        0           NA           NA
+## 1188      12         0             <NA>        1           NA           NA
+## 1189      15         0             <NA>        0           NA           NA
+## 1190      17         0             <NA>        0           NA           NA
+## 1191      13         0             <NA>        0           NA           NA
+## 1192      14         0             <NA>        0           18            0
+## 1193      13         0             <NA>        0           15            0
+## 1194      14         0             <NA>        0           NA           NA
+## 1195      11         0             <NA>        0           NA           NA
+## 1196      15         0             <NA>        0           NA           NA
+## 1197      13         0             <NA>        0           NA           NA
+## 1198      13         0             <NA>        0           NA           NA
+## 1199      15         0             <NA>        0           NA           NA
+## 1200      11         0             <NA>        0           NA           NA
+## 1201      30         0             <NA>        0           NA           NA
+## 1202      13         0             <NA>        0           NA           NA
+## 1203      15         0             <NA>        0           NA           NA
+## 1204      16         0             <NA>        0           47            0
+## 1205      13         0             <NA>        0           NA           NA
+## 1206      13         0             <NA>        0            8            0
+## 1207      11         0             <NA>        0           56            0
+## 1208      13         0             <NA>        0           23            0
+## 1209      10         0             <NA>        0           NA           NA
 ## 1210      NA         1                B        0           NA           NA
-## 1211       8         0             &lt;NA&gt;        0           38            0
+## 1211       8         0             <NA>        0           38            0
 ## 1212      NA         1                B        0           NA           NA
-## 1213       4         0             &lt;NA&gt;        0           NA           NA
-## 1214       7         0             &lt;NA&gt;        0           NA           NA
-## 1215       7         0             &lt;NA&gt;        0           NA           NA
-## 1216      11         0             &lt;NA&gt;        0            0            0
-## 1217      41         0             &lt;NA&gt;        0            0            0
-## 1218       8         0             &lt;NA&gt;        0           NA           NA
-## 1219       6         0             &lt;NA&gt;        0           NA           NA
-## 1220       6         0             &lt;NA&gt;        0           NA           NA
-## 1221       9         0             &lt;NA&gt;        0           NA           NA
-## 1222       8         0             &lt;NA&gt;        0           NA           NA
-## 1223      12         0             &lt;NA&gt;        0           NA           NA
-## 1224      13         0             &lt;NA&gt;        0           NA           NA
-## 1225       9         0             &lt;NA&gt;        0           NA           NA
-## 1226       5         0             &lt;NA&gt;        0           NA           NA
-## 1227       8         0             &lt;NA&gt;        0           NA           NA
-## 1228      19         0             &lt;NA&gt;        0            0            0
-## 1229       8         0             &lt;NA&gt;        0           NA           NA
-## 1230       7         0             &lt;NA&gt;        0           NA           NA
-## 1231      11         0             &lt;NA&gt;        0            0            0
-## 1232       6         0             &lt;NA&gt;        0            0            0
-## 1233      11         0             &lt;NA&gt;        0           NA           NA
-## 1234      22         0             &lt;NA&gt;        0           18            0
-## 1235       9         0             &lt;NA&gt;        0           19            0
-## 1236       8         0             &lt;NA&gt;        0           53            0
-## 1237      11         0             &lt;NA&gt;        0           NA           NA
-## 1238      11         0             &lt;NA&gt;        0           45            0
-## 1239       7         0             &lt;NA&gt;        0           96            0
-## 1240      12         0             &lt;NA&gt;        0           NA           NA
-## 1241       8         0             &lt;NA&gt;        0           NA           NA
-## 1242       9         0             &lt;NA&gt;        0           NA           NA
-## 1243      23         0             &lt;NA&gt;        0           56            0
-## 1244      10         0             &lt;NA&gt;        0           NA           NA
-## 1245      20         0             &lt;NA&gt;        0           NA           NA
-## 1246      14         0             &lt;NA&gt;        0           NA           NA
-## 1247      20         0             &lt;NA&gt;        0           NA           NA
+## 1213       4         0             <NA>        0           NA           NA
+## 1214       7         0             <NA>        0           NA           NA
+## 1215       7         0             <NA>        0           NA           NA
+## 1216      11         0             <NA>        0            0            0
+## 1217      41         0             <NA>        0            0            0
+## 1218       8         0             <NA>        0           NA           NA
+## 1219       6         0             <NA>        0           NA           NA
+## 1220       6         0             <NA>        0           NA           NA
+## 1221       9         0             <NA>        0           NA           NA
+## 1222       8         0             <NA>        0           NA           NA
+## 1223      12         0             <NA>        0           NA           NA
+## 1224      13         0             <NA>        0           NA           NA
+## 1225       9         0             <NA>        0           NA           NA
+## 1226       5         0             <NA>        0           NA           NA
+## 1227       8         0             <NA>        0           NA           NA
+## 1228      19         0             <NA>        0            0            0
+## 1229       8         0             <NA>        0           NA           NA
+## 1230       7         0             <NA>        0           NA           NA
+## 1231      11         0             <NA>        0            0            0
+## 1232       6         0             <NA>        0            0            0
+## 1233      11         0             <NA>        0           NA           NA
+## 1234      22         0             <NA>        0           18            0
+## 1235       9         0             <NA>        0           19            0
+## 1236       8         0             <NA>        0           53            0
+## 1237      11         0             <NA>        0           NA           NA
+## 1238      11         0             <NA>        0           45            0
+## 1239       7         0             <NA>        0           96            0
+## 1240      12         0             <NA>        0           NA           NA
+## 1241       8         0             <NA>        0           NA           NA
+## 1242       9         0             <NA>        0           NA           NA
+## 1243      23         0             <NA>        0           56            0
+## 1244      10         0             <NA>        0           NA           NA
+## 1245      20         0             <NA>        0           NA           NA
+## 1246      14         0             <NA>        0           NA           NA
+## 1247      20         0             <NA>        0           NA           NA
 ## 1248      NA         1                B        0           NA           NA
-## 1249      20         0             &lt;NA&gt;        0           NA           NA
-## 1250      22         0             &lt;NA&gt;        0           NA           NA
-## 1251      17         0             &lt;NA&gt;        0           NA           NA
-## 1252      17         0             &lt;NA&gt;        0           NA           NA
-## 1253      18         0             &lt;NA&gt;        0           NA           NA
-## 1254      17         0             &lt;NA&gt;        0           NA           NA
-## 1255      36         0             &lt;NA&gt;        0            0           30
-## 1256      14         0             &lt;NA&gt;        0           NA           NA
-## 1257      12         0             &lt;NA&gt;        0           NA           NA
-## 1258      15         0             &lt;NA&gt;        0           NA           NA
-## 1259      86         0             &lt;NA&gt;        0            0           34
-## 1260      19         0             &lt;NA&gt;        0           11            0
-## 1261      16         0             &lt;NA&gt;        0           NA           NA
-## 1262      12         0             &lt;NA&gt;        0           27            0
-## 1263      14         0             &lt;NA&gt;        0           NA           NA
-## 1264      19         0             &lt;NA&gt;        0           59            0
-## 1265      15         0             &lt;NA&gt;        0            5            0
-## 1266      13         0             &lt;NA&gt;        0           NA           NA
-## 1267      18         0             &lt;NA&gt;        0           NA           NA
-## 1268      23         0             &lt;NA&gt;        0           NA           NA
-## 1269      26         0             &lt;NA&gt;        0            5            0
-## 1270      15         0             &lt;NA&gt;        0           NA           NA
-## 1271      36         0             &lt;NA&gt;        0            0           67
-## 1272      17         0             &lt;NA&gt;        0           NA           NA
-## 1273      27         0             &lt;NA&gt;        0            0            0
-## 1274      20         0             &lt;NA&gt;        0           NA           NA
-## 1275      24         0             &lt;NA&gt;        0           NA           NA
-## 1276      23         0             &lt;NA&gt;        0            0            0
-## 1277      28         0             &lt;NA&gt;        0           NA           NA
-## 1278      22         0             &lt;NA&gt;        0            0            0
-## 1279      17         0             &lt;NA&gt;        0            0            0
-## 1280      14         0             &lt;NA&gt;        0           60            0
-## 1281      24         0             &lt;NA&gt;        0           NA           NA
-## 1282      27         0             &lt;NA&gt;        0            0            0
-## 1283      16         0             &lt;NA&gt;        0           NA           NA
-## 1284      14         0             &lt;NA&gt;        0           NA           NA
-## 1285       9         0             &lt;NA&gt;        0           NA           NA
-## 1286      13         0             &lt;NA&gt;        0           18            0
-## 1287      19         0             &lt;NA&gt;        0           13            0
-## 1288      21         0             &lt;NA&gt;        0          112            0
-## 1289      24         0             &lt;NA&gt;        0           NA           NA
-## 1290      37         0             &lt;NA&gt;        0            0            0
-## 1291      12         0             &lt;NA&gt;        0            0            0
-## 1292      19         0             &lt;NA&gt;        0            0            0
-## 1293      16         0             &lt;NA&gt;        0           NA           NA
-## 1294      16         0             &lt;NA&gt;        0           NA           NA
-## 1295      23         0             &lt;NA&gt;        0            0            0
-## 1296      16         0             &lt;NA&gt;        0           NA           NA
-## 1297      24         0             &lt;NA&gt;        0           NA           NA
-## 1298      22         0             &lt;NA&gt;        0            0            0
-## 1299      20         0             &lt;NA&gt;        0           NA           NA
-## 1300      19         0             &lt;NA&gt;        0            0            0
-## 1301      11         0             &lt;NA&gt;        0           NA           NA
-## 1302      10         0             &lt;NA&gt;        0           NA           NA
-## 1303      10         0             &lt;NA&gt;        0           NA           NA
-## 1304      24         0             &lt;NA&gt;        0           NA           NA
-## 1305      11         0             &lt;NA&gt;        0           NA           NA
-## 1306      14         0             &lt;NA&gt;        0           84            0
-## 1307      16         0             &lt;NA&gt;        0           NA           NA
-## 1308       8         0             &lt;NA&gt;        0           NA           NA
-## 1309      13         0             &lt;NA&gt;        0           NA           NA
-## 1310      33         0             &lt;NA&gt;        0           NA           NA
-## 1311      11         0             &lt;NA&gt;        0           NA           NA
-## 1312      14         0             &lt;NA&gt;        0           11            0
-## 1313      35         0             &lt;NA&gt;        0           NA           NA
-## 1314      33         0             &lt;NA&gt;        0           NA           NA
-## 1315      24         0             &lt;NA&gt;        0           NA           NA
-## 1316      11         0             &lt;NA&gt;        0            0            0
-## 1317      14         0             &lt;NA&gt;        0           NA           NA
-## 1318      18         0             &lt;NA&gt;        0           NA           NA
-## 1319      10         0             &lt;NA&gt;        0           NA           NA
-## 1320      45         0             &lt;NA&gt;        0            0            0
-## 1321      17         0             &lt;NA&gt;        0           NA           NA
-## 1322      10         0             &lt;NA&gt;        0           14            0
-## 1323      10         0             &lt;NA&gt;        0            0            0
-## 1324      10         0             &lt;NA&gt;        0           NA           NA
-## 1325      15         0             &lt;NA&gt;        0           NA           NA
-## 1326      10         0             &lt;NA&gt;        0           NA           NA
-## 1327      10         0             &lt;NA&gt;        0           NA           NA
-## 1328      14         0             &lt;NA&gt;        0           NA           NA
-## 1329      12         0             &lt;NA&gt;        0           NA           NA
-## 1330      13         0             &lt;NA&gt;        0           NA           NA
-## 1331      12         0             &lt;NA&gt;        0           NA           NA
-## 1332      19         0             &lt;NA&gt;        0            0            0
-## 1333      23         0             &lt;NA&gt;        0           NA           NA
-## 1334      46         0             &lt;NA&gt;        0            0            0
-## 1335      19         0             &lt;NA&gt;        0            6            0
-## 1336      29         0             &lt;NA&gt;        0            0            0
-## 1337      37         0             &lt;NA&gt;        0           NA           NA
-## 1338      37         0             &lt;NA&gt;        0           NA           NA
-## 1339      35         0             &lt;NA&gt;        0           NA           NA
-## 1340      12         0             &lt;NA&gt;        0           NA           NA
-## 1341      27         0             &lt;NA&gt;        0           13            0
+## 1249      20         0             <NA>        0           NA           NA
+## 1250      22         0             <NA>        0           NA           NA
+## 1251      17         0             <NA>        0           NA           NA
+## 1252      17         0             <NA>        0           NA           NA
+## 1253      18         0             <NA>        0           NA           NA
+## 1254      17         0             <NA>        0           NA           NA
+## 1255      36         0             <NA>        0            0           30
+## 1256      14         0             <NA>        0           NA           NA
+## 1257      12         0             <NA>        0           NA           NA
+## 1258      15         0             <NA>        0           NA           NA
+## 1259      86         0             <NA>        0            0           34
+## 1260      19         0             <NA>        0           11            0
+## 1261      16         0             <NA>        0           NA           NA
+## 1262      12         0             <NA>        0           27            0
+## 1263      14         0             <NA>        0           NA           NA
+## 1264      19         0             <NA>        0           59            0
+## 1265      15         0             <NA>        0            5            0
+## 1266      13         0             <NA>        0           NA           NA
+## 1267      18         0             <NA>        0           NA           NA
+## 1268      23         0             <NA>        0           NA           NA
+## 1269      26         0             <NA>        0            5            0
+## 1270      15         0             <NA>        0           NA           NA
+## 1271      36         0             <NA>        0            0           67
+## 1272      17         0             <NA>        0           NA           NA
+## 1273      27         0             <NA>        0            0            0
+## 1274      20         0             <NA>        0           NA           NA
+## 1275      24         0             <NA>        0           NA           NA
+## 1276      23         0             <NA>        0            0            0
+## 1277      28         0             <NA>        0           NA           NA
+## 1278      22         0             <NA>        0            0            0
+## 1279      17         0             <NA>        0            0            0
+## 1280      14         0             <NA>        0           60            0
+## 1281      24         0             <NA>        0           NA           NA
+## 1282      27         0             <NA>        0            0            0
+## 1283      16         0             <NA>        0           NA           NA
+## 1284      14         0             <NA>        0           NA           NA
+## 1285       9         0             <NA>        0           NA           NA
+## 1286      13         0             <NA>        0           18            0
+## 1287      19         0             <NA>        0           13            0
+## 1288      21         0             <NA>        0          112            0
+## 1289      24         0             <NA>        0           NA           NA
+## 1290      37         0             <NA>        0            0            0
+## 1291      12         0             <NA>        0            0            0
+## 1292      19         0             <NA>        0            0            0
+## 1293      16         0             <NA>        0           NA           NA
+## 1294      16         0             <NA>        0           NA           NA
+## 1295      23         0             <NA>        0            0            0
+## 1296      16         0             <NA>        0           NA           NA
+## 1297      24         0             <NA>        0           NA           NA
+## 1298      22         0             <NA>        0            0            0
+## 1299      20         0             <NA>        0           NA           NA
+## 1300      19         0             <NA>        0            0            0
+## 1301      11         0             <NA>        0           NA           NA
+## 1302      10         0             <NA>        0           NA           NA
+## 1303      10         0             <NA>        0           NA           NA
+## 1304      24         0             <NA>        0           NA           NA
+## 1305      11         0             <NA>        0           NA           NA
+## 1306      14         0             <NA>        0           84            0
+## 1307      16         0             <NA>        0           NA           NA
+## 1308       8         0             <NA>        0           NA           NA
+## 1309      13         0             <NA>        0           NA           NA
+## 1310      33         0             <NA>        0           NA           NA
+## 1311      11         0             <NA>        0           NA           NA
+## 1312      14         0             <NA>        0           11            0
+## 1313      35         0             <NA>        0           NA           NA
+## 1314      33         0             <NA>        0           NA           NA
+## 1315      24         0             <NA>        0           NA           NA
+## 1316      11         0             <NA>        0            0            0
+## 1317      14         0             <NA>        0           NA           NA
+## 1318      18         0             <NA>        0           NA           NA
+## 1319      10         0             <NA>        0           NA           NA
+## 1320      45         0             <NA>        0            0            0
+## 1321      17         0             <NA>        0           NA           NA
+## 1322      10         0             <NA>        0           14            0
+## 1323      10         0             <NA>        0            0            0
+## 1324      10         0             <NA>        0           NA           NA
+## 1325      15         0             <NA>        0           NA           NA
+## 1326      10         0             <NA>        0           NA           NA
+## 1327      10         0             <NA>        0           NA           NA
+## 1328      14         0             <NA>        0           NA           NA
+## 1329      12         0             <NA>        0           NA           NA
+## 1330      13         0             <NA>        0           NA           NA
+## 1331      12         0             <NA>        0           NA           NA
+## 1332      19         0             <NA>        0            0            0
+## 1333      23         0             <NA>        0           NA           NA
+## 1334      46         0             <NA>        0            0            0
+## 1335      19         0             <NA>        0            6            0
+## 1336      29         0             <NA>        0            0            0
+## 1337      37         0             <NA>        0           NA           NA
+## 1338      37         0             <NA>        0           NA           NA
+## 1339      35         0             <NA>        0           NA           NA
+## 1340      12         0             <NA>        0           NA           NA
+## 1341      27         0             <NA>        0           13            0
 ## 1342      NA         1                B        0           NA           NA
-## 1343      12         0             &lt;NA&gt;        0           NA           NA
-## 1344      10         0             &lt;NA&gt;        0           NA           NA
-## 1345      45         0             &lt;NA&gt;        0            0            0
-## 1346      17         0             &lt;NA&gt;        0            0            0
-## 1347      11         0             &lt;NA&gt;        0           NA           NA
-## 1348      12         0             &lt;NA&gt;        0           NA           NA
-## 1349      13         0             &lt;NA&gt;        0           NA           NA
-## 1350       7         0             &lt;NA&gt;        0            4            0
-## 1351      45         0             &lt;NA&gt;        0           NA           NA
-## 1352      20         0             &lt;NA&gt;        0           NA           NA
-## 1353      47         0             &lt;NA&gt;        0           NA           NA
-## 1354      12         0             &lt;NA&gt;        0           NA           NA
-## 1355      11         0             &lt;NA&gt;        0           NA           NA
-## 1356      16         0             &lt;NA&gt;        0            0            0
-## 1357      23         0             &lt;NA&gt;        0           NA           NA
-## 1358      16         0             &lt;NA&gt;        0           NA           NA
-## 1359      14         0             &lt;NA&gt;        0           NA           NA
-## 1360      25         0             &lt;NA&gt;        0           NA           NA
-## 1361      13         0             &lt;NA&gt;        0           NA           NA
-## 1362      12         0             &lt;NA&gt;        0           NA           NA
-## 1363      36         0             &lt;NA&gt;        0           NA           NA
-## 1364      10         0             &lt;NA&gt;        0           NA           NA
-## 1365      11         0             &lt;NA&gt;        0           NA           NA
-## 1366      14         0             &lt;NA&gt;        0           NA           NA
-## 1367      26         0             &lt;NA&gt;        0           10            0
-## 1368       7         0             &lt;NA&gt;        0           NA           NA
-## 1369      20         0             &lt;NA&gt;        0           NA           NA
-## 1370       8         0             &lt;NA&gt;        0           12            0
-## 1371       6         0             &lt;NA&gt;        0           NA           NA
-## 1372       7         0             &lt;NA&gt;        0           NA           NA
-## 1373       8         0             &lt;NA&gt;        0           28            0
-## 1374       7         0             &lt;NA&gt;        0           NA           NA
-## 1375       9         0             &lt;NA&gt;        0           NA           NA
-## 1376       8         0             &lt;NA&gt;        0           NA           NA
-## 1377       9         0             &lt;NA&gt;        0           NA           NA
-## 1378       6         0             &lt;NA&gt;        0           NA           NA
-## 1379       7         0             &lt;NA&gt;        0           NA           NA
-## 1380       9         0             &lt;NA&gt;        0           NA           NA
-## 1381       8         0             &lt;NA&gt;        0           NA           NA
-## 1382      11         0             &lt;NA&gt;        0           NA           NA
-## 1383      10         0             &lt;NA&gt;        0           NA           NA
-## 1384       9         0             &lt;NA&gt;        0           NA           NA
-## 1385      11         0             &lt;NA&gt;        0           NA           NA
-## 1386       9         0             &lt;NA&gt;        0           NA           NA
-## 1387      11         0             &lt;NA&gt;        0            3            0
-## 1388       8         0             &lt;NA&gt;        0            0            0
-## 1389      10         0             &lt;NA&gt;        0            0            0
-## 1390      11         0             &lt;NA&gt;        0           NA           NA
-## 1391      11         0             &lt;NA&gt;        0           NA           NA
-## 1392       8         0             &lt;NA&gt;        0            2            0
-## 1393       8         0             &lt;NA&gt;        0           NA           NA
-## 1394       9         0             &lt;NA&gt;        0           NA           NA
-## 1395       9         0             &lt;NA&gt;        0           NA           NA
-## 1396       9         0             &lt;NA&gt;        0           NA           NA
-## 1397      12         0             &lt;NA&gt;        0           NA           NA
-## 1398      12         0             &lt;NA&gt;        0           NA           NA
-## 1399      10         0             &lt;NA&gt;        0           NA           NA
-## 1400      10         0             &lt;NA&gt;        0           NA           NA
-## 1401      10         0             &lt;NA&gt;        0           NA           NA
-## 1402      11         0             &lt;NA&gt;        0           NA           NA
-## 1403      20         0             &lt;NA&gt;        0           NA           NA
-## 1404      12         0             &lt;NA&gt;        0           NA           NA
-## 1405      11         0             &lt;NA&gt;        0           NA           NA
-## 1406       8         0             &lt;NA&gt;        0           NA           NA
-## 1407       8         0             &lt;NA&gt;        0           NA           NA
-## 1408       8         0             &lt;NA&gt;        0           NA           NA
-## 1409       6         0             &lt;NA&gt;        0           NA           NA
-## 1410       6         0             &lt;NA&gt;        0           NA           NA
-## 1411       5         0             &lt;NA&gt;        0           NA           NA
-## 1412      11         0             &lt;NA&gt;        0           NA           NA
-## 1413      10         0             &lt;NA&gt;        0           NA           NA
-## 1414       8         0             &lt;NA&gt;        0           NA           NA
-## 1415       9         0             &lt;NA&gt;        0            6            0
-## 1416      13         0             &lt;NA&gt;        0           12            0
-## 1417       9         0             &lt;NA&gt;        0           NA           NA
-## 1418       6         0             &lt;NA&gt;        0           NA           NA
-## 1419       9         0             &lt;NA&gt;        0           NA           NA
-## 1420       8         0             &lt;NA&gt;        0           NA           NA
-## 1421       6         0             &lt;NA&gt;        0            0            0
-## 1422       7         0             &lt;NA&gt;        0           NA           NA
-## 1423      13         0             &lt;NA&gt;        0           NA           NA
-## 1424       8         0             &lt;NA&gt;        0           23            0
-## 1425       6         0             &lt;NA&gt;        0           NA           NA
-## 1426      10         0             &lt;NA&gt;        0           NA           NA
-## 1427      12         0             &lt;NA&gt;        0            5            0
-## 1428      11         0             &lt;NA&gt;        0           NA           NA
-## 1429       9         0             &lt;NA&gt;        0           NA           NA
-## 1430       9         0             &lt;NA&gt;        0            0            0
-## 1431       7         0             &lt;NA&gt;        0           NA           NA
-## 1432       6         0             &lt;NA&gt;        0           NA           NA
-## 1433      16         0             &lt;NA&gt;        0           NA           NA
-## 1434       8         0             &lt;NA&gt;        0           NA           NA
-## 1435       7         0             &lt;NA&gt;        0           NA           NA
-## 1436       8         0             &lt;NA&gt;        0           NA           NA
-## 1437       6         0             &lt;NA&gt;        0           NA           NA
-## 1438       9         0             &lt;NA&gt;        1           NA           NA
-## 1439      16         0             &lt;NA&gt;        0           NA           NA
-## 1440       8         0             &lt;NA&gt;        0           NA           NA
-## 1441      10         0             &lt;NA&gt;        0           NA           NA
-## 1442      13         0             &lt;NA&gt;        0            8            0
-## 1443      20         0             &lt;NA&gt;        0           NA           NA
-## 1444      26         0             &lt;NA&gt;        0           NA           NA
-## 1445      13         0             &lt;NA&gt;        0           NA           NA
-## 1446       9         0             &lt;NA&gt;        0           NA           NA
-## 1447      10         0             &lt;NA&gt;        0           NA           NA
-## 1448       9         0             &lt;NA&gt;        0           NA           NA
-## 1449      12         0             &lt;NA&gt;        0            0            0
-## 1450      20         0             &lt;NA&gt;        0           NA           NA
-## 1451      10         0             &lt;NA&gt;        0           NA           NA
-## 1452       7         0             &lt;NA&gt;        0           NA           NA
-## 1453      15         0             &lt;NA&gt;        0           NA           NA
-## 1454      26         0             &lt;NA&gt;        0            0            0
-## 1455      17         0             &lt;NA&gt;        0           NA           NA
-## 1456      11         0             &lt;NA&gt;        0           NA           NA
-## 1457      37         0             &lt;NA&gt;        0            0            0
-## 1458      10         0             &lt;NA&gt;        0           NA           NA
-## 1459       9         0             &lt;NA&gt;        0           NA           NA
-## 1460       9         0             &lt;NA&gt;        0            2            0
-## 1461      16         0             &lt;NA&gt;        0           NA           NA
-## 1462      20         0             &lt;NA&gt;        0           NA           NA
-## 1463      11         0             &lt;NA&gt;        0            0            0
-## 1464      11         0             &lt;NA&gt;        0           NA           NA
-## 1465      19         0             &lt;NA&gt;        0            6            0
-## 1466      22         0             &lt;NA&gt;        0            0            0
-## 1467      18         0             &lt;NA&gt;        0           NA           NA
-## 1468      11         0             &lt;NA&gt;        0           NA           NA
-## 1469      13         0             &lt;NA&gt;        0            0            0
-## 1470      26         0             &lt;NA&gt;        0            0            0
-## 1471      11         0             &lt;NA&gt;        0           NA           NA
-## 1472       8         0             &lt;NA&gt;        0           NA           NA
-## 1473      11         0             &lt;NA&gt;        0            6            0
-## 1474      15         0             &lt;NA&gt;        0           NA           NA
-## 1475      17         0             &lt;NA&gt;        0           NA           NA
-## 1476      19         0             &lt;NA&gt;        0           NA           NA
-## 1477      18         0             &lt;NA&gt;        0            0            0
-## 1478      14         0             &lt;NA&gt;        0           NA           NA
-## 1479      50         0             &lt;NA&gt;        0            0            0
-## 1480      10         0             &lt;NA&gt;        0           NA           NA
-## 1481      26         0             &lt;NA&gt;        0            0            0
-## 1482      17         0             &lt;NA&gt;        0           NA           NA
-## 1483      11         0             &lt;NA&gt;        0           NA           NA
-## 1484      13         0             &lt;NA&gt;        0            0            0
-## 1485      10         0             &lt;NA&gt;        0           NA           NA
-## 1486      36         0             &lt;NA&gt;        0            0            0
-## 1487      32         0             &lt;NA&gt;        0           26            0
-## 1488      25         0             &lt;NA&gt;        0           NA           NA
-## 1489      11         0             &lt;NA&gt;        0           NA           NA
-## 1490      14         0             &lt;NA&gt;        0           NA           NA
-## 1491      14         0             &lt;NA&gt;        0           23            0
-## 1492       8         0             &lt;NA&gt;        0           NA           NA
-## 1493       8         0             &lt;NA&gt;        0            0            0
-## 1494      25         0             &lt;NA&gt;        0            0            0
-## 1495      15         0             &lt;NA&gt;        0           NA           NA
-## 1496      22         0             &lt;NA&gt;        0           10            0
-## 1497      12         0             &lt;NA&gt;        0           NA           NA
-## 1498      28         0             &lt;NA&gt;        0           NA           NA
-## 1499      13         0             &lt;NA&gt;        0           NA           NA
+## 1343      12         0             <NA>        0           NA           NA
+## 1344      10         0             <NA>        0           NA           NA
+## 1345      45         0             <NA>        0            0            0
+## 1346      17         0             <NA>        0            0            0
+## 1347      11         0             <NA>        0           NA           NA
+## 1348      12         0             <NA>        0           NA           NA
+## 1349      13         0             <NA>        0           NA           NA
+## 1350       7         0             <NA>        0            4            0
+## 1351      45         0             <NA>        0           NA           NA
+## 1352      20         0             <NA>        0           NA           NA
+## 1353      47         0             <NA>        0           NA           NA
+## 1354      12         0             <NA>        0           NA           NA
+## 1355      11         0             <NA>        0           NA           NA
+## 1356      16         0             <NA>        0            0            0
+## 1357      23         0             <NA>        0           NA           NA
+## 1358      16         0             <NA>        0           NA           NA
+## 1359      14         0             <NA>        0           NA           NA
+## 1360      25         0             <NA>        0           NA           NA
+## 1361      13         0             <NA>        0           NA           NA
+## 1362      12         0             <NA>        0           NA           NA
+## 1363      36         0             <NA>        0           NA           NA
+## 1364      10         0             <NA>        0           NA           NA
+## 1365      11         0             <NA>        0           NA           NA
+## 1366      14         0             <NA>        0           NA           NA
+## 1367      26         0             <NA>        0           10            0
+## 1368       7         0             <NA>        0           NA           NA
+## 1369      20         0             <NA>        0           NA           NA
+## 1370       8         0             <NA>        0           12            0
+## 1371       6         0             <NA>        0           NA           NA
+## 1372       7         0             <NA>        0           NA           NA
+## 1373       8         0             <NA>        0           28            0
+## 1374       7         0             <NA>        0           NA           NA
+## 1375       9         0             <NA>        0           NA           NA
+## 1376       8         0             <NA>        0           NA           NA
+## 1377       9         0             <NA>        0           NA           NA
+## 1378       6         0             <NA>        0           NA           NA
+## 1379       7         0             <NA>        0           NA           NA
+## 1380       9         0             <NA>        0           NA           NA
+## 1381       8         0             <NA>        0           NA           NA
+## 1382      11         0             <NA>        0           NA           NA
+## 1383      10         0             <NA>        0           NA           NA
+## 1384       9         0             <NA>        0           NA           NA
+## 1385      11         0             <NA>        0           NA           NA
+## 1386       9         0             <NA>        0           NA           NA
+## 1387      11         0             <NA>        0            3            0
+## 1388       8         0             <NA>        0            0            0
+## 1389      10         0             <NA>        0            0            0
+## 1390      11         0             <NA>        0           NA           NA
+## 1391      11         0             <NA>        0           NA           NA
+## 1392       8         0             <NA>        0            2            0
+## 1393       8         0             <NA>        0           NA           NA
+## 1394       9         0             <NA>        0           NA           NA
+## 1395       9         0             <NA>        0           NA           NA
+## 1396       9         0             <NA>        0           NA           NA
+## 1397      12         0             <NA>        0           NA           NA
+## 1398      12         0             <NA>        0           NA           NA
+## 1399      10         0             <NA>        0           NA           NA
+## 1400      10         0             <NA>        0           NA           NA
+## 1401      10         0             <NA>        0           NA           NA
+## 1402      11         0             <NA>        0           NA           NA
+## 1403      20         0             <NA>        0           NA           NA
+## 1404      12         0             <NA>        0           NA           NA
+## 1405      11         0             <NA>        0           NA           NA
+## 1406       8         0             <NA>        0           NA           NA
+## 1407       8         0             <NA>        0           NA           NA
+## 1408       8         0             <NA>        0           NA           NA
+## 1409       6         0             <NA>        0           NA           NA
+## 1410       6         0             <NA>        0           NA           NA
+## 1411       5         0             <NA>        0           NA           NA
+## 1412      11         0             <NA>        0           NA           NA
+## 1413      10         0             <NA>        0           NA           NA
+## 1414       8         0             <NA>        0           NA           NA
+## 1415       9         0             <NA>        0            6            0
+## 1416      13         0             <NA>        0           12            0
+## 1417       9         0             <NA>        0           NA           NA
+## 1418       6         0             <NA>        0           NA           NA
+## 1419       9         0             <NA>        0           NA           NA
+## 1420       8         0             <NA>        0           NA           NA
+## 1421       6         0             <NA>        0            0            0
+## 1422       7         0             <NA>        0           NA           NA
+## 1423      13         0             <NA>        0           NA           NA
+## 1424       8         0             <NA>        0           23            0
+## 1425       6         0             <NA>        0           NA           NA
+## 1426      10         0             <NA>        0           NA           NA
+## 1427      12         0             <NA>        0            5            0
+## 1428      11         0             <NA>        0           NA           NA
+## 1429       9         0             <NA>        0           NA           NA
+## 1430       9         0             <NA>        0            0            0
+## 1431       7         0             <NA>        0           NA           NA
+## 1432       6         0             <NA>        0           NA           NA
+## 1433      16         0             <NA>        0           NA           NA
+## 1434       8         0             <NA>        0           NA           NA
+## 1435       7         0             <NA>        0           NA           NA
+## 1436       8         0             <NA>        0           NA           NA
+## 1437       6         0             <NA>        0           NA           NA
+## 1438       9         0             <NA>        1           NA           NA
+## 1439      16         0             <NA>        0           NA           NA
+## 1440       8         0             <NA>        0           NA           NA
+## 1441      10         0             <NA>        0           NA           NA
+## 1442      13         0             <NA>        0            8            0
+## 1443      20         0             <NA>        0           NA           NA
+## 1444      26         0             <NA>        0           NA           NA
+## 1445      13         0             <NA>        0           NA           NA
+## 1446       9         0             <NA>        0           NA           NA
+## 1447      10         0             <NA>        0           NA           NA
+## 1448       9         0             <NA>        0           NA           NA
+## 1449      12         0             <NA>        0            0            0
+## 1450      20         0             <NA>        0           NA           NA
+## 1451      10         0             <NA>        0           NA           NA
+## 1452       7         0             <NA>        0           NA           NA
+## 1453      15         0             <NA>        0           NA           NA
+## 1454      26         0             <NA>        0            0            0
+## 1455      17         0             <NA>        0           NA           NA
+## 1456      11         0             <NA>        0           NA           NA
+## 1457      37         0             <NA>        0            0            0
+## 1458      10         0             <NA>        0           NA           NA
+## 1459       9         0             <NA>        0           NA           NA
+## 1460       9         0             <NA>        0            2            0
+## 1461      16         0             <NA>        0           NA           NA
+## 1462      20         0             <NA>        0           NA           NA
+## 1463      11         0             <NA>        0            0            0
+## 1464      11         0             <NA>        0           NA           NA
+## 1465      19         0             <NA>        0            6            0
+## 1466      22         0             <NA>        0            0            0
+## 1467      18         0             <NA>        0           NA           NA
+## 1468      11         0             <NA>        0           NA           NA
+## 1469      13         0             <NA>        0            0            0
+## 1470      26         0             <NA>        0            0            0
+## 1471      11         0             <NA>        0           NA           NA
+## 1472       8         0             <NA>        0           NA           NA
+## 1473      11         0             <NA>        0            6            0
+## 1474      15         0             <NA>        0           NA           NA
+## 1475      17         0             <NA>        0           NA           NA
+## 1476      19         0             <NA>        0           NA           NA
+## 1477      18         0             <NA>        0            0            0
+## 1478      14         0             <NA>        0           NA           NA
+## 1479      50         0             <NA>        0            0            0
+## 1480      10         0             <NA>        0           NA           NA
+## 1481      26         0             <NA>        0            0            0
+## 1482      17         0             <NA>        0           NA           NA
+## 1483      11         0             <NA>        0           NA           NA
+## 1484      13         0             <NA>        0            0            0
+## 1485      10         0             <NA>        0           NA           NA
+## 1486      36         0             <NA>        0            0            0
+## 1487      32         0             <NA>        0           26            0
+## 1488      25         0             <NA>        0           NA           NA
+## 1489      11         0             <NA>        0           NA           NA
+## 1490      14         0             <NA>        0           NA           NA
+## 1491      14         0             <NA>        0           23            0
+## 1492       8         0             <NA>        0           NA           NA
+## 1493       8         0             <NA>        0            0            0
+## 1494      25         0             <NA>        0            0            0
+## 1495      15         0             <NA>        0           NA           NA
+## 1496      22         0             <NA>        0           10            0
+## 1497      12         0             <NA>        0           NA           NA
+## 1498      28         0             <NA>        0           NA           NA
+## 1499      13         0             <NA>        0           NA           NA
 ## 1500      NA         1                B        0           NA           NA
-## 1501      16         0             &lt;NA&gt;        0           NA           NA
-## 1502       9         0             &lt;NA&gt;        0           NA           NA
-## 1503      26         0             &lt;NA&gt;        0           NA           NA
-## 1504       7         0             &lt;NA&gt;        0           NA           NA
-## 1505      18         0             &lt;NA&gt;        0            0            0
-## 1506      11         0             &lt;NA&gt;        0           NA           NA
-## 1507      10         0             &lt;NA&gt;        0           NA           NA
-## 1508      13         0             &lt;NA&gt;        0           NA           NA
-## 1509      13         0             &lt;NA&gt;        0           NA           NA
-## 1510      15         0             &lt;NA&gt;        0            6            0
-## 1511      18         0             &lt;NA&gt;        0           NA           NA
-## 1512      21         0             &lt;NA&gt;        0           19            0
-## 1513      15         0             &lt;NA&gt;        0           NA           NA
-## 1514      16         0             &lt;NA&gt;        0           NA           NA
-## 1515      13         0             &lt;NA&gt;        0           NA           NA
-## 1516      17         0             &lt;NA&gt;        0           NA           NA
-## 1517      31         0             &lt;NA&gt;        0           NA           NA
-## 1518      12         0             &lt;NA&gt;        0           NA           NA
-## 1519      14         0             &lt;NA&gt;        0           NA           NA
-## 1520      14         0             &lt;NA&gt;        0           NA           NA
-## 1521      19         0             &lt;NA&gt;        0           NA           NA
-## 1522      31         0             &lt;NA&gt;        0          107            0
-## 1523      11         0             &lt;NA&gt;        0           27            0
-## 1524      13         0             &lt;NA&gt;        0           39            0
-## 1525      15         0             &lt;NA&gt;        0           NA           NA
-## 1526      13         0             &lt;NA&gt;        0           17            0
-## 1527      24         0             &lt;NA&gt;        0           NA           NA
-## 1528      14         0             &lt;NA&gt;        0           NA           NA
-## 1529      16         0             &lt;NA&gt;        0           NA           NA
-## 1530      11         0             &lt;NA&gt;        0          102            0
-## 1531      18         0             &lt;NA&gt;        0           NA           NA
-## 1532      10         0             &lt;NA&gt;        0           30            0
-## 1533      13         0             &lt;NA&gt;        0           NA           NA
-## 1534      26         0             &lt;NA&gt;        0           NA           NA
-## 1535      12         0             &lt;NA&gt;        0            0            0
-## 1536      17         0             &lt;NA&gt;        0           NA           NA
-## 1537      17         0             &lt;NA&gt;        0           NA           NA
-## 1538      14         0             &lt;NA&gt;        0           34            0
-## 1539      15         0             &lt;NA&gt;        0           NA           NA
-## 1540       5         0             &lt;NA&gt;        0           NA           NA
-## 1541      18         0             &lt;NA&gt;        0           55            0
-## 1542      19         0             &lt;NA&gt;        0           NA           NA
-## 1543      16         0             &lt;NA&gt;        0           NA           NA
-## 1544      30         0             &lt;NA&gt;        0           NA           NA
-## 1545      13         0             &lt;NA&gt;        0           NA           NA
-## 1546      29         0             &lt;NA&gt;        0           NA           NA
-## 1547      17         0             &lt;NA&gt;        0           NA           NA
-## 1548      30         0             &lt;NA&gt;        0            0            0
-## 1549      12         0             &lt;NA&gt;        0            0           65
-## 1550      15         0             &lt;NA&gt;        0            0           73
-## 1551      10         0             &lt;NA&gt;        0            0            0
-## 1552      14         0             &lt;NA&gt;        0            0            0
-## 1553      15         0             &lt;NA&gt;        0           NA           NA
-## 1554      12         0             &lt;NA&gt;        0           NA           NA
-## 1555      14         0             &lt;NA&gt;        0           NA           NA
-## 1556      12         0             &lt;NA&gt;        0           NA           NA
-## 1557      22         0             &lt;NA&gt;        1           NA           NA
-## 1558      20         0             &lt;NA&gt;        0           NA           NA
-## 1559      34         0             &lt;NA&gt;        0            0            0
-## 1560      17         0             &lt;NA&gt;        0           NA           NA
-## 1561      14         0             &lt;NA&gt;        0           NA           NA
-## 1562      22         0             &lt;NA&gt;        0           NA           NA
-## 1563      11         0             &lt;NA&gt;        0           NA           NA
-## 1564      14         0             &lt;NA&gt;        0           NA           NA
-## 1565      16         0             &lt;NA&gt;        0           NA           NA
-## 1566      13         0             &lt;NA&gt;        0           NA           NA
-## 1567      16         0             &lt;NA&gt;        0           17            0
-## 1568      10         0             &lt;NA&gt;        0           22            0
-## 1569      13         0             &lt;NA&gt;        0           NA           NA
-## 1570      11         0             &lt;NA&gt;        0           17            0
-## 1571      16         0             &lt;NA&gt;        0           17            0
-## 1572      11         0             &lt;NA&gt;        0           NA           NA
-## 1573       7         0             &lt;NA&gt;        0           NA           NA
-## 1574       6         0             &lt;NA&gt;        0           NA           NA
-## 1575      14         0             &lt;NA&gt;        0           NA           NA
-## 1576      18         0             &lt;NA&gt;        0           NA           NA
-## 1577      19         0             &lt;NA&gt;        0           NA           NA
-## 1578      23         0             &lt;NA&gt;        0           NA           NA
-## 1579      15         0             &lt;NA&gt;        0           26            0
-## 1580      13         0             &lt;NA&gt;        0           20            0
-## 1581      10         0             &lt;NA&gt;        0           NA           NA
-## 1582       8         0             &lt;NA&gt;        0           NA           NA
-## 1583       9         0             &lt;NA&gt;        0           NA           NA
-## 1584      11         0             &lt;NA&gt;        0           NA           NA
-## 1585      16         0             &lt;NA&gt;        0           NA           NA
-## 1586       7         0             &lt;NA&gt;        0           NA           NA
-## 1587       8         0             &lt;NA&gt;        0           NA           NA
-## 1588       8         0             &lt;NA&gt;        0           NA           NA
-## 1589      12         0             &lt;NA&gt;        0           NA           NA
-## 1590      10         0             &lt;NA&gt;        0           NA           NA
-## 1591      14         0             &lt;NA&gt;        0           NA           NA
-## 1592       9         0             &lt;NA&gt;        0           NA           NA
-## 1593      11         0             &lt;NA&gt;        0           NA           NA
-## 1594      15         0             &lt;NA&gt;        0           NA           NA
-## 1595      10         0             &lt;NA&gt;        0           NA           NA
-## 1596      27         0             &lt;NA&gt;        0           NA           NA
-## 1597       8         0             &lt;NA&gt;        0           NA           NA
-## 1598      22         0             &lt;NA&gt;        0           NA           NA
-## 1599      13         0             &lt;NA&gt;        0           NA           NA
-## 1600       7         0             &lt;NA&gt;        0           NA           NA
-## 1601      11         0             &lt;NA&gt;        0           NA           NA
-## 1602      16         0             &lt;NA&gt;        0           NA           NA
-## 1603      10         0             &lt;NA&gt;        0           NA           NA
-## 1604      10         0             &lt;NA&gt;        0           NA           NA
-## 1605      26         0             &lt;NA&gt;        0           NA           NA
-## 1606      27         0             &lt;NA&gt;        0           NA           NA
-## 1607      10         0             &lt;NA&gt;        0           NA           NA
-## 1608      16         0             &lt;NA&gt;        0           NA           NA
-## 1609      10         0             &lt;NA&gt;        0           NA           NA
-## 1610      16         0             &lt;NA&gt;        0           NA           NA
-## 1611      12         0             &lt;NA&gt;        0           NA           NA
-## 1612       6         0             &lt;NA&gt;        0           NA           NA
-## 1613       7         0             &lt;NA&gt;        0           NA           NA
-## 1614       6         0             &lt;NA&gt;        0           NA           NA
-## 1615       8         0             &lt;NA&gt;        0           NA           NA
-## 1616       8         0             &lt;NA&gt;        0           NA           NA
-## 1617      10         0             &lt;NA&gt;        0           NA           NA
-## 1618       7         0             &lt;NA&gt;        0           NA           NA
-## 1619      10         0             &lt;NA&gt;        0           NA           NA
-## 1620      17         0             &lt;NA&gt;        0           NA           NA
-## 1621      33         0             &lt;NA&gt;        0            0            0
-## 1622      13         0             &lt;NA&gt;        0           NA           NA
-## 1623      18         0             &lt;NA&gt;        0           NA           NA
-## 1624      16         0             &lt;NA&gt;        0           NA           NA
-## 1625      12         0             &lt;NA&gt;        0           NA           NA
-## 1626       6         0             &lt;NA&gt;        0           NA           NA
-## 1627      10         0             &lt;NA&gt;        0            0            0
-## 1628      11         0             &lt;NA&gt;        0           NA           NA
-## 1629      39         0             &lt;NA&gt;        0           NA           NA
-## 1630       8         0             &lt;NA&gt;        0           NA           NA
-## 1631      15         0             &lt;NA&gt;        0           NA           NA
-## 1632      16         0             &lt;NA&gt;        0           NA           NA
-## 1633      12         0             &lt;NA&gt;        0           NA           NA
-## 1634      17         0             &lt;NA&gt;        0           NA           NA
-## 1635      14         0             &lt;NA&gt;        0           NA           NA
-## 1636      12         0             &lt;NA&gt;        0           NA           NA
-## 1637       4         0             &lt;NA&gt;        0           NA           NA
-## 1638       9         0             &lt;NA&gt;        0           NA           NA
-## 1639      14         0             &lt;NA&gt;        0           NA           NA
-## 1640      13         0             &lt;NA&gt;        0           NA           NA
-## 1641      10         0             &lt;NA&gt;        0           NA           NA
-## 1642      19         0             &lt;NA&gt;        0           NA           NA
-## 1643      17         0             &lt;NA&gt;        0           NA           NA
-## 1644      16         0             &lt;NA&gt;        0           NA           NA
-## 1645      22         0             &lt;NA&gt;        0           NA           NA
-## 1646      19         0             &lt;NA&gt;        0           NA           NA
-## 1647      13         0             &lt;NA&gt;        0           NA           NA
-## 1648      14         0             &lt;NA&gt;        0           51            0
-## 1649      13         0             &lt;NA&gt;        0            0            0
-## 1650      20         0             &lt;NA&gt;        0           NA           NA
-## 1651       7         0             &lt;NA&gt;        0           NA           NA
-## 1652      24         0             &lt;NA&gt;        0           NA           NA
-## 1653      15         0             &lt;NA&gt;        0           NA           NA
-## 1654      16         0             &lt;NA&gt;        0           NA           NA
-## 1655      12         0             &lt;NA&gt;        0           15            0
-## 1656      15         0             &lt;NA&gt;        0           NA           NA
-## 1657      15         0             &lt;NA&gt;        0           14            0
-## 1658      15         0             &lt;NA&gt;        0           51            0
-## 1659      15         0             &lt;NA&gt;        0           NA           NA
-## 1660      12         0             &lt;NA&gt;        0           NA           NA
-## 1661      17         0             &lt;NA&gt;        0           NA           NA
-## 1662       9         0             &lt;NA&gt;        0           NA           NA
-## 1663      16         0             &lt;NA&gt;        0           NA           NA
-## 1664      19         0             &lt;NA&gt;        0           NA           NA
-## 1665      14         0             &lt;NA&gt;        0           NA           NA
-## 1666      19         0             &lt;NA&gt;        0           NA           NA
-## 1667      36         0             &lt;NA&gt;        0           31            0
-## 1668      37         0             &lt;NA&gt;        0            0            0
-## 1669      23         0             &lt;NA&gt;        0           NA           NA
-## 1670      17         0             &lt;NA&gt;        0           NA           NA
-## 1671      14         0             &lt;NA&gt;        0           NA           NA
-## 1672      36         0             &lt;NA&gt;        0           NA           NA
-## 1673      21         0             &lt;NA&gt;        0           NA           NA
-## 1674      17         0             &lt;NA&gt;        0           NA           NA
-## 1675      19         0             &lt;NA&gt;        0            0            0
-## 1676      26         0             &lt;NA&gt;        0            0            0
-## 1677      13         0             &lt;NA&gt;        0           NA           NA
-## 1678      17         0             &lt;NA&gt;        0           NA           NA
-## 1679      20         0             &lt;NA&gt;        0           NA           NA
-## 1680      17         0             &lt;NA&gt;        0           NA           NA
-## 1681      21         0             &lt;NA&gt;        0           NA           NA
-## 1682      27         0             &lt;NA&gt;        0           NA           NA
-## 1683      20         0             &lt;NA&gt;        0           NA           NA
-## 1684      26         0             &lt;NA&gt;        0           NA           NA
-## 1685      11         0             &lt;NA&gt;        0           NA           NA
+## 1501      16         0             <NA>        0           NA           NA
+## 1502       9         0             <NA>        0           NA           NA
+## 1503      26         0             <NA>        0           NA           NA
+## 1504       7         0             <NA>        0           NA           NA
+## 1505      18         0             <NA>        0            0            0
+## 1506      11         0             <NA>        0           NA           NA
+## 1507      10         0             <NA>        0           NA           NA
+## 1508      13         0             <NA>        0           NA           NA
+## 1509      13         0             <NA>        0           NA           NA
+## 1510      15         0             <NA>        0            6            0
+## 1511      18         0             <NA>        0           NA           NA
+## 1512      21         0             <NA>        0           19            0
+## 1513      15         0             <NA>        0           NA           NA
+## 1514      16         0             <NA>        0           NA           NA
+## 1515      13         0             <NA>        0           NA           NA
+## 1516      17         0             <NA>        0           NA           NA
+## 1517      31         0             <NA>        0           NA           NA
+## 1518      12         0             <NA>        0           NA           NA
+## 1519      14         0             <NA>        0           NA           NA
+## 1520      14         0             <NA>        0           NA           NA
+## 1521      19         0             <NA>        0           NA           NA
+## 1522      31         0             <NA>        0          107            0
+## 1523      11         0             <NA>        0           27            0
+## 1524      13         0             <NA>        0           39            0
+## 1525      15         0             <NA>        0           NA           NA
+## 1526      13         0             <NA>        0           17            0
+## 1527      24         0             <NA>        0           NA           NA
+## 1528      14         0             <NA>        0           NA           NA
+## 1529      16         0             <NA>        0           NA           NA
+## 1530      11         0             <NA>        0          102            0
+## 1531      18         0             <NA>        0           NA           NA
+## 1532      10         0             <NA>        0           30            0
+## 1533      13         0             <NA>        0           NA           NA
+## 1534      26         0             <NA>        0           NA           NA
+## 1535      12         0             <NA>        0            0            0
+## 1536      17         0             <NA>        0           NA           NA
+## 1537      17         0             <NA>        0           NA           NA
+## 1538      14         0             <NA>        0           34            0
+## 1539      15         0             <NA>        0           NA           NA
+## 1540       5         0             <NA>        0           NA           NA
+## 1541      18         0             <NA>        0           55            0
+## 1542      19         0             <NA>        0           NA           NA
+## 1543      16         0             <NA>        0           NA           NA
+## 1544      30         0             <NA>        0           NA           NA
+## 1545      13         0             <NA>        0           NA           NA
+## 1546      29         0             <NA>        0           NA           NA
+## 1547      17         0             <NA>        0           NA           NA
+## 1548      30         0             <NA>        0            0            0
+## 1549      12         0             <NA>        0            0           65
+## 1550      15         0             <NA>        0            0           73
+## 1551      10         0             <NA>        0            0            0
+## 1552      14         0             <NA>        0            0            0
+## 1553      15         0             <NA>        0           NA           NA
+## 1554      12         0             <NA>        0           NA           NA
+## 1555      14         0             <NA>        0           NA           NA
+## 1556      12         0             <NA>        0           NA           NA
+## 1557      22         0             <NA>        1           NA           NA
+## 1558      20         0             <NA>        0           NA           NA
+## 1559      34         0             <NA>        0            0            0
+## 1560      17         0             <NA>        0           NA           NA
+## 1561      14         0             <NA>        0           NA           NA
+## 1562      22         0             <NA>        0           NA           NA
+## 1563      11         0             <NA>        0           NA           NA
+## 1564      14         0             <NA>        0           NA           NA
+## 1565      16         0             <NA>        0           NA           NA
+## 1566      13         0             <NA>        0           NA           NA
+## 1567      16         0             <NA>        0           17            0
+## 1568      10         0             <NA>        0           22            0
+## 1569      13         0             <NA>        0           NA           NA
+## 1570      11         0             <NA>        0           17            0
+## 1571      16         0             <NA>        0           17            0
+## 1572      11         0             <NA>        0           NA           NA
+## 1573       7         0             <NA>        0           NA           NA
+## 1574       6         0             <NA>        0           NA           NA
+## 1575      14         0             <NA>        0           NA           NA
+## 1576      18         0             <NA>        0           NA           NA
+## 1577      19         0             <NA>        0           NA           NA
+## 1578      23         0             <NA>        0           NA           NA
+## 1579      15         0             <NA>        0           26            0
+## 1580      13         0             <NA>        0           20            0
+## 1581      10         0             <NA>        0           NA           NA
+## 1582       8         0             <NA>        0           NA           NA
+## 1583       9         0             <NA>        0           NA           NA
+## 1584      11         0             <NA>        0           NA           NA
+## 1585      16         0             <NA>        0           NA           NA
+## 1586       7         0             <NA>        0           NA           NA
+## 1587       8         0             <NA>        0           NA           NA
+## 1588       8         0             <NA>        0           NA           NA
+## 1589      12         0             <NA>        0           NA           NA
+## 1590      10         0             <NA>        0           NA           NA
+## 1591      14         0             <NA>        0           NA           NA
+## 1592       9         0             <NA>        0           NA           NA
+## 1593      11         0             <NA>        0           NA           NA
+## 1594      15         0             <NA>        0           NA           NA
+## 1595      10         0             <NA>        0           NA           NA
+## 1596      27         0             <NA>        0           NA           NA
+## 1597       8         0             <NA>        0           NA           NA
+## 1598      22         0             <NA>        0           NA           NA
+## 1599      13         0             <NA>        0           NA           NA
+## 1600       7         0             <NA>        0           NA           NA
+## 1601      11         0             <NA>        0           NA           NA
+## 1602      16         0             <NA>        0           NA           NA
+## 1603      10         0             <NA>        0           NA           NA
+## 1604      10         0             <NA>        0           NA           NA
+## 1605      26         0             <NA>        0           NA           NA
+## 1606      27         0             <NA>        0           NA           NA
+## 1607      10         0             <NA>        0           NA           NA
+## 1608      16         0             <NA>        0           NA           NA
+## 1609      10         0             <NA>        0           NA           NA
+## 1610      16         0             <NA>        0           NA           NA
+## 1611      12         0             <NA>        0           NA           NA
+## 1612       6         0             <NA>        0           NA           NA
+## 1613       7         0             <NA>        0           NA           NA
+## 1614       6         0             <NA>        0           NA           NA
+## 1615       8         0             <NA>        0           NA           NA
+## 1616       8         0             <NA>        0           NA           NA
+## 1617      10         0             <NA>        0           NA           NA
+## 1618       7         0             <NA>        0           NA           NA
+## 1619      10         0             <NA>        0           NA           NA
+## 1620      17         0             <NA>        0           NA           NA
+## 1621      33         0             <NA>        0            0            0
+## 1622      13         0             <NA>        0           NA           NA
+## 1623      18         0             <NA>        0           NA           NA
+## 1624      16         0             <NA>        0           NA           NA
+## 1625      12         0             <NA>        0           NA           NA
+## 1626       6         0             <NA>        0           NA           NA
+## 1627      10         0             <NA>        0            0            0
+## 1628      11         0             <NA>        0           NA           NA
+## 1629      39         0             <NA>        0           NA           NA
+## 1630       8         0             <NA>        0           NA           NA
+## 1631      15         0             <NA>        0           NA           NA
+## 1632      16         0             <NA>        0           NA           NA
+## 1633      12         0             <NA>        0           NA           NA
+## 1634      17         0             <NA>        0           NA           NA
+## 1635      14         0             <NA>        0           NA           NA
+## 1636      12         0             <NA>        0           NA           NA
+## 1637       4         0             <NA>        0           NA           NA
+## 1638       9         0             <NA>        0           NA           NA
+## 1639      14         0             <NA>        0           NA           NA
+## 1640      13         0             <NA>        0           NA           NA
+## 1641      10         0             <NA>        0           NA           NA
+## 1642      19         0             <NA>        0           NA           NA
+## 1643      17         0             <NA>        0           NA           NA
+## 1644      16         0             <NA>        0           NA           NA
+## 1645      22         0             <NA>        0           NA           NA
+## 1646      19         0             <NA>        0           NA           NA
+## 1647      13         0             <NA>        0           NA           NA
+## 1648      14         0             <NA>        0           51            0
+## 1649      13         0             <NA>        0            0            0
+## 1650      20         0             <NA>        0           NA           NA
+## 1651       7         0             <NA>        0           NA           NA
+## 1652      24         0             <NA>        0           NA           NA
+## 1653      15         0             <NA>        0           NA           NA
+## 1654      16         0             <NA>        0           NA           NA
+## 1655      12         0             <NA>        0           15            0
+## 1656      15         0             <NA>        0           NA           NA
+## 1657      15         0             <NA>        0           14            0
+## 1658      15         0             <NA>        0           51            0
+## 1659      15         0             <NA>        0           NA           NA
+## 1660      12         0             <NA>        0           NA           NA
+## 1661      17         0             <NA>        0           NA           NA
+## 1662       9         0             <NA>        0           NA           NA
+## 1663      16         0             <NA>        0           NA           NA
+## 1664      19         0             <NA>        0           NA           NA
+## 1665      14         0             <NA>        0           NA           NA
+## 1666      19         0             <NA>        0           NA           NA
+## 1667      36         0             <NA>        0           31            0
+## 1668      37         0             <NA>        0            0            0
+## 1669      23         0             <NA>        0           NA           NA
+## 1670      17         0             <NA>        0           NA           NA
+## 1671      14         0             <NA>        0           NA           NA
+## 1672      36         0             <NA>        0           NA           NA
+## 1673      21         0             <NA>        0           NA           NA
+## 1674      17         0             <NA>        0           NA           NA
+## 1675      19         0             <NA>        0            0            0
+## 1676      26         0             <NA>        0            0            0
+## 1677      13         0             <NA>        0           NA           NA
+## 1678      17         0             <NA>        0           NA           NA
+## 1679      20         0             <NA>        0           NA           NA
+## 1680      17         0             <NA>        0           NA           NA
+## 1681      21         0             <NA>        0           NA           NA
+## 1682      27         0             <NA>        0           NA           NA
+## 1683      20         0             <NA>        0           NA           NA
+## 1684      26         0             <NA>        0           NA           NA
+## 1685      11         0             <NA>        0           NA           NA
 ## 1686      NA         1                A        0           NA           NA
-## 1687      25         0             &lt;NA&gt;        0           NA           NA
-## 1688      16         0             &lt;NA&gt;        0           NA           NA
-## 1689      18         0             &lt;NA&gt;        0            0            0
-## 1690      21         0             &lt;NA&gt;        0           21            0
-## 1691      15         0             &lt;NA&gt;        0           NA           NA
-## 1692      28         0             &lt;NA&gt;        0            7            0
-## 1693      14         0             &lt;NA&gt;        0           NA           NA
-## 1694      12         0             &lt;NA&gt;        0           NA           NA
-## 1695      14         0             &lt;NA&gt;        0           NA           NA
-## 1696      36         0             &lt;NA&gt;        0            0           25
-## 1697      24         0             &lt;NA&gt;        0           NA           NA
-## 1698      13         0             &lt;NA&gt;        0           NA           NA
-## 1699      18         0             &lt;NA&gt;        0           NA           NA
-## 1700       9         0             &lt;NA&gt;        0           NA           NA
-## 1701      14         0             &lt;NA&gt;        0           NA           NA
-## 1702      11         0             &lt;NA&gt;        0           NA           NA
-## 1703      22         0             &lt;NA&gt;        0           15            0
-## 1704      37         0             &lt;NA&gt;        0            0            0
-## 1705      10         0             &lt;NA&gt;        0           NA           NA
-## 1706      17         0             &lt;NA&gt;        0            0            0
-## 1707       7         0             &lt;NA&gt;        0           NA           NA
-## 1708      10         0             &lt;NA&gt;        0           68            0
-## 1709       7         0             &lt;NA&gt;        0           NA           NA
-## 1710      32         0             &lt;NA&gt;        0            0           32
-## 1711      10         0             &lt;NA&gt;        0           NA           NA
-## 1712       9         0             &lt;NA&gt;        0           NA           NA
-## 1713       8         0             &lt;NA&gt;        0           NA           NA
-## 1714       6         0             &lt;NA&gt;        0           NA           NA
-## 1715      10         0             &lt;NA&gt;        0           NA           NA
-## 1716       9         0             &lt;NA&gt;        0           NA           NA
-## 1717       9         0             &lt;NA&gt;        0           NA           NA
-## 1718       8         0             &lt;NA&gt;        0           NA           NA
-## 1719      76         0             &lt;NA&gt;        0            0            0
-## 1720      11         0             &lt;NA&gt;        0           NA           NA
-## 1721       8         0             &lt;NA&gt;        0           NA           NA
+## 1687      25         0             <NA>        0           NA           NA
+## 1688      16         0             <NA>        0           NA           NA
+## 1689      18         0             <NA>        0            0            0
+## 1690      21         0             <NA>        0           21            0
+## 1691      15         0             <NA>        0           NA           NA
+## 1692      28         0             <NA>        0            7            0
+## 1693      14         0             <NA>        0           NA           NA
+## 1694      12         0             <NA>        0           NA           NA
+## 1695      14         0             <NA>        0           NA           NA
+## 1696      36         0             <NA>        0            0           25
+## 1697      24         0             <NA>        0           NA           NA
+## 1698      13         0             <NA>        0           NA           NA
+## 1699      18         0             <NA>        0           NA           NA
+## 1700       9         0             <NA>        0           NA           NA
+## 1701      14         0             <NA>        0           NA           NA
+## 1702      11         0             <NA>        0           NA           NA
+## 1703      22         0             <NA>        0           15            0
+## 1704      37         0             <NA>        0            0            0
+## 1705      10         0             <NA>        0           NA           NA
+## 1706      17         0             <NA>        0            0            0
+## 1707       7         0             <NA>        0           NA           NA
+## 1708      10         0             <NA>        0           68            0
+## 1709       7         0             <NA>        0           NA           NA
+## 1710      32         0             <NA>        0            0           32
+## 1711      10         0             <NA>        0           NA           NA
+## 1712       9         0             <NA>        0           NA           NA
+## 1713       8         0             <NA>        0           NA           NA
+## 1714       6         0             <NA>        0           NA           NA
+## 1715      10         0             <NA>        0           NA           NA
+## 1716       9         0             <NA>        0           NA           NA
+## 1717       9         0             <NA>        0           NA           NA
+## 1718       8         0             <NA>        0           NA           NA
+## 1719      76         0             <NA>        0            0            0
+## 1720      11         0             <NA>        0           NA           NA
+## 1721       8         0             <NA>        0           NA           NA
 ## 1722      NA         1                B        0           NA           NA
-## 1723      10         0             &lt;NA&gt;        0           NA           NA
-## 1724       7         0             &lt;NA&gt;        0           NA           NA
+## 1723      10         0             <NA>        0           NA           NA
+## 1724       7         0             <NA>        0           NA           NA
 ## 1725      NA         1                C        0           NA           NA
-## 1726      18         0             &lt;NA&gt;        0            8            0
-## 1727       9         0             &lt;NA&gt;        0           NA           NA
-## 1728      10         0             &lt;NA&gt;        0           NA           NA
-## 1729      10         0             &lt;NA&gt;        0           NA           NA
-## 1730      37         0             &lt;NA&gt;        0           NA           NA
-## 1731      37         0             &lt;NA&gt;        0           NA           NA
-## 1732      12         0             &lt;NA&gt;        0           NA           NA
-## 1733      10         0             &lt;NA&gt;        0           NA           NA
-## 1734      11         0             &lt;NA&gt;        0           NA           NA
-## 1735      12         0             &lt;NA&gt;        0           NA           NA
-## 1736      12         0             &lt;NA&gt;        0           NA           NA
-## 1737      13         0             &lt;NA&gt;        0           NA           NA
-## 1738      13         0             &lt;NA&gt;        0           NA           NA
-## 1739      13         0             &lt;NA&gt;        0           NA           NA
-## 1740      14         0             &lt;NA&gt;        0            0            0
-## 1741      16         0             &lt;NA&gt;        0           76            0
-## 1742      10         0             &lt;NA&gt;        0           NA           NA
-## 1743      11         0             &lt;NA&gt;        0           NA           NA
-## 1744      14         0             &lt;NA&gt;        0           NA           NA
-## 1745      18         0             &lt;NA&gt;        0            0            0
-## 1746      14         0             &lt;NA&gt;        0            0            0
-## 1747      14         0             &lt;NA&gt;        0           NA           NA
+## 1726      18         0             <NA>        0            8            0
+## 1727       9         0             <NA>        0           NA           NA
+## 1728      10         0             <NA>        0           NA           NA
+## 1729      10         0             <NA>        0           NA           NA
+## 1730      37         0             <NA>        0           NA           NA
+## 1731      37         0             <NA>        0           NA           NA
+## 1732      12         0             <NA>        0           NA           NA
+## 1733      10         0             <NA>        0           NA           NA
+## 1734      11         0             <NA>        0           NA           NA
+## 1735      12         0             <NA>        0           NA           NA
+## 1736      12         0             <NA>        0           NA           NA
+## 1737      13         0             <NA>        0           NA           NA
+## 1738      13         0             <NA>        0           NA           NA
+## 1739      13         0             <NA>        0           NA           NA
+## 1740      14         0             <NA>        0            0            0
+## 1741      16         0             <NA>        0           76            0
+## 1742      10         0             <NA>        0           NA           NA
+## 1743      11         0             <NA>        0           NA           NA
+## 1744      14         0             <NA>        0           NA           NA
+## 1745      18         0             <NA>        0            0            0
+## 1746      14         0             <NA>        0            0            0
+## 1747      14         0             <NA>        0           NA           NA
 ## 1748      NA         1                A        0           NA           NA
-## 1749      25         0             &lt;NA&gt;        0           NA           NA
-## 1750      12         0             &lt;NA&gt;        0           NA           NA
-## 1751      15         0             &lt;NA&gt;        0           NA           NA
-## 1752      10         0             &lt;NA&gt;        0           NA           NA
-## 1753      12         0             &lt;NA&gt;        0           NA           NA
-## 1754      12         0             &lt;NA&gt;        0           NA           NA
-## 1755      12         0             &lt;NA&gt;        0           NA           NA
-## 1756      12         0             &lt;NA&gt;        0           NA           NA
-## 1757      11         0             &lt;NA&gt;        0           NA           NA
-## 1758      20         0             &lt;NA&gt;        0           NA           NA
-## 1759      20         0             &lt;NA&gt;        0           NA           NA
-## 1760      17         0             &lt;NA&gt;        0           NA           NA
+## 1749      25         0             <NA>        0           NA           NA
+## 1750      12         0             <NA>        0           NA           NA
+## 1751      15         0             <NA>        0           NA           NA
+## 1752      10         0             <NA>        0           NA           NA
+## 1753      12         0             <NA>        0           NA           NA
+## 1754      12         0             <NA>        0           NA           NA
+## 1755      12         0             <NA>        0           NA           NA
+## 1756      12         0             <NA>        0           NA           NA
+## 1757      11         0             <NA>        0           NA           NA
+## 1758      20         0             <NA>        0           NA           NA
+## 1759      20         0             <NA>        0           NA           NA
+## 1760      17         0             <NA>        0           NA           NA
 ## 1761      NA         1                A        0           NA           NA
-## 1762      18         0             &lt;NA&gt;        0           NA           NA
-## 1763      47         0             &lt;NA&gt;        0          105            0
-## 1764       8         0             &lt;NA&gt;        0           NA           NA
-## 1765      21         0             &lt;NA&gt;        0           NA           NA
-## 1766      13         0             &lt;NA&gt;        0           NA           NA
-## 1767      10         0             &lt;NA&gt;        0           NA           NA
-## 1768      18         0             &lt;NA&gt;        0           NA           NA
-## 1769      12         0             &lt;NA&gt;        0           NA           NA
-## 1770      18         0             &lt;NA&gt;        0           NA           NA
-## 1771      26         0             &lt;NA&gt;        0            9            0
-## 1772      11         0             &lt;NA&gt;        0           NA           NA
-## 1773      10         0             &lt;NA&gt;        0           NA           NA
-## 1774      18         0             &lt;NA&gt;        0            0           12
-## 1775      20         0             &lt;NA&gt;        0            0           21
-## 1776      13         0             &lt;NA&gt;        0           NA           NA
-## 1777      23         0             &lt;NA&gt;        0            0            0
+## 1762      18         0             <NA>        0           NA           NA
+## 1763      47         0             <NA>        0          105            0
+## 1764       8         0             <NA>        0           NA           NA
+## 1765      21         0             <NA>        0           NA           NA
+## 1766      13         0             <NA>        0           NA           NA
+## 1767      10         0             <NA>        0           NA           NA
+## 1768      18         0             <NA>        0           NA           NA
+## 1769      12         0             <NA>        0           NA           NA
+## 1770      18         0             <NA>        0           NA           NA
+## 1771      26         0             <NA>        0            9            0
+## 1772      11         0             <NA>        0           NA           NA
+## 1773      10         0             <NA>        0           NA           NA
+## 1774      18         0             <NA>        0            0           12
+## 1775      20         0             <NA>        0            0           21
+## 1776      13         0             <NA>        0           NA           NA
+## 1777      23         0             <NA>        0            0            0
 ## 1778      NA         1                A        0           NA           NA
 ## 1779      NA         1                A        0           NA           NA
-## 1780      15         0             &lt;NA&gt;        0           NA           NA
-## 1781      14         0             &lt;NA&gt;        0           NA           NA
-## 1782      14         0             &lt;NA&gt;        0           NA           NA
-## 1783      13         0             &lt;NA&gt;        0           NA           NA
-## 1784      15         0             &lt;NA&gt;        0           NA           NA
-## 1785      25         0             &lt;NA&gt;        0           NA           NA
-## 1786      14         0             &lt;NA&gt;        0           NA           NA
-## 1787      16         0             &lt;NA&gt;        0            0            0
-## 1788      23         0             &lt;NA&gt;        0           NA           NA
-## 1789      14         0             &lt;NA&gt;        0           NA           NA
-## 1790      11         0             &lt;NA&gt;        0           NA           NA
-## 1791      25         0             &lt;NA&gt;        0          377            0
-## 1792      23         0             &lt;NA&gt;        0            0            0
-## 1793      20         0             &lt;NA&gt;        0           NA           NA
-## 1794      16         0             &lt;NA&gt;        0           NA           NA
-## 1795      20         0             &lt;NA&gt;        0           NA           NA
-## 1796      19         0             &lt;NA&gt;        0           NA           NA
-## 1797      19         0             &lt;NA&gt;        0           NA           NA
-## 1798       9         0             &lt;NA&gt;        0            0            0
-## 1799       7         0             &lt;NA&gt;        0           NA           NA
-## 1800      20         0             &lt;NA&gt;        0            0            0
-## 1801       8         0             &lt;NA&gt;        0            8            0
-## 1802       9         0             &lt;NA&gt;        0           NA           NA
-## 1803       9         0             &lt;NA&gt;        0           NA           NA
-## 1804      14         0             &lt;NA&gt;        0           NA           NA
-## 1805       6         0             &lt;NA&gt;        0           NA           NA
-## 1806       5         0             &lt;NA&gt;        0           NA           NA
-## 1807       7         0             &lt;NA&gt;        0           NA           NA
-## 1808       6         0             &lt;NA&gt;        0           NA           NA
-## 1809       5         0             &lt;NA&gt;        0           NA           NA
-## 1810      31         0             &lt;NA&gt;        0            0            0
-## 1811       6         0             &lt;NA&gt;        0           NA           NA
-## 1812       4         0             &lt;NA&gt;        0           NA           NA
-## 1813       6         0             &lt;NA&gt;        0           NA           NA
-## 1814       9         0             &lt;NA&gt;        0            0            0
-## 1815       8         0             &lt;NA&gt;        0           NA           NA
-## 1816       8         0             &lt;NA&gt;        0           NA           NA
-## 1817       7         0             &lt;NA&gt;        0            0            0
-## 1818       7         0             &lt;NA&gt;        0           NA           NA
-## 1819      10         0             &lt;NA&gt;        0           NA           NA
-## 1820       6         0             &lt;NA&gt;        0           NA           NA
-## 1821      11         0             &lt;NA&gt;        0           NA           NA
-## 1822      22         0             &lt;NA&gt;        0           NA           NA
-## 1823      21         0             &lt;NA&gt;        0           NA           NA
-## 1824       6         0             &lt;NA&gt;        0           NA           NA
-## 1825       5         0             &lt;NA&gt;        0           NA           NA
-## 1826      15         0             &lt;NA&gt;        0           NA           NA
-## 1827       7         0             &lt;NA&gt;        0           NA           NA
-## 1828       5         0             &lt;NA&gt;        0           NA           NA
-## 1829       6         0             &lt;NA&gt;        0           NA           NA
-## 1830      13         0             &lt;NA&gt;        0           NA           NA
-## 1831       6         0             &lt;NA&gt;        0           NA           NA
-## 1832       9         0             &lt;NA&gt;        0           NA           NA
-## 1833       8         0             &lt;NA&gt;        0           NA           NA
-## 1834      11         0             &lt;NA&gt;        0           12            0
-## 1835      13         0             &lt;NA&gt;        0            9            0
-## 1836       9         0             &lt;NA&gt;        0           NA           NA
-## 1837      12         0             &lt;NA&gt;        0           NA           NA
-## 1838      10         0             &lt;NA&gt;        0           NA           NA
-## 1839      10         0             &lt;NA&gt;        0           NA           NA
-## 1840       9         0             &lt;NA&gt;        0           12            0
-## 1841       7         0             &lt;NA&gt;        0           31            0
-## 1842      11         0             &lt;NA&gt;        0           NA           NA
-## 1843      10         0             &lt;NA&gt;        0           NA           NA
-## 1844      29         0             &lt;NA&gt;        0            0            0
-## 1845      12         0             &lt;NA&gt;        0           NA           NA
-## 1846      17         0             &lt;NA&gt;        0            0            0
-## 1847      12         0             &lt;NA&gt;        0           25            0
-## 1848      10         0             &lt;NA&gt;        0            0            0
-## 1849      10         0             &lt;NA&gt;        0           NA           NA
-## 1850      13         0             &lt;NA&gt;        0           NA           NA
-## 1851       7         0             &lt;NA&gt;        0           NA           NA
-## 1852      17         0             &lt;NA&gt;        0           NA           NA
-## 1853      10         0             &lt;NA&gt;        0           NA           NA
-## 1854      14         0             &lt;NA&gt;        0           NA           NA
-## 1855      11         0             &lt;NA&gt;        0           NA           NA
-## 1856      11         0             &lt;NA&gt;        0           NA           NA
-## 1857       7         0             &lt;NA&gt;        0           NA           NA
-## 1858      19         0             &lt;NA&gt;        0           NA           NA
-## 1859      15         0             &lt;NA&gt;        0           NA           NA
+## 1780      15         0             <NA>        0           NA           NA
+## 1781      14         0             <NA>        0           NA           NA
+## 1782      14         0             <NA>        0           NA           NA
+## 1783      13         0             <NA>        0           NA           NA
+## 1784      15         0             <NA>        0           NA           NA
+## 1785      25         0             <NA>        0           NA           NA
+## 1786      14         0             <NA>        0           NA           NA
+## 1787      16         0             <NA>        0            0            0
+## 1788      23         0             <NA>        0           NA           NA
+## 1789      14         0             <NA>        0           NA           NA
+## 1790      11         0             <NA>        0           NA           NA
+## 1791      25         0             <NA>        0          377            0
+## 1792      23         0             <NA>        0            0            0
+## 1793      20         0             <NA>        0           NA           NA
+## 1794      16         0             <NA>        0           NA           NA
+## 1795      20         0             <NA>        0           NA           NA
+## 1796      19         0             <NA>        0           NA           NA
+## 1797      19         0             <NA>        0           NA           NA
+## 1798       9         0             <NA>        0            0            0
+## 1799       7         0             <NA>        0           NA           NA
+## 1800      20         0             <NA>        0            0            0
+## 1801       8         0             <NA>        0            8            0
+## 1802       9         0             <NA>        0           NA           NA
+## 1803       9         0             <NA>        0           NA           NA
+## 1804      14         0             <NA>        0           NA           NA
+## 1805       6         0             <NA>        0           NA           NA
+## 1806       5         0             <NA>        0           NA           NA
+## 1807       7         0             <NA>        0           NA           NA
+## 1808       6         0             <NA>        0           NA           NA
+## 1809       5         0             <NA>        0           NA           NA
+## 1810      31         0             <NA>        0            0            0
+## 1811       6         0             <NA>        0           NA           NA
+## 1812       4         0             <NA>        0           NA           NA
+## 1813       6         0             <NA>        0           NA           NA
+## 1814       9         0             <NA>        0            0            0
+## 1815       8         0             <NA>        0           NA           NA
+## 1816       8         0             <NA>        0           NA           NA
+## 1817       7         0             <NA>        0            0            0
+## 1818       7         0             <NA>        0           NA           NA
+## 1819      10         0             <NA>        0           NA           NA
+## 1820       6         0             <NA>        0           NA           NA
+## 1821      11         0             <NA>        0           NA           NA
+## 1822      22         0             <NA>        0           NA           NA
+## 1823      21         0             <NA>        0           NA           NA
+## 1824       6         0             <NA>        0           NA           NA
+## 1825       5         0             <NA>        0           NA           NA
+## 1826      15         0             <NA>        0           NA           NA
+## 1827       7         0             <NA>        0           NA           NA
+## 1828       5         0             <NA>        0           NA           NA
+## 1829       6         0             <NA>        0           NA           NA
+## 1830      13         0             <NA>        0           NA           NA
+## 1831       6         0             <NA>        0           NA           NA
+## 1832       9         0             <NA>        0           NA           NA
+## 1833       8         0             <NA>        0           NA           NA
+## 1834      11         0             <NA>        0           12            0
+## 1835      13         0             <NA>        0            9            0
+## 1836       9         0             <NA>        0           NA           NA
+## 1837      12         0             <NA>        0           NA           NA
+## 1838      10         0             <NA>        0           NA           NA
+## 1839      10         0             <NA>        0           NA           NA
+## 1840       9         0             <NA>        0           12            0
+## 1841       7         0             <NA>        0           31            0
+## 1842      11         0             <NA>        0           NA           NA
+## 1843      10         0             <NA>        0           NA           NA
+## 1844      29         0             <NA>        0            0            0
+## 1845      12         0             <NA>        0           NA           NA
+## 1846      17         0             <NA>        0            0            0
+## 1847      12         0             <NA>        0           25            0
+## 1848      10         0             <NA>        0            0            0
+## 1849      10         0             <NA>        0           NA           NA
+## 1850      13         0             <NA>        0           NA           NA
+## 1851       7         0             <NA>        0           NA           NA
+## 1852      17         0             <NA>        0           NA           NA
+## 1853      10         0             <NA>        0           NA           NA
+## 1854      14         0             <NA>        0           NA           NA
+## 1855      11         0             <NA>        0           NA           NA
+## 1856      11         0             <NA>        0           NA           NA
+## 1857       7         0             <NA>        0           NA           NA
+## 1858      19         0             <NA>        0           NA           NA
+## 1859      15         0             <NA>        0           NA           NA
 ## 1860      NA         1                A        0           NA           NA
-## 1861      15         0             &lt;NA&gt;        0           NA           NA
-## 1862      16         0             &lt;NA&gt;        0           NA           NA
-## 1863      17         0             &lt;NA&gt;        0           NA           NA
-## 1864      10         0             &lt;NA&gt;        0           NA           NA
-## 1865      12         0             &lt;NA&gt;        0           NA           NA
-## 1866      15         0             &lt;NA&gt;        0           NA           NA
-## 1867       9         0             &lt;NA&gt;        0           NA           NA
-## 1868       9         0             &lt;NA&gt;        0           NA           NA
-## 1869      17         0             &lt;NA&gt;        0           NA           NA
-## 1870       8         0             &lt;NA&gt;        0           NA           NA
-## 1871      11         0             &lt;NA&gt;        0           59            0
-## 1872       8         0             &lt;NA&gt;        0            8            0
-## 1873      16         0             &lt;NA&gt;        0           NA           NA
-## 1874      13         0             &lt;NA&gt;        0           NA           NA
-## 1875      11         0             &lt;NA&gt;        0           NA           NA
-## 1876      16         0             &lt;NA&gt;        0           NA           NA
-## 1877      11         0             &lt;NA&gt;        0           NA           NA
-## 1878      37         0             &lt;NA&gt;        0           NA           NA
-## 1879      10         0             &lt;NA&gt;        0           NA           NA
-## 1880      16         0             &lt;NA&gt;        0            0            0
-## 1881      15         0             &lt;NA&gt;        0           12            0
-## 1882      16         0             &lt;NA&gt;        0           NA           NA
-## 1883      12         0             &lt;NA&gt;        0           NA           NA
-## 1884      13         0             &lt;NA&gt;        0           NA           NA
-## 1885      10         0             &lt;NA&gt;        0           NA           NA
-## 1886      25         0             &lt;NA&gt;        0            0            0
-## 1887      35         0             &lt;NA&gt;        0           NA           NA
-## 1888      10         0             &lt;NA&gt;        0           NA           NA
-## 1889      12         0             &lt;NA&gt;        0            0            0
-## 1890      12         0             &lt;NA&gt;        0            0            0
-## 1891      12         0             &lt;NA&gt;        0           NA           NA
-## 1892      10         0             &lt;NA&gt;        0           NA           NA
-## 1893      10         0             &lt;NA&gt;        0            0            0
-## 1894      11         0             &lt;NA&gt;        0           NA           NA
-## 1895      12         0             &lt;NA&gt;        0           NA           NA
-## 1896       9         0             &lt;NA&gt;        0           NA           NA
-## 1897      15         0             &lt;NA&gt;        0           NA           NA
-## 1898      12         0             &lt;NA&gt;        0            0           13
-## 1899      13         0             &lt;NA&gt;        0           NA           NA
-## 1900      29         0             &lt;NA&gt;        0            0            0
-## 1901      12         0             &lt;NA&gt;        0            0            0
-## 1902      15         0             &lt;NA&gt;        0           13            0
-## 1903      13         0             &lt;NA&gt;        0           NA           NA
-## 1904      15         0             &lt;NA&gt;        0           NA           NA
-## 1905      18         0             &lt;NA&gt;        0           NA           NA
-## 1906      11         0             &lt;NA&gt;        0           NA           NA
-## 1907      22         0             &lt;NA&gt;        0           NA           NA
-## 1908      10         0             &lt;NA&gt;        0           NA           NA
-## 1909       8         0             &lt;NA&gt;        0           NA           NA
-## 1910      19         0             &lt;NA&gt;        0           NA           NA
-## 1911       8         0             &lt;NA&gt;        0           NA           NA
-## 1912      21         0             &lt;NA&gt;        0           NA           NA
-## 1913       9         0             &lt;NA&gt;        0           NA           NA
-## 1914      36         0             &lt;NA&gt;        0            0            0
-## 1915       9         0             &lt;NA&gt;        0           NA           NA
-## 1916      11         0             &lt;NA&gt;        0           NA           NA
-## 1917      19         0             &lt;NA&gt;        0           NA           NA
-## 1918       9         0             &lt;NA&gt;        0           NA           NA
-## 1919      16         0             &lt;NA&gt;        0           NA           NA
-## 1920       8         0             &lt;NA&gt;        0           NA           NA
-## 1921      20         0             &lt;NA&gt;        0           NA           NA
-## 1922      25         0             &lt;NA&gt;        0           NA           NA
-## 1923      18         0             &lt;NA&gt;        0           NA           NA
-## 1924      22         0             &lt;NA&gt;        0           NA           NA
-## 1925       8         0             &lt;NA&gt;        0           NA           NA
-## 1926      14         0             &lt;NA&gt;        0           NA           NA
-## 1927      11         0             &lt;NA&gt;        0            0            0
-## 1928      12         0             &lt;NA&gt;        0           NA           NA
+## 1861      15         0             <NA>        0           NA           NA
+## 1862      16         0             <NA>        0           NA           NA
+## 1863      17         0             <NA>        0           NA           NA
+## 1864      10         0             <NA>        0           NA           NA
+## 1865      12         0             <NA>        0           NA           NA
+## 1866      15         0             <NA>        0           NA           NA
+## 1867       9         0             <NA>        0           NA           NA
+## 1868       9         0             <NA>        0           NA           NA
+## 1869      17         0             <NA>        0           NA           NA
+## 1870       8         0             <NA>        0           NA           NA
+## 1871      11         0             <NA>        0           59            0
+## 1872       8         0             <NA>        0            8            0
+## 1873      16         0             <NA>        0           NA           NA
+## 1874      13         0             <NA>        0           NA           NA
+## 1875      11         0             <NA>        0           NA           NA
+## 1876      16         0             <NA>        0           NA           NA
+## 1877      11         0             <NA>        0           NA           NA
+## 1878      37         0             <NA>        0           NA           NA
+## 1879      10         0             <NA>        0           NA           NA
+## 1880      16         0             <NA>        0            0            0
+## 1881      15         0             <NA>        0           12            0
+## 1882      16         0             <NA>        0           NA           NA
+## 1883      12         0             <NA>        0           NA           NA
+## 1884      13         0             <NA>        0           NA           NA
+## 1885      10         0             <NA>        0           NA           NA
+## 1886      25         0             <NA>        0            0            0
+## 1887      35         0             <NA>        0           NA           NA
+## 1888      10         0             <NA>        0           NA           NA
+## 1889      12         0             <NA>        0            0            0
+## 1890      12         0             <NA>        0            0            0
+## 1891      12         0             <NA>        0           NA           NA
+## 1892      10         0             <NA>        0           NA           NA
+## 1893      10         0             <NA>        0            0            0
+## 1894      11         0             <NA>        0           NA           NA
+## 1895      12         0             <NA>        0           NA           NA
+## 1896       9         0             <NA>        0           NA           NA
+## 1897      15         0             <NA>        0           NA           NA
+## 1898      12         0             <NA>        0            0           13
+## 1899      13         0             <NA>        0           NA           NA
+## 1900      29         0             <NA>        0            0            0
+## 1901      12         0             <NA>        0            0            0
+## 1902      15         0             <NA>        0           13            0
+## 1903      13         0             <NA>        0           NA           NA
+## 1904      15         0             <NA>        0           NA           NA
+## 1905      18         0             <NA>        0           NA           NA
+## 1906      11         0             <NA>        0           NA           NA
+## 1907      22         0             <NA>        0           NA           NA
+## 1908      10         0             <NA>        0           NA           NA
+## 1909       8         0             <NA>        0           NA           NA
+## 1910      19         0             <NA>        0           NA           NA
+## 1911       8         0             <NA>        0           NA           NA
+## 1912      21         0             <NA>        0           NA           NA
+## 1913       9         0             <NA>        0           NA           NA
+## 1914      36         0             <NA>        0            0            0
+## 1915       9         0             <NA>        0           NA           NA
+## 1916      11         0             <NA>        0           NA           NA
+## 1917      19         0             <NA>        0           NA           NA
+## 1918       9         0             <NA>        0           NA           NA
+## 1919      16         0             <NA>        0           NA           NA
+## 1920       8         0             <NA>        0           NA           NA
+## 1921      20         0             <NA>        0           NA           NA
+## 1922      25         0             <NA>        0           NA           NA
+## 1923      18         0             <NA>        0           NA           NA
+## 1924      22         0             <NA>        0           NA           NA
+## 1925       8         0             <NA>        0           NA           NA
+## 1926      14         0             <NA>        0           NA           NA
+## 1927      11         0             <NA>        0            0            0
+## 1928      12         0             <NA>        0           NA           NA
 ## 1929      NA         1                A        0           NA           NA
 ## 1930      NA         1                A        0           NA           NA
-## 1931      14         0             &lt;NA&gt;        0           NA           NA
-## 1932       8         0             &lt;NA&gt;        0           NA           NA
-## 1933      19         0             &lt;NA&gt;        0           45            0
-## 1934      17         0             &lt;NA&gt;        0           NA           NA
-## 1935      10         0             &lt;NA&gt;        0           NA           NA
-## 1936      18         0             &lt;NA&gt;        0           NA           NA
+## 1931      14         0             <NA>        0           NA           NA
+## 1932       8         0             <NA>        0           NA           NA
+## 1933      19         0             <NA>        0           45            0
+## 1934      17         0             <NA>        0           NA           NA
+## 1935      10         0             <NA>        0           NA           NA
+## 1936      18         0             <NA>        0           NA           NA
 ## 1937      NA         1                A        0           NA           NA
-## 1938      19         0             &lt;NA&gt;        0           NA           NA
-## 1939      10         0             &lt;NA&gt;        0           NA           NA
-## 1940       9         0             &lt;NA&gt;        0           13            0
-## 1941      31         0             &lt;NA&gt;        0           NA           NA
-## 1942      22         0             &lt;NA&gt;        0           NA           NA
-## 1943      15         0             &lt;NA&gt;        0            0            0
-## 1944      11         0             &lt;NA&gt;        0           NA           NA
-## 1945      45         0             &lt;NA&gt;        0           NA           NA
-## 1946      11         0             &lt;NA&gt;        0           17            0
-## 1947      15         0             &lt;NA&gt;        0           NA           NA
-## 1948      23         0             &lt;NA&gt;        0           NA           NA
-## 1949       9         0             &lt;NA&gt;        0           NA           NA
-## 1950      12         0             &lt;NA&gt;        0           NA           NA
-## 1951      18         0             &lt;NA&gt;        0           NA           NA
-## 1952      16         0             &lt;NA&gt;        0           NA           NA
-## 1953      10         0             &lt;NA&gt;        0           NA           NA
-## 1954      13         0             &lt;NA&gt;        0           NA           NA
-## 1955      24         0             &lt;NA&gt;        0           NA           NA
-## 1956      15         0             &lt;NA&gt;        0           NA           NA
-## 1957      16         0             &lt;NA&gt;        0           29            0
-## 1958      10         0             &lt;NA&gt;        0           48            0
-## 1959      34         0             &lt;NA&gt;        0            6            0
-## 1960      37         0             &lt;NA&gt;        0           NA           NA
-## 1961      20         0             &lt;NA&gt;        0           58            0
-## 1962      17         0             &lt;NA&gt;        0           NA           NA
-## 1963      18         0             &lt;NA&gt;        0            7            0
-## 1964      35         0             &lt;NA&gt;        0           NA           NA
-## 1965      10         0             &lt;NA&gt;        0           NA           NA
-## 1966      11         0             &lt;NA&gt;        0           NA           NA
-## 1967      11         0             &lt;NA&gt;        0           NA           NA
-## 1968      12         0             &lt;NA&gt;        0           NA           NA
-## 1969      17         0             &lt;NA&gt;        0           17            0
-## 1970      11         0             &lt;NA&gt;        0           NA           NA
-## 1971      39         0             &lt;NA&gt;        0            0            0
-## 1972       9         0             &lt;NA&gt;        0           NA           NA
-## 1973      10         0             &lt;NA&gt;        0           NA           NA
-## 1974      15         0             &lt;NA&gt;        0           NA           NA
-## 1975      14         0             &lt;NA&gt;        0            0            0
-## 1976       8         0             &lt;NA&gt;        0           NA           NA
-## 1977       6         0             &lt;NA&gt;        0           NA           NA
-## 1978      14         0             &lt;NA&gt;        0           NA           NA
-## 1979      19         0             &lt;NA&gt;        0            0            0
-## 1980      12         0             &lt;NA&gt;        0           NA           NA
-## 1981      14         0             &lt;NA&gt;        0            0            0
-## 1982       6         0             &lt;NA&gt;        0           NA           NA
-## 1983       9         0             &lt;NA&gt;        0           NA           NA
-## 1984       9         0             &lt;NA&gt;        0           NA           NA
-## 1985      13         0             &lt;NA&gt;        0           NA           NA
-## 1986      10         0             &lt;NA&gt;        0           NA           NA
-## 1987       9         0             &lt;NA&gt;        0           NA           NA
+## 1938      19         0             <NA>        0           NA           NA
+## 1939      10         0             <NA>        0           NA           NA
+## 1940       9         0             <NA>        0           13            0
+## 1941      31         0             <NA>        0           NA           NA
+## 1942      22         0             <NA>        0           NA           NA
+## 1943      15         0             <NA>        0            0            0
+## 1944      11         0             <NA>        0           NA           NA
+## 1945      45         0             <NA>        0           NA           NA
+## 1946      11         0             <NA>        0           17            0
+## 1947      15         0             <NA>        0           NA           NA
+## 1948      23         0             <NA>        0           NA           NA
+## 1949       9         0             <NA>        0           NA           NA
+## 1950      12         0             <NA>        0           NA           NA
+## 1951      18         0             <NA>        0           NA           NA
+## 1952      16         0             <NA>        0           NA           NA
+## 1953      10         0             <NA>        0           NA           NA
+## 1954      13         0             <NA>        0           NA           NA
+## 1955      24         0             <NA>        0           NA           NA
+## 1956      15         0             <NA>        0           NA           NA
+## 1957      16         0             <NA>        0           29            0
+## 1958      10         0             <NA>        0           48            0
+## 1959      34         0             <NA>        0            6            0
+## 1960      37         0             <NA>        0           NA           NA
+## 1961      20         0             <NA>        0           58            0
+## 1962      17         0             <NA>        0           NA           NA
+## 1963      18         0             <NA>        0            7            0
+## 1964      35         0             <NA>        0           NA           NA
+## 1965      10         0             <NA>        0           NA           NA
+## 1966      11         0             <NA>        0           NA           NA
+## 1967      11         0             <NA>        0           NA           NA
+## 1968      12         0             <NA>        0           NA           NA
+## 1969      17         0             <NA>        0           17            0
+## 1970      11         0             <NA>        0           NA           NA
+## 1971      39         0             <NA>        0            0            0
+## 1972       9         0             <NA>        0           NA           NA
+## 1973      10         0             <NA>        0           NA           NA
+## 1974      15         0             <NA>        0           NA           NA
+## 1975      14         0             <NA>        0            0            0
+## 1976       8         0             <NA>        0           NA           NA
+## 1977       6         0             <NA>        0           NA           NA
+## 1978      14         0             <NA>        0           NA           NA
+## 1979      19         0             <NA>        0            0            0
+## 1980      12         0             <NA>        0           NA           NA
+## 1981      14         0             <NA>        0            0            0
+## 1982       6         0             <NA>        0           NA           NA
+## 1983       9         0             <NA>        0           NA           NA
+## 1984       9         0             <NA>        0           NA           NA
+## 1985      13         0             <NA>        0           NA           NA
+## 1986      10         0             <NA>        0           NA           NA
+## 1987       9         0             <NA>        0           NA           NA
 ## 1988      NA         1                C        0           NA           NA
-## 1989      22         0             &lt;NA&gt;        0            0            0
-## 1990       7         0             &lt;NA&gt;        0           NA           NA
-## 1991      46         0             &lt;NA&gt;        0            0            0
-## 1992       8         0             &lt;NA&gt;        0           NA           NA
-## 1993      11         0             &lt;NA&gt;        0           NA           NA
-## 1994       9         0             &lt;NA&gt;        0           NA           NA
-## 1995      10         0             &lt;NA&gt;        0           NA           NA
-## 1996       9         0             &lt;NA&gt;        0           NA           NA
-## 1997      12         0             &lt;NA&gt;        0           NA           NA
-## 1998      11         0             &lt;NA&gt;        0           NA           NA
-## 1999       8         0             &lt;NA&gt;        0           NA           NA
-## 2000      11         0             &lt;NA&gt;        0           NA           NA
-## 2001      15         0             &lt;NA&gt;        0           NA           NA
-## 2002      11         0             &lt;NA&gt;        0           NA           NA
-## 2003      16         0             &lt;NA&gt;        0            0            7
-## 2004      21         0             &lt;NA&gt;        0            2            0
-## 2005      14         0             &lt;NA&gt;        0           NA           NA
-## 2006       8         0             &lt;NA&gt;        0           NA           NA
-## 2007      15         0             &lt;NA&gt;        0            0            0
-## 2008      13         0             &lt;NA&gt;        0           NA           NA
-## 2009      13         0             &lt;NA&gt;        0           NA           NA
-## 2010      37         0             &lt;NA&gt;        0            0            0
-## 2011      18         0             &lt;NA&gt;        0           NA           NA
-## 2012      16         0             &lt;NA&gt;        0           NA           NA
-## 2013      31         0             &lt;NA&gt;        0           NA           NA
-## 2014      17         0             &lt;NA&gt;        0           NA           NA
-## 2015      24         0             &lt;NA&gt;        0           NA           NA
-## 2016      21         0             &lt;NA&gt;        0           NA           NA
-## 2017      18         0             &lt;NA&gt;        0           NA           NA
-## 2018      15         0             &lt;NA&gt;        0           NA           NA
-## 2019      15         0             &lt;NA&gt;        0           26            0
-## 2020      44         0             &lt;NA&gt;        0           52            0
-## 2021      25         0             &lt;NA&gt;        0           NA           NA
-## 2022      32         0             &lt;NA&gt;        0            0            0
-## 2023      24         0             &lt;NA&gt;        0           NA           NA
-## 2024      19         0             &lt;NA&gt;        0           NA           NA
-## 2025      25         0             &lt;NA&gt;        0            0            0
-## 2026      11         0             &lt;NA&gt;        0           NA           NA
-## 2027       8         0             &lt;NA&gt;        0           NA           NA
-## 2028      33         0             &lt;NA&gt;        0            0            0
-## 2029      11         0             &lt;NA&gt;        0           NA           NA
-## 2030      28         0             &lt;NA&gt;        0            0            0
-## 2031      40         0             &lt;NA&gt;        0            0            0
-## 2032      53         0             &lt;NA&gt;        0            0            0
-## 2033      13         0             &lt;NA&gt;        0            6            0
-## 2034      10         0             &lt;NA&gt;        0           23            0
-## 2035      10         0             &lt;NA&gt;        0            0            0
-## 2036      17         0             &lt;NA&gt;        0           NA           NA
-## 2037      11         0             &lt;NA&gt;        0           NA           NA
-## 2038       9         0             &lt;NA&gt;        0           NA           NA
-## 2039      31         0             &lt;NA&gt;        0            0            0
-## 2040       9         0             &lt;NA&gt;        0           NA           NA
-## 2041       8         0             &lt;NA&gt;        0           NA           NA
-## 2042      12         0             &lt;NA&gt;        0            6            0
-## 2043       8         0             &lt;NA&gt;        0           NA           NA
-## 2044      22         0             &lt;NA&gt;        0            0            0
-## 2045      16         0             &lt;NA&gt;        0           NA           NA
-## 2046      12         0             &lt;NA&gt;        0           NA           NA
-## 2047      15         0             &lt;NA&gt;        0           NA           NA
-## 2048      20         0             &lt;NA&gt;        0           NA           NA
-## 2049      23         0             &lt;NA&gt;        0           NA           NA
-## 2050      19         0             &lt;NA&gt;        0            9            0
-## 2051      15         0             &lt;NA&gt;        0            2            0
-## 2052      18         0             &lt;NA&gt;        0           NA           NA
-## 2053      13         0             &lt;NA&gt;        0           NA           NA
-## 2054      17         0             &lt;NA&gt;        0           NA           NA
-## 2055      10         0             &lt;NA&gt;        0           NA           NA
-## 2056      10         0             &lt;NA&gt;        0           NA           NA
-## 2057      10         0             &lt;NA&gt;        0           NA           NA
-## 2058      19         0             &lt;NA&gt;        0           NA           NA
-## 2059      20         0             &lt;NA&gt;        0           NA           NA
-## 2060      11         0             &lt;NA&gt;        0           63            0
-## 2061      12         0             &lt;NA&gt;        0           NA           NA
-## 2062       9         0             &lt;NA&gt;        0           NA           NA
-## 2063      18         0             &lt;NA&gt;        0           NA           NA
-## 2064      33         0             &lt;NA&gt;        0            0          113
-## 2065      15         0             &lt;NA&gt;        0            0            0
-## 2066      13         0             &lt;NA&gt;        0           NA           NA
-## 2067      12         0             &lt;NA&gt;        0           NA           NA
-## 2068      15         0             &lt;NA&gt;        0           NA           NA
-## 2069      14         0             &lt;NA&gt;        0           NA           NA
-## 2070      10         0             &lt;NA&gt;        0           NA           NA
-## 2071      12         0             &lt;NA&gt;        0           NA           NA
-## 2072      14         0             &lt;NA&gt;        0           26            0
-## 2073      14         0             &lt;NA&gt;        0           NA           NA
-## 2074      17         0             &lt;NA&gt;        0           NA           NA
-## 2075      11         0             &lt;NA&gt;        0           NA           NA
-## 2076      16         0             &lt;NA&gt;        0           NA           NA
-## 2077      17         0             &lt;NA&gt;        0           NA           NA
-## 2078      12         0             &lt;NA&gt;        0           NA           NA
-## 2079      15         0             &lt;NA&gt;        0           NA           NA
-## 2080      14         0             &lt;NA&gt;        0            0            0
-## 2081      13         0             &lt;NA&gt;        0           NA           NA
-## 2082      17         0             &lt;NA&gt;        0           NA           NA
-## 2083      17         0             &lt;NA&gt;        0           NA           NA
-## 2084      14         0             &lt;NA&gt;        0           NA           NA
-## 2085      14         0             &lt;NA&gt;        0            0            0
-## 2086      18         0             &lt;NA&gt;        0           NA           NA
-## 2087      13         0             &lt;NA&gt;        0           NA           NA
-## 2088      22         0             &lt;NA&gt;        0           NA           NA
-## 2089      19         0             &lt;NA&gt;        0           NA           NA
-## 2090      14         0             &lt;NA&gt;        0           NA           NA
-## 2091      26         0             &lt;NA&gt;        0           NA           NA
-## 2092      19         0             &lt;NA&gt;        0           NA           NA
-## 2093      17         0             &lt;NA&gt;        0           NA           NA
-## 2094      16         0             &lt;NA&gt;        0           NA           NA
-## 2095      15         0             &lt;NA&gt;        0           NA           NA
-## 2096       9         0             &lt;NA&gt;        0           NA           NA
-## 2097      17         0             &lt;NA&gt;        0           NA           NA
-## 2098      17         0             &lt;NA&gt;        0           NA           NA
-## 2099      30         0             &lt;NA&gt;        1           NA           NA
-## 2100      17         0             &lt;NA&gt;        0           NA           NA
-## 2101      22         0             &lt;NA&gt;        0           NA           NA
-## 2102      20         0             &lt;NA&gt;        0           NA           NA
-## 2103      18         0             &lt;NA&gt;        0           NA           NA
-## 2104      16         0             &lt;NA&gt;        0           22            0
-## 2105      14         0             &lt;NA&gt;        0           NA           NA
-## 2106      14         0             &lt;NA&gt;        0           NA           NA
-## 2107      19         0             &lt;NA&gt;        0            0            0
-## 2108      12         0             &lt;NA&gt;        0           NA           NA
-## 2109      15         0             &lt;NA&gt;        0           NA           NA
-## 2110       8         0             &lt;NA&gt;        0           NA           NA
-## 2111      10         0             &lt;NA&gt;        0           NA           NA
-## 2112      16         0             &lt;NA&gt;        0           NA           NA
-## 2113      11         0             &lt;NA&gt;        0           NA           NA
-## 2114      12         0             &lt;NA&gt;        0           NA           NA
-## 2115      19         0             &lt;NA&gt;        0           NA           NA
-## 2116       9         0             &lt;NA&gt;        0           NA           NA
-## 2117       8         0             &lt;NA&gt;        0           NA           NA
-## 2118      18         0             &lt;NA&gt;        0           NA           NA
-## 2119      14         0             &lt;NA&gt;        0           NA           NA
-## 2120      11         0             &lt;NA&gt;        0           NA           NA
-## 2121      11         0             &lt;NA&gt;        0           NA           NA
-## 2122      10         0             &lt;NA&gt;        0           NA           NA
-## 2123      16         0             &lt;NA&gt;        0           NA           NA
-## 2124       9         0             &lt;NA&gt;        0           NA           NA
-## 2125       6         0             &lt;NA&gt;        0           NA           NA
-## 2126      17         0             &lt;NA&gt;        0           NA           NA
-## 2127      16         0             &lt;NA&gt;        0           NA           NA
-## 2128      16         0             &lt;NA&gt;        0           NA           NA
+## 1989      22         0             <NA>        0            0            0
+## 1990       7         0             <NA>        0           NA           NA
+## 1991      46         0             <NA>        0            0            0
+## 1992       8         0             <NA>        0           NA           NA
+## 1993      11         0             <NA>        0           NA           NA
+## 1994       9         0             <NA>        0           NA           NA
+## 1995      10         0             <NA>        0           NA           NA
+## 1996       9         0             <NA>        0           NA           NA
+## 1997      12         0             <NA>        0           NA           NA
+## 1998      11         0             <NA>        0           NA           NA
+## 1999       8         0             <NA>        0           NA           NA
+## 2000      11         0             <NA>        0           NA           NA
+## 2001      15         0             <NA>        0           NA           NA
+## 2002      11         0             <NA>        0           NA           NA
+## 2003      16         0             <NA>        0            0            7
+## 2004      21         0             <NA>        0            2            0
+## 2005      14         0             <NA>        0           NA           NA
+## 2006       8         0             <NA>        0           NA           NA
+## 2007      15         0             <NA>        0            0            0
+## 2008      13         0             <NA>        0           NA           NA
+## 2009      13         0             <NA>        0           NA           NA
+## 2010      37         0             <NA>        0            0            0
+## 2011      18         0             <NA>        0           NA           NA
+## 2012      16         0             <NA>        0           NA           NA
+## 2013      31         0             <NA>        0           NA           NA
+## 2014      17         0             <NA>        0           NA           NA
+## 2015      24         0             <NA>        0           NA           NA
+## 2016      21         0             <NA>        0           NA           NA
+## 2017      18         0             <NA>        0           NA           NA
+## 2018      15         0             <NA>        0           NA           NA
+## 2019      15         0             <NA>        0           26            0
+## 2020      44         0             <NA>        0           52            0
+## 2021      25         0             <NA>        0           NA           NA
+## 2022      32         0             <NA>        0            0            0
+## 2023      24         0             <NA>        0           NA           NA
+## 2024      19         0             <NA>        0           NA           NA
+## 2025      25         0             <NA>        0            0            0
+## 2026      11         0             <NA>        0           NA           NA
+## 2027       8         0             <NA>        0           NA           NA
+## 2028      33         0             <NA>        0            0            0
+## 2029      11         0             <NA>        0           NA           NA
+## 2030      28         0             <NA>        0            0            0
+## 2031      40         0             <NA>        0            0            0
+## 2032      53         0             <NA>        0            0            0
+## 2033      13         0             <NA>        0            6            0
+## 2034      10         0             <NA>        0           23            0
+## 2035      10         0             <NA>        0            0            0
+## 2036      17         0             <NA>        0           NA           NA
+## 2037      11         0             <NA>        0           NA           NA
+## 2038       9         0             <NA>        0           NA           NA
+## 2039      31         0             <NA>        0            0            0
+## 2040       9         0             <NA>        0           NA           NA
+## 2041       8         0             <NA>        0           NA           NA
+## 2042      12         0             <NA>        0            6            0
+## 2043       8         0             <NA>        0           NA           NA
+## 2044      22         0             <NA>        0            0            0
+## 2045      16         0             <NA>        0           NA           NA
+## 2046      12         0             <NA>        0           NA           NA
+## 2047      15         0             <NA>        0           NA           NA
+## 2048      20         0             <NA>        0           NA           NA
+## 2049      23         0             <NA>        0           NA           NA
+## 2050      19         0             <NA>        0            9            0
+## 2051      15         0             <NA>        0            2            0
+## 2052      18         0             <NA>        0           NA           NA
+## 2053      13         0             <NA>        0           NA           NA
+## 2054      17         0             <NA>        0           NA           NA
+## 2055      10         0             <NA>        0           NA           NA
+## 2056      10         0             <NA>        0           NA           NA
+## 2057      10         0             <NA>        0           NA           NA
+## 2058      19         0             <NA>        0           NA           NA
+## 2059      20         0             <NA>        0           NA           NA
+## 2060      11         0             <NA>        0           63            0
+## 2061      12         0             <NA>        0           NA           NA
+## 2062       9         0             <NA>        0           NA           NA
+## 2063      18         0             <NA>        0           NA           NA
+## 2064      33         0             <NA>        0            0          113
+## 2065      15         0             <NA>        0            0            0
+## 2066      13         0             <NA>        0           NA           NA
+## 2067      12         0             <NA>        0           NA           NA
+## 2068      15         0             <NA>        0           NA           NA
+## 2069      14         0             <NA>        0           NA           NA
+## 2070      10         0             <NA>        0           NA           NA
+## 2071      12         0             <NA>        0           NA           NA
+## 2072      14         0             <NA>        0           26            0
+## 2073      14         0             <NA>        0           NA           NA
+## 2074      17         0             <NA>        0           NA           NA
+## 2075      11         0             <NA>        0           NA           NA
+## 2076      16         0             <NA>        0           NA           NA
+## 2077      17         0             <NA>        0           NA           NA
+## 2078      12         0             <NA>        0           NA           NA
+## 2079      15         0             <NA>        0           NA           NA
+## 2080      14         0             <NA>        0            0            0
+## 2081      13         0             <NA>        0           NA           NA
+## 2082      17         0             <NA>        0           NA           NA
+## 2083      17         0             <NA>        0           NA           NA
+## 2084      14         0             <NA>        0           NA           NA
+## 2085      14         0             <NA>        0            0            0
+## 2086      18         0             <NA>        0           NA           NA
+## 2087      13         0             <NA>        0           NA           NA
+## 2088      22         0             <NA>        0           NA           NA
+## 2089      19         0             <NA>        0           NA           NA
+## 2090      14         0             <NA>        0           NA           NA
+## 2091      26         0             <NA>        0           NA           NA
+## 2092      19         0             <NA>        0           NA           NA
+## 2093      17         0             <NA>        0           NA           NA
+## 2094      16         0             <NA>        0           NA           NA
+## 2095      15         0             <NA>        0           NA           NA
+## 2096       9         0             <NA>        0           NA           NA
+## 2097      17         0             <NA>        0           NA           NA
+## 2098      17         0             <NA>        0           NA           NA
+## 2099      30         0             <NA>        1           NA           NA
+## 2100      17         0             <NA>        0           NA           NA
+## 2101      22         0             <NA>        0           NA           NA
+## 2102      20         0             <NA>        0           NA           NA
+## 2103      18         0             <NA>        0           NA           NA
+## 2104      16         0             <NA>        0           22            0
+## 2105      14         0             <NA>        0           NA           NA
+## 2106      14         0             <NA>        0           NA           NA
+## 2107      19         0             <NA>        0            0            0
+## 2108      12         0             <NA>        0           NA           NA
+## 2109      15         0             <NA>        0           NA           NA
+## 2110       8         0             <NA>        0           NA           NA
+## 2111      10         0             <NA>        0           NA           NA
+## 2112      16         0             <NA>        0           NA           NA
+## 2113      11         0             <NA>        0           NA           NA
+## 2114      12         0             <NA>        0           NA           NA
+## 2115      19         0             <NA>        0           NA           NA
+## 2116       9         0             <NA>        0           NA           NA
+## 2117       8         0             <NA>        0           NA           NA
+## 2118      18         0             <NA>        0           NA           NA
+## 2119      14         0             <NA>        0           NA           NA
+## 2120      11         0             <NA>        0           NA           NA
+## 2121      11         0             <NA>        0           NA           NA
+## 2122      10         0             <NA>        0           NA           NA
+## 2123      16         0             <NA>        0           NA           NA
+## 2124       9         0             <NA>        0           NA           NA
+## 2125       6         0             <NA>        0           NA           NA
+## 2126      17         0             <NA>        0           NA           NA
+## 2127      16         0             <NA>        0           NA           NA
+## 2128      16         0             <NA>        0           NA           NA
 ## 2129      NA         1                A        0           NA           NA
-## 2130      19         0             &lt;NA&gt;        0           NA           NA
-## 2131      17         0             &lt;NA&gt;        0           NA           NA
-## 2132      12         0             &lt;NA&gt;        0           NA           NA
-## 2133      17         0             &lt;NA&gt;        0           NA           NA
-## 2134       9         0             &lt;NA&gt;        0           NA           NA
-## 2135      24         0             &lt;NA&gt;        0            8            0
-## 2136      15         0             &lt;NA&gt;        0            0            0
-## 2137      12         0             &lt;NA&gt;        0           NA           NA
-## 2138      13         0             &lt;NA&gt;        0           NA           NA
-## 2139      21         0             &lt;NA&gt;        0           NA           NA
-## 2140      19         0             &lt;NA&gt;        0           NA           NA
-## 2141      13         0             &lt;NA&gt;        0           NA           NA
-## 2142      21         0             &lt;NA&gt;        0           16            0
-## 2143      10         0             &lt;NA&gt;        0           NA           NA
-## 2144      11         0             &lt;NA&gt;        0           NA           NA
-## 2145      19         0             &lt;NA&gt;        0           NA           NA
-## 2146      17         0             &lt;NA&gt;        0           NA           NA
-## 2147      13         0             &lt;NA&gt;        0           NA           NA
-## 2148      19         0             &lt;NA&gt;        0            0            0
-## 2149      19         0             &lt;NA&gt;        0           NA           NA
-## 2150      23         0             &lt;NA&gt;        0           NA           NA
-## 2151      27         0             &lt;NA&gt;        0           NA           NA
-## 2152      20         0             &lt;NA&gt;        0           NA           NA
-## 2153      16         0             &lt;NA&gt;        0           NA           NA
-## 2154       8         0             &lt;NA&gt;        0           NA           NA
-## 2155      12         0             &lt;NA&gt;        0           NA           NA
-## 2156      12         0             &lt;NA&gt;        0           NA           NA
-## 2157      15         0             &lt;NA&gt;        0           NA           NA
-## 2158      14         0             &lt;NA&gt;        0           NA           NA
-## 2159      17         0             &lt;NA&gt;        0           NA           NA
-## 2160      16         0             &lt;NA&gt;        1           NA           NA
-## 2161      11         0             &lt;NA&gt;        0           NA           NA
-## 2162      15         0             &lt;NA&gt;        0           NA           NA
-## 2163      15         0             &lt;NA&gt;        0           NA           NA
-## 2164      10         0             &lt;NA&gt;        0           NA           NA
-## 2165      13         0             &lt;NA&gt;        0           NA           NA
-## 2166      19         0             &lt;NA&gt;        0           NA           NA
-## 2167       9         0             &lt;NA&gt;        0           NA           NA
-## 2168      17         0             &lt;NA&gt;        0           NA           NA
-## 2169      11         0             &lt;NA&gt;        0           NA           NA
-## 2170      11         0             &lt;NA&gt;        0           NA           NA
-## 2171      20         0             &lt;NA&gt;        0           NA           NA
-## 2172       9         0             &lt;NA&gt;        0           NA           NA
-## 2173      13         0             &lt;NA&gt;        0           NA           NA
-## 2174      52         0             &lt;NA&gt;        1           NA           NA
-## 2175      14         0             &lt;NA&gt;        0           NA           NA
-## 2176      20         0             &lt;NA&gt;        0           60            0
+## 2130      19         0             <NA>        0           NA           NA
+## 2131      17         0             <NA>        0           NA           NA
+## 2132      12         0             <NA>        0           NA           NA
+## 2133      17         0             <NA>        0           NA           NA
+## 2134       9         0             <NA>        0           NA           NA
+## 2135      24         0             <NA>        0            8            0
+## 2136      15         0             <NA>        0            0            0
+## 2137      12         0             <NA>        0           NA           NA
+## 2138      13         0             <NA>        0           NA           NA
+## 2139      21         0             <NA>        0           NA           NA
+## 2140      19         0             <NA>        0           NA           NA
+## 2141      13         0             <NA>        0           NA           NA
+## 2142      21         0             <NA>        0           16            0
+## 2143      10         0             <NA>        0           NA           NA
+## 2144      11         0             <NA>        0           NA           NA
+## 2145      19         0             <NA>        0           NA           NA
+## 2146      17         0             <NA>        0           NA           NA
+## 2147      13         0             <NA>        0           NA           NA
+## 2148      19         0             <NA>        0            0            0
+## 2149      19         0             <NA>        0           NA           NA
+## 2150      23         0             <NA>        0           NA           NA
+## 2151      27         0             <NA>        0           NA           NA
+## 2152      20         0             <NA>        0           NA           NA
+## 2153      16         0             <NA>        0           NA           NA
+## 2154       8         0             <NA>        0           NA           NA
+## 2155      12         0             <NA>        0           NA           NA
+## 2156      12         0             <NA>        0           NA           NA
+## 2157      15         0             <NA>        0           NA           NA
+## 2158      14         0             <NA>        0           NA           NA
+## 2159      17         0             <NA>        0           NA           NA
+## 2160      16         0             <NA>        1           NA           NA
+## 2161      11         0             <NA>        0           NA           NA
+## 2162      15         0             <NA>        0           NA           NA
+## 2163      15         0             <NA>        0           NA           NA
+## 2164      10         0             <NA>        0           NA           NA
+## 2165      13         0             <NA>        0           NA           NA
+## 2166      19         0             <NA>        0           NA           NA
+## 2167       9         0             <NA>        0           NA           NA
+## 2168      17         0             <NA>        0           NA           NA
+## 2169      11         0             <NA>        0           NA           NA
+## 2170      11         0             <NA>        0           NA           NA
+## 2171      20         0             <NA>        0           NA           NA
+## 2172       9         0             <NA>        0           NA           NA
+## 2173      13         0             <NA>        0           NA           NA
+## 2174      52         0             <NA>        1           NA           NA
+## 2175      14         0             <NA>        0           NA           NA
+## 2176      20         0             <NA>        0           60            0
 ## 2177      NA         1                A        0           NA           NA
 ## 2178      NA         1                A        0           NA           NA
 ## 2179      NA         1                A        0           NA           NA
-## 2180      16         0             &lt;NA&gt;        0           NA           NA
-## 2181      14         0             &lt;NA&gt;        0           NA           NA
-## 2182      13         0             &lt;NA&gt;        0           NA           NA
-## 2183      13         0             &lt;NA&gt;        0            8            0
-## 2184      10         0             &lt;NA&gt;        0           NA           NA
-## 2185      12         0             &lt;NA&gt;        0           54            0
-## 2186      10         0             &lt;NA&gt;        0           NA           NA
-## 2187      21         0             &lt;NA&gt;        0           NA           NA
+## 2180      16         0             <NA>        0           NA           NA
+## 2181      14         0             <NA>        0           NA           NA
+## 2182      13         0             <NA>        0           NA           NA
+## 2183      13         0             <NA>        0            8            0
+## 2184      10         0             <NA>        0           NA           NA
+## 2185      12         0             <NA>        0           54            0
+## 2186      10         0             <NA>        0           NA           NA
+## 2187      21         0             <NA>        0           NA           NA
 ## 2188      NA         1                A        0           NA           NA
-## 2189      13         0             &lt;NA&gt;        0            0           17
-## 2190      13         0             &lt;NA&gt;        0           NA           NA
-## 2191      18         0             &lt;NA&gt;        0           NA           NA
-## 2192      17         0             &lt;NA&gt;        0           NA           NA
-## 2193      16         0             &lt;NA&gt;        0           NA           NA
-## 2194      19         0             &lt;NA&gt;        0           NA           NA
-## 2195      14         0             &lt;NA&gt;        0           NA           NA
-## 2196      15         0             &lt;NA&gt;        0           NA           NA
-## 2197      25         0             &lt;NA&gt;        0           NA           NA
-## 2198      21         0             &lt;NA&gt;        0           NA           NA
-## 2199      11         0             &lt;NA&gt;        0           NA           NA
+## 2189      13         0             <NA>        0            0           17
+## 2190      13         0             <NA>        0           NA           NA
+## 2191      18         0             <NA>        0           NA           NA
+## 2192      17         0             <NA>        0           NA           NA
+## 2193      16         0             <NA>        0           NA           NA
+## 2194      19         0             <NA>        0           NA           NA
+## 2195      14         0             <NA>        0           NA           NA
+## 2196      15         0             <NA>        0           NA           NA
+## 2197      25         0             <NA>        0           NA           NA
+## 2198      21         0             <NA>        0           NA           NA
+## 2199      11         0             <NA>        0           NA           NA
 ## 2200      NA         1                A        0           NA           NA
-## 2201      14         0             &lt;NA&gt;        0           NA           NA
-## 2202      14         0             &lt;NA&gt;        0           16            0
-## 2203      15         0             &lt;NA&gt;        0           NA           NA
+## 2201      14         0             <NA>        0           NA           NA
+## 2202      14         0             <NA>        0           16            0
+## 2203      15         0             <NA>        0           NA           NA
 ## 2204      NA         1                A        0           NA           NA
-## 2205      11         0             &lt;NA&gt;        0           NA           NA
-## 2206      13         0             &lt;NA&gt;        0           NA           NA
-## 2207      17         0             &lt;NA&gt;        0           NA           NA
-## 2208      17         0             &lt;NA&gt;        0           NA           NA
-## 2209      18         0             &lt;NA&gt;        0           NA           NA
-## 2210      11         0             &lt;NA&gt;        0           34            0
-## 2211      13         0             &lt;NA&gt;        0            0            0
-## 2212      18         0             &lt;NA&gt;        0           NA           NA
-## 2213      23         0             &lt;NA&gt;        0           NA           NA
-## 2214      10         0             &lt;NA&gt;        0           NA           NA
-## 2215      17         0             &lt;NA&gt;        0           12            0
-## 2216      26         0             &lt;NA&gt;        0            0            0
-## 2217      14         0             &lt;NA&gt;        0            6            0
-## 2218      11         0             &lt;NA&gt;        0           32            0
-## 2219      11         0             &lt;NA&gt;        0           NA           NA
-## 2220      18         0             &lt;NA&gt;        0           15            0
+## 2205      11         0             <NA>        0           NA           NA
+## 2206      13         0             <NA>        0           NA           NA
+## 2207      17         0             <NA>        0           NA           NA
+## 2208      17         0             <NA>        0           NA           NA
+## 2209      18         0             <NA>        0           NA           NA
+## 2210      11         0             <NA>        0           34            0
+## 2211      13         0             <NA>        0            0            0
+## 2212      18         0             <NA>        0           NA           NA
+## 2213      23         0             <NA>        0           NA           NA
+## 2214      10         0             <NA>        0           NA           NA
+## 2215      17         0             <NA>        0           12            0
+## 2216      26         0             <NA>        0            0            0
+## 2217      14         0             <NA>        0            6            0
+## 2218      11         0             <NA>        0           32            0
+## 2219      11         0             <NA>        0           NA           NA
+## 2220      18         0             <NA>        0           15            0
 ## 2221      NA         1                A        0           NA           NA
 ## 2222      NA         1                A        0           NA           NA
 ## 2223      NA         1                A        0           NA           NA
-## 2224      13         0             &lt;NA&gt;        0           NA           NA
+## 2224      13         0             <NA>        0           NA           NA
 ## 2225      NA         1                A        0           NA           NA
-## 2226      11         0             &lt;NA&gt;        0           NA           NA
-## 2227      10         0             &lt;NA&gt;        0           57            0
-## 2228       8         0             &lt;NA&gt;        0           NA           NA
-## 2229      14         0             &lt;NA&gt;        0           NA           NA
-## 2230       9         0             &lt;NA&gt;        0           NA           NA
-## 2231      10         0             &lt;NA&gt;        0           NA           NA
-## 2232      13         0             &lt;NA&gt;        0           NA           NA
-## 2233       9         0             &lt;NA&gt;        0           NA           NA
-## 2234       9         0             &lt;NA&gt;        0           NA           NA
-## 2235      12         0             &lt;NA&gt;        0           NA           NA
-## 2236      11         0             &lt;NA&gt;        0           NA           NA
-## 2237      11         0             &lt;NA&gt;        0           NA           NA
+## 2226      11         0             <NA>        0           NA           NA
+## 2227      10         0             <NA>        0           57            0
+## 2228       8         0             <NA>        0           NA           NA
+## 2229      14         0             <NA>        0           NA           NA
+## 2230       9         0             <NA>        0           NA           NA
+## 2231      10         0             <NA>        0           NA           NA
+## 2232      13         0             <NA>        0           NA           NA
+## 2233       9         0             <NA>        0           NA           NA
+## 2234       9         0             <NA>        0           NA           NA
+## 2235      12         0             <NA>        0           NA           NA
+## 2236      11         0             <NA>        0           NA           NA
+## 2237      11         0             <NA>        0           NA           NA
 ## 2238      NA         1                A        0           NA           NA
-## 2239      17         0             &lt;NA&gt;        0           27            0
-## 2240      14         0             &lt;NA&gt;        0           NA           NA
-## 2241      11         0             &lt;NA&gt;        0           NA           NA
-## 2242      10         0             &lt;NA&gt;        0           NA           NA
-## 2243      34         0             &lt;NA&gt;        0            0            0
-## 2244      12         0             &lt;NA&gt;        0           NA           NA
-## 2245      14         0             &lt;NA&gt;        0           NA           NA
+## 2239      17         0             <NA>        0           27            0
+## 2240      14         0             <NA>        0           NA           NA
+## 2241      11         0             <NA>        0           NA           NA
+## 2242      10         0             <NA>        0           NA           NA
+## 2243      34         0             <NA>        0            0            0
+## 2244      12         0             <NA>        0           NA           NA
+## 2245      14         0             <NA>        0           NA           NA
 ## 2246      NA         1                A        0           NA           NA
-## 2247      14         0             &lt;NA&gt;        0           44            0
-## 2248      24         0             &lt;NA&gt;        0           NA           NA
-## 2249      17         0             &lt;NA&gt;        0           NA           NA
-## 2250      13         0             &lt;NA&gt;        0           NA           NA
-## 2251      23         0             &lt;NA&gt;        0           NA           NA
-## 2252      12         0             &lt;NA&gt;        0           NA           NA
-## 2253      12         0             &lt;NA&gt;        0           NA           NA
-## 2254      10         0             &lt;NA&gt;        0           58            0
-## 2255      22         0             &lt;NA&gt;        0           NA           NA
-## 2256      10         0             &lt;NA&gt;        0           NA           NA
-## 2257      20         0             &lt;NA&gt;        0           NA           NA
-## 2258       8         0             &lt;NA&gt;        0           NA           NA
-## 2259      19         0             &lt;NA&gt;        0           NA           NA
-## 2260      29         0             &lt;NA&gt;        0           NA           NA
-## 2261      22         0             &lt;NA&gt;        0           NA           NA
-## 2262      18         0             &lt;NA&gt;        0           NA           NA
-## 2263      19         0             &lt;NA&gt;        0           NA           NA
-## 2264      49         0             &lt;NA&gt;        0            0            0
-## 2265      10         0             &lt;NA&gt;        0            6            0
-## 2266      13         0             &lt;NA&gt;        0            0            0
-## 2267      14         0             &lt;NA&gt;        0           NA           NA
-## 2268      13         0             &lt;NA&gt;        0           NA           NA
-## 2269      14         0             &lt;NA&gt;        0           NA           NA
-## 2270      12         0             &lt;NA&gt;        0            0            0
-## 2271      21         0             &lt;NA&gt;        0           NA           NA
-## 2272      15         0             &lt;NA&gt;        0            0            0
-## 2273      25         0             &lt;NA&gt;        1           NA           NA
-## 2274      41         0             &lt;NA&gt;        0            0            0
-## 2275      27         0             &lt;NA&gt;        0           NA           NA
-## 2276      22         0             &lt;NA&gt;        0            0            0
-## 2277      17         0             &lt;NA&gt;        0           NA           NA
-## 2278      17         0             &lt;NA&gt;        0           NA           NA
-## 2279      14         0             &lt;NA&gt;        0           NA           NA
-## 2280      17         0             &lt;NA&gt;        0           NA           NA
-## 2281       9         0             &lt;NA&gt;        0           NA           NA
-## 2282      16         0             &lt;NA&gt;        0           NA           NA
-## 2283      13         0             &lt;NA&gt;        0           NA           NA
-## 2284      13         0             &lt;NA&gt;        0           NA           NA
-## 2285      20         0             &lt;NA&gt;        0            0            0
-## 2286      16         0             &lt;NA&gt;        0           NA           NA
-## 2287      15         0             &lt;NA&gt;        0            8            0
-## 2288      16         0             &lt;NA&gt;        0            0            0
-## 2289      14         0             &lt;NA&gt;        0           NA           NA
-## 2290      19         0             &lt;NA&gt;        0           NA           NA
-## 2291      12         0             &lt;NA&gt;        0           NA           NA
-## 2292      24         0             &lt;NA&gt;        0           NA           NA
-## 2293      18         0             &lt;NA&gt;        0           NA           NA
-## 2294      16         0             &lt;NA&gt;        0           NA           NA
-## 2295      17         0             &lt;NA&gt;        0           NA           NA
-## 2296      17         0             &lt;NA&gt;        0            6            0
-## 2297       6         0             &lt;NA&gt;        0           NA           NA
-## 2298      12         0             &lt;NA&gt;        0           NA           NA
-## 2299       9         0             &lt;NA&gt;        0           NA           NA
-## 2300       8         0             &lt;NA&gt;        0           NA           NA
-## 2301       8         0             &lt;NA&gt;        0           NA           NA
-## 2302      10         0             &lt;NA&gt;        0           NA           NA
-## 2303      11         0             &lt;NA&gt;        0           NA           NA
-## 2304       9         0             &lt;NA&gt;        0           NA           NA
-## 2305       7         0             &lt;NA&gt;        0           NA           NA
-## 2306       7         0             &lt;NA&gt;        0           NA           NA
-## 2307      10         0             &lt;NA&gt;        0           NA           NA
-## 2308      12         0             &lt;NA&gt;        0           NA           NA
-## 2309       8         0             &lt;NA&gt;        0           NA           NA
-## 2310       9         0             &lt;NA&gt;        0           NA           NA
-## 2311       8         0             &lt;NA&gt;        0           NA           NA
-## 2312       9         0             &lt;NA&gt;        0           NA           NA
-## 2313       9         0             &lt;NA&gt;        0           NA           NA
-## 2314      15         0             &lt;NA&gt;        0           NA           NA
-## 2315      11         0             &lt;NA&gt;        0           NA           NA
-## 2316       6         0             &lt;NA&gt;        0           NA           NA
-## 2317       8         0             &lt;NA&gt;        0           NA           NA
-## 2318      12         0             &lt;NA&gt;        0           NA           NA
-## 2319      11         0             &lt;NA&gt;        0           NA           NA
-## 2320      12         0             &lt;NA&gt;        0           NA           NA
-## 2321      10         0             &lt;NA&gt;        0           NA           NA
-## 2322       9         0             &lt;NA&gt;        0           NA           NA
-## 2323      10         0             &lt;NA&gt;        0           NA           NA
-## 2324      11         0             &lt;NA&gt;        0           NA           NA
-## 2325       7         0             &lt;NA&gt;        0           NA           NA
-## 2326      12         0             &lt;NA&gt;        0            4            0
-## 2327       9         0             &lt;NA&gt;        0           NA           NA
-## 2328       7         0             &lt;NA&gt;        0           NA           NA
-## 2329       8         0             &lt;NA&gt;        0           NA           NA
-## 2330       8         0             &lt;NA&gt;        0           NA           NA
-## 2331       8         0             &lt;NA&gt;        0           NA           NA
-## 2332      11         0             &lt;NA&gt;        0            0            0
+## 2247      14         0             <NA>        0           44            0
+## 2248      24         0             <NA>        0           NA           NA
+## 2249      17         0             <NA>        0           NA           NA
+## 2250      13         0             <NA>        0           NA           NA
+## 2251      23         0             <NA>        0           NA           NA
+## 2252      12         0             <NA>        0           NA           NA
+## 2253      12         0             <NA>        0           NA           NA
+## 2254      10         0             <NA>        0           58            0
+## 2255      22         0             <NA>        0           NA           NA
+## 2256      10         0             <NA>        0           NA           NA
+## 2257      20         0             <NA>        0           NA           NA
+## 2258       8         0             <NA>        0           NA           NA
+## 2259      19         0             <NA>        0           NA           NA
+## 2260      29         0             <NA>        0           NA           NA
+## 2261      22         0             <NA>        0           NA           NA
+## 2262      18         0             <NA>        0           NA           NA
+## 2263      19         0             <NA>        0           NA           NA
+## 2264      49         0             <NA>        0            0            0
+## 2265      10         0             <NA>        0            6            0
+## 2266      13         0             <NA>        0            0            0
+## 2267      14         0             <NA>        0           NA           NA
+## 2268      13         0             <NA>        0           NA           NA
+## 2269      14         0             <NA>        0           NA           NA
+## 2270      12         0             <NA>        0            0            0
+## 2271      21         0             <NA>        0           NA           NA
+## 2272      15         0             <NA>        0            0            0
+## 2273      25         0             <NA>        1           NA           NA
+## 2274      41         0             <NA>        0            0            0
+## 2275      27         0             <NA>        0           NA           NA
+## 2276      22         0             <NA>        0            0            0
+## 2277      17         0             <NA>        0           NA           NA
+## 2278      17         0             <NA>        0           NA           NA
+## 2279      14         0             <NA>        0           NA           NA
+## 2280      17         0             <NA>        0           NA           NA
+## 2281       9         0             <NA>        0           NA           NA
+## 2282      16         0             <NA>        0           NA           NA
+## 2283      13         0             <NA>        0           NA           NA
+## 2284      13         0             <NA>        0           NA           NA
+## 2285      20         0             <NA>        0            0            0
+## 2286      16         0             <NA>        0           NA           NA
+## 2287      15         0             <NA>        0            8            0
+## 2288      16         0             <NA>        0            0            0
+## 2289      14         0             <NA>        0           NA           NA
+## 2290      19         0             <NA>        0           NA           NA
+## 2291      12         0             <NA>        0           NA           NA
+## 2292      24         0             <NA>        0           NA           NA
+## 2293      18         0             <NA>        0           NA           NA
+## 2294      16         0             <NA>        0           NA           NA
+## 2295      17         0             <NA>        0           NA           NA
+## 2296      17         0             <NA>        0            6            0
+## 2297       6         0             <NA>        0           NA           NA
+## 2298      12         0             <NA>        0           NA           NA
+## 2299       9         0             <NA>        0           NA           NA
+## 2300       8         0             <NA>        0           NA           NA
+## 2301       8         0             <NA>        0           NA           NA
+## 2302      10         0             <NA>        0           NA           NA
+## 2303      11         0             <NA>        0           NA           NA
+## 2304       9         0             <NA>        0           NA           NA
+## 2305       7         0             <NA>        0           NA           NA
+## 2306       7         0             <NA>        0           NA           NA
+## 2307      10         0             <NA>        0           NA           NA
+## 2308      12         0             <NA>        0           NA           NA
+## 2309       8         0             <NA>        0           NA           NA
+## 2310       9         0             <NA>        0           NA           NA
+## 2311       8         0             <NA>        0           NA           NA
+## 2312       9         0             <NA>        0           NA           NA
+## 2313       9         0             <NA>        0           NA           NA
+## 2314      15         0             <NA>        0           NA           NA
+## 2315      11         0             <NA>        0           NA           NA
+## 2316       6         0             <NA>        0           NA           NA
+## 2317       8         0             <NA>        0           NA           NA
+## 2318      12         0             <NA>        0           NA           NA
+## 2319      11         0             <NA>        0           NA           NA
+## 2320      12         0             <NA>        0           NA           NA
+## 2321      10         0             <NA>        0           NA           NA
+## 2322       9         0             <NA>        0           NA           NA
+## 2323      10         0             <NA>        0           NA           NA
+## 2324      11         0             <NA>        0           NA           NA
+## 2325       7         0             <NA>        0           NA           NA
+## 2326      12         0             <NA>        0            4            0
+## 2327       9         0             <NA>        0           NA           NA
+## 2328       7         0             <NA>        0           NA           NA
+## 2329       8         0             <NA>        0           NA           NA
+## 2330       8         0             <NA>        0           NA           NA
+## 2331       8         0             <NA>        0           NA           NA
+## 2332      11         0             <NA>        0            0            0
 ## 2333      NA         1                A        0           NA           NA
-## 2334       4         0             &lt;NA&gt;        0           NA           NA
-## 2335       7         0             &lt;NA&gt;        0           NA           NA
-## 2336       6         0             &lt;NA&gt;        0            1            0
-## 2337      12         0             &lt;NA&gt;        0            0            0
-## 2338       9         0             &lt;NA&gt;        0           NA           NA
-## 2339       7         0             &lt;NA&gt;        0           NA           NA
-## 2340       7         0             &lt;NA&gt;        0           92            0
-## 2341       6         0             &lt;NA&gt;        0           NA           NA
-## 2342       8         0             &lt;NA&gt;        0           NA           NA
-## 2343      10         0             &lt;NA&gt;        0           NA           NA
-## 2344      10         0             &lt;NA&gt;        0            0            0
-## 2345       6         0             &lt;NA&gt;        0           NA           NA
-## 2346       9         0             &lt;NA&gt;        0           NA           NA
-## 2347       5         0             &lt;NA&gt;        0           NA           NA
-## 2348       8         0             &lt;NA&gt;        0           NA           NA
-## 2349       7         0             &lt;NA&gt;        0           NA           NA
-## 2350      12         0             &lt;NA&gt;        0           NA           NA
-## 2351      11         0             &lt;NA&gt;        0           NA           NA
-## 2352      10         0             &lt;NA&gt;        0           NA           NA
-## 2353      15         0             &lt;NA&gt;        0            0           14
-## 2354       6         0             &lt;NA&gt;        0           NA           NA
-## 2355      12         0             &lt;NA&gt;        0           NA           NA
-## 2356       9         0             &lt;NA&gt;        0           NA           NA
-## 2357       6         0             &lt;NA&gt;        0           NA           NA
-## 2358       7         0             &lt;NA&gt;        0           NA           NA
-## 2359      14         0             &lt;NA&gt;        0            0            0
-## 2360      12         0             &lt;NA&gt;        0           NA           NA
-## 2361      12         0             &lt;NA&gt;        0           NA           NA
-## 2362       6         0             &lt;NA&gt;        0           NA           NA
-## 2363       8         0             &lt;NA&gt;        0           NA           NA
-## 2364       7         0             &lt;NA&gt;        0           NA           NA
-## 2365      13         0             &lt;NA&gt;        0           NA           NA
-## 2366       7         0             &lt;NA&gt;        0           NA           NA
-## 2367      11         0             &lt;NA&gt;        0           NA           NA
-## 2368       8         0             &lt;NA&gt;        0           NA           NA
-## 2369       6         0             &lt;NA&gt;        0           NA           NA
-## 2370       9         0             &lt;NA&gt;        0            0           41
-## 2371      11         0             &lt;NA&gt;        0            6            0
-## 2372      10         0             &lt;NA&gt;        0            6            0
-## 2373      10         0             &lt;NA&gt;        0           13            0
-## 2374      13         0             &lt;NA&gt;        0           NA           NA
-## 2375       8         0             &lt;NA&gt;        0            4            0
-## 2376       8         0             &lt;NA&gt;        0           69            0
-## 2377       8         0             &lt;NA&gt;        0           NA           NA
-## 2378       8         0             &lt;NA&gt;        0           NA           NA
-## 2379      10         0             &lt;NA&gt;        0           NA           NA
-## 2380       8         0             &lt;NA&gt;        0           NA           NA
-## 2381       9         0             &lt;NA&gt;        0           NA           NA
-## 2382       9         0             &lt;NA&gt;        0            0            0
-## 2383      19         0             &lt;NA&gt;        0            5            0
-## 2384       9         0             &lt;NA&gt;        0           35            0
-## 2385      12         0             &lt;NA&gt;        0           NA           NA
-## 2386       7         0             &lt;NA&gt;        0           NA           NA
-## 2387       7         0             &lt;NA&gt;        0           NA           NA
-## 2388       9         0             &lt;NA&gt;        0           NA           NA
-## 2389      10         0             &lt;NA&gt;        0           NA           NA
-## 2390      12         0             &lt;NA&gt;        0           NA           NA
-## 2391       8         0             &lt;NA&gt;        0           NA           NA
-## 2392      10         0             &lt;NA&gt;        0           NA           NA
-## 2393       9         0             &lt;NA&gt;        0            5            0
-## 2394       8         0             &lt;NA&gt;        0           35            0
-## 2395       8         0             &lt;NA&gt;        0           NA           NA
-## 2396       9         0             &lt;NA&gt;        0           23            0
-## 2397      12         0             &lt;NA&gt;        0           NA           NA
-## 2398       8         0             &lt;NA&gt;        0           NA           NA
-## 2399      11         0             &lt;NA&gt;        0           NA           NA
-## 2400       9         0             &lt;NA&gt;        0           NA           NA
-## 2401       9         0             &lt;NA&gt;        1           NA           NA
-## 2402      12         0             &lt;NA&gt;        0           51            0
-## 2403       7         0             &lt;NA&gt;        0           38            0
-## 2404       8         0             &lt;NA&gt;        0           NA           NA
-## 2405      10         0             &lt;NA&gt;        0           NA           NA
-## 2406      10         0             &lt;NA&gt;        0           NA           NA
-## 2407       8         0             &lt;NA&gt;        0           NA           NA
-## 2408      14         0             &lt;NA&gt;        0           NA           NA
-## 2409       7         0             &lt;NA&gt;        0           NA           NA
-## 2410       8         0             &lt;NA&gt;        0           NA           NA
-## 2411       8         0             &lt;NA&gt;        0            0            0
-## 2412       6         0             &lt;NA&gt;        0           NA           NA
-## 2413       8         0             &lt;NA&gt;        0            2            0
-## 2414       8         0             &lt;NA&gt;        0           NA           NA
-## 2415       8         0             &lt;NA&gt;        0           NA           NA
-## 2416      10         0             &lt;NA&gt;        0           NA           NA
-## 2417       7         0             &lt;NA&gt;        0           NA           NA
-## 2418       9         0             &lt;NA&gt;        0            0            0
-## 2419       9         0             &lt;NA&gt;        0           NA           NA
-## 2420       7         0             &lt;NA&gt;        0           NA           NA
-## 2421       8         0             &lt;NA&gt;        0           NA           NA
-## 2422      10         0             &lt;NA&gt;        0           NA           NA
-## 2423      10         0             &lt;NA&gt;        0           NA           NA
-## 2424       8         0             &lt;NA&gt;        0           NA           NA
-## 2425       5         0             &lt;NA&gt;        0           17            0
-## 2426       7         0             &lt;NA&gt;        0           NA           NA
-## 2427       9         0             &lt;NA&gt;        0           NA           NA
-## 2428       8         0             &lt;NA&gt;        0           NA           NA
-## 2429      11         0             &lt;NA&gt;        0           NA           NA
-## 2430      13         0             &lt;NA&gt;        0           NA           NA
-## 2431       7         0             &lt;NA&gt;        0           NA           NA
-## 2432       6         0             &lt;NA&gt;        0            0            0
-## 2433       6         0             &lt;NA&gt;        0           NA           NA
-## 2434       9         0             &lt;NA&gt;        0           NA           NA
-## 2435       7         0             &lt;NA&gt;        0           NA           NA
-## 2436       7         0             &lt;NA&gt;        0           NA           NA
-## 2437      10         0             &lt;NA&gt;        0           NA           NA
-## 2438       8         0             &lt;NA&gt;        0           NA           NA
-## 2439       6         0             &lt;NA&gt;        0           NA           NA
-## 2440       6         0             &lt;NA&gt;        0           NA           NA
-## 2441       8         0             &lt;NA&gt;        0           NA           NA
-## 2442       7         0             &lt;NA&gt;        0           NA           NA
-## 2443       7         0             &lt;NA&gt;        0           NA           NA
-## 2444       8         0             &lt;NA&gt;        0           NA           NA
-## 2445       6         0             &lt;NA&gt;        0           NA           NA
-## 2446       8         0             &lt;NA&gt;        0            1            0
-## 2447      19         0             &lt;NA&gt;        0            0            0
-## 2448       9         0             &lt;NA&gt;        0            0            0
-## 2449      10         0             &lt;NA&gt;        0            0            0
-## 2450       9         0             &lt;NA&gt;        0           NA           NA
-## 2451       8         0             &lt;NA&gt;        1           NA           NA
-## 2452       8         0             &lt;NA&gt;        0            0            0
-## 2453       6         0             &lt;NA&gt;        0           NA           NA
-## 2454       6         0             &lt;NA&gt;        0           22            0
-## 2455       8         0             &lt;NA&gt;        0           NA           NA
-## 2456      10         0             &lt;NA&gt;        0           NA           NA
-## 2457       6         0             &lt;NA&gt;        0           NA           NA
-## 2458       6         0             &lt;NA&gt;        0            0            0
-## 2459       6         0             &lt;NA&gt;        0           NA           NA
-## 2460       6         0             &lt;NA&gt;        0           NA           NA
-## 2461       6         0             &lt;NA&gt;        0           NA           NA
-## 2462       8         0             &lt;NA&gt;        0           NA           NA
-## 2463      11         0             &lt;NA&gt;        0           NA           NA
-## 2464      11         0             &lt;NA&gt;        0            0            0
-## 2465       7         0             &lt;NA&gt;        0           NA           NA
-## 2466       6         0             &lt;NA&gt;        0           80            0
-## 2467       7         0             &lt;NA&gt;        0           NA           NA
-## 2468       6         0             &lt;NA&gt;        0            0            0
-## 2469       6         0             &lt;NA&gt;        0           NA           NA
-## 2470       6         0             &lt;NA&gt;        0           NA           NA
-## 2471       8         0             &lt;NA&gt;        0           NA           NA
-## 2472       8         0             &lt;NA&gt;        0           NA           NA
-## 2473      10         0             &lt;NA&gt;        0            0            0
-## 2474       9         0             &lt;NA&gt;        0           NA           NA
-## 2475       8         0             &lt;NA&gt;        0           NA           NA
-## 2476      11         0             &lt;NA&gt;        0            0            0
-## 2477      17         0             &lt;NA&gt;        0           NA           NA
-## 2478       8         0             &lt;NA&gt;        0           NA           NA
-## 2479      11         0             &lt;NA&gt;        0           NA           NA
-## 2480       8         0             &lt;NA&gt;        0           NA           NA
-## 2481      15         0             &lt;NA&gt;        0           NA           NA
-## 2482      11         0             &lt;NA&gt;        0           NA           NA
-## 2483      11         0             &lt;NA&gt;        0           NA           NA
-## 2484      13         0             &lt;NA&gt;        0           NA           NA
-## 2485       8         0             &lt;NA&gt;        0           NA           NA
-## 2486       9         0             &lt;NA&gt;        0           NA           NA
-## 2487       8         0             &lt;NA&gt;        0           NA           NA
-## 2488       8         0             &lt;NA&gt;        0           NA           NA
-## 2489      10         0             &lt;NA&gt;        0           NA           NA
-## 2490      10         0             &lt;NA&gt;        0           NA           NA
-## 2491      10         0             &lt;NA&gt;        0           NA           NA
-## 2492      12         0             &lt;NA&gt;        0           NA           NA
-## 2493      10         0             &lt;NA&gt;        0           NA           NA
-## 2494      10         0             &lt;NA&gt;        0           NA           NA
-## 2495       7         0             &lt;NA&gt;        0           NA           NA
-## 2496       9         0             &lt;NA&gt;        0           NA           NA
-## 2497      12         0             &lt;NA&gt;        0           NA           NA
-## 2498       9         0             &lt;NA&gt;        0           11            0
-## 2499       9         0             &lt;NA&gt;        0           NA           NA
-## 2500       8         0             &lt;NA&gt;        0           NA           NA
-## 2501       7         0             &lt;NA&gt;        0           NA           NA
-## 2502       8         0             &lt;NA&gt;        0           NA           NA
-## 2503      10         0             &lt;NA&gt;        0           NA           NA
-## 2504       5         0             &lt;NA&gt;        0           NA           NA
-## 2505       7         0             &lt;NA&gt;        0           NA           NA
-## 2506      10         0             &lt;NA&gt;        0           NA           NA
-## 2507       8         0             &lt;NA&gt;        0           NA           NA
-## 2508      11         0             &lt;NA&gt;        0           NA           NA
-## 2509       7         0             &lt;NA&gt;        0            0            0
-## 2510       9         0             &lt;NA&gt;        0           NA           NA
-## 2511       7         0             &lt;NA&gt;        0           34            0
-## 2512       8         0             &lt;NA&gt;        0            0            0
-## 2513       8         0             &lt;NA&gt;        0           NA           NA
-## 2514       3         0             &lt;NA&gt;        0           NA           NA
-## 2515       9         0             &lt;NA&gt;        0           NA           NA
-## 2516      10         0             &lt;NA&gt;        0           NA           NA
-## 2517       5         0             &lt;NA&gt;        0           NA           NA
-## 2518       7         0             &lt;NA&gt;        0           NA           NA
-## 2519       4         0             &lt;NA&gt;        0           NA           NA
-## 2520       8         0             &lt;NA&gt;        0           NA           NA
-## 2521       5         0             &lt;NA&gt;        0           NA           NA
-## 2522       8         0             &lt;NA&gt;        0           NA           NA
-## 2523       7         0             &lt;NA&gt;        0           NA           NA
-## 2524       5         0             &lt;NA&gt;        0           NA           NA
-## 2525      13         0             &lt;NA&gt;        0           NA           NA
-## 2526      21         0             &lt;NA&gt;        0            0            0
-## 2527      13         0             &lt;NA&gt;        0           NA           NA
-## 2528      14         0             &lt;NA&gt;        0           NA           NA
-## 2529      15         0             &lt;NA&gt;        0           NA           NA
-## 2530      13         0             &lt;NA&gt;        0           NA           NA
-## 2531      13         0             &lt;NA&gt;        0           NA           NA
-## 2532      14         0             &lt;NA&gt;        0           NA           NA
-## 2533      14         0             &lt;NA&gt;        0           NA           NA
-## 2534      10         0             &lt;NA&gt;        0           NA           NA
-## 2535      17         0             &lt;NA&gt;        0            2            0
-## 2536      18         0             &lt;NA&gt;        0            0            0
-## 2537      20         0             &lt;NA&gt;        0            0            0
-## 2538      15         0             &lt;NA&gt;        0           NA           NA
-## 2539      22         0             &lt;NA&gt;        0           NA           NA
-## 2540      14         0             &lt;NA&gt;        0           NA           NA
-## 2541      23         0             &lt;NA&gt;        0            0            0
-## 2542      17         0             &lt;NA&gt;        0            6            0
-## 2543      15         0             &lt;NA&gt;        0           10            0
-## 2544      12         0             &lt;NA&gt;        0           NA           NA
-## 2545      13         0             &lt;NA&gt;        0           NA           NA
-## 2546      22         0             &lt;NA&gt;        0           NA           NA
-## 2547       8         0             &lt;NA&gt;        0           NA           NA
-## 2548      10         0             &lt;NA&gt;        0           NA           NA
-## 2549      21         0             &lt;NA&gt;        0           NA           NA
-## 2550      22         0             &lt;NA&gt;        0           21            0
-## 2551      15         0             &lt;NA&gt;        0           NA           NA
-## 2552      35         0             &lt;NA&gt;        0            0            0
-## 2553      13         0             &lt;NA&gt;        0           NA           NA
-## 2554      17         0             &lt;NA&gt;        0           NA           NA
-## 2555      11         0             &lt;NA&gt;        0           NA           NA
-## 2556       8         0             &lt;NA&gt;        0           NA           NA
-## 2557       7         0             &lt;NA&gt;        0           NA           NA
-## 2558      10         0             &lt;NA&gt;        0           NA           NA
-## 2559       7         0             &lt;NA&gt;        0           NA           NA
-## 2560      10         0             &lt;NA&gt;        0           NA           NA
-## 2561      11         0             &lt;NA&gt;        0           NA           NA
-## 2562       8         0             &lt;NA&gt;        0           NA           NA
-## 2563       9         0             &lt;NA&gt;        0           NA           NA
-## 2564       9         0             &lt;NA&gt;        0           NA           NA
-## 2565      16         0             &lt;NA&gt;        0           NA           NA
-## 2566      16         0             &lt;NA&gt;        0           NA           NA
-## 2567      13         0             &lt;NA&gt;        0           NA           NA
-## 2568      11         0             &lt;NA&gt;        0           NA           NA
-## 2569      15         0             &lt;NA&gt;        1           NA           NA
-## 2570       7         0             &lt;NA&gt;        0           NA           NA
-## 2571      52         0             &lt;NA&gt;        0           22            0
-## 2572      38         0             &lt;NA&gt;        0           NA           NA
-## 2573       8         0             &lt;NA&gt;        0           NA           NA
-## 2574      20         0             &lt;NA&gt;        0           NA           NA
-## 2575       8         0             &lt;NA&gt;        0           NA           NA
-## 2576       9         0             &lt;NA&gt;        0           NA           NA
-## 2577      15         0             &lt;NA&gt;        0           NA           NA
-## 2578      14         0             &lt;NA&gt;        0           NA           NA
-## 2579      13         0             &lt;NA&gt;        0           18            0
-## 2580      36         0             &lt;NA&gt;        0           NA           NA
-## 2581      18         0             &lt;NA&gt;        0           NA           NA
-## 2582      36         0             &lt;NA&gt;        0            0            0
-## 2583      15         0             &lt;NA&gt;        0           NA           NA
-## 2584      14         0             &lt;NA&gt;        0           NA           NA
-## 2585      17         0             &lt;NA&gt;        0           72            0
-## 2586      16         0             &lt;NA&gt;        0           NA           NA
-## 2587      15         0             &lt;NA&gt;        0           NA           NA
-## 2588      20         0             &lt;NA&gt;        0           NA           NA
-## 2589      23         0             &lt;NA&gt;        0            0            0
-## 2590      13         0             &lt;NA&gt;        0           29            0
-## 2591      13         0             &lt;NA&gt;        0            0            0
-## 2592       9         0             &lt;NA&gt;        0           34            0
-## 2593      16         0             &lt;NA&gt;        0           NA           NA
-## 2594      16         0             &lt;NA&gt;        0           32            0
-## 2595      26         0             &lt;NA&gt;        0            0            0
-## 2596      20         0             &lt;NA&gt;        0            0            0
-## 2597      27         0             &lt;NA&gt;        0           NA           NA
-## 2598      24         0             &lt;NA&gt;        0           NA           NA
-## 2599      14         0             &lt;NA&gt;        0           34            0
-## 2600      20         0             &lt;NA&gt;        0           NA           NA
-## 2601      33         0             &lt;NA&gt;        0           NA           NA
-## 2602      12         0             &lt;NA&gt;        0           24            0
-## 2603      17         0             &lt;NA&gt;        0           33            0
-## 2604      14         0             &lt;NA&gt;        0           NA           NA
-## 2605      16         0             &lt;NA&gt;        0           NA           NA
-## 2606      17         0             &lt;NA&gt;        0           NA           NA
-## 2607      16         0             &lt;NA&gt;        0            0            0
-## 2608      12         0             &lt;NA&gt;        0           94            0
-## 2609      23         0             &lt;NA&gt;        0           NA           NA
-## 2610      19         0             &lt;NA&gt;        0           NA           NA
-## 2611      13         0             &lt;NA&gt;        0           NA           NA
-## 2612      10         0             &lt;NA&gt;        0           NA           NA
-## 2613      49         0             &lt;NA&gt;        0            0            0
-## 2614      19         0             &lt;NA&gt;        0            0            0
-## 2615      46         0             &lt;NA&gt;        0            0            0
-## 2616      15         0             &lt;NA&gt;        0           NA           NA
-## 2617      11         0             &lt;NA&gt;        0           NA           NA
-## 2618      45         0             &lt;NA&gt;        0            0            0
-## 2619      21         0             &lt;NA&gt;        0           58            0
-## 2620      18         0             &lt;NA&gt;        0            0            0
-## 2621      12         0             &lt;NA&gt;        0           NA           NA
-## 2622       9         0             &lt;NA&gt;        0           43            0
-## 2623      10         0             &lt;NA&gt;        0           NA           NA
-## 2624      12         0             &lt;NA&gt;        0           NA           NA
-## 2625      11         0             &lt;NA&gt;        0           33            0
-## 2626      18         0             &lt;NA&gt;        0           NA           NA
-## 2627      17         0             &lt;NA&gt;        0           NA           NA
-## 2628      10         0             &lt;NA&gt;        0           NA           NA
-## 2629      15         0             &lt;NA&gt;        0           NA           NA
-## 2630      12         0             &lt;NA&gt;        0           NA           NA
-## 2631      10         0             &lt;NA&gt;        0           NA           NA
-## 2632      10         0             &lt;NA&gt;        0           NA           NA
-## 2633      49         0             &lt;NA&gt;        0            0            0
-## 2634       9         0             &lt;NA&gt;        0           NA           NA
-## 2635      10         0             &lt;NA&gt;        0           NA           NA
-## 2636      11         0             &lt;NA&gt;        0           NA           NA
-## 2637       9         0             &lt;NA&gt;        0           NA           NA
-## 2638      10         0             &lt;NA&gt;        0           NA           NA
-## 2639      14         0             &lt;NA&gt;        0           NA           NA
-## 2640      12         0             &lt;NA&gt;        0           NA           NA
-## 2641      17         0             &lt;NA&gt;        0           14            0
-## 2642      19         0             &lt;NA&gt;        0           10            0
-## 2643      12         0             &lt;NA&gt;        0           NA           NA
-## 2644      19         0             &lt;NA&gt;        0            0            0
-## 2645      11         0             &lt;NA&gt;        0           NA           NA
-## 2646      12         0             &lt;NA&gt;        0           NA           NA
-## 2647      30         0             &lt;NA&gt;        0            0            0
-## 2648       9         0             &lt;NA&gt;        0           NA           NA
-## 2649      16         0             &lt;NA&gt;        0           24            0
-## 2650      20         0             &lt;NA&gt;        0           NA           NA
-## 2651       4         0             &lt;NA&gt;        0           NA           NA
-## 2652       5         0             &lt;NA&gt;        0           NA           NA
-## 2653       5         0             &lt;NA&gt;        0            0            0
-## 2654       5         0             &lt;NA&gt;        0           NA           NA
-## 2655       6         0             &lt;NA&gt;        0           NA           NA
-## 2656       5         0             &lt;NA&gt;        0           NA           NA
-## 2657       5         0             &lt;NA&gt;        0           NA           NA
-## 2658       4         0             &lt;NA&gt;        0           NA           NA
-## 2659       5         0             &lt;NA&gt;        0           NA           NA
-## 2660       7         0             &lt;NA&gt;        0           NA           NA
-## 2661       4         0             &lt;NA&gt;        0           NA           NA
-## 2662       5         0             &lt;NA&gt;        0           NA           NA
-## 2663       6         0             &lt;NA&gt;        0           NA           NA
-## 2664       6         0             &lt;NA&gt;        0           NA           NA
-## 2665       6         0             &lt;NA&gt;        0           NA           NA
-## 2666       6         0             &lt;NA&gt;        0           NA           NA
-## 2667       6         0             &lt;NA&gt;        0           NA           NA
-## 2668       6         0             &lt;NA&gt;        0           NA           NA
-## 2669       4         0             &lt;NA&gt;        0           NA           NA
-## 2670       8         0             &lt;NA&gt;        0           NA           NA
-## 2671       8         0             &lt;NA&gt;        0           NA           NA
-## 2672      10         0             &lt;NA&gt;        0           NA           NA
-## 2673       9         0             &lt;NA&gt;        0           NA           NA
-## 2674       8         0             &lt;NA&gt;        0           NA           NA
-## 2675       8         0             &lt;NA&gt;        0           NA           NA
-## 2676       7         0             &lt;NA&gt;        0           NA           NA
-## 2677       8         0             &lt;NA&gt;        0           NA           NA
-## 2678       7         0             &lt;NA&gt;        0           NA           NA
-## 2679       7         0             &lt;NA&gt;        0           NA           NA
-## 2680       8         0             &lt;NA&gt;        0           NA           NA
-## 2681       7         0             &lt;NA&gt;        0           NA           NA
-## 2682      10         0             &lt;NA&gt;        0           NA           NA
-## 2683      10         0             &lt;NA&gt;        0           NA           NA
-## 2684      12         0             &lt;NA&gt;        0            9            0
-## 2685      10         0             &lt;NA&gt;        0           NA           NA
-## 2686      12         0             &lt;NA&gt;        0            3            0
-## 2687      11         0             &lt;NA&gt;        0           NA           NA
-## 2688       9         0             &lt;NA&gt;        0           NA           NA
-## 2689      14         0             &lt;NA&gt;        0           NA           NA
-## 2690      13         0             &lt;NA&gt;        0           NA           NA
-## 2691      14         0             &lt;NA&gt;        0           NA           NA
-## 2692      11         0             &lt;NA&gt;        0           NA           NA
-## 2693      12         0             &lt;NA&gt;        0           NA           NA
-## 2694      12         0             &lt;NA&gt;        0           NA           NA
-## 2695       8         0             &lt;NA&gt;        0           NA           NA
-## 2696      13         0             &lt;NA&gt;        0           NA           NA
-## 2697       9         0             &lt;NA&gt;        0           NA           NA
-## 2698      34         0             &lt;NA&gt;        0            0            8
-## 2699      10         0             &lt;NA&gt;        0           NA           NA
-## 2700       9         0             &lt;NA&gt;        0           NA           NA
-## 2701      12         0             &lt;NA&gt;        0           NA           NA
-## 2702      13         0             &lt;NA&gt;        0           NA           NA
-## 2703      16         0             &lt;NA&gt;        0           NA           NA
-## 2704       9         0             &lt;NA&gt;        0           NA           NA
-## 2705       7         0             &lt;NA&gt;        0           NA           NA
-## 2706      27         0             &lt;NA&gt;        0            0            0
-## 2707      32         0             &lt;NA&gt;        1           NA           NA
-## 2708      28         0             &lt;NA&gt;        0           24            0
-## 2709      12         0             &lt;NA&gt;        0           NA           NA
-## 2710       8         0             &lt;NA&gt;        0           NA           NA
-## 2711      10         0             &lt;NA&gt;        0           NA           NA
-## 2712      11         0             &lt;NA&gt;        0           NA           NA
-## 2713      13         0             &lt;NA&gt;        0           NA           NA
-## 2714      16         0             &lt;NA&gt;        0           NA           NA
-## 2715       7         0             &lt;NA&gt;        0           NA           NA
+## 2334       4         0             <NA>        0           NA           NA
+## 2335       7         0             <NA>        0           NA           NA
+## 2336       6         0             <NA>        0            1            0
+## 2337      12         0             <NA>        0            0            0
+## 2338       9         0             <NA>        0           NA           NA
+## 2339       7         0             <NA>        0           NA           NA
+## 2340       7         0             <NA>        0           92            0
+## 2341       6         0             <NA>        0           NA           NA
+## 2342       8         0             <NA>        0           NA           NA
+## 2343      10         0             <NA>        0           NA           NA
+## 2344      10         0             <NA>        0            0            0
+## 2345       6         0             <NA>        0           NA           NA
+## 2346       9         0             <NA>        0           NA           NA
+## 2347       5         0             <NA>        0           NA           NA
+## 2348       8         0             <NA>        0           NA           NA
+## 2349       7         0             <NA>        0           NA           NA
+## 2350      12         0             <NA>        0           NA           NA
+## 2351      11         0             <NA>        0           NA           NA
+## 2352      10         0             <NA>        0           NA           NA
+## 2353      15         0             <NA>        0            0           14
+## 2354       6         0             <NA>        0           NA           NA
+## 2355      12         0             <NA>        0           NA           NA
+## 2356       9         0             <NA>        0           NA           NA
+## 2357       6         0             <NA>        0           NA           NA
+## 2358       7         0             <NA>        0           NA           NA
+## 2359      14         0             <NA>        0            0            0
+## 2360      12         0             <NA>        0           NA           NA
+## 2361      12         0             <NA>        0           NA           NA
+## 2362       6         0             <NA>        0           NA           NA
+## 2363       8         0             <NA>        0           NA           NA
+## 2364       7         0             <NA>        0           NA           NA
+## 2365      13         0             <NA>        0           NA           NA
+## 2366       7         0             <NA>        0           NA           NA
+## 2367      11         0             <NA>        0           NA           NA
+## 2368       8         0             <NA>        0           NA           NA
+## 2369       6         0             <NA>        0           NA           NA
+## 2370       9         0             <NA>        0            0           41
+## 2371      11         0             <NA>        0            6            0
+## 2372      10         0             <NA>        0            6            0
+## 2373      10         0             <NA>        0           13            0
+## 2374      13         0             <NA>        0           NA           NA
+## 2375       8         0             <NA>        0            4            0
+## 2376       8         0             <NA>        0           69            0
+## 2377       8         0             <NA>        0           NA           NA
+## 2378       8         0             <NA>        0           NA           NA
+## 2379      10         0             <NA>        0           NA           NA
+## 2380       8         0             <NA>        0           NA           NA
+## 2381       9         0             <NA>        0           NA           NA
+## 2382       9         0             <NA>        0            0            0
+## 2383      19         0             <NA>        0            5            0
+## 2384       9         0             <NA>        0           35            0
+## 2385      12         0             <NA>        0           NA           NA
+## 2386       7         0             <NA>        0           NA           NA
+## 2387       7         0             <NA>        0           NA           NA
+## 2388       9         0             <NA>        0           NA           NA
+## 2389      10         0             <NA>        0           NA           NA
+## 2390      12         0             <NA>        0           NA           NA
+## 2391       8         0             <NA>        0           NA           NA
+## 2392      10         0             <NA>        0           NA           NA
+## 2393       9         0             <NA>        0            5            0
+## 2394       8         0             <NA>        0           35            0
+## 2395       8         0             <NA>        0           NA           NA
+## 2396       9         0             <NA>        0           23            0
+## 2397      12         0             <NA>        0           NA           NA
+## 2398       8         0             <NA>        0           NA           NA
+## 2399      11         0             <NA>        0           NA           NA
+## 2400       9         0             <NA>        0           NA           NA
+## 2401       9         0             <NA>        1           NA           NA
+## 2402      12         0             <NA>        0           51            0
+## 2403       7         0             <NA>        0           38            0
+## 2404       8         0             <NA>        0           NA           NA
+## 2405      10         0             <NA>        0           NA           NA
+## 2406      10         0             <NA>        0           NA           NA
+## 2407       8         0             <NA>        0           NA           NA
+## 2408      14         0             <NA>        0           NA           NA
+## 2409       7         0             <NA>        0           NA           NA
+## 2410       8         0             <NA>        0           NA           NA
+## 2411       8         0             <NA>        0            0            0
+## 2412       6         0             <NA>        0           NA           NA
+## 2413       8         0             <NA>        0            2            0
+## 2414       8         0             <NA>        0           NA           NA
+## 2415       8         0             <NA>        0           NA           NA
+## 2416      10         0             <NA>        0           NA           NA
+## 2417       7         0             <NA>        0           NA           NA
+## 2418       9         0             <NA>        0            0            0
+## 2419       9         0             <NA>        0           NA           NA
+## 2420       7         0             <NA>        0           NA           NA
+## 2421       8         0             <NA>        0           NA           NA
+## 2422      10         0             <NA>        0           NA           NA
+## 2423      10         0             <NA>        0           NA           NA
+## 2424       8         0             <NA>        0           NA           NA
+## 2425       5         0             <NA>        0           17            0
+## 2426       7         0             <NA>        0           NA           NA
+## 2427       9         0             <NA>        0           NA           NA
+## 2428       8         0             <NA>        0           NA           NA
+## 2429      11         0             <NA>        0           NA           NA
+## 2430      13         0             <NA>        0           NA           NA
+## 2431       7         0             <NA>        0           NA           NA
+## 2432       6         0             <NA>        0            0            0
+## 2433       6         0             <NA>        0           NA           NA
+## 2434       9         0             <NA>        0           NA           NA
+## 2435       7         0             <NA>        0           NA           NA
+## 2436       7         0             <NA>        0           NA           NA
+## 2437      10         0             <NA>        0           NA           NA
+## 2438       8         0             <NA>        0           NA           NA
+## 2439       6         0             <NA>        0           NA           NA
+## 2440       6         0             <NA>        0           NA           NA
+## 2441       8         0             <NA>        0           NA           NA
+## 2442       7         0             <NA>        0           NA           NA
+## 2443       7         0             <NA>        0           NA           NA
+## 2444       8         0             <NA>        0           NA           NA
+## 2445       6         0             <NA>        0           NA           NA
+## 2446       8         0             <NA>        0            1            0
+## 2447      19         0             <NA>        0            0            0
+## 2448       9         0             <NA>        0            0            0
+## 2449      10         0             <NA>        0            0            0
+## 2450       9         0             <NA>        0           NA           NA
+## 2451       8         0             <NA>        1           NA           NA
+## 2452       8         0             <NA>        0            0            0
+## 2453       6         0             <NA>        0           NA           NA
+## 2454       6         0             <NA>        0           22            0
+## 2455       8         0             <NA>        0           NA           NA
+## 2456      10         0             <NA>        0           NA           NA
+## 2457       6         0             <NA>        0           NA           NA
+## 2458       6         0             <NA>        0            0            0
+## 2459       6         0             <NA>        0           NA           NA
+## 2460       6         0             <NA>        0           NA           NA
+## 2461       6         0             <NA>        0           NA           NA
+## 2462       8         0             <NA>        0           NA           NA
+## 2463      11         0             <NA>        0           NA           NA
+## 2464      11         0             <NA>        0            0            0
+## 2465       7         0             <NA>        0           NA           NA
+## 2466       6         0             <NA>        0           80            0
+## 2467       7         0             <NA>        0           NA           NA
+## 2468       6         0             <NA>        0            0            0
+## 2469       6         0             <NA>        0           NA           NA
+## 2470       6         0             <NA>        0           NA           NA
+## 2471       8         0             <NA>        0           NA           NA
+## 2472       8         0             <NA>        0           NA           NA
+## 2473      10         0             <NA>        0            0            0
+## 2474       9         0             <NA>        0           NA           NA
+## 2475       8         0             <NA>        0           NA           NA
+## 2476      11         0             <NA>        0            0            0
+## 2477      17         0             <NA>        0           NA           NA
+## 2478       8         0             <NA>        0           NA           NA
+## 2479      11         0             <NA>        0           NA           NA
+## 2480       8         0             <NA>        0           NA           NA
+## 2481      15         0             <NA>        0           NA           NA
+## 2482      11         0             <NA>        0           NA           NA
+## 2483      11         0             <NA>        0           NA           NA
+## 2484      13         0             <NA>        0           NA           NA
+## 2485       8         0             <NA>        0           NA           NA
+## 2486       9         0             <NA>        0           NA           NA
+## 2487       8         0             <NA>        0           NA           NA
+## 2488       8         0             <NA>        0           NA           NA
+## 2489      10         0             <NA>        0           NA           NA
+## 2490      10         0             <NA>        0           NA           NA
+## 2491      10         0             <NA>        0           NA           NA
+## 2492      12         0             <NA>        0           NA           NA
+## 2493      10         0             <NA>        0           NA           NA
+## 2494      10         0             <NA>        0           NA           NA
+## 2495       7         0             <NA>        0           NA           NA
+## 2496       9         0             <NA>        0           NA           NA
+## 2497      12         0             <NA>        0           NA           NA
+## 2498       9         0             <NA>        0           11            0
+## 2499       9         0             <NA>        0           NA           NA
+## 2500       8         0             <NA>        0           NA           NA
+## 2501       7         0             <NA>        0           NA           NA
+## 2502       8         0             <NA>        0           NA           NA
+## 2503      10         0             <NA>        0           NA           NA
+## 2504       5         0             <NA>        0           NA           NA
+## 2505       7         0             <NA>        0           NA           NA
+## 2506      10         0             <NA>        0           NA           NA
+## 2507       8         0             <NA>        0           NA           NA
+## 2508      11         0             <NA>        0           NA           NA
+## 2509       7         0             <NA>        0            0            0
+## 2510       9         0             <NA>        0           NA           NA
+## 2511       7         0             <NA>        0           34            0
+## 2512       8         0             <NA>        0            0            0
+## 2513       8         0             <NA>        0           NA           NA
+## 2514       3         0             <NA>        0           NA           NA
+## 2515       9         0             <NA>        0           NA           NA
+## 2516      10         0             <NA>        0           NA           NA
+## 2517       5         0             <NA>        0           NA           NA
+## 2518       7         0             <NA>        0           NA           NA
+## 2519       4         0             <NA>        0           NA           NA
+## 2520       8         0             <NA>        0           NA           NA
+## 2521       5         0             <NA>        0           NA           NA
+## 2522       8         0             <NA>        0           NA           NA
+## 2523       7         0             <NA>        0           NA           NA
+## 2524       5         0             <NA>        0           NA           NA
+## 2525      13         0             <NA>        0           NA           NA
+## 2526      21         0             <NA>        0            0            0
+## 2527      13         0             <NA>        0           NA           NA
+## 2528      14         0             <NA>        0           NA           NA
+## 2529      15         0             <NA>        0           NA           NA
+## 2530      13         0             <NA>        0           NA           NA
+## 2531      13         0             <NA>        0           NA           NA
+## 2532      14         0             <NA>        0           NA           NA
+## 2533      14         0             <NA>        0           NA           NA
+## 2534      10         0             <NA>        0           NA           NA
+## 2535      17         0             <NA>        0            2            0
+## 2536      18         0             <NA>        0            0            0
+## 2537      20         0             <NA>        0            0            0
+## 2538      15         0             <NA>        0           NA           NA
+## 2539      22         0             <NA>        0           NA           NA
+## 2540      14         0             <NA>        0           NA           NA
+## 2541      23         0             <NA>        0            0            0
+## 2542      17         0             <NA>        0            6            0
+## 2543      15         0             <NA>        0           10            0
+## 2544      12         0             <NA>        0           NA           NA
+## 2545      13         0             <NA>        0           NA           NA
+## 2546      22         0             <NA>        0           NA           NA
+## 2547       8         0             <NA>        0           NA           NA
+## 2548      10         0             <NA>        0           NA           NA
+## 2549      21         0             <NA>        0           NA           NA
+## 2550      22         0             <NA>        0           21            0
+## 2551      15         0             <NA>        0           NA           NA
+## 2552      35         0             <NA>        0            0            0
+## 2553      13         0             <NA>        0           NA           NA
+## 2554      17         0             <NA>        0           NA           NA
+## 2555      11         0             <NA>        0           NA           NA
+## 2556       8         0             <NA>        0           NA           NA
+## 2557       7         0             <NA>        0           NA           NA
+## 2558      10         0             <NA>        0           NA           NA
+## 2559       7         0             <NA>        0           NA           NA
+## 2560      10         0             <NA>        0           NA           NA
+## 2561      11         0             <NA>        0           NA           NA
+## 2562       8         0             <NA>        0           NA           NA
+## 2563       9         0             <NA>        0           NA           NA
+## 2564       9         0             <NA>        0           NA           NA
+## 2565      16         0             <NA>        0           NA           NA
+## 2566      16         0             <NA>        0           NA           NA
+## 2567      13         0             <NA>        0           NA           NA
+## 2568      11         0             <NA>        0           NA           NA
+## 2569      15         0             <NA>        1           NA           NA
+## 2570       7         0             <NA>        0           NA           NA
+## 2571      52         0             <NA>        0           22            0
+## 2572      38         0             <NA>        0           NA           NA
+## 2573       8         0             <NA>        0           NA           NA
+## 2574      20         0             <NA>        0           NA           NA
+## 2575       8         0             <NA>        0           NA           NA
+## 2576       9         0             <NA>        0           NA           NA
+## 2577      15         0             <NA>        0           NA           NA
+## 2578      14         0             <NA>        0           NA           NA
+## 2579      13         0             <NA>        0           18            0
+## 2580      36         0             <NA>        0           NA           NA
+## 2581      18         0             <NA>        0           NA           NA
+## 2582      36         0             <NA>        0            0            0
+## 2583      15         0             <NA>        0           NA           NA
+## 2584      14         0             <NA>        0           NA           NA
+## 2585      17         0             <NA>        0           72            0
+## 2586      16         0             <NA>        0           NA           NA
+## 2587      15         0             <NA>        0           NA           NA
+## 2588      20         0             <NA>        0           NA           NA
+## 2589      23         0             <NA>        0            0            0
+## 2590      13         0             <NA>        0           29            0
+## 2591      13         0             <NA>        0            0            0
+## 2592       9         0             <NA>        0           34            0
+## 2593      16         0             <NA>        0           NA           NA
+## 2594      16         0             <NA>        0           32            0
+## 2595      26         0             <NA>        0            0            0
+## 2596      20         0             <NA>        0            0            0
+## 2597      27         0             <NA>        0           NA           NA
+## 2598      24         0             <NA>        0           NA           NA
+## 2599      14         0             <NA>        0           34            0
+## 2600      20         0             <NA>        0           NA           NA
+## 2601      33         0             <NA>        0           NA           NA
+## 2602      12         0             <NA>        0           24            0
+## 2603      17         0             <NA>        0           33            0
+## 2604      14         0             <NA>        0           NA           NA
+## 2605      16         0             <NA>        0           NA           NA
+## 2606      17         0             <NA>        0           NA           NA
+## 2607      16         0             <NA>        0            0            0
+## 2608      12         0             <NA>        0           94            0
+## 2609      23         0             <NA>        0           NA           NA
+## 2610      19         0             <NA>        0           NA           NA
+## 2611      13         0             <NA>        0           NA           NA
+## 2612      10         0             <NA>        0           NA           NA
+## 2613      49         0             <NA>        0            0            0
+## 2614      19         0             <NA>        0            0            0
+## 2615      46         0             <NA>        0            0            0
+## 2616      15         0             <NA>        0           NA           NA
+## 2617      11         0             <NA>        0           NA           NA
+## 2618      45         0             <NA>        0            0            0
+## 2619      21         0             <NA>        0           58            0
+## 2620      18         0             <NA>        0            0            0
+## 2621      12         0             <NA>        0           NA           NA
+## 2622       9         0             <NA>        0           43            0
+## 2623      10         0             <NA>        0           NA           NA
+## 2624      12         0             <NA>        0           NA           NA
+## 2625      11         0             <NA>        0           33            0
+## 2626      18         0             <NA>        0           NA           NA
+## 2627      17         0             <NA>        0           NA           NA
+## 2628      10         0             <NA>        0           NA           NA
+## 2629      15         0             <NA>        0           NA           NA
+## 2630      12         0             <NA>        0           NA           NA
+## 2631      10         0             <NA>        0           NA           NA
+## 2632      10         0             <NA>        0           NA           NA
+## 2633      49         0             <NA>        0            0            0
+## 2634       9         0             <NA>        0           NA           NA
+## 2635      10         0             <NA>        0           NA           NA
+## 2636      11         0             <NA>        0           NA           NA
+## 2637       9         0             <NA>        0           NA           NA
+## 2638      10         0             <NA>        0           NA           NA
+## 2639      14         0             <NA>        0           NA           NA
+## 2640      12         0             <NA>        0           NA           NA
+## 2641      17         0             <NA>        0           14            0
+## 2642      19         0             <NA>        0           10            0
+## 2643      12         0             <NA>        0           NA           NA
+## 2644      19         0             <NA>        0            0            0
+## 2645      11         0             <NA>        0           NA           NA
+## 2646      12         0             <NA>        0           NA           NA
+## 2647      30         0             <NA>        0            0            0
+## 2648       9         0             <NA>        0           NA           NA
+## 2649      16         0             <NA>        0           24            0
+## 2650      20         0             <NA>        0           NA           NA
+## 2651       4         0             <NA>        0           NA           NA
+## 2652       5         0             <NA>        0           NA           NA
+## 2653       5         0             <NA>        0            0            0
+## 2654       5         0             <NA>        0           NA           NA
+## 2655       6         0             <NA>        0           NA           NA
+## 2656       5         0             <NA>        0           NA           NA
+## 2657       5         0             <NA>        0           NA           NA
+## 2658       4         0             <NA>        0           NA           NA
+## 2659       5         0             <NA>        0           NA           NA
+## 2660       7         0             <NA>        0           NA           NA
+## 2661       4         0             <NA>        0           NA           NA
+## 2662       5         0             <NA>        0           NA           NA
+## 2663       6         0             <NA>        0           NA           NA
+## 2664       6         0             <NA>        0           NA           NA
+## 2665       6         0             <NA>        0           NA           NA
+## 2666       6         0             <NA>        0           NA           NA
+## 2667       6         0             <NA>        0           NA           NA
+## 2668       6         0             <NA>        0           NA           NA
+## 2669       4         0             <NA>        0           NA           NA
+## 2670       8         0             <NA>        0           NA           NA
+## 2671       8         0             <NA>        0           NA           NA
+## 2672      10         0             <NA>        0           NA           NA
+## 2673       9         0             <NA>        0           NA           NA
+## 2674       8         0             <NA>        0           NA           NA
+## 2675       8         0             <NA>        0           NA           NA
+## 2676       7         0             <NA>        0           NA           NA
+## 2677       8         0             <NA>        0           NA           NA
+## 2678       7         0             <NA>        0           NA           NA
+## 2679       7         0             <NA>        0           NA           NA
+## 2680       8         0             <NA>        0           NA           NA
+## 2681       7         0             <NA>        0           NA           NA
+## 2682      10         0             <NA>        0           NA           NA
+## 2683      10         0             <NA>        0           NA           NA
+## 2684      12         0             <NA>        0            9            0
+## 2685      10         0             <NA>        0           NA           NA
+## 2686      12         0             <NA>        0            3            0
+## 2687      11         0             <NA>        0           NA           NA
+## 2688       9         0             <NA>        0           NA           NA
+## 2689      14         0             <NA>        0           NA           NA
+## 2690      13         0             <NA>        0           NA           NA
+## 2691      14         0             <NA>        0           NA           NA
+## 2692      11         0             <NA>        0           NA           NA
+## 2693      12         0             <NA>        0           NA           NA
+## 2694      12         0             <NA>        0           NA           NA
+## 2695       8         0             <NA>        0           NA           NA
+## 2696      13         0             <NA>        0           NA           NA
+## 2697       9         0             <NA>        0           NA           NA
+## 2698      34         0             <NA>        0            0            8
+## 2699      10         0             <NA>        0           NA           NA
+## 2700       9         0             <NA>        0           NA           NA
+## 2701      12         0             <NA>        0           NA           NA
+## 2702      13         0             <NA>        0           NA           NA
+## 2703      16         0             <NA>        0           NA           NA
+## 2704       9         0             <NA>        0           NA           NA
+## 2705       7         0             <NA>        0           NA           NA
+## 2706      27         0             <NA>        0            0            0
+## 2707      32         0             <NA>        1           NA           NA
+## 2708      28         0             <NA>        0           24            0
+## 2709      12         0             <NA>        0           NA           NA
+## 2710       8         0             <NA>        0           NA           NA
+## 2711      10         0             <NA>        0           NA           NA
+## 2712      11         0             <NA>        0           NA           NA
+## 2713      13         0             <NA>        0           NA           NA
+## 2714      16         0             <NA>        0           NA           NA
+## 2715       7         0             <NA>        0           NA           NA
 ## 2716      NA         1                C        0           NA           NA
-## 2717      14         0             &lt;NA&gt;        0           NA           NA
-## 2718      62         0             &lt;NA&gt;        0            0            0
-## 2719      10         0             &lt;NA&gt;        0            0            0
-## 2720      25         0             &lt;NA&gt;        0           NA           NA
-## 2721      26         0             &lt;NA&gt;        0           NA           NA
-## 2722       8         0             &lt;NA&gt;        0           NA           NA
-## 2723      16         0             &lt;NA&gt;        0           NA           NA
-## 2724      14         0             &lt;NA&gt;        0           NA           NA
-## 2725      13         0             &lt;NA&gt;        0           NA           NA
-## 2726      21         0             &lt;NA&gt;        0           NA           NA
-## 2727      19         0             &lt;NA&gt;        0           NA           NA
-## 2728      20         0             &lt;NA&gt;        0           NA           NA
-## 2729      14         0             &lt;NA&gt;        0           NA           NA
-## 2730      13         0             &lt;NA&gt;        0           NA           NA
-## 2731      10         0             &lt;NA&gt;        0           NA           NA
-## 2732      14         0             &lt;NA&gt;        0           NA           NA
-## 2733      18         0             &lt;NA&gt;        0           NA           NA
-## 2734      13         0             &lt;NA&gt;        0           NA           NA
-## 2735      15         0             &lt;NA&gt;        0           NA           NA
-## 2736      15         0             &lt;NA&gt;        0           NA           NA
-## 2737      18         0             &lt;NA&gt;        0           NA           NA
-## 2738      16         0             &lt;NA&gt;        0           NA           NA
-## 2739      15         0             &lt;NA&gt;        0           NA           NA
-## 2740      15         0             &lt;NA&gt;        0           NA           NA
-## 2741      10         0             &lt;NA&gt;        0           NA           NA
-## 2742       9         0             &lt;NA&gt;        0           NA           NA
-## 2743      13         0             &lt;NA&gt;        0           NA           NA
-## 2744      23         0             &lt;NA&gt;        0           11            0
-## 2745      13         0             &lt;NA&gt;        0           NA           NA
-## 2746      17         0             &lt;NA&gt;        0           NA           NA
-## 2747      17         0             &lt;NA&gt;        0           23            0
-## 2748      35         0             &lt;NA&gt;        0            0            0
-## 2749      30         0             &lt;NA&gt;        0            0            0
-## 2750      22         0             &lt;NA&gt;        0           38            0
-## 2751      17         0             &lt;NA&gt;        0           NA           NA
-## 2752      14         0             &lt;NA&gt;        0           NA           NA
-## 2753      71         0             &lt;NA&gt;        0           16            0
-## 2754      19         0             &lt;NA&gt;        0            0            0
-## 2755      23         0             &lt;NA&gt;        0           NA           NA
-## 2756      16         0             &lt;NA&gt;        0           NA           NA
-## 2757      13         0             &lt;NA&gt;        0           NA           NA
-## 2758      39         0             &lt;NA&gt;        0           12            0
-## 2759      15         0             &lt;NA&gt;        0           NA           NA
-## 2760      24         0             &lt;NA&gt;        0           34            0
-## 2761      22         0             &lt;NA&gt;        0           NA           NA
-## 2762      23         0             &lt;NA&gt;        0           NA           NA
-## 2763      10         0             &lt;NA&gt;        0           10            0
-## 2764      15         0             &lt;NA&gt;        0           NA           NA
-## 2765      12         0             &lt;NA&gt;        0           NA           NA
-## 2766       9         0             &lt;NA&gt;        0           NA           NA
-## 2767      15         0             &lt;NA&gt;        0            0            0
-## 2768      25         0             &lt;NA&gt;        0           NA           NA
-## 2769      17         0             &lt;NA&gt;        0           97            0
-## 2770      16         0             &lt;NA&gt;        0           NA           NA
-## 2771      14         0             &lt;NA&gt;        0           NA           NA
-## 2772      29         0             &lt;NA&gt;        0           NA           NA
-## 2773      13         0             &lt;NA&gt;        0           NA           NA
-## 2774      16         0             &lt;NA&gt;        0           NA           NA
-## 2775      16         0             &lt;NA&gt;        0            0            0
-## 2776      19         0             &lt;NA&gt;        0           NA           NA
-## 2777      22         0             &lt;NA&gt;        0            6            0
-## 2778       9         0             &lt;NA&gt;        0           72            0
-## 2779      28         0             &lt;NA&gt;        0           NA           NA
-## 2780      17         0             &lt;NA&gt;        0           NA           NA
-## 2781      27         0             &lt;NA&gt;        0           NA           NA
-## 2782      10         0             &lt;NA&gt;        0           NA           NA
-## 2783      13         0             &lt;NA&gt;        0           NA           NA
-## 2784      15         0             &lt;NA&gt;        0           NA           NA
-## 2785      14         0             &lt;NA&gt;        0           NA           NA
-## 2786      22         0             &lt;NA&gt;        0           NA           NA
-## 2787      24         0             &lt;NA&gt;        0           NA           NA
-## 2788      13         0             &lt;NA&gt;        0           NA           NA
-## 2789      14         0             &lt;NA&gt;        0            0            0
-## 2790       9         0             &lt;NA&gt;        0           NA           NA
-## 2791      32         0             &lt;NA&gt;        0            0            0
-## 2792      18         0             &lt;NA&gt;        0           NA           NA
-## 2793      18         0             &lt;NA&gt;        0           NA           NA
-## 2794      12         0             &lt;NA&gt;        0           NA           NA
-## 2795      13         0             &lt;NA&gt;        0           NA           NA
-## 2796       7         0             &lt;NA&gt;        0            0            0
-## 2797      11         0             &lt;NA&gt;        0           NA           NA
-## 2798      12         0             &lt;NA&gt;        0           NA           NA
-## 2799      11         0             &lt;NA&gt;        0           NA           NA
-## 2800      13         0             &lt;NA&gt;        0           NA           NA
-## 2801      14         0             &lt;NA&gt;        0           40            0
-## 2802      17         0             &lt;NA&gt;        0          180            0
-## 2803      12         0             &lt;NA&gt;        0           NA           NA
+## 2717      14         0             <NA>        0           NA           NA
+## 2718      62         0             <NA>        0            0            0
+## 2719      10         0             <NA>        0            0            0
+## 2720      25         0             <NA>        0           NA           NA
+## 2721      26         0             <NA>        0           NA           NA
+## 2722       8         0             <NA>        0           NA           NA
+## 2723      16         0             <NA>        0           NA           NA
+## 2724      14         0             <NA>        0           NA           NA
+## 2725      13         0             <NA>        0           NA           NA
+## 2726      21         0             <NA>        0           NA           NA
+## 2727      19         0             <NA>        0           NA           NA
+## 2728      20         0             <NA>        0           NA           NA
+## 2729      14         0             <NA>        0           NA           NA
+## 2730      13         0             <NA>        0           NA           NA
+## 2731      10         0             <NA>        0           NA           NA
+## 2732      14         0             <NA>        0           NA           NA
+## 2733      18         0             <NA>        0           NA           NA
+## 2734      13         0             <NA>        0           NA           NA
+## 2735      15         0             <NA>        0           NA           NA
+## 2736      15         0             <NA>        0           NA           NA
+## 2737      18         0             <NA>        0           NA           NA
+## 2738      16         0             <NA>        0           NA           NA
+## 2739      15         0             <NA>        0           NA           NA
+## 2740      15         0             <NA>        0           NA           NA
+## 2741      10         0             <NA>        0           NA           NA
+## 2742       9         0             <NA>        0           NA           NA
+## 2743      13         0             <NA>        0           NA           NA
+## 2744      23         0             <NA>        0           11            0
+## 2745      13         0             <NA>        0           NA           NA
+## 2746      17         0             <NA>        0           NA           NA
+## 2747      17         0             <NA>        0           23            0
+## 2748      35         0             <NA>        0            0            0
+## 2749      30         0             <NA>        0            0            0
+## 2750      22         0             <NA>        0           38            0
+## 2751      17         0             <NA>        0           NA           NA
+## 2752      14         0             <NA>        0           NA           NA
+## 2753      71         0             <NA>        0           16            0
+## 2754      19         0             <NA>        0            0            0
+## 2755      23         0             <NA>        0           NA           NA
+## 2756      16         0             <NA>        0           NA           NA
+## 2757      13         0             <NA>        0           NA           NA
+## 2758      39         0             <NA>        0           12            0
+## 2759      15         0             <NA>        0           NA           NA
+## 2760      24         0             <NA>        0           34            0
+## 2761      22         0             <NA>        0           NA           NA
+## 2762      23         0             <NA>        0           NA           NA
+## 2763      10         0             <NA>        0           10            0
+## 2764      15         0             <NA>        0           NA           NA
+## 2765      12         0             <NA>        0           NA           NA
+## 2766       9         0             <NA>        0           NA           NA
+## 2767      15         0             <NA>        0            0            0
+## 2768      25         0             <NA>        0           NA           NA
+## 2769      17         0             <NA>        0           97            0
+## 2770      16         0             <NA>        0           NA           NA
+## 2771      14         0             <NA>        0           NA           NA
+## 2772      29         0             <NA>        0           NA           NA
+## 2773      13         0             <NA>        0           NA           NA
+## 2774      16         0             <NA>        0           NA           NA
+## 2775      16         0             <NA>        0            0            0
+## 2776      19         0             <NA>        0           NA           NA
+## 2777      22         0             <NA>        0            6            0
+## 2778       9         0             <NA>        0           72            0
+## 2779      28         0             <NA>        0           NA           NA
+## 2780      17         0             <NA>        0           NA           NA
+## 2781      27         0             <NA>        0           NA           NA
+## 2782      10         0             <NA>        0           NA           NA
+## 2783      13         0             <NA>        0           NA           NA
+## 2784      15         0             <NA>        0           NA           NA
+## 2785      14         0             <NA>        0           NA           NA
+## 2786      22         0             <NA>        0           NA           NA
+## 2787      24         0             <NA>        0           NA           NA
+## 2788      13         0             <NA>        0           NA           NA
+## 2789      14         0             <NA>        0            0            0
+## 2790       9         0             <NA>        0           NA           NA
+## 2791      32         0             <NA>        0            0            0
+## 2792      18         0             <NA>        0           NA           NA
+## 2793      18         0             <NA>        0           NA           NA
+## 2794      12         0             <NA>        0           NA           NA
+## 2795      13         0             <NA>        0           NA           NA
+## 2796       7         0             <NA>        0            0            0
+## 2797      11         0             <NA>        0           NA           NA
+## 2798      12         0             <NA>        0           NA           NA
+## 2799      11         0             <NA>        0           NA           NA
+## 2800      13         0             <NA>        0           NA           NA
+## 2801      14         0             <NA>        0           40            0
+## 2802      17         0             <NA>        0          180            0
+## 2803      12         0             <NA>        0           NA           NA
 ## 2804      NA         1                A        0           NA           NA
-## 2805      14         0             &lt;NA&gt;        0           NA           NA
-## 2806      10         0             &lt;NA&gt;        0           NA           NA
-## 2807      41         0             &lt;NA&gt;        0            0            0
-## 2808      13         0             &lt;NA&gt;        0           41            0
-## 2809       8         0             &lt;NA&gt;        0            0            0
-## 2810      32         0             &lt;NA&gt;        0            0            0
-## 2811      12         0             &lt;NA&gt;        0            0            0
-## 2812      25         0             &lt;NA&gt;        0            0            0
-## 2813      15         0             &lt;NA&gt;        0           NA           NA
-## 2814      14         0             &lt;NA&gt;        0           NA           NA
-## 2815      12         0             &lt;NA&gt;        0           NA           NA
-## 2816       9         0             &lt;NA&gt;        0           NA           NA
-## 2817      10         0             &lt;NA&gt;        0           NA           NA
-## 2818      11         0             &lt;NA&gt;        0           NA           NA
-## 2819      26         0             &lt;NA&gt;        0            0            0
-## 2820      14         0             &lt;NA&gt;        0           NA           NA
-## 2821       9         0             &lt;NA&gt;        0           NA           NA
-## 2822       8         0             &lt;NA&gt;        0           NA           NA
-## 2823      10         0             &lt;NA&gt;        0           NA           NA
-## 2824      10         0             &lt;NA&gt;        0           NA           NA
-## 2825      12         0             &lt;NA&gt;        0           NA           NA
-## 2826       8         0             &lt;NA&gt;        0           NA           NA
-## 2827      11         0             &lt;NA&gt;        0           NA           NA
-## 2828       9         0             &lt;NA&gt;        0           NA           NA
-## 2829      18         0             &lt;NA&gt;        0           NA           NA
-## 2830      18         0             &lt;NA&gt;        0           NA           NA
-## 2831      25         0             &lt;NA&gt;        0            0            0
-## 2832      16         0             &lt;NA&gt;        0           NA           NA
-## 2833      43         0             &lt;NA&gt;        0            0            0
-## 2834      11         0             &lt;NA&gt;        0           NA           NA
-## 2835      22         0             &lt;NA&gt;        0           NA           NA
-## 2836      14         0             &lt;NA&gt;        0           NA           NA
-## 2837      26         0             &lt;NA&gt;        0           NA           NA
-## 2838      15         0             &lt;NA&gt;        0           26            0
-## 2839      60         0             &lt;NA&gt;        0            0            0
-## 2840      10         0             &lt;NA&gt;        0           NA           NA
-## 2841      12         0             &lt;NA&gt;        0           18            0
-## 2842      15         0             &lt;NA&gt;        0           NA           NA
-## 2843      11         0             &lt;NA&gt;        0           NA           NA
-## 2844      14         0             &lt;NA&gt;        0           NA           NA
-## 2845      10         0             &lt;NA&gt;        0           NA           NA
-## 2846       9         0             &lt;NA&gt;        0           NA           NA
-## 2847       9         0             &lt;NA&gt;        0           NA           NA
-## 2848       4         0             &lt;NA&gt;        0           NA           NA
-## 2849      11         0             &lt;NA&gt;        0           NA           NA
-## 2850      14         0             &lt;NA&gt;        0           NA           NA
-## 2851      11         0             &lt;NA&gt;        0           NA           NA
-## 2852      47         0             &lt;NA&gt;        0           NA           NA
-## 2853      14         0             &lt;NA&gt;        0           NA           NA
-## 2854      26         0             &lt;NA&gt;        0           18            0
-## 2855      28         0             &lt;NA&gt;        0           NA           NA
-## 2856      22         0             &lt;NA&gt;        0           NA           NA
-## 2857       9         0             &lt;NA&gt;        0           NA           NA
-## 2858      22         0             &lt;NA&gt;        0           NA           NA
-## 2859       8         0             &lt;NA&gt;        0           NA           NA
-## 2860      39         0             &lt;NA&gt;        0           32            0
-## 2861      46         0             &lt;NA&gt;        0            0            0
-## 2862      12         0             &lt;NA&gt;        0            0            0
-## 2863       9         0             &lt;NA&gt;        0           NA           NA
-## 2864       8         0             &lt;NA&gt;        0           NA           NA
-## 2865      10         0             &lt;NA&gt;        0           NA           NA
-## 2866       6         0             &lt;NA&gt;        0            0            0
-## 2867       8         0             &lt;NA&gt;        0            0            0
-## 2868       9         0             &lt;NA&gt;        0           NA           NA
-## 2869       6         0             &lt;NA&gt;        0           NA           NA
-## 2870       5         0             &lt;NA&gt;        0           NA           NA
-## 2871      10         0             &lt;NA&gt;        0           NA           NA
-## 2872      11         0             &lt;NA&gt;        0           NA           NA
-## 2873      10         0             &lt;NA&gt;        0           NA           NA
-## 2874      14         0             &lt;NA&gt;        0           NA           NA
-## 2875       8         0             &lt;NA&gt;        0           NA           NA
-## 2876       9         0             &lt;NA&gt;        0           NA           NA
-## 2877      10         0             &lt;NA&gt;        0           NA           NA
-## 2878       9         0             &lt;NA&gt;        0           NA           NA
-## 2879       8         0             &lt;NA&gt;        0           NA           NA
-## 2880      12         0             &lt;NA&gt;        0           NA           NA
-## 2881      17         0             &lt;NA&gt;        0            0            0
-## 2882      11         0             &lt;NA&gt;        0            0            0
-## 2883       8         0             &lt;NA&gt;        0           NA           NA
-## 2884      10         0             &lt;NA&gt;        0           NA           NA
-## 2885       9         0             &lt;NA&gt;        0           15            0
-## 2886       8         0             &lt;NA&gt;        0            0            0
-## 2887      10         0             &lt;NA&gt;        0           NA           NA
-## 2888      10         0             &lt;NA&gt;        0            0            0
-## 2889      11         0             &lt;NA&gt;        0           NA           NA
-## 2890       8         0             &lt;NA&gt;        0            0            0
-## 2891       9         0             &lt;NA&gt;        0           NA           NA
-## 2892      10         0             &lt;NA&gt;        0           NA           NA
-## 2893       8         0             &lt;NA&gt;        0           NA           NA
-## 2894       9         0             &lt;NA&gt;        0           NA           NA
-## 2895      10         0             &lt;NA&gt;        0           NA           NA
-## 2896      10         0             &lt;NA&gt;        0           NA           NA
-## 2897      15         0             &lt;NA&gt;        0            0            0
-## 2898       7         0             &lt;NA&gt;        0           NA           NA
-## 2899       7         0             &lt;NA&gt;        0           NA           NA
-## 2900       8         0             &lt;NA&gt;        0           NA           NA
-## 2901       7         0             &lt;NA&gt;        0           NA           NA
-## 2902      10         0             &lt;NA&gt;        0            4            0
-## 2903       6         0             &lt;NA&gt;        0            3            0
-## 2904       9         0             &lt;NA&gt;        0           NA           NA
-## 2905      11         0             &lt;NA&gt;        0           NA           NA
-## 2906      14         0             &lt;NA&gt;        0           NA           NA
-## 2907       9         0             &lt;NA&gt;        0           NA           NA
-## 2908       7         0             &lt;NA&gt;        0           NA           NA
-## 2909       6         0             &lt;NA&gt;        0            0            0
-## 2910       9         0             &lt;NA&gt;        0           NA           NA
-## 2911       8         0             &lt;NA&gt;        0           NA           NA
-## 2912      14         0             &lt;NA&gt;        0           NA           NA
-## 2913       9         0             &lt;NA&gt;        0           NA           NA
-## 2914      11         0             &lt;NA&gt;        0           NA           NA
-## 2915      11         0             &lt;NA&gt;        0            0            0
-## 2916      12         0             &lt;NA&gt;        0           NA           NA
-## 2917      20         0             &lt;NA&gt;        0           NA           NA
-## 2918       9         0             &lt;NA&gt;        0           NA           NA
-## 2919      15         0             &lt;NA&gt;        0           NA           NA
-## 2920      14         0             &lt;NA&gt;        0            2            0
-## 2921      16         0             &lt;NA&gt;        0            0            0
-## 2922      11         0             &lt;NA&gt;        0           NA           NA
-## 2923       8         0             &lt;NA&gt;        0           NA           NA
-## 2924      11         0             &lt;NA&gt;        0           NA           NA
-## 2925       9         0             &lt;NA&gt;        0           NA           NA
-## 2926       8         0             &lt;NA&gt;        0           NA           NA
-## 2927       9         0             &lt;NA&gt;        0           NA           NA
-## 2928      15         0             &lt;NA&gt;        0            0            0
-## 2929      15         0             &lt;NA&gt;        0           NA           NA
-## 2930      12         0             &lt;NA&gt;        0           NA           NA
-## 2931      11         0             &lt;NA&gt;        0           NA           NA
-## 2932       8         0             &lt;NA&gt;        0           NA           NA
-## 2933      35         0             &lt;NA&gt;        0           NA           NA
-## 2934      20         0             &lt;NA&gt;        0            0            0
-## 2935      19         0             &lt;NA&gt;        0           NA           NA
-## 2936      14         0             &lt;NA&gt;        0           NA           NA
-## 2937      16         0             &lt;NA&gt;        0           35            0
-## 2938      19         0             &lt;NA&gt;        0           NA           NA
-## 2939      21         0             &lt;NA&gt;        0           NA           NA
-## 2940      11         0             &lt;NA&gt;        0           18            0
-## 2941       7         0             &lt;NA&gt;        0           NA           NA
-## 2942      14         0             &lt;NA&gt;        0           NA           NA
+## 2805      14         0             <NA>        0           NA           NA
+## 2806      10         0             <NA>        0           NA           NA
+## 2807      41         0             <NA>        0            0            0
+## 2808      13         0             <NA>        0           41            0
+## 2809       8         0             <NA>        0            0            0
+## 2810      32         0             <NA>        0            0            0
+## 2811      12         0             <NA>        0            0            0
+## 2812      25         0             <NA>        0            0            0
+## 2813      15         0             <NA>        0           NA           NA
+## 2814      14         0             <NA>        0           NA           NA
+## 2815      12         0             <NA>        0           NA           NA
+## 2816       9         0             <NA>        0           NA           NA
+## 2817      10         0             <NA>        0           NA           NA
+## 2818      11         0             <NA>        0           NA           NA
+## 2819      26         0             <NA>        0            0            0
+## 2820      14         0             <NA>        0           NA           NA
+## 2821       9         0             <NA>        0           NA           NA
+## 2822       8         0             <NA>        0           NA           NA
+## 2823      10         0             <NA>        0           NA           NA
+## 2824      10         0             <NA>        0           NA           NA
+## 2825      12         0             <NA>        0           NA           NA
+## 2826       8         0             <NA>        0           NA           NA
+## 2827      11         0             <NA>        0           NA           NA
+## 2828       9         0             <NA>        0           NA           NA
+## 2829      18         0             <NA>        0           NA           NA
+## 2830      18         0             <NA>        0           NA           NA
+## 2831      25         0             <NA>        0            0            0
+## 2832      16         0             <NA>        0           NA           NA
+## 2833      43         0             <NA>        0            0            0
+## 2834      11         0             <NA>        0           NA           NA
+## 2835      22         0             <NA>        0           NA           NA
+## 2836      14         0             <NA>        0           NA           NA
+## 2837      26         0             <NA>        0           NA           NA
+## 2838      15         0             <NA>        0           26            0
+## 2839      60         0             <NA>        0            0            0
+## 2840      10         0             <NA>        0           NA           NA
+## 2841      12         0             <NA>        0           18            0
+## 2842      15         0             <NA>        0           NA           NA
+## 2843      11         0             <NA>        0           NA           NA
+## 2844      14         0             <NA>        0           NA           NA
+## 2845      10         0             <NA>        0           NA           NA
+## 2846       9         0             <NA>        0           NA           NA
+## 2847       9         0             <NA>        0           NA           NA
+## 2848       4         0             <NA>        0           NA           NA
+## 2849      11         0             <NA>        0           NA           NA
+## 2850      14         0             <NA>        0           NA           NA
+## 2851      11         0             <NA>        0           NA           NA
+## 2852      47         0             <NA>        0           NA           NA
+## 2853      14         0             <NA>        0           NA           NA
+## 2854      26         0             <NA>        0           18            0
+## 2855      28         0             <NA>        0           NA           NA
+## 2856      22         0             <NA>        0           NA           NA
+## 2857       9         0             <NA>        0           NA           NA
+## 2858      22         0             <NA>        0           NA           NA
+## 2859       8         0             <NA>        0           NA           NA
+## 2860      39         0             <NA>        0           32            0
+## 2861      46         0             <NA>        0            0            0
+## 2862      12         0             <NA>        0            0            0
+## 2863       9         0             <NA>        0           NA           NA
+## 2864       8         0             <NA>        0           NA           NA
+## 2865      10         0             <NA>        0           NA           NA
+## 2866       6         0             <NA>        0            0            0
+## 2867       8         0             <NA>        0            0            0
+## 2868       9         0             <NA>        0           NA           NA
+## 2869       6         0             <NA>        0           NA           NA
+## 2870       5         0             <NA>        0           NA           NA
+## 2871      10         0             <NA>        0           NA           NA
+## 2872      11         0             <NA>        0           NA           NA
+## 2873      10         0             <NA>        0           NA           NA
+## 2874      14         0             <NA>        0           NA           NA
+## 2875       8         0             <NA>        0           NA           NA
+## 2876       9         0             <NA>        0           NA           NA
+## 2877      10         0             <NA>        0           NA           NA
+## 2878       9         0             <NA>        0           NA           NA
+## 2879       8         0             <NA>        0           NA           NA
+## 2880      12         0             <NA>        0           NA           NA
+## 2881      17         0             <NA>        0            0            0
+## 2882      11         0             <NA>        0            0            0
+## 2883       8         0             <NA>        0           NA           NA
+## 2884      10         0             <NA>        0           NA           NA
+## 2885       9         0             <NA>        0           15            0
+## 2886       8         0             <NA>        0            0            0
+## 2887      10         0             <NA>        0           NA           NA
+## 2888      10         0             <NA>        0            0            0
+## 2889      11         0             <NA>        0           NA           NA
+## 2890       8         0             <NA>        0            0            0
+## 2891       9         0             <NA>        0           NA           NA
+## 2892      10         0             <NA>        0           NA           NA
+## 2893       8         0             <NA>        0           NA           NA
+## 2894       9         0             <NA>        0           NA           NA
+## 2895      10         0             <NA>        0           NA           NA
+## 2896      10         0             <NA>        0           NA           NA
+## 2897      15         0             <NA>        0            0            0
+## 2898       7         0             <NA>        0           NA           NA
+## 2899       7         0             <NA>        0           NA           NA
+## 2900       8         0             <NA>        0           NA           NA
+## 2901       7         0             <NA>        0           NA           NA
+## 2902      10         0             <NA>        0            4            0
+## 2903       6         0             <NA>        0            3            0
+## 2904       9         0             <NA>        0           NA           NA
+## 2905      11         0             <NA>        0           NA           NA
+## 2906      14         0             <NA>        0           NA           NA
+## 2907       9         0             <NA>        0           NA           NA
+## 2908       7         0             <NA>        0           NA           NA
+## 2909       6         0             <NA>        0            0            0
+## 2910       9         0             <NA>        0           NA           NA
+## 2911       8         0             <NA>        0           NA           NA
+## 2912      14         0             <NA>        0           NA           NA
+## 2913       9         0             <NA>        0           NA           NA
+## 2914      11         0             <NA>        0           NA           NA
+## 2915      11         0             <NA>        0            0            0
+## 2916      12         0             <NA>        0           NA           NA
+## 2917      20         0             <NA>        0           NA           NA
+## 2918       9         0             <NA>        0           NA           NA
+## 2919      15         0             <NA>        0           NA           NA
+## 2920      14         0             <NA>        0            2            0
+## 2921      16         0             <NA>        0            0            0
+## 2922      11         0             <NA>        0           NA           NA
+## 2923       8         0             <NA>        0           NA           NA
+## 2924      11         0             <NA>        0           NA           NA
+## 2925       9         0             <NA>        0           NA           NA
+## 2926       8         0             <NA>        0           NA           NA
+## 2927       9         0             <NA>        0           NA           NA
+## 2928      15         0             <NA>        0            0            0
+## 2929      15         0             <NA>        0           NA           NA
+## 2930      12         0             <NA>        0           NA           NA
+## 2931      11         0             <NA>        0           NA           NA
+## 2932       8         0             <NA>        0           NA           NA
+## 2933      35         0             <NA>        0           NA           NA
+## 2934      20         0             <NA>        0            0            0
+## 2935      19         0             <NA>        0           NA           NA
+## 2936      14         0             <NA>        0           NA           NA
+## 2937      16         0             <NA>        0           35            0
+## 2938      19         0             <NA>        0           NA           NA
+## 2939      21         0             <NA>        0           NA           NA
+## 2940      11         0             <NA>        0           18            0
+## 2941       7         0             <NA>        0           NA           NA
+## 2942      14         0             <NA>        0           NA           NA
 ## 2943      NA         1                B        0           NA           NA
-## 2944      18         0             &lt;NA&gt;        0           NA           NA
-## 2945      14         0             &lt;NA&gt;        0           NA           NA
-## 2946      32         0             &lt;NA&gt;        0           NA           NA
-## 2947      15         0             &lt;NA&gt;        0           NA           NA
-## 2948      10         0             &lt;NA&gt;        0           NA           NA
-## 2949      54         0             &lt;NA&gt;        0           NA           NA
-## 2950      23         0             &lt;NA&gt;        0           NA           NA
-## 2951      19         0             &lt;NA&gt;        0           NA           NA
-## 2952      33         0             &lt;NA&gt;        0           NA           NA
-## 2953      32         0             &lt;NA&gt;        0           20            0
-## 2954      15         0             &lt;NA&gt;        0            0          134
-## 2955      15         0             &lt;NA&gt;        0           NA           NA
-## 2956      39         0             &lt;NA&gt;        0            0          124
-## 2957      13         0             &lt;NA&gt;        0           NA           NA
-## 2958      45         0             &lt;NA&gt;        0            0            0
-## 2959      12         0             &lt;NA&gt;        0           NA           NA
-## 2960      64         0             &lt;NA&gt;        0            0            0
-## 2961      49         0             &lt;NA&gt;        0            0            0
-## 2962      63         0             &lt;NA&gt;        0            0           45
-## 2963       4         0             &lt;NA&gt;        0           NA           NA
-## 2964      15         0             &lt;NA&gt;        0           NA           NA
-## 2965       9         0             &lt;NA&gt;        0            0           52
-## 2966      27         0             &lt;NA&gt;        0           NA           NA
-## 2967      10         0             &lt;NA&gt;        0           NA           NA
-## 2968      10         0             &lt;NA&gt;        0           NA           NA
-## 2969       8         0             &lt;NA&gt;        0           NA           NA
-## 2970       9         0             &lt;NA&gt;        0           NA           NA
-## 2971      20         0             &lt;NA&gt;        0           NA           NA
-## 2972      15         0             &lt;NA&gt;        0           NA           NA
-## 2973      25         0             &lt;NA&gt;        0           NA           NA
-## 2974      15         0             &lt;NA&gt;        0           NA           NA
-## 2975      13         0             &lt;NA&gt;        0           NA           NA
-## 2976      20         0             &lt;NA&gt;        0           NA           NA
-## 2977      16         0             &lt;NA&gt;        0           NA           NA
-## 2978      15         0             &lt;NA&gt;        0           NA           NA
-## 2979      12         0             &lt;NA&gt;        0           NA           NA
-## 2980      22         0             &lt;NA&gt;        0           NA           NA
-## 2981      12         0             &lt;NA&gt;        0           NA           NA
-## 2982      13         0             &lt;NA&gt;        0           NA           NA
-## 2983      12         0             &lt;NA&gt;        0           NA           NA
-## 2984      17         0             &lt;NA&gt;        0           NA           NA
-## 2985      23         0             &lt;NA&gt;        0           NA           NA
-## 2986      30         0             &lt;NA&gt;        0           NA           NA
-## 2987      20         0             &lt;NA&gt;        0           NA           NA
-## 2988      22         0             &lt;NA&gt;        0           NA           NA
-## 2989       7         0             &lt;NA&gt;        0           NA           NA
-## 2990      10         0             &lt;NA&gt;        0           NA           NA
-## 2991       9         0             &lt;NA&gt;        0           NA           NA
-## 2992      19         0             &lt;NA&gt;        0           NA           NA
-## 2993      21         0             &lt;NA&gt;        0           NA           NA
-## 2994      17         0             &lt;NA&gt;        0           NA           NA
-## 2995      19         0             &lt;NA&gt;        0           NA           NA
-## 2996      11         0             &lt;NA&gt;        0           NA           NA
-## 2997      12         0             &lt;NA&gt;        0           NA           NA
-## 2998      17         0             &lt;NA&gt;        0           NA           NA
-## 2999       5         0             &lt;NA&gt;        0           NA           NA
-## 3000      16         0             &lt;NA&gt;        0           NA           NA
-## 3001      16         0             &lt;NA&gt;        0           NA           NA
-## 3002      19         0             &lt;NA&gt;        0           NA           NA
-## 3003      24         0             &lt;NA&gt;        0           NA           NA
-## 3004      14         0             &lt;NA&gt;        0           NA           NA
-## 3005       7         0             &lt;NA&gt;        0           NA           NA
-## 3006      13         0             &lt;NA&gt;        0           NA           NA
+## 2944      18         0             <NA>        0           NA           NA
+## 2945      14         0             <NA>        0           NA           NA
+## 2946      32         0             <NA>        0           NA           NA
+## 2947      15         0             <NA>        0           NA           NA
+## 2948      10         0             <NA>        0           NA           NA
+## 2949      54         0             <NA>        0           NA           NA
+## 2950      23         0             <NA>        0           NA           NA
+## 2951      19         0             <NA>        0           NA           NA
+## 2952      33         0             <NA>        0           NA           NA
+## 2953      32         0             <NA>        0           20            0
+## 2954      15         0             <NA>        0            0          134
+## 2955      15         0             <NA>        0           NA           NA
+## 2956      39         0             <NA>        0            0          124
+## 2957      13         0             <NA>        0           NA           NA
+## 2958      45         0             <NA>        0            0            0
+## 2959      12         0             <NA>        0           NA           NA
+## 2960      64         0             <NA>        0            0            0
+## 2961      49         0             <NA>        0            0            0
+## 2962      63         0             <NA>        0            0           45
+## 2963       4         0             <NA>        0           NA           NA
+## 2964      15         0             <NA>        0           NA           NA
+## 2965       9         0             <NA>        0            0           52
+## 2966      27         0             <NA>        0           NA           NA
+## 2967      10         0             <NA>        0           NA           NA
+## 2968      10         0             <NA>        0           NA           NA
+## 2969       8         0             <NA>        0           NA           NA
+## 2970       9         0             <NA>        0           NA           NA
+## 2971      20         0             <NA>        0           NA           NA
+## 2972      15         0             <NA>        0           NA           NA
+## 2973      25         0             <NA>        0           NA           NA
+## 2974      15         0             <NA>        0           NA           NA
+## 2975      13         0             <NA>        0           NA           NA
+## 2976      20         0             <NA>        0           NA           NA
+## 2977      16         0             <NA>        0           NA           NA
+## 2978      15         0             <NA>        0           NA           NA
+## 2979      12         0             <NA>        0           NA           NA
+## 2980      22         0             <NA>        0           NA           NA
+## 2981      12         0             <NA>        0           NA           NA
+## 2982      13         0             <NA>        0           NA           NA
+## 2983      12         0             <NA>        0           NA           NA
+## 2984      17         0             <NA>        0           NA           NA
+## 2985      23         0             <NA>        0           NA           NA
+## 2986      30         0             <NA>        0           NA           NA
+## 2987      20         0             <NA>        0           NA           NA
+## 2988      22         0             <NA>        0           NA           NA
+## 2989       7         0             <NA>        0           NA           NA
+## 2990      10         0             <NA>        0           NA           NA
+## 2991       9         0             <NA>        0           NA           NA
+## 2992      19         0             <NA>        0           NA           NA
+## 2993      21         0             <NA>        0           NA           NA
+## 2994      17         0             <NA>        0           NA           NA
+## 2995      19         0             <NA>        0           NA           NA
+## 2996      11         0             <NA>        0           NA           NA
+## 2997      12         0             <NA>        0           NA           NA
+## 2998      17         0             <NA>        0           NA           NA
+## 2999       5         0             <NA>        0           NA           NA
+## 3000      16         0             <NA>        0           NA           NA
+## 3001      16         0             <NA>        0           NA           NA
+## 3002      19         0             <NA>        0           NA           NA
+## 3003      24         0             <NA>        0           NA           NA
+## 3004      14         0             <NA>        0           NA           NA
+## 3005       7         0             <NA>        0           NA           NA
+## 3006      13         0             <NA>        0           NA           NA
 ## 3007      NA         1                A        0           NA           NA
-## 3008       7         0             &lt;NA&gt;        0           NA           NA
-## 3009      22         0             &lt;NA&gt;        0           NA           NA
-## 3010      29         0             &lt;NA&gt;        0           NA           NA
-## 3011      34         0             &lt;NA&gt;        0           NA           NA
-## 3012      12         0             &lt;NA&gt;        0           NA           NA
-## 3013      13         0             &lt;NA&gt;        0           NA           NA
-## 3014      11         0             &lt;NA&gt;        0           NA           NA
-## 3015      65         0             &lt;NA&gt;        0            0            0
-## 3016      16         0             &lt;NA&gt;        0           21            0
-## 3017      16         0             &lt;NA&gt;        0           NA           NA
-## 3018       8         0             &lt;NA&gt;        0           NA           NA
-## 3019      16         0             &lt;NA&gt;        0           NA           NA
-## 3020      19         0             &lt;NA&gt;        0           NA           NA
-## 3021      66         0             &lt;NA&gt;        0            0            0
-## 3022      23         0             &lt;NA&gt;        0           NA           NA
-## 3023      15         0             &lt;NA&gt;        0           NA           NA
-## 3024       7         0             &lt;NA&gt;        0           NA           NA
-## 3025      15         0             &lt;NA&gt;        0           NA           NA
-## 3026      18         0             &lt;NA&gt;        0           NA           NA
-## 3027      13         0             &lt;NA&gt;        0           NA           NA
-## 3028      16         0             &lt;NA&gt;        0           NA           NA
-## 3029      12         0             &lt;NA&gt;        0           NA           NA
-## 3030       8         0             &lt;NA&gt;        0           NA           NA
-## 3031      16         0             &lt;NA&gt;        0           NA           NA
-## 3032      10         0             &lt;NA&gt;        0           NA           NA
-## 3033      10         0             &lt;NA&gt;        0           NA           NA
-## 3034      12         0             &lt;NA&gt;        0           NA           NA
-## 3035      24         0             &lt;NA&gt;        0            9            0
-## 3036      17         0             &lt;NA&gt;        0            0            0
-## 3037      23         0             &lt;NA&gt;        0           NA           NA
-## 3038      17         0             &lt;NA&gt;        0            0            0
-## 3039      10         0             &lt;NA&gt;        0            0            0
-## 3040      15         0             &lt;NA&gt;        0           NA           NA
-## 3041      18         0             &lt;NA&gt;        0           83            0
-## 3042      16         0             &lt;NA&gt;        0           NA           NA
-## 3043      14         0             &lt;NA&gt;        0           NA           NA
-## 3044      24         0             &lt;NA&gt;        0           36            0
+## 3008       7         0             <NA>        0           NA           NA
+## 3009      22         0             <NA>        0           NA           NA
+## 3010      29         0             <NA>        0           NA           NA
+## 3011      34         0             <NA>        0           NA           NA
+## 3012      12         0             <NA>        0           NA           NA
+## 3013      13         0             <NA>        0           NA           NA
+## 3014      11         0             <NA>        0           NA           NA
+## 3015      65         0             <NA>        0            0            0
+## 3016      16         0             <NA>        0           21            0
+## 3017      16         0             <NA>        0           NA           NA
+## 3018       8         0             <NA>        0           NA           NA
+## 3019      16         0             <NA>        0           NA           NA
+## 3020      19         0             <NA>        0           NA           NA
+## 3021      66         0             <NA>        0            0            0
+## 3022      23         0             <NA>        0           NA           NA
+## 3023      15         0             <NA>        0           NA           NA
+## 3024       7         0             <NA>        0           NA           NA
+## 3025      15         0             <NA>        0           NA           NA
+## 3026      18         0             <NA>        0           NA           NA
+## 3027      13         0             <NA>        0           NA           NA
+## 3028      16         0             <NA>        0           NA           NA
+## 3029      12         0             <NA>        0           NA           NA
+## 3030       8         0             <NA>        0           NA           NA
+## 3031      16         0             <NA>        0           NA           NA
+## 3032      10         0             <NA>        0           NA           NA
+## 3033      10         0             <NA>        0           NA           NA
+## 3034      12         0             <NA>        0           NA           NA
+## 3035      24         0             <NA>        0            9            0
+## 3036      17         0             <NA>        0            0            0
+## 3037      23         0             <NA>        0           NA           NA
+## 3038      17         0             <NA>        0            0            0
+## 3039      10         0             <NA>        0            0            0
+## 3040      15         0             <NA>        0           NA           NA
+## 3041      18         0             <NA>        0           83            0
+## 3042      16         0             <NA>        0           NA           NA
+## 3043      14         0             <NA>        0           NA           NA
+## 3044      24         0             <NA>        0           36            0
 ## 3045      NA         1                A        0           NA           NA
-## 3046      24         0             &lt;NA&gt;        0            0            0
-## 3047      28         0             &lt;NA&gt;        0            6            0
-## 3048      22         0             &lt;NA&gt;        0            8            0
-## 3049      31         0             &lt;NA&gt;        0           33            0
-## 3050      17         0             &lt;NA&gt;        0           NA           NA
-## 3051      15         0             &lt;NA&gt;        0           NA           NA
-## 3052      23         0             &lt;NA&gt;        0           NA           NA
-## 3053      10         0             &lt;NA&gt;        0           NA           NA
-## 3054      11         0             &lt;NA&gt;        0           NA           NA
-## 3055       9         0             &lt;NA&gt;        0            0            0
-## 3056      11         0             &lt;NA&gt;        0           NA           NA
-## 3057       7         0             &lt;NA&gt;        0           NA           NA
-## 3058       6         0             &lt;NA&gt;        0            0            0
-## 3059       7         0             &lt;NA&gt;        0           55            0
-## 3060      13         0             &lt;NA&gt;        0           NA           NA
-## 3061      14         0             &lt;NA&gt;        0            6            0
-## 3062       9         0             &lt;NA&gt;        0           NA           NA
-## 3063       8         0             &lt;NA&gt;        0           NA           NA
-## 3064      10         0             &lt;NA&gt;        0           NA           NA
-## 3065      14         0             &lt;NA&gt;        0           NA           NA
-## 3066      30         0             &lt;NA&gt;        0           NA           NA
-## 3067      22         0             &lt;NA&gt;        0           NA           NA
-## 3068      10         0             &lt;NA&gt;        0            0            0
-## 3069       9         0             &lt;NA&gt;        0           NA           NA
-## 3070      10         0             &lt;NA&gt;        0           NA           NA
-## 3071       8         0             &lt;NA&gt;        0           NA           NA
-## 3072      13         0             &lt;NA&gt;        0           NA           NA
-## 3073       9         0             &lt;NA&gt;        0           NA           NA
-## 3074       9         0             &lt;NA&gt;        0           NA           NA
-## 3075      19         0             &lt;NA&gt;        0            0            0
-## 3076      11         0             &lt;NA&gt;        0            0            0
-## 3077       9         0             &lt;NA&gt;        0            5            0
-## 3078      11         0             &lt;NA&gt;        0            0            0
-## 3079      16         0             &lt;NA&gt;        0           NA           NA
-## 3080      29         0             &lt;NA&gt;        0           11            0
-## 3081      26         0             &lt;NA&gt;        0            0            0
-## 3082      15         0             &lt;NA&gt;        0           36            0
-## 3083      17         0             &lt;NA&gt;        0            6            0
-## 3084      19         0             &lt;NA&gt;        0            0            0
-## 3085      10         0             &lt;NA&gt;        0           NA           NA
-## 3086       9         0             &lt;NA&gt;        0            0            0
-## 3087      15         0             &lt;NA&gt;        0           NA           NA
-## 3088      17         0             &lt;NA&gt;        0           NA           NA
-## 3089      15         0             &lt;NA&gt;        0           NA           NA
+## 3046      24         0             <NA>        0            0            0
+## 3047      28         0             <NA>        0            6            0
+## 3048      22         0             <NA>        0            8            0
+## 3049      31         0             <NA>        0           33            0
+## 3050      17         0             <NA>        0           NA           NA
+## 3051      15         0             <NA>        0           NA           NA
+## 3052      23         0             <NA>        0           NA           NA
+## 3053      10         0             <NA>        0           NA           NA
+## 3054      11         0             <NA>        0           NA           NA
+## 3055       9         0             <NA>        0            0            0
+## 3056      11         0             <NA>        0           NA           NA
+## 3057       7         0             <NA>        0           NA           NA
+## 3058       6         0             <NA>        0            0            0
+## 3059       7         0             <NA>        0           55            0
+## 3060      13         0             <NA>        0           NA           NA
+## 3061      14         0             <NA>        0            6            0
+## 3062       9         0             <NA>        0           NA           NA
+## 3063       8         0             <NA>        0           NA           NA
+## 3064      10         0             <NA>        0           NA           NA
+## 3065      14         0             <NA>        0           NA           NA
+## 3066      30         0             <NA>        0           NA           NA
+## 3067      22         0             <NA>        0           NA           NA
+## 3068      10         0             <NA>        0            0            0
+## 3069       9         0             <NA>        0           NA           NA
+## 3070      10         0             <NA>        0           NA           NA
+## 3071       8         0             <NA>        0           NA           NA
+## 3072      13         0             <NA>        0           NA           NA
+## 3073       9         0             <NA>        0           NA           NA
+## 3074       9         0             <NA>        0           NA           NA
+## 3075      19         0             <NA>        0            0            0
+## 3076      11         0             <NA>        0            0            0
+## 3077       9         0             <NA>        0            5            0
+## 3078      11         0             <NA>        0            0            0
+## 3079      16         0             <NA>        0           NA           NA
+## 3080      29         0             <NA>        0           11            0
+## 3081      26         0             <NA>        0            0            0
+## 3082      15         0             <NA>        0           36            0
+## 3083      17         0             <NA>        0            6            0
+## 3084      19         0             <NA>        0            0            0
+## 3085      10         0             <NA>        0           NA           NA
+## 3086       9         0             <NA>        0            0            0
+## 3087      15         0             <NA>        0           NA           NA
+## 3088      17         0             <NA>        0           NA           NA
+## 3089      15         0             <NA>        0           NA           NA
 ## 3090      NA         1                A        0           NA           NA
-## 3091      16         0             &lt;NA&gt;        0           NA           NA
-## 3092      31         0             &lt;NA&gt;        0            0            0
-## 3093      14         0             &lt;NA&gt;        0           NA           NA
-## 3094      12         0             &lt;NA&gt;        0           NA           NA
-## 3095      26         0             &lt;NA&gt;        0           NA           NA
-## 3096      29         0             &lt;NA&gt;        0           NA           NA
-## 3097      12         0             &lt;NA&gt;        0           NA           NA
-## 3098      19         0             &lt;NA&gt;        0          126            0
-## 3099      16         0             &lt;NA&gt;        0           NA           NA
-## 3100      14         0             &lt;NA&gt;        0           NA           NA
-## 3101      13         0             &lt;NA&gt;        0           NA           NA
-## 3102      13         0             &lt;NA&gt;        0           NA           NA
-## 3103      22         0             &lt;NA&gt;        0           NA           NA
-## 3104      15         0             &lt;NA&gt;        0            0            0
-## 3105      14         0             &lt;NA&gt;        0           NA           NA
-## 3106      20         0             &lt;NA&gt;        0           NA           NA
-## 3107      16         0             &lt;NA&gt;        0          168            0
-## 3108      19         0             &lt;NA&gt;        0            5            0
-## 3109      16         0             &lt;NA&gt;        0           NA           NA
-## 3110      13         0             &lt;NA&gt;        0            0            0
-## 3111      29         0             &lt;NA&gt;        0           28            0
-## 3112      38         0             &lt;NA&gt;        0            0            0
+## 3091      16         0             <NA>        0           NA           NA
+## 3092      31         0             <NA>        0            0            0
+## 3093      14         0             <NA>        0           NA           NA
+## 3094      12         0             <NA>        0           NA           NA
+## 3095      26         0             <NA>        0           NA           NA
+## 3096      29         0             <NA>        0           NA           NA
+## 3097      12         0             <NA>        0           NA           NA
+## 3098      19         0             <NA>        0          126            0
+## 3099      16         0             <NA>        0           NA           NA
+## 3100      14         0             <NA>        0           NA           NA
+## 3101      13         0             <NA>        0           NA           NA
+## 3102      13         0             <NA>        0           NA           NA
+## 3103      22         0             <NA>        0           NA           NA
+## 3104      15         0             <NA>        0            0            0
+## 3105      14         0             <NA>        0           NA           NA
+## 3106      20         0             <NA>        0           NA           NA
+## 3107      16         0             <NA>        0          168            0
+## 3108      19         0             <NA>        0            5            0
+## 3109      16         0             <NA>        0           NA           NA
+## 3110      13         0             <NA>        0            0            0
+## 3111      29         0             <NA>        0           28            0
+## 3112      38         0             <NA>        0            0            0
 ## 3113      NA         1                A        0           NA           NA
-## 3114     107         0             &lt;NA&gt;        0            0            0
-## 3115      25         0             &lt;NA&gt;        0            0            0
+## 3114     107         0             <NA>        0            0            0
+## 3115      25         0             <NA>        0            0            0
 ## 3116      NA         1                B        0           NA           NA
-## 3117      20         0             &lt;NA&gt;        0           NA           NA
+## 3117      20         0             <NA>        0           NA           NA
 ## 3118      NA         1                A        0           NA           NA
-## 3119      32         0             &lt;NA&gt;        0           94            0
+## 3119      32         0             <NA>        0           94            0
 ## 3120      NA         1                B        0           NA           NA
-## 3121      32         0             &lt;NA&gt;        0            0            0
+## 3121      32         0             <NA>        0            0            0
 ## 3122      NA         1                B        0           NA           NA
-## 3123      16         0             &lt;NA&gt;        0           NA           NA
-## 3124      67         0             &lt;NA&gt;        0            0            0
-## 3125      16         0             &lt;NA&gt;        0            0            0
-## 3126      16         0             &lt;NA&gt;        0           NA           NA
+## 3123      16         0             <NA>        0           NA           NA
+## 3124      67         0             <NA>        0            0            0
+## 3125      16         0             <NA>        0            0            0
+## 3126      16         0             <NA>        0           NA           NA
 ## 3127      NA         1                A        0           NA           NA
-## 3128      40         0             &lt;NA&gt;        0            0            0
-## 3129      36         0             &lt;NA&gt;        0            0            0
-## 3130      21         0             &lt;NA&gt;        0            0            0
-## 3131      30         0             &lt;NA&gt;        0           NA           NA
-## 3132      69         0             &lt;NA&gt;        0            0            0
-## 3133      26         0             &lt;NA&gt;        0            0            0
-## 3134      81         0             &lt;NA&gt;        0           84            0
-## 3135      16         0             &lt;NA&gt;        0            0            0
+## 3128      40         0             <NA>        0            0            0
+## 3129      36         0             <NA>        0            0            0
+## 3130      21         0             <NA>        0            0            0
+## 3131      30         0             <NA>        0           NA           NA
+## 3132      69         0             <NA>        0            0            0
+## 3133      26         0             <NA>        0            0            0
+## 3134      81         0             <NA>        0           84            0
+## 3135      16         0             <NA>        0            0            0
 ## 3136      NA         1                A        0           NA           NA
-## 3137      20         0             &lt;NA&gt;        0           NA           NA
-## 3138      29         0             &lt;NA&gt;        0           NA           NA
-## 3139      22         0             &lt;NA&gt;        0            0            0
-## 3140      30         0             &lt;NA&gt;        0            0            0
-## 3141      37         0             &lt;NA&gt;        0           NA           NA
-## 3142      14         0             &lt;NA&gt;        0            0            0
+## 3137      20         0             <NA>        0           NA           NA
+## 3138      29         0             <NA>        0           NA           NA
+## 3139      22         0             <NA>        0            0            0
+## 3140      30         0             <NA>        0            0            0
+## 3141      37         0             <NA>        0           NA           NA
+## 3142      14         0             <NA>        0            0            0
 ## 3143      NA         1                A        0           NA           NA
-## 3144      27         0             &lt;NA&gt;        1           NA           NA
-## 3145      58         0             &lt;NA&gt;        0            0            0
-## 3146      17         0             &lt;NA&gt;        0           NA           NA
-## 3147      17         0             &lt;NA&gt;        0           NA           NA
-## 3148      12         0             &lt;NA&gt;        0           NA           NA
-## 3149      11         0             &lt;NA&gt;        0           NA           NA
-## 3150      11         0             &lt;NA&gt;        0           NA           NA
-## 3151      17         0             &lt;NA&gt;        0           NA           NA
-## 3152      21         0             &lt;NA&gt;        0           NA           NA
-## 3153      10         0             &lt;NA&gt;        0           NA           NA
-## 3154      15         0             &lt;NA&gt;        0           NA           NA
-## 3155      36         0             &lt;NA&gt;        0           NA           NA
-## 3156      23         0             &lt;NA&gt;        0           NA           NA
-## 3157      15         0             &lt;NA&gt;        0           NA           NA
-## 3158      21         0             &lt;NA&gt;        0           NA           NA
-## 3159      22         0             &lt;NA&gt;        0           NA           NA
-## 3160      14         0             &lt;NA&gt;        0           NA           NA
-## 3161      13         0             &lt;NA&gt;        0           NA           NA
-## 3162      15         0             &lt;NA&gt;        0           NA           NA
-## 3163      31         0             &lt;NA&gt;        0           NA           NA
-## 3164      10         0             &lt;NA&gt;        0           NA           NA
-## 3165      15         0             &lt;NA&gt;        0           NA           NA
-## 3166      11         0             &lt;NA&gt;        0           NA           NA
-## 3167      23         0             &lt;NA&gt;        0           NA           NA
-## 3168      12         0             &lt;NA&gt;        0           NA           NA
-## 3169      30         0             &lt;NA&gt;        0           NA           NA
-## 3170      18         0             &lt;NA&gt;        0           NA           NA
-## 3171      19         0             &lt;NA&gt;        0           NA           NA
-## 3172      22         0             &lt;NA&gt;        0           NA           NA
-## 3173      27         0             &lt;NA&gt;        0           NA           NA
-## 3174      13         0             &lt;NA&gt;        0           NA           NA
-## 3175      17         0             &lt;NA&gt;        0            0            0
-## 3176      27         0             &lt;NA&gt;        0           NA           NA
-## 3177      11         0             &lt;NA&gt;        0           NA           NA
-## 3178      32         0             &lt;NA&gt;        0           NA           NA
-## 3179      30         0             &lt;NA&gt;        0           NA           NA
-## 3180      29         0             &lt;NA&gt;        0          141            0
-## 3181      18         0             &lt;NA&gt;        0           NA           NA
+## 3144      27         0             <NA>        1           NA           NA
+## 3145      58         0             <NA>        0            0            0
+## 3146      17         0             <NA>        0           NA           NA
+## 3147      17         0             <NA>        0           NA           NA
+## 3148      12         0             <NA>        0           NA           NA
+## 3149      11         0             <NA>        0           NA           NA
+## 3150      11         0             <NA>        0           NA           NA
+## 3151      17         0             <NA>        0           NA           NA
+## 3152      21         0             <NA>        0           NA           NA
+## 3153      10         0             <NA>        0           NA           NA
+## 3154      15         0             <NA>        0           NA           NA
+## 3155      36         0             <NA>        0           NA           NA
+## 3156      23         0             <NA>        0           NA           NA
+## 3157      15         0             <NA>        0           NA           NA
+## 3158      21         0             <NA>        0           NA           NA
+## 3159      22         0             <NA>        0           NA           NA
+## 3160      14         0             <NA>        0           NA           NA
+## 3161      13         0             <NA>        0           NA           NA
+## 3162      15         0             <NA>        0           NA           NA
+## 3163      31         0             <NA>        0           NA           NA
+## 3164      10         0             <NA>        0           NA           NA
+## 3165      15         0             <NA>        0           NA           NA
+## 3166      11         0             <NA>        0           NA           NA
+## 3167      23         0             <NA>        0           NA           NA
+## 3168      12         0             <NA>        0           NA           NA
+## 3169      30         0             <NA>        0           NA           NA
+## 3170      18         0             <NA>        0           NA           NA
+## 3171      19         0             <NA>        0           NA           NA
+## 3172      22         0             <NA>        0           NA           NA
+## 3173      27         0             <NA>        0           NA           NA
+## 3174      13         0             <NA>        0           NA           NA
+## 3175      17         0             <NA>        0            0            0
+## 3176      27         0             <NA>        0           NA           NA
+## 3177      11         0             <NA>        0           NA           NA
+## 3178      32         0             <NA>        0           NA           NA
+## 3179      30         0             <NA>        0           NA           NA
+## 3180      29         0             <NA>        0          141            0
+## 3181      18         0             <NA>        0           NA           NA
 ## 3182      NA         1                A        0           NA           NA
-## 3183      14         0             &lt;NA&gt;        0           NA           NA
-## 3184      16         0             &lt;NA&gt;        0           NA           NA
-## 3185       8         0             &lt;NA&gt;        0           NA           NA
-## 3186      31         0             &lt;NA&gt;        0            0            0
-## 3187      21         0             &lt;NA&gt;        0           NA           NA
-## 3188      17         0             &lt;NA&gt;        0           NA           NA
-## 3189      15         0             &lt;NA&gt;        0           NA           NA
-## 3190      22         0             &lt;NA&gt;        0           NA           NA
-## 3191      13         0             &lt;NA&gt;        0           NA           NA
-## 3192      10         0             &lt;NA&gt;        0           NA           NA
-## 3193      14         0             &lt;NA&gt;        0           NA           NA
-## 3194      15         0             &lt;NA&gt;        0           NA           NA
-## 3195      19         0             &lt;NA&gt;        0           NA           NA
-## 3196      10         0             &lt;NA&gt;        0           NA           NA
-## 3197      15         0             &lt;NA&gt;        0           NA           NA
-## 3198      13         0             &lt;NA&gt;        0           NA           NA
-## 3199      28         0             &lt;NA&gt;        0           NA           NA
-## 3200      17         0             &lt;NA&gt;        0           31            0
-## 3201      16         0             &lt;NA&gt;        0           NA           NA
-## 3202      29         0             &lt;NA&gt;        0           NA           NA
-## 3203      12         0             &lt;NA&gt;        0           NA           NA
-## 3204      27         0             &lt;NA&gt;        0           NA           NA
-## 3205      25         0             &lt;NA&gt;        0            0            0
-## 3206      21         0             &lt;NA&gt;        0           11            0
-## 3207      25         0             &lt;NA&gt;        0           NA           NA
-## 3208      30         0             &lt;NA&gt;        0           13            0
-## 3209      16         0             &lt;NA&gt;        0            0            0
-## 3210      24         0             &lt;NA&gt;        0           NA           NA
-## 3211      33         0             &lt;NA&gt;        0           NA           NA
-## 3212      26         0             &lt;NA&gt;        0           NA           NA
-## 3213      21         0             &lt;NA&gt;        0            0            0
-## 3214      20         0             &lt;NA&gt;        0           NA           NA
-## 3215      10         0             &lt;NA&gt;        0           NA           NA
-## 3216      17         0             &lt;NA&gt;        0           NA           NA
-## 3217      11         0             &lt;NA&gt;        0           NA           NA
-## 3218      10         0             &lt;NA&gt;        0           NA           NA
-## 3219      12         0             &lt;NA&gt;        0           NA           NA
-## 3220      13         0             &lt;NA&gt;        0           NA           NA
-## 3221      11         0             &lt;NA&gt;        0           NA           NA
-## 3222      20         0             &lt;NA&gt;        0           NA           NA
-## 3223      35         0             &lt;NA&gt;        0            0            0
-## 3224      14         0             &lt;NA&gt;        0           NA           NA
-## 3225      32         0             &lt;NA&gt;        0            0            0
+## 3183      14         0             <NA>        0           NA           NA
+## 3184      16         0             <NA>        0           NA           NA
+## 3185       8         0             <NA>        0           NA           NA
+## 3186      31         0             <NA>        0            0            0
+## 3187      21         0             <NA>        0           NA           NA
+## 3188      17         0             <NA>        0           NA           NA
+## 3189      15         0             <NA>        0           NA           NA
+## 3190      22         0             <NA>        0           NA           NA
+## 3191      13         0             <NA>        0           NA           NA
+## 3192      10         0             <NA>        0           NA           NA
+## 3193      14         0             <NA>        0           NA           NA
+## 3194      15         0             <NA>        0           NA           NA
+## 3195      19         0             <NA>        0           NA           NA
+## 3196      10         0             <NA>        0           NA           NA
+## 3197      15         0             <NA>        0           NA           NA
+## 3198      13         0             <NA>        0           NA           NA
+## 3199      28         0             <NA>        0           NA           NA
+## 3200      17         0             <NA>        0           31            0
+## 3201      16         0             <NA>        0           NA           NA
+## 3202      29         0             <NA>        0           NA           NA
+## 3203      12         0             <NA>        0           NA           NA
+## 3204      27         0             <NA>        0           NA           NA
+## 3205      25         0             <NA>        0            0            0
+## 3206      21         0             <NA>        0           11            0
+## 3207      25         0             <NA>        0           NA           NA
+## 3208      30         0             <NA>        0           13            0
+## 3209      16         0             <NA>        0            0            0
+## 3210      24         0             <NA>        0           NA           NA
+## 3211      33         0             <NA>        0           NA           NA
+## 3212      26         0             <NA>        0           NA           NA
+## 3213      21         0             <NA>        0            0            0
+## 3214      20         0             <NA>        0           NA           NA
+## 3215      10         0             <NA>        0           NA           NA
+## 3216      17         0             <NA>        0           NA           NA
+## 3217      11         0             <NA>        0           NA           NA
+## 3218      10         0             <NA>        0           NA           NA
+## 3219      12         0             <NA>        0           NA           NA
+## 3220      13         0             <NA>        0           NA           NA
+## 3221      11         0             <NA>        0           NA           NA
+## 3222      20         0             <NA>        0           NA           NA
+## 3223      35         0             <NA>        0            0            0
+## 3224      14         0             <NA>        0           NA           NA
+## 3225      32         0             <NA>        0            0            0
 ##      nasdelay securitydelay lateaircraftdelay score
 ## 1          NA            NA                NA    NA
 ## 2          NA            NA                NA    NA
@@ -16352,97 +16150,132 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 3223       23             0                 0    NA
 ## 3224       NA            NA                NA    NA
 ## 3225       24             0                 0    NA
-##  [ reached getOption(&quot;max.print&quot;) -- omitted 3236 rows ]</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Test the efficacy of the sampling with a plot</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(sql_sample, distance)</code></pre></div>
-<p><img src="modeling_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-</div>
-<div id="sample-with-id" class="section level2">
-<h2><span class="header-section-number">5.2</span> Sample with ID</h2>
-<p><em>Use a record’s unique ID to produce a sample</em></p>
-<ol style="list-style-type: decimal">
-<li>Use <code>max()</code> to get the upper limit for <em>flightid</em></li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">limit &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(
-    <span class="dt">max =</span> <span class="kw">max</span>(flightid, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-    <span class="dt">min =</span> <span class="kw">min</span>(flightid, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">collect</span>()</code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Use <code>sample</code> to get 0.1% of IDs</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(
-  limit<span class="op">$</span>min<span class="op">:</span>limit<span class="op">$</span>max, 
-  <span class="kw">round</span>((limit<span class="op">$</span>max <span class="op">-</span>limit<span class="op">$</span>min) <span class="op">*</span><span class="st"> </span><span class="fl">0.001</span>))</code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>Use <code>%in%</code> to match the sample IDs in the <em>flight</em> table</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">id_sample &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(flightid <span class="op">%in%</span><span class="st"> </span>sampling) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">collect</span>()</code></pre></div>
-<p>Verify sample with a histogram</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(id_sample, distance)</code></pre></div>
-<p><img src="modeling_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-</div>
-<div id="sample-manually" class="section level2">
-<h2><span class="header-section-number">5.3</span> Sample manually</h2>
-<p><em>Use <code>row_number()</code>, <code>sample()</code> and <code>map_df()</code> to create a sample data set</em></p>
-<ol style="list-style-type: decimal">
-<li>Create a filtered dataset for with 1 month of data</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Get the row count</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rows &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">pull</span>(<span class="kw">tally</span>(db_month)))</code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>Use <code>row_number()</code> to create a new column to number each row</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">row =</span> <span class="kw">row_number</span>()) </code></pre></div>
-<ol start="4" style="list-style-type: decimal">
-<li>Create a random set of 600 numbers, limited by the number of rows</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>rows, <span class="dv">600</span>)</code></pre></div>
-<ol start="5" style="list-style-type: decimal">
-<li>Use <code>%in%</code> to filter the matched sample row IDs with the random set</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(row <span class="op">%in%</span><span class="st"> </span>sampling)</code></pre></div>
-<ol start="6" style="list-style-type: decimal">
-<li>Verify number of rows</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tally</span>(db_month)</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 1]
+##  [ reached getOption("max.print") -- omitted 3236 rows ]
+```
+
+3. Test the efficacy of the sampling with a plot
+
+```r
+dbplot_histogram(sql_sample, distance)
+```
+
+<img src="modeling_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+
+## Sample with ID
+*Use a record's unique ID to produce a sample*
+
+1. Use `max()` to get the upper limit for *flightid*
+
+```r
+limit <- table_flights %>%
+  summarise(
+    max = max(flightid, na.rm = TRUE),
+    min = min(flightid, na.rm = TRUE)
+  ) %>%
+  collect()
+```
+
+2. Use `sample` to get 0.1% of IDs
+
+```r
+sampling <- sample(
+  limit$min:limit$max, 
+  round((limit$max -limit$min) * 0.001))
+```
+
+3. Use `%in%` to match the sample IDs in the *flight* table
+
+```r
+id_sample <- table_flights %>%
+  filter(flightid %in% sampling) %>%
+  collect()
+```
+
+ Verify sample with a histogram
+
+```r
+dbplot_histogram(id_sample, distance)
+```
+
+<img src="modeling_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+
+
+## Sample manually
+*Use `row_number()`, `sample()` and `map_df()` to create a sample data set*
+
+1. Create a filtered dataset for with 1 month of data
+
+```r
+db_month <- table_flights %>%
+  filter(month == 1)
+```
+
+2. Get the row count
+
+```r
+rows <- as.integer(pull(tally(db_month)))
+```
+
+3. Use `row_number()` to create a new column to number each row
+
+```r
+db_month <- db_month %>%
+  mutate(row = row_number()) 
+```
+
+4. Create a random set of 600 numbers, limited by the number of rows
+
+```r
+sampling <- sample(1:rows, 600)
+```
+
+5. Use `%in%` to filter the matched sample row IDs with the random set
+
+```r
+db_month <- db_month %>%
+  filter(row %in% sampling)
+```
+
+6. Verify number of rows
+
+```r
+tally(db_month)
+```
+
+```
+## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   n              
-##   &lt;S3: integer64&gt;
-## 1 600</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Create a function with the previous steps, but replacing the month number with an argument. Collect the data at the end</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_segment &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">size =</span> <span class="dv">600</span>) {
-  db_month &lt;-<span class="st"> </span>table_flights <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span>x)
-  rows &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="kw">pull</span>(<span class="kw">tally</span>(db_month)))
-  db_month &lt;-<span class="st"> </span>db_month <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">row =</span> <span class="kw">row_number</span>())
-  sampling &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>rows, size)
-  db_month <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">filter</span>(row <span class="op">%in%</span><span class="st"> </span>sampling) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">collect</span>()
-}</code></pre></div>
-<ol start="8" style="list-style-type: decimal">
-<li>Test the function</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">sample_segment</span>(<span class="dv">3</span>), <span class="dv">100</span>)</code></pre></div>
-<pre><code>## # A tibble: 100 x 32
+##   <S3: integer64>
+## 1 600
+```
+
+7. Create a function with the previous steps, but replacing the month number with an argument.  Collect the data at the end
+
+```r
+sample_segment <- function(x, size = 600) {
+  db_month <- table_flights %>%
+    filter(month == x)
+  rows <- as.integer(pull(tally(db_month)))
+  db_month <- db_month %>%
+    mutate(row = row_number())
+  sampling <- sample(1:rows, size)
+  db_month %>%
+    filter(row %in% sampling) %>%
+    collect()
+}
+```
+
+8. Test the function
+
+```r
+head(sample_segment(3), 100)
+```
+
+```
+## # A tibble: 100 x 32
 ##    flightid  year month dayofmonth dayofweek deptime crsdeptime arrtime
-##       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+##       <int> <dbl> <dbl>      <dbl>     <dbl>   <dbl>      <dbl>   <dbl>
 ##  1  1177383  2008     3          3         1     720        720     912
 ##  2  1178149  2008     3          4         2     651        650     807
 ##  3  1178829  2008     3          4         2     856        900     952
@@ -16453,46 +16286,57 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  8  1185885  2008     3          6         4    1000       1000    1050
 ##  9  1188572  2008     3          7         5    1641       1620    1757
 ## 10  1191340  2008     3          7         5     833        830     956
-## # ... with 90 more rows, and 24 more variables: crsarrtime &lt;dbl&gt;,
-## #   uniquecarrier &lt;chr&gt;, flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;,
-## #   actualelapsedtime &lt;dbl&gt;, crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;,
-## #   arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
-## #   distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;, cancelled &lt;dbl&gt;,
-## #   cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;, carrierdelay &lt;dbl&gt;,
-## #   weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;, securitydelay &lt;dbl&gt;,
-## #   lateaircraftdelay &lt;dbl&gt;, score &lt;int&gt;, row &lt;S3: integer64&gt;</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Use <code>map_df()</code> to run the function for each month</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">strat_sample &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map_df</span>(<span class="op">~</span><span class="kw">sample_segment</span>(.x))</code></pre></div>
-<ol start="10" style="list-style-type: decimal">
-<li>Verify sample with a histogram</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbplot_histogram</span>(strat_sample, distance)</code></pre></div>
-<p><img src="modeling_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-</div>
-<div id="create-a-model-test" class="section level2">
-<h2><span class="header-section-number">5.4</span> Create a model &amp; test</h2>
-<ol style="list-style-type: decimal">
-<li>Prepare a model data set</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_data &lt;-<span class="st"> </span>strat_sample <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(
-    <span class="dt">season =</span> <span class="kw">case_when</span>(
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
-      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+## # ... with 90 more rows, and 24 more variables: crsarrtime <dbl>,
+## #   uniquecarrier <chr>, flightnum <dbl>, tailnum <chr>,
+## #   actualelapsedtime <dbl>, crselapsedtime <dbl>, airtime <dbl>,
+## #   arrdelay <dbl>, depdelay <dbl>, origin <chr>, dest <chr>,
+## #   distance <dbl>, taxiin <dbl>, taxiout <dbl>, cancelled <dbl>,
+## #   cancellationcode <chr>, diverted <dbl>, carrierdelay <dbl>,
+## #   weatherdelay <dbl>, nasdelay <dbl>, securitydelay <dbl>,
+## #   lateaircraftdelay <dbl>, score <int>, row <S3: integer64>
+```
+
+9. Use `map_df()` to run the function for each month
+
+```r
+strat_sample <- 1:12 %>%
+  map_df(~sample_segment(.x))
+```
+
+10. Verify sample with a histogram
+
+```r
+dbplot_histogram(strat_sample, distance)
+```
+
+<img src="modeling_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+
+## Create a model & test
+
+1. Prepare a model data set
+
+```r
+model_data <- strat_sample %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
     )
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(arrdelay, season, depdelay) </code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Create a simple <code>lm()</code> model</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(arrdelay <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> model_data)
-<span class="kw">summary</span>(model_lm)</code></pre></div>
-<pre><code>## 
+  ) %>%
+  select(arrdelay, season, depdelay) 
+```
+
+2. Create a simple `lm()` model
+
+```r
+model_lm <- lm(arrdelay ~ . , data = model_data)
+summary(model_lm)
+```
+
+```
+## 
 ## Call:
 ## lm(formula = arrdelay ~ ., data = model_data)
 ## 
@@ -16501,232 +16345,228 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## -70.210  -7.636  -1.638   5.835 195.366 
 ## 
 ## Coefficients:
-##                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   -3.200060   0.326372  -9.805  &lt; 2e-16 ***
+##                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   -3.200060   0.326372  -9.805  < 2e-16 ***
 ## seasonSpring   1.834461   0.462342   3.968 7.33e-05 ***
 ## seasonSummmer  1.293697   0.462046   2.800  0.00513 ** 
 ## seasonWinter   2.370515   0.466546   5.081 3.85e-07 ***
-## depdelay       0.998965   0.004782 208.889  &lt; 2e-16 ***
+## depdelay       0.998965   0.004782 208.889  < 2e-16 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 13.73 on 7026 degrees of freedom
 ##   (169 observations deleted due to missingness)
-## Multiple R-squared:  0.8633, Adjusted R-squared:  0.8632 
-## F-statistic: 1.109e+04 on 4 and 7026 DF,  p-value: &lt; 2.2e-16</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Create a test data set by combining the sampling and model data set routines</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_sample &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map_df</span>(<span class="op">~</span><span class="kw">sample_segment</span>(.x, <span class="dv">100</span>)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(
-    <span class="dt">season =</span> <span class="kw">case_when</span>(
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
-      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+## Multiple R-squared:  0.8633,	Adjusted R-squared:  0.8632 
+## F-statistic: 1.109e+04 on 4 and 7026 DF,  p-value: < 2.2e-16
+```
+
+3. Create a test data set by combining the sampling and model data set routines
+
+```r
+test_sample <- 1:12 %>%
+  map_df(~sample_segment(.x, 100)) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
     )
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(arrdelay, season, depdelay) </code></pre></div>
-<ol start="4" style="list-style-type: decimal">
-<li>Run a simple routine to check accuracy</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_sample <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> <span class="kw">predict</span>(model_lm, test_sample),
-         <span class="dt">over =</span> <span class="kw">abs</span>(p <span class="op">-</span><span class="st"> </span>arrdelay) <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(over) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> <span class="kw">round</span>(n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n), <span class="dv">2</span>))</code></pre></div>
-<pre><code>## # A tibble: 3 x 3
+  ) %>%
+  select(arrdelay, season, depdelay) 
+```
+
+4. Run a simple routine to check accuracy 
+
+```r
+test_sample %>%
+  mutate(p = predict(model_lm, test_sample),
+         over = abs(p - arrdelay) < 10) %>%
+  group_by(over) %>% 
+  tally() %>%
+  mutate(percent = round(n / sum(n), 2))
+```
+
+```
+## # A tibble: 3 x 3
 ##   over      n percent
-##   &lt;lgl&gt; &lt;int&gt;   &lt;dbl&gt;
+##   <lgl> <int>   <dbl>
 ## 1 FALSE   383    0.32
 ## 2 TRUE    781    0.65
-## 3 NA       36    0.03</code></pre>
-</div>
-<div id="score-inside-database" class="section level2">
-<h2><span class="header-section-number">5.5</span> Score inside database</h2>
-<p><em>Learn about tidypredict to run predictions inside the database</em></p>
-<ol style="list-style-type: decimal">
-<li>Load the library, and see the results of passing the model as an argument to <code>tidypredict_fit()</code></li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidypredict)
+## 3 NA       36    0.03
+```
 
-<span class="kw">tidypredict_fit</span>(model_lm)</code></pre></div>
-<pre><code>## -3.20005982875105 + (ifelse(season == &quot;Spring&quot;, 1, 0)) * (1.83446119008047) + 
-##     (ifelse(season == &quot;Summmer&quot;, 1, 0)) * (1.29369725619702) + 
-##     (ifelse(season == &quot;Winter&quot;, 1, 0)) * (2.37051453948056) + 
-##     (depdelay) * (0.998964849665459)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Use <code>tidypredict_sql()</code> to see the resulting SQL statement</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_sql</span>(model_lm, con)</code></pre></div>
-<pre><code>## &lt;SQL&gt; -3.20005982875105 + (CASE WHEN (&quot;season&quot; = &#39;Spring&#39;) THEN (1.0) WHEN NOT(&quot;season&quot; = &#39;Spring&#39;) THEN (0.0) END) * (1.83446119008047) + (CASE WHEN (&quot;season&quot; = &#39;Summmer&#39;) THEN (1.0) WHEN NOT(&quot;season&quot; = &#39;Summmer&#39;) THEN (0.0) END) * (1.29369725619702) + (CASE WHEN (&quot;season&quot; = &#39;Winter&#39;) THEN (1.0) WHEN NOT(&quot;season&quot; = &#39;Winter&#39;) THEN (0.0) END) * (2.37051453948056) + (&quot;depdelay&quot;) * (0.998964849665459)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Run the prediction inside <code>dplyr</code></li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>,
-         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(
-    <span class="dt">season =</span> <span class="kw">case_when</span>(
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
-      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+## Score inside database
+*Learn about tidypredict to run predictions inside the database*
+
+1. Load the library, and see the results of passing the model as an argument to `tidypredict_fit()` 
+
+```r
+library(tidypredict)
+
+tidypredict_fit(model_lm)
+```
+
+```
+## -3.20005982875105 + (ifelse(season == "Spring", 1, 0)) * (1.83446119008047) + 
+##     (ifelse(season == "Summmer", 1, 0)) * (1.29369725619702) + 
+##     (ifelse(season == "Winter", 1, 0)) * (2.37051453948056) + 
+##     (depdelay) * (0.998964849665459)
+```
+
+2. Use `tidypredict_sql()` to see the resulting SQL statement
+
+```r
+tidypredict_sql(model_lm, con)
+```
+
+```
+## <SQL> -3.20005982875105 + (CASE WHEN ("season" = 'Spring') THEN (1.0) WHEN NOT("season" = 'Spring') THEN (0.0) END) * (1.83446119008047) + (CASE WHEN ("season" = 'Summmer') THEN (1.0) WHEN NOT("season" = 'Summmer') THEN (0.0) END) * (1.29369725619702) + (CASE WHEN ("season" = 'Winter') THEN (1.0) WHEN NOT("season" = 'Winter') THEN (0.0) END) * (2.37051453948056) + ("depdelay") * (0.998964849665459)
+```
+
+3. Run the prediction inside `dplyr`
+
+```r
+table_flights %>%
+  filter(month == 2,
+         dayofmonth == 1) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
     )
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>( season, depdelay) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tidypredict_to_column</span>(model_lm) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 3]
+  ) %>%
+  select( season, depdelay) %>%
+  tidypredict_to_column(model_lm) %>%
+  head()
+```
+
+```
+## # Source:   lazy query [?? x 3]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   season depdelay   fit
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##   <chr>     <dbl> <dbl>
 ## 1 Winter       NA   NA 
 ## 2 Winter      117  116.
 ## 3 Winter       NA   NA 
 ## 4 Winter       NA   NA 
 ## 5 Winter       NA   NA 
-## 6 Winter       NA   NA</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>View the SQL behind the <code>dplyr</code> command</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>,
-         dayofmonth <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(
-    <span class="dt">season =</span> <span class="kw">case_when</span>(
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>  <span class="op">~</span><span class="st"> &quot;Spring&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>  <span class="op">~</span><span class="st"> &quot;Summmer&quot;</span>,
-      month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">9</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">11</span> <span class="op">~</span><span class="st"> &quot;Fall&quot;</span>,
-      month <span class="op">==</span><span class="st"> </span><span class="dv">12</span> <span class="op">|</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>  <span class="op">~</span><span class="st"> &quot;Winter&quot;</span>
+## 6 Winter       NA   NA
+```
+
+4. View the SQL behind the `dplyr` command
+
+```r
+table_flights %>%
+  filter(month == 2,
+         dayofmonth == 1) %>%
+    mutate(
+    season = case_when(
+      month >= 3 & month <= 5  ~ "Spring",
+      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 9 & month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
     )
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>( season, depdelay) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tidypredict_to_column</span>(model_lm) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">remote_query</span>()</code></pre></div>
-<pre><code>## &lt;SQL&gt; SELECT &quot;season&quot;, &quot;depdelay&quot;, -3.20005982875105 + (CASE WHEN (&quot;season&quot; = &#39;Spring&#39;) THEN (1.0) WHEN NOT(&quot;season&quot; = &#39;Spring&#39;) THEN (0.0) END) * (1.83446119008047) + (CASE WHEN (&quot;season&quot; = &#39;Summmer&#39;) THEN (1.0) WHEN NOT(&quot;season&quot; = &#39;Summmer&#39;) THEN (0.0) END) * (1.29369725619702) + (CASE WHEN (&quot;season&quot; = &#39;Winter&#39;) THEN (1.0) WHEN NOT(&quot;season&quot; = &#39;Winter&#39;) THEN (0.0) END) * (2.37051453948056) + (&quot;depdelay&quot;) * (0.998964849665459) AS &quot;fit&quot;
-## FROM (SELECT &quot;season&quot;, &quot;depdelay&quot;
-## FROM (SELECT &quot;flightid&quot;, &quot;year&quot;, &quot;month&quot;, &quot;dayofmonth&quot;, &quot;dayofweek&quot;, &quot;deptime&quot;, &quot;crsdeptime&quot;, &quot;arrtime&quot;, &quot;crsarrtime&quot;, &quot;uniquecarrier&quot;, &quot;flightnum&quot;, &quot;tailnum&quot;, &quot;actualelapsedtime&quot;, &quot;crselapsedtime&quot;, &quot;airtime&quot;, &quot;arrdelay&quot;, &quot;depdelay&quot;, &quot;origin&quot;, &quot;dest&quot;, &quot;distance&quot;, &quot;taxiin&quot;, &quot;taxiout&quot;, &quot;cancelled&quot;, &quot;cancellationcode&quot;, &quot;diverted&quot;, &quot;carrierdelay&quot;, &quot;weatherdelay&quot;, &quot;nasdelay&quot;, &quot;securitydelay&quot;, &quot;lateaircraftdelay&quot;, &quot;score&quot;, CASE
-## WHEN (&quot;month&quot; &gt;= 3.0 AND &quot;month&quot; &lt;= 5.0) THEN (&#39;Spring&#39;)
-## WHEN (&quot;month&quot; &gt;= 6.0 AND &quot;month&quot; &lt;= 8.0) THEN (&#39;Summmer&#39;)
-## WHEN (&quot;month&quot; &gt;= 9.0 AND &quot;month&quot; &lt;= 11.0) THEN (&#39;Fall&#39;)
-## WHEN (&quot;month&quot; = 12.0 OR &quot;month&quot; &lt;= 2.0) THEN (&#39;Winter&#39;)
-## END AS &quot;season&quot;
+  ) %>%
+  select( season, depdelay) %>%
+  tidypredict_to_column(model_lm) %>%
+  remote_query()
+```
+
+```
+## <SQL> SELECT "season", "depdelay", -3.20005982875105 + (CASE WHEN ("season" = 'Spring') THEN (1.0) WHEN NOT("season" = 'Spring') THEN (0.0) END) * (1.83446119008047) + (CASE WHEN ("season" = 'Summmer') THEN (1.0) WHEN NOT("season" = 'Summmer') THEN (0.0) END) * (1.29369725619702) + (CASE WHEN ("season" = 'Winter') THEN (1.0) WHEN NOT("season" = 'Winter') THEN (0.0) END) * (2.37051453948056) + ("depdelay") * (0.998964849665459) AS "fit"
+## FROM (SELECT "season", "depdelay"
+## FROM (SELECT "flightid", "year", "month", "dayofmonth", "dayofweek", "deptime", "crsdeptime", "arrtime", "crsarrtime", "uniquecarrier", "flightnum", "tailnum", "actualelapsedtime", "crselapsedtime", "airtime", "arrdelay", "depdelay", "origin", "dest", "distance", "taxiin", "taxiout", "cancelled", "cancellationcode", "diverted", "carrierdelay", "weatherdelay", "nasdelay", "securitydelay", "lateaircraftdelay", "score", CASE
+## WHEN ("month" >= 3.0 AND "month" <= 5.0) THEN ('Spring')
+## WHEN ("month" >= 6.0 AND "month" <= 8.0) THEN ('Summmer')
+## WHEN ("month" >= 9.0 AND "month" <= 11.0) THEN ('Fall')
+## WHEN ("month" = 12.0 OR "month" <= 2.0) THEN ('Winter')
+## END AS "season"
 ## FROM (SELECT *
 ## FROM datawarehouse.flight
-## WHERE ((&quot;month&quot; = 2.0) AND (&quot;dayofmonth&quot; = 1.0))) &quot;rdmsrldtdf&quot;) &quot;xsktnwfckl&quot;) &quot;pifkbjpiqq&quot;</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Compare predictions to ensure results are within range</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span><span class="kw">tidypredict_test</span>(model_lm)
-test</code></pre></div>
-<pre><code>## tidypredict test results
+## WHERE (("month" = 2.0) AND ("dayofmonth" = 1.0))) "rdmsrldtdf") "xsktnwfckl") "pifkbjpiqq"
+```
+
+6. Compare predictions to ensure results are within range
+
+```r
+test <- tidypredict_test(model_lm)
+test
+```
+
+```
+## tidypredict test results
 ## Difference threshold: 1e-12
 ## 
-##  All results are within the difference threshold</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>View the records that exceeded the threshold</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test<span class="op">$</span>raw_results <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(fit_threshold)</code></pre></div>
-<pre><code>## [1] rowid         fit           fit_te        fit_diff      fit_threshold
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-</div>
-<div id="parsed-model" class="section level2">
-<h2><span class="header-section-number">5.6</span> Parsed model</h2>
-<p><em>Quick review of the model parser</em></p>
-<ol style="list-style-type: decimal">
-<li>Use the <code>parse_model()</code> function to see how <code>tidypredict</code> interprets the model</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pm &lt;-<span class="st"> </span><span class="kw">parse_model</span>(model_lm)
-pm</code></pre></div>
-<pre><code>## # A tibble: 10 x 11
+##  All results are within the difference threshold
+```
+
+7. View the records that exceeded the threshold
+
+```r
+test$raw_results %>%
+  filter(fit_threshold)
+```
+
+```
+## [1] rowid         fit           fit_te        fit_diff      fit_threshold
+## <0 rows> (or 0-length row.names)
+```
+
+## Parsed model
+*Quick review of the model parser*
+
+1. Use the `parse_model()` function to see how `tidypredict` interprets the model
+
+```r
+pm <- parse_model(model_lm)
+pm
+```
+
+```
+## # A tibble: 10 x 11
 ##    labels estimate type  field_1 field_2     qr_1      qr_2      qr_3
-##    &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-##  1 (Inte…   -3.20  term  &lt;NA&gt;    &lt;NA&gt;     -0.0119  -0.00688  -0.00979
-##  2 seaso…    1.83  term  &lt;NA&gt;    Spring    0        0.0275    0.00979
-##  3 seaso…    1.29  term  &lt;NA&gt;    Summmer   0        0         0.0292 
-##  4 seaso…    2.37  term  &lt;NA&gt;    Winter    0        0         0      
-##  5 depde…    0.999 term  {{:}}   &lt;NA&gt;      0        0         0      
+##    <chr>     <dbl> <chr> <chr>   <chr>      <dbl>     <dbl>     <dbl>
+##  1 (Inte…   -3.20  term  <NA>    <NA>     -0.0119  -0.00688  -0.00979
+##  2 seaso…    1.83  term  <NA>    Spring    0        0.0275    0.00979
+##  3 seaso…    1.29  term  <NA>    Summmer   0        0         0.0292 
+##  4 seaso…    2.37  term  <NA>    Winter    0        0         0      
+##  5 depde…    0.999 term  {{:}}   <NA>      0        0         0      
 ##  6 labels    0     vari… depdel… season   NA       NA        NA      
-##  7 model    NA     vari… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
-##  8 versi…   NA     vari… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
-##  9 resid…   NA     vari… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
-## 10 sigma2   NA     vari… &lt;NA&gt;    &lt;NA&gt;     NA       NA        NA      
-## # ... with 3 more variables: qr_4 &lt;dbl&gt;, qr_5 &lt;dbl&gt;, vals &lt;chr&gt;</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Verify that the resulting table can be used to get the fit formula</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_fit</span>(pm)</code></pre></div>
-<pre><code>## -3.20005982875105 + (ifelse(season == &quot;Spring&quot;, 1, 0)) * (1.83446119008047) + 
-##     (ifelse(season == &quot;Summmer&quot;, 1, 0)) * (1.29369725619702) + 
-##     (ifelse(season == &quot;Winter&quot;, 1, 0)) * (2.37051453948056) + 
-##     (depdelay) * (0.998964849665459)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Save the parsed model for later use</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
-<span class="kw">write_csv</span>(pm, <span class="st">&quot;parsedmodel.csv&quot;</span>)</code></pre></div>
-<ol start="4" style="list-style-type: decimal">
-<li>Disconnect from the database</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(con)</code></pre></div>
+##  7 model    NA     vari… <NA>    <NA>     NA       NA        NA      
+##  8 versi…   NA     vari… <NA>    <NA>     NA       NA        NA      
+##  9 resid…   NA     vari… <NA>    <NA>     NA       NA        NA      
+## 10 sigma2   NA     vari… <NA>    <NA>     NA       NA        NA      
+## # ... with 3 more variables: qr_4 <dbl>, qr_5 <dbl>, vals <chr>
+```
 
-</div>
-</div>
-            </section>
+2. Verify that the resulting table can be used to get the fit formula
 
-          </div>
-        </div>
-      </div>
-<a href="data-visualizations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="advanced-operations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
-  </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"google": false,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
+```r
+tidypredict_fit(pm)
+```
 
-</body>
+```
+## -3.20005982875105 + (ifelse(season == "Spring", 1, 0)) * (1.83446119008047) + 
+##     (ifelse(season == "Summmer", 1, 0)) * (1.29369725619702) + 
+##     (ifelse(season == "Winter", 1, 0)) * (2.37051453948056) + 
+##     (depdelay) * (0.998964849665459)
+```
 
-</html>
+3. Save the parsed model for later use
+
+```r
+library(readr)
+write_csv(pm, "parsedmodel.csv")
+```
+
+4. Disconnect from the database
+
+
+```r
+dbDisconnect(con)
+```
+
+

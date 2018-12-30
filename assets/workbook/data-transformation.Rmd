@@ -8,6 +8,8 @@ knitr::opts_chunk$set(eval = TRUE)
 
 library(dplyr)
 library(dbplyr)
+library(DBI)
+library(odbc)
 
 # Class catchup
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")

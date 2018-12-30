@@ -263,6 +263,45 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">ml_logistic_regression</span>()
 
 flights_pipeline</code></pre></div>
+<pre><code>## Pipeline (Estimator) with 5 stages
+## &lt;pipeline_765579154935&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_765514b21066&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormula (Estimator)
+##   |    &lt;r_formula_765515301f8a&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Parameters)
+##   |      formula: delayed ~ arrdelay + dephour
+##   |--5 LogisticRegression (Estimator)
+##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Parameters)
+##   |      elastic_net_param: 0
+##   |      fit_intercept: TRUE
+##   |      max_iter: 100
+##   |      reg_param: 0
+##   |      standardization: TRUE
+##   |      threshold: 0.5
+##   |      tol: 1e-06</code></pre>
 </div>
 <div id="fit-evaluate-save" class="section level2">
 <h2><span class="header-section-number">8.2</span> Fit, evaluate, save</h2>
@@ -271,6 +310,43 @@ flights_pipeline</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(flights_pipeline, model_data<span class="op">$</span>training)
 model</code></pre></div>
+<pre><code>## PipelineModel (Transformer) with 5 stages
+## &lt;pipeline_765579154935&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_765514b21066&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormulaModel (Transformer)
+##   |    &lt;r_formula_765515301f8a&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Transformer Info)
+##   |      formula:  chr &quot;delayed ~ arrdelay + dephour&quot; 
+##   |--5 LogisticRegressionModel (Transformer)
+##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Transformer Info)
+##   |      coefficients:  num [1:2] 28.181 -0.172 
+##   |      intercept:  num -436 
+##   |      num_classes:  int 2 
+##   |      num_features:  int 2 
+##   |      threshold:  num 0.5</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use the newly fitted model to perform predictions using <code>ml_transform()</code></li>
 </ol>
@@ -284,20 +360,30 @@ model</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(delayed, prediction) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   delayed prediction     n
+## *   &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+## 1       0          0 55549
+## 2       1          1 14818</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Save the model into disk using <code>ml_save()</code></li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(model, <span class="st">&quot;saved_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
-<span class="kw">list.files</span>(<span class="st">&quot;saved_model&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(model, <span class="st">&quot;saved_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Model successfully saved.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="st">&quot;saved_model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;metadata&quot; &quot;stages&quot;</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Save the pipeline using <code>ml_save()</code></li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(flights_pipeline, <span class="st">&quot;saved_pipeline&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
-<span class="kw">list.files</span>(<span class="st">&quot;saved_pipeline&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(flights_pipeline, <span class="st">&quot;saved_pipeline&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Model successfully saved.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="st">&quot;saved_pipeline&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;metadata&quot; &quot;stages&quot;</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Close the Spark session</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre></div>
+<pre><code>## NULL</code></pre>
 </div>
 <div id="reload-model" class="section level2">
 <h2><span class="header-section-number">8.3</span> Reload model</h2>
@@ -320,6 +406,41 @@ spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</spa
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reload &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_model&quot;</span>)
 reload</code></pre></div>
+<pre><code>## PipelineModel (Transformer) with 5 stages
+## &lt;pipeline_765579154935&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_765514b21066&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormulaModel (Transformer)
+##   |    &lt;r_formula_765515301f8a&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |--5 LogisticRegressionModel (Transformer)
+##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Transformer Info)
+##   |      coefficients:  num [1:2] 28.181 -0.172 
+##   |      intercept:  num -436 
+##   |      num_classes:  int 2 
+##   |      num_features:  int 2 
+##   |      threshold:  num 0.5</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Create a new table called <em>current</em>. It needs to pull today’s flights</li>
 </ol>
@@ -332,10 +453,30 @@ current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span clas
   )
 
 <span class="kw">show_query</span>(current)</code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT *
+## FROM `flights`
+## WHERE ((`month` = 12.0) AND (`dayofmonth` = 30))</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a new table called <em>current</em>. It needs to pull today’s flights</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(current)</code></pre></div>
+<pre><code>## # Source: spark&lt;?&gt; [?? x 31]
+##   flightid year  month dayofmonth dayofweek deptime crsdeptime arrtime
+## * &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;  
+## 1 6549712  2008  12    30         2         2111    2020       2308   
+## 2 6549713  2008  12    30         2         1430    1430       1941   
+## 3 6549714  2008  12    30         2         708     700        940    
+## 4 6549715  2008  12    30         2         1444    1430       1713   
+## 5 6549716  2008  12    30         2         1649    1645       1920   
+## 6 6549717  2008  12    30         2         1120    1110       1349   
+## # ... with 23 more variables: crsarrtime &lt;chr&gt;, uniquecarrier &lt;chr&gt;,
+## #   flightnum &lt;chr&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;chr&gt;,
+## #   crselapsedtime &lt;chr&gt;, airtime &lt;chr&gt;, arrdelay &lt;chr&gt;, depdelay &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;chr&gt;, taxiin &lt;chr&gt;, taxiout &lt;chr&gt;,
+## #   cancelled &lt;chr&gt;, cancellationcode &lt;chr&gt;, diverted &lt;chr&gt;,
+## #   carrierdelay &lt;chr&gt;, weatherdelay &lt;chr&gt;, nasdelay &lt;chr&gt;,
+## #   securitydelay &lt;chr&gt;, lateaircraftdelay &lt;chr&gt;, score &lt;chr&gt;</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Run predictions against the new data set</li>
 </ol>
@@ -348,6 +489,10 @@ current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span clas
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_predictions <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">late_fligths =</span> <span class="kw">sum</span>(prediction, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # Source: spark&lt;?&gt; [?? x 1]
+##   late_fligths
+## *        &lt;dbl&gt;
+## 1         3689</code></pre>
 </div>
 <div id="reload-pipeline" class="section level2">
 <h2><span class="header-section-number">8.4</span> Reload pipeline</h2>
@@ -357,6 +502,45 @@ current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span clas
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_pipeline &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_pipeline&quot;</span>)
 flights_pipeline</code></pre></div>
+<pre><code>## Pipeline (Estimator) with 5 stages
+## &lt;pipeline_765579154935&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_765514b21066&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormula (Estimator)
+##   |    &lt;r_formula_765515301f8a&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Parameters)
+##   |      formula: delayed ~ arrdelay + dephour
+##   |--5 LogisticRegression (Estimator)
+##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Parameters)
+##   |      elastic_net_param: 0
+##   |      fit_intercept: TRUE
+##   |      max_iter: 100
+##   |      reg_param: 0
+##   |      standardization: TRUE
+##   |      threshold: 0.5
+##   |      tol: 1e-06</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Create a new sample data set using <code>sample_frac()</code></li>
 </ol>
@@ -367,15 +551,55 @@ flights_pipeline</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(flights_pipeline, sample)
 new_model</code></pre></div>
+<pre><code>## PipelineModel (Transformer) with 5 stages
+## &lt;pipeline_765579154935&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: arrdelay
+##   |      output_col: delayed
+##   |--3 Bucketizer (Transformer)
+##   |    &lt;bucketizer_765514b21066&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: crsdeptime
+##   |      output_col: dephour
+##   |--4 RFormulaModel (Transformer)
+##   |    &lt;r_formula_765515301f8a&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Transformer Info)
+##   |      formula:  chr &quot;delayed ~ arrdelay + dephour&quot; 
+##   |--5 LogisticRegressionModel (Transformer)
+##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Transformer Info)
+##   |      coefficients:  num [1:2] 27.621 0.372 
+##   |      intercept:  num -429 
+##   |      num_classes:  int 2 
+##   |      num_features:  int 2 
+##   |      threshold:  num 0.5</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Save the newly fitted model</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(new_model, <span class="st">&quot;new_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
-<span class="kw">list.files</span>(<span class="st">&quot;new_model&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_save</span>(new_model, <span class="st">&quot;new_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Model successfully saved.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="st">&quot;new_model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;metadata&quot; &quot;stages&quot;</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Disconnect from Spark</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre></div>
+<pre><code>## NULL</code></pre>
 
 </div>
 </div>
@@ -414,20 +638,18 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
 },
 "download": null,
 "toc": {
-"collapse": "subsection",
-"scroll_highlight": true
-},
-"toolbar": {
-"position": "fixed"
-},
-"search": true
+"collapse": "subsection"
+}
 });
 });
 </script>

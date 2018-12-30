@@ -1,6 +1,4 @@
-```{r, section11, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
-```
+
 
 #Share and Production
 
@@ -39,24 +37,17 @@ knitr::opts_chunk$set(eval = FALSE)
 1. Create a new RMarkdown
 
 2. Start the new RMarkdown by loading all the needed libraries, connecting to the DB and setting `table_flights`
-```{r, eval = FALSE}
-library(tidyverse)
-library(dbplyr)
-library(tidypredict)
-library(DBI)
-library(lubridate)
-con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
-table_flights <- tbl(con, in_schema("datawarehouse", "flight"))
 
-```
 
 3. Read the parsed model saved in exercise 5.6
-```{r}
+
+```r
 parsedmodel <- read_csv("parsedmodel.csv")
 ```
 
 4. Copy the code from exercise 5.5 step 4. Load the code into a variable called *predictions*.  Change the model variable to *parsedmodel*
-```{r}
+
+```r
 predictions <- table_flights %>%
   filter(month == 2,
          dayofmonth == 1) %>%
@@ -74,7 +65,8 @@ predictions <- table_flights %>%
 ```
 
 5. Change the `select()` verb to include `flightid`, and rename to `p_flightid` 
-```{r}
+
+```r
 predictions <- table_flights %>%
   filter(month == 2,
          dayofmonth == 1) %>%
@@ -93,7 +85,8 @@ predictions <- table_flights %>%
 
 
 6. Append to the end, the SQL code needed to run the update inside the database
-```{r}
+
+```r
 update_statement <- build_sql(
   "UPDATE datawarehouse.flight SET nasdelay = fit FROM (",
   predictions,
@@ -125,7 +118,8 @@ dbSendQuery(con, update_statement)
 1. Create a new **RMarkdown** document
 
 2. Copy the code from the **Class catchup** section in Spark Pipeline, unit 8
-```{r}
+
+```r
 library(tidyverse)
 library(sparklyr)
 library(lubridate)
@@ -151,7 +145,8 @@ spark_flights <- spark_read_csv(
 3. Move the *saved_model* folder under */tmp*
 
 4. Copy all the code from exercise 8.3 starting with step 2
-```{r, eval = FALSE}
+
+```r
 reload <- ml_load(sc, "saved_model")
 reload
 library(lubridate)
@@ -173,7 +168,8 @@ new_predictions %>%
 5. Change the `ml_load()` location to `"/tmp/saved_model"`
 
 6. Close the Spark session
-```{r}
+
+```r
 spark_disconnect(sc)
 ```
 
@@ -200,7 +196,8 @@ spark_disconnect(sc)
 1. Create a new **RMarkdown** document
 
 2. Copy the code from the **Class catchup** section in Spark Pipeline, unit 8
-```{r}
+
+```r
 library(tidyverse)
 library(sparklyr)
 library(lubridate)
@@ -226,7 +223,8 @@ spark_flights <- spark_read_csv(
 3. Move the *saved_pipeline* folder under */tmp*
 
 4. Copy all the code from exercise 8.4 
-```{r}
+
+```r
 pipeline <- ml_load(sc, "/tmp/saved_pipeline")
 pipeline
 sample <- tbl(sc, "flights") %>%

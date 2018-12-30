@@ -9,7 +9,7 @@ knitr::opts_chunk$set(eval = TRUE)
 For this example, there are two files that will be analyzed.  They are both the full works of Sir Arthur Conan Doyle and Mark Twain.  The files were downloaded from the [Gutenberg Project](https://www.gutenberg.org/) site via the `gutenbergr` package.  Intentionally, no data cleanup was done to the files prior to this analysis.  See the appendix below to see how the data was downloaded and prepared.
 
 ```{r}
-readLines("/use/share/class/bonus/arthur_doyle.txt", 30) 
+readLines("/usr/share/class/bonus/arthur_doyle.txt", 30) 
 ```
 
 
@@ -31,13 +31,13 @@ sc <- spark_connect(master = "local", config = conf,version = "2.0.0")
 
 1. The `spark_read_text()` is a new function which works like `readLines()` but for `sparklyr`. Use it to read the *mark_twain.txt* file into Spark.
 ```{r}
-twain_path <- paste0("file:///use/share/class/bonus/mark_twain.txt")
+twain_path <- paste0("file:///usr/share/class/bonus/mark_twain.txt")
 twain <-  spark_read_text(sc, "twain", twain_path) 
 ```
 
 2. Read the *arthur_doyle.txt* file into Spark
 ```{r}
-doyle_path <-  paste0("file:///use/share/class/bonus/arthur_doyle.txt")
+doyle_path <-  paste0("file:///usr/share/class/bonus/arthur_doyle.txt")
 doyle <-  spark_read_text(sc, "doyle", doyle_path) 
 ```
 

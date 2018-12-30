@@ -386,7 +386,7 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <pre><code>## # Source: spark&lt;?&gt; [?? x 1]
 ##       n
 ## * &lt;dbl&gt;
-## 1 70404</code></pre>
+## 1 70069</code></pre>
 </div>
 <div id="feature-transformers" class="section level2">
 <h2><span class="header-section-number">7.7</span> Feature transformers</h2>
@@ -478,23 +478,15 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_model &lt;-<span class="st"> </span>training <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ml_logistic_regression</span>(delayed <span class="op">~</span><span class="st"> </span>depdelay <span class="op">+</span><span class="st"> </span>dephour)</code></pre></div>
-<pre><code>## Warning: `caller_frame()` is soft-deprecated as of rlang 0.3.0.
-## This warning is displayed once per session.</code></pre>
-<pre><code>## Warning: `lang_standardise()` is soft-deprecated as of rlang 0.2.0.
-## Please use `call_standardise()` instead
-## This warning is displayed once per session.</code></pre>
-<pre><code>## Warning: `lang_args()` is soft-deprecated as of rlang 0.2.0.
-## Please use `call_args()` instead
-## This warning is displayed once per session.</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>View the model results</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(delayed_model)</code></pre></div>
 <pre><code>## Coefficients:
 ## (Intercept)    depdelay  dephour_h2  dephour_h3  dephour_h4  dephour_h1 
-## -2.80906811  0.13840231  0.23761211  0.08447293  0.15123452  0.24394579 
+##  -3.7840583   0.1373576   1.1044356   1.0458168   1.1399381   1.2710293 
 ##  dephour_h5 
-##  0.05165856</code></pre>
+##   1.0980554</code></pre>
 </div>
 <div id="run-predictions-in-spark" class="section level2">
 <h2><span class="header-section-number">7.9</span> Run predictions in Spark</h2>
@@ -512,12 +504,12 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <pre><code>## # Source: spark&lt;?&gt; [?? x 17]
 ##   month dayofmonth arrtime arrdelay depdelay crsarrtime crsdeptime distance
 ## * &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1     7          1     NaN        0        0        838        720      321
-## 2     7          1     NaN        0        0       1059        920      496
-## 3     7          1     NaN        0        0       1125       1011      289
-## 4     7          1     NaN        0        0       1335       1225      258
-## 5     7          1     NaN        0        0       1800       1640      197
-## 6     7          1     NaN        0        0       1855       1745      164
+## 1     7          1     NaN        0        0        739        634      155
+## 2     7          1     NaN        0        0        939        818      289
+## 3     7          1     NaN        0        0        940        815      447
+## 4     7          1     NaN        0        0       1135       1015      337
+## 5     7          1     NaN        0        0       1803       1633      326
+## 6     7          1     NaN        0        0       2000       1730      487
 ## # ... with 9 more variables: delayed &lt;dbl&gt;, dephour &lt;chr&gt;,
 ## #   features &lt;list&gt;, label &lt;dbl&gt;, rawPrediction &lt;list&gt;,
 ## #   probability &lt;list&gt;, prediction &lt;dbl&gt;, probability_0 &lt;dbl&gt;,
@@ -531,10 +523,10 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <pre><code>## # A tibble: 4 x 3
 ##   delayed prediction      n
 ## *   &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
-## 1       0          1  10409
-## 2       0          0 489032
-## 3       1          1  91126
-## 4       1          0  40779</code></pre>
+## 1       0          1  10345
+## 2       0          0 489359
+## 3       1          1  90930
+## 4       1          0  41097</code></pre>
 
 </div>
 </div>
@@ -573,20 +565,18 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
 },
 "download": null,
 "toc": {
-"collapse": "subsection",
-"scroll_highlight": true
-},
-"toolbar": {
-"position": "fixed"
-},
-"search": true
+"collapse": "subsection"
+}
 });
 });
 </script>
