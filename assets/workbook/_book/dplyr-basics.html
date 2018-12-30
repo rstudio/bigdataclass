@@ -343,12 +343,12 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today              
 ##   &lt;dttm&gt;             
-## 1 2018-12-30 03:49:57
-## 2 2018-12-30 03:49:57
-## 3 2018-12-30 03:49:57
-## 4 2018-12-30 03:49:57
-## 5 2018-12-30 03:49:57
-## 6 2018-12-30 03:49:57</code></pre>
+## 1 2018-12-30 16:28:13
+## 2 2018-12-30 16:28:13
+## 3 2018-12-30 16:28:13
+## 4 2018-12-30 16:28:13
+## 5 2018-12-30 16:28:13
+## 6 2018-12-30 16:28:13</code></pre>
 </div>
 <div id="using-bang-bang" class="section level2">
 <h2><span class="header-section-number">2.4</span> Using bang-bang</h2>
@@ -369,7 +369,7 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-12-30T03:49:57Z&#39; AS &quot;today&quot;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-12-30T16:28:13Z&#39; AS &quot;today&quot;
 ## FROM datawarehouse.airport</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Preview how <code>Sys.time()</code> is translated when prefixing <code>!!</code></li>
@@ -382,12 +382,12 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today               
 ##   &lt;chr&gt;               
-## 1 2018-12-30T03:49:57Z
-## 2 2018-12-30T03:49:57Z
-## 3 2018-12-30T03:49:57Z
-## 4 2018-12-30T03:49:57Z
-## 5 2018-12-30T03:49:57Z
-## 6 2018-12-30T03:49:57Z</code></pre>
+## 1 2018-12-30T16:28:13Z
+## 2 2018-12-30T16:28:13Z
+## 3 2018-12-30T16:28:13Z
+## 4 2018-12-30T16:28:13Z
+## 5 2018-12-30T16:28:13Z
+## 6 2018-12-30T16:28:13Z</code></pre>
 </div>
 <div id="knitr-sql-engine" class="section level2">
 <h2><span class="header-section-number">2.5</span> knitr SQL engine</h2>
@@ -398,7 +398,7 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-12-30T03:49:57Z&#39; AS &quot;today&quot;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2018-12-30T16:28:13Z&#39; AS &quot;today&quot;
 ## FROM datawarehouse.airport</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Paste the result in this SQL chunk</li>
@@ -620,18 +620,20 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": null,
-"text": null
-},
+"edit": null,
 "history": {
 "link": null,
 "text": null
 },
 "download": null,
 "toc": {
-"collapse": "subsection"
-}
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
 });
 });
 </script>

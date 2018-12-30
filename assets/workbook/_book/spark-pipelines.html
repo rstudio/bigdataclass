@@ -264,30 +264,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 flights_pipeline</code></pre></div>
 <pre><code>## Pipeline (Estimator) with 5 stages
-## &lt;pipeline_765579154935&gt; 
+## &lt;pipeline_417e407697a7&gt; 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |    &lt;dplyr_transformer_417e675dac97&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |    &lt;binarizer_417e6cf95ba7&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    &lt;bucketizer_765514b21066&gt; 
+##   |    &lt;bucketizer_417e70d355f9&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormula (Estimator)
-##   |    &lt;r_formula_765515301f8a&gt; 
+##   |    &lt;r_formula_417e441e8089&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |     (Parameters)
 ##   |      formula: delayed ~ arrdelay + dephour
 ##   |--5 LogisticRegression (Estimator)
-##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |    &lt;logistic_regression_417e5a9871df&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -311,30 +311,30 @@ flights_pipeline</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(flights_pipeline, model_data<span class="op">$</span>training)
 model</code></pre></div>
 <pre><code>## PipelineModel (Transformer) with 5 stages
-## &lt;pipeline_765579154935&gt; 
+## &lt;pipeline_417e407697a7&gt; 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |    &lt;dplyr_transformer_417e675dac97&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |    &lt;binarizer_417e6cf95ba7&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    &lt;bucketizer_765514b21066&gt; 
+##   |    &lt;bucketizer_417e70d355f9&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormulaModel (Transformer)
-##   |    &lt;r_formula_765515301f8a&gt; 
+##   |    &lt;r_formula_417e441e8089&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |     (Transformer Info)
 ##   |      formula:  chr &quot;delayed ~ arrdelay + dephour&quot; 
 ##   |--5 LogisticRegressionModel (Transformer)
-##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |    &lt;logistic_regression_417e5a9871df&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -342,8 +342,8 @@ model</code></pre></div>
 ##   |      probability_col: probability
 ##   |      raw_prediction_col: rawPrediction
 ##   |     (Transformer Info)
-##   |      coefficients:  num [1:2] 28.181 -0.172 
-##   |      intercept:  num -436 
+##   |      coefficients:  num [1:2] 25.629 -0.194 
+##   |      intercept:  num -397 
 ##   |      num_classes:  int 2 
 ##   |      num_features:  int 2 
 ##   |      threshold:  num 0.5</code></pre>
@@ -363,8 +363,8 @@ model</code></pre></div>
 <pre><code>## # A tibble: 2 x 3
 ##   delayed prediction     n
 ## *   &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
-## 1       0          0 55549
-## 2       1          1 14818</code></pre>
+## 1       0          0 55624
+## 2       1          1 14564</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Save the model into disk using <code>ml_save()</code></li>
 </ol>
@@ -407,28 +407,28 @@ spark_flights &lt;-<span class="st"> </span><span class="kw">spark_read_csv</spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reload &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_model&quot;</span>)
 reload</code></pre></div>
 <pre><code>## PipelineModel (Transformer) with 5 stages
-## &lt;pipeline_765579154935&gt; 
+## &lt;pipeline_417e407697a7&gt; 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |    &lt;dplyr_transformer_417e675dac97&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |    &lt;binarizer_417e6cf95ba7&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    &lt;bucketizer_765514b21066&gt; 
+##   |    &lt;bucketizer_417e70d355f9&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormulaModel (Transformer)
-##   |    &lt;r_formula_765515301f8a&gt; 
+##   |    &lt;r_formula_417e441e8089&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |--5 LogisticRegressionModel (Transformer)
-##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |    &lt;logistic_regression_417e5a9871df&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -436,8 +436,8 @@ reload</code></pre></div>
 ##   |      probability_col: probability
 ##   |      raw_prediction_col: rawPrediction
 ##   |     (Transformer Info)
-##   |      coefficients:  num [1:2] 28.181 -0.172 
-##   |      intercept:  num -436 
+##   |      coefficients:  num [1:2] 25.629 -0.194 
+##   |      intercept:  num -397 
 ##   |      num_classes:  int 2 
 ##   |      num_features:  int 2 
 ##   |      threshold:  num 0.5</code></pre>
@@ -503,30 +503,30 @@ current &lt;-<span class="st"> </span><span class="kw">tbl</span>(sc, <span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_pipeline &lt;-<span class="st"> </span><span class="kw">ml_load</span>(sc, <span class="st">&quot;saved_pipeline&quot;</span>)
 flights_pipeline</code></pre></div>
 <pre><code>## Pipeline (Estimator) with 5 stages
-## &lt;pipeline_765579154935&gt; 
+## &lt;pipeline_417e407697a7&gt; 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |    &lt;dplyr_transformer_417e675dac97&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |    &lt;binarizer_417e6cf95ba7&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    &lt;bucketizer_765514b21066&gt; 
+##   |    &lt;bucketizer_417e70d355f9&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormula (Estimator)
-##   |    &lt;r_formula_765515301f8a&gt; 
+##   |    &lt;r_formula_417e441e8089&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |     (Parameters)
 ##   |      formula: delayed ~ arrdelay + dephour
 ##   |--5 LogisticRegression (Estimator)
-##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |    &lt;logistic_regression_417e5a9871df&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -552,30 +552,30 @@ flights_pipeline</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_model &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(flights_pipeline, sample)
 new_model</code></pre></div>
 <pre><code>## PipelineModel (Transformer) with 5 stages
-## &lt;pipeline_765579154935&gt; 
+## &lt;pipeline_417e407697a7&gt; 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    &lt;dplyr_transformer_76554846e6d4&gt; 
+##   |    &lt;dplyr_transformer_417e675dac97&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    &lt;binarizer_765525ad2ec2&gt; 
+##   |    &lt;binarizer_417e6cf95ba7&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    &lt;bucketizer_765514b21066&gt; 
+##   |    &lt;bucketizer_417e70d355f9&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormulaModel (Transformer)
-##   |    &lt;r_formula_765515301f8a&gt; 
+##   |    &lt;r_formula_417e441e8089&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |     (Transformer Info)
 ##   |      formula:  chr &quot;delayed ~ arrdelay + dephour&quot; 
 ##   |--5 LogisticRegressionModel (Transformer)
-##   |    &lt;logistic_regression_76556d65cf44&gt; 
+##   |    &lt;logistic_regression_417e5a9871df&gt; 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -583,8 +583,8 @@ new_model</code></pre></div>
 ##   |      probability_col: probability
 ##   |      raw_prediction_col: rawPrediction
 ##   |     (Transformer Info)
-##   |      coefficients:  num [1:2] 27.621 0.372 
-##   |      intercept:  num -429 
+##   |      coefficients:  num [1:2] 27.83 -0.41 
+##   |      intercept:  num -430 
 ##   |      num_classes:  int 2 
 ##   |      num_features:  int 2 
 ##   |      threshold:  num 0.5</code></pre>
@@ -638,18 +638,20 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": null,
-"text": null
-},
+"edit": null,
 "history": {
 "link": null,
 "text": null
 },
 "download": null,
 "toc": {
-"collapse": "subsection"
-}
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
 });
 });
 </script>
