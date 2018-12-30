@@ -1,5 +1,5 @@
 ```{r, section08, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(eval = TRUE)
 ```
 
 #Spark pipelines
