@@ -219,7 +219,7 @@ tally(partition$training)
 ## # Source: spark<?> [?? x 1]
 ##       n
 ## * <dbl>
-## 1 70069
+## 1 70155
 ```
 
 ## Feature transformers
@@ -336,9 +336,9 @@ summary(delayed_model)
 ```
 ## Coefficients:
 ## (Intercept)    depdelay  dephour_h2  dephour_h3  dephour_h4  dephour_h1 
-##  -3.7840583   0.1373576   1.1044356   1.0458168   1.1399381   1.2710293 
+##  -2.9032064   0.1368975   0.3023500   0.1810753   0.2522030   0.3814704 
 ##  dephour_h5 
-##   1.0980554
+##   0.2443670
 ```
 
 ## Run predictions in Spark
@@ -366,12 +366,12 @@ delayed_testing %>%
 ## # Source: spark<?> [?? x 17]
 ##   month dayofmonth arrtime arrdelay depdelay crsarrtime crsdeptime distance
 ## * <dbl>      <dbl>   <dbl>    <dbl>    <dbl>      <dbl>      <dbl>    <dbl>
-## 1     7          1     NaN        0        0        739        634      155
-## 2     7          1     NaN        0        0        939        818      289
-## 3     7          1     NaN        0        0        940        815      447
-## 4     7          1     NaN        0        0       1135       1015      337
-## 5     7          1     NaN        0        0       1803       1633      326
-## 6     7          1     NaN        0        0       2000       1730      487
+## 1     7          1     NaN        0        0        845        700      496
+## 2     7          1     NaN        0        0       1125       1011      289
+## 3     7          1     NaN        0        0       1335       1225      258
+## 4     7          1     NaN        0        0       1620       1505      197
+## 5     7          1     NaN        0        0       1730       1205     1476
+## 6     7          1     NaN        0        0       2055       1950      256
 ## # ... with 9 more variables: delayed <dbl>, dephour <chr>,
 ## #   features <list>, label <dbl>, rawPrediction <list>,
 ## #   probability <list>, prediction <dbl>, probability_0 <dbl>,
@@ -390,10 +390,10 @@ delayed_testing %>%
 ## # A tibble: 4 x 3
 ##   delayed prediction      n
 ## *   <dbl>      <dbl>  <dbl>
-## 1       0          1  10345
-## 2       0          0 489359
-## 3       1          1  90930
-## 4       1          0  41097
+## 1       0          1  10807
+## 2       0          0 487330
+## 3       1          1  91155
+## 4       1          0  40625
 ```
 
 

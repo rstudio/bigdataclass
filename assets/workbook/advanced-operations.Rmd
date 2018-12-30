@@ -1,5 +1,5 @@
 ```{r, section06, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(eval = TRUE)
 ```
 
 # Advanced Operations
@@ -9,7 +9,8 @@ knitr::opts_chunk$set(eval = FALSE)
 library(dplyr)
 library(dbplyr)
 library(purrr)
-suppressMessages(library(rlang, warn.conflicts = FALSE)) 
+suppressWarnings(library(rlang, warn.conflicts = FALSE)) 
+
 library(DBI)
 
 # Class catchup
@@ -24,13 +25,14 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 *Create a function that accepts a value that is passed to a specific dplyr operation*
 
 
-1. The following *dplyr* operation is fixed to only return the mean of *arrtime*.  The desire is to create a function that returns the mean of any variable passed to it.
+1. The following `dplyr` operation is fixed to only return the mean of *arrtime*.  The desire is to create a function that returns the mean of any variable passed to it.
 ```{r}
 flights %>%
   summarise(mean = mean(arrtime, na.rm = TRUE))
 ```
 
 2. Load the `rlang` library, and create a function with one argument. The function will simply return the result of `equo()`
+
 ```{r}
 library(rlang)
 
@@ -42,7 +44,7 @@ my_mean <- function(x){
 my_mean(mpg)
 ```
 
-3. Add the *summarise* operation, and replace *arrtime* with *!! x*
+3. Add the `summarise()` operation, and replace *arrtime* with *!! x*
 ```{r}
 library(rlang)
 
@@ -88,13 +90,13 @@ my_mean <- function(.data, x){
 }
 ```
 
-9. The function now behaves more like a *dplyr* verb. Start with *flights* and pipe into the function.
+9. The function now behaves more like a `dplyr` verb. Start with *flights* and pipe into the function.
 ```{r}
 flights %>%
   my_mean(arrtime)
 ```
 
-10. Test the function with a different data set.  Use *mtcars* and *mpg* as the *x* argument.
+10. Test the function with a different data set.  Use `mtcars` and *mpg* as the *x* argument.
 ```{r}
 mtcars %>%
   my_mean(mpg)
@@ -117,7 +119,7 @@ mtcars %>%
   my_mean(mpg)
 ```
 
-13. Because the function only uses *dplyr* operations, *show_query* should work
+13. Because the function only uses `dplyr` operations, `show_query()` should work
 ```{r}
 flights %>%
   my_mean(arrtime) %>%
@@ -128,7 +130,7 @@ flights %>%
 ## Multiple variables
 *Create functions that handle a variable number of arguments. The goal of the exercise is to create an "anti-select()" function.*
 
-1. Use *...* as the second argument of a function called *de_select*.  Inside the function use *enquos()* to parse it
+1. Use *...* as the second argument of a function called `de_select()`.  Inside the function use `enquos()` to parse it
 ```{r}
 de_select <- function(.data, ...){
   vars <- enquos(...)
@@ -143,7 +145,7 @@ airports %>%
 
 ```
 
-3. Add a step to the function that iterates through each quosure and prefixes a minus sign to tell *select()* to drop that specific field.  Use *map()* for the iteration, and *expr()* to create the prefixed expression.
+3. Add a step to the function that iterates through each quosure and prefixes a minus sign to tell `select()` to drop that specific field.  Use `map()` for the iteration, and `expr()` to create the prefixed expression.
 ```{r}
 de_select <- function(.data, ...){
   vars <- enquos(...)
@@ -160,7 +162,7 @@ airports %>%
 
 ```
 
-5. Add the *select()* step.  Use *!!!* to parse the *vars* variable inside *select()*
+5. Add the `select()` step.  Use *!!!* to parse the *vars* variable inside `select()`
 
 ```{r}
 de_select <- function(.data, ...){
@@ -180,7 +182,7 @@ airports %>%
   de_select(airport, airportname)
 ```
 
-7. Add a *show_query()* step to see the resulting SQL
+7. Add a `show_query()` step to see the resulting SQL
 
 ```{r}
 airports %>%
@@ -188,7 +190,7 @@ airports %>%
   show_query()
 ```
 
-8. Test the function with a different data set, such as *mtcars*
+8. Test the function with a different data set, such as `mtcars`
 
 ```{r}
 mtcars %>%
@@ -198,7 +200,7 @@ mtcars %>%
 ## Multiple queries
 *Suggested approach to avoid passing multiple, and similar, queries to the database*
 
-1. Create a simple *dplyr* piped operation that returns the mean of *arrdelay* for the months of January, February and March as a group.
+1. Create a simple `dplyr` piped operation that returns the mean of *arrdelay* for the months of January, February and March as a group.
 
 ```{r}
 flights %>%
@@ -234,7 +236,7 @@ months <- list(
 )
 ```
 
-5. Use *map()* to cycle through each set of overlapping months.  Notice that it returns three separate results, meaning that it went to the database three times.
+5. Use `map()` to cycle through each set of overlapping months.  Notice that it returns three separate results, meaning that it went to the database three times.
 
 ```{r}
 months %>%
@@ -244,7 +246,7 @@ months %>%
   )
 ```
 
-6. Add a *reduce()* operation and use *union()* command to create a single query.
+6. Add a `reduce()` operation and use `union()` command to create a single query.
 
 ```{r}
 months %>%
@@ -255,7 +257,7 @@ months %>%
   reduce(function(x, y) union(x, y))
 ```
 
-7. Use *show_query* to see the resulting single query sent to the database.
+7. Use `show_query()` to see the resulting single query sent to the database.
 
 ```{r}
 months %>%
@@ -281,13 +283,13 @@ ranges <- tribble(
 )
 ```
 
-2. See how *map2()* works by passing the two variables as the *x* and *y* arguments, and adding them as the function. 
+2. See how `map2()` works by passing the two variables as the *x* and *y* arguments, and adding them as the function. 
 
 ```{r}
 map2(ranges$from, ranges$to, ~.x + .y)
 ```
 
-3. Replace *x + y* with the *dplyr* operation from the previous exercise.  In it, re-write the filter to use *x* and *y* as the month ranges 
+3. Replace *x + y* with the `dplyr` operation from the previous exercise.  In it, re-write the filter to use *x* and *y* as the month ranges 
 
 ```{r}
 map2(
@@ -312,7 +314,7 @@ map2(
   reduce(function(x, y) union(x, y))
 ```
 
-5. Add a *show_query()* step to see how the final query was constructed.
+5. Add a `show_query()` step to see how the final query was constructed.
 
 ```{r}
 map2(

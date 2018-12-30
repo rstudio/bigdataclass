@@ -64,30 +64,30 @@ flights_pipeline
 
 ```
 ## Pipeline (Estimator) with 5 stages
-## <pipeline_765579154935> 
+## <pipeline_417e407697a7> 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    <dplyr_transformer_76554846e6d4> 
+##   |    <dplyr_transformer_417e675dac97> 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    <binarizer_765525ad2ec2> 
+##   |    <binarizer_417e6cf95ba7> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    <bucketizer_765514b21066> 
+##   |    <bucketizer_417e70d355f9> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormula (Estimator)
-##   |    <r_formula_765515301f8a> 
+##   |    <r_formula_417e441e8089> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |     (Parameters)
 ##   |      formula: delayed ~ arrdelay + dephour
 ##   |--5 LogisticRegression (Estimator)
-##   |    <logistic_regression_76556d65cf44> 
+##   |    <logistic_regression_417e5a9871df> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -116,30 +116,30 @@ model
 
 ```
 ## PipelineModel (Transformer) with 5 stages
-## <pipeline_765579154935> 
+## <pipeline_417e407697a7> 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    <dplyr_transformer_76554846e6d4> 
+##   |    <dplyr_transformer_417e675dac97> 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    <binarizer_765525ad2ec2> 
+##   |    <binarizer_417e6cf95ba7> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    <bucketizer_765514b21066> 
+##   |    <bucketizer_417e70d355f9> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormulaModel (Transformer)
-##   |    <r_formula_765515301f8a> 
+##   |    <r_formula_417e441e8089> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |     (Transformer Info)
 ##   |      formula:  chr "delayed ~ arrdelay + dephour" 
 ##   |--5 LogisticRegressionModel (Transformer)
-##   |    <logistic_regression_76556d65cf44> 
+##   |    <logistic_regression_417e5a9871df> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -147,8 +147,8 @@ model
 ##   |      probability_col: probability
 ##   |      raw_prediction_col: rawPrediction
 ##   |     (Transformer Info)
-##   |      coefficients:  num [1:2] 28.181 -0.172 
-##   |      intercept:  num -436 
+##   |      coefficients:  num [1:2] 25.629 -0.194 
+##   |      intercept:  num -397 
 ##   |      num_classes:  int 2 
 ##   |      num_features:  int 2 
 ##   |      threshold:  num 0.5
@@ -175,8 +175,8 @@ predictions %>%
 ## # A tibble: 2 x 3
 ##   delayed prediction     n
 ## *   <dbl>      <dbl> <dbl>
-## 1       0          0 55549
-## 2       1          1 14818
+## 1       0          0 55624
+## 2       1          1 14564
 ```
 
 4. Save the model into disk using `ml_save()`
@@ -251,28 +251,28 @@ reload
 
 ```
 ## PipelineModel (Transformer) with 5 stages
-## <pipeline_765579154935> 
+## <pipeline_417e407697a7> 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    <dplyr_transformer_76554846e6d4> 
+##   |    <dplyr_transformer_417e675dac97> 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    <binarizer_765525ad2ec2> 
+##   |    <binarizer_417e6cf95ba7> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    <bucketizer_765514b21066> 
+##   |    <bucketizer_417e70d355f9> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormulaModel (Transformer)
-##   |    <r_formula_765515301f8a> 
+##   |    <r_formula_417e441e8089> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |--5 LogisticRegressionModel (Transformer)
-##   |    <logistic_regression_76556d65cf44> 
+##   |    <logistic_regression_417e5a9871df> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -280,8 +280,8 @@ reload
 ##   |      probability_col: probability
 ##   |      raw_prediction_col: rawPrediction
 ##   |     (Transformer Info)
-##   |      coefficients:  num [1:2] 28.181 -0.172 
-##   |      intercept:  num -436 
+##   |      coefficients:  num [1:2] 25.629 -0.194 
+##   |      intercept:  num -397 
 ##   |      num_classes:  int 2 
 ##   |      num_features:  int 2 
 ##   |      threshold:  num 0.5
@@ -369,30 +369,30 @@ flights_pipeline
 
 ```
 ## Pipeline (Estimator) with 5 stages
-## <pipeline_765579154935> 
+## <pipeline_417e407697a7> 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    <dplyr_transformer_76554846e6d4> 
+##   |    <dplyr_transformer_417e675dac97> 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    <binarizer_765525ad2ec2> 
+##   |    <binarizer_417e6cf95ba7> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    <bucketizer_765514b21066> 
+##   |    <bucketizer_417e70d355f9> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormula (Estimator)
-##   |    <r_formula_765515301f8a> 
+##   |    <r_formula_417e441e8089> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |     (Parameters)
 ##   |      formula: delayed ~ arrdelay + dephour
 ##   |--5 LogisticRegression (Estimator)
-##   |    <logistic_regression_76556d65cf44> 
+##   |    <logistic_regression_417e5a9871df> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -425,30 +425,30 @@ new_model
 
 ```
 ## PipelineModel (Transformer) with 5 stages
-## <pipeline_765579154935> 
+## <pipeline_417e407697a7> 
 ##   Stages 
 ##   |--1 SQLTransformer (Transformer)
-##   |    <dplyr_transformer_76554846e6d4> 
+##   |    <dplyr_transformer_417e675dac97> 
 ##   |     (Parameters -- Column Names)
 ##   |--2 Binarizer (Transformer)
-##   |    <binarizer_765525ad2ec2> 
+##   |    <binarizer_417e6cf95ba7> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: arrdelay
 ##   |      output_col: delayed
 ##   |--3 Bucketizer (Transformer)
-##   |    <bucketizer_765514b21066> 
+##   |    <bucketizer_417e70d355f9> 
 ##   |     (Parameters -- Column Names)
 ##   |      input_col: crsdeptime
 ##   |      output_col: dephour
 ##   |--4 RFormulaModel (Transformer)
-##   |    <r_formula_765515301f8a> 
+##   |    <r_formula_417e441e8089> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
 ##   |     (Transformer Info)
 ##   |      formula:  chr "delayed ~ arrdelay + dephour" 
 ##   |--5 LogisticRegressionModel (Transformer)
-##   |    <logistic_regression_76556d65cf44> 
+##   |    <logistic_regression_417e5a9871df> 
 ##   |     (Parameters -- Column Names)
 ##   |      features_col: features
 ##   |      label_col: label
@@ -456,8 +456,8 @@ new_model
 ##   |      probability_col: probability
 ##   |      raw_prediction_col: rawPrediction
 ##   |     (Transformer Info)
-##   |      coefficients:  num [1:2] 27.621 0.372 
-##   |      intercept:  num -429 
+##   |      coefficients:  num [1:2] 27.83 -0.41 
+##   |      intercept:  num -430 
 ##   |      num_classes:  int 2 
 ##   |      num_features:  int 2 
 ##   |      threshold:  num 0.5
