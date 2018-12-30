@@ -5,13 +5,12 @@ knitr::opts_chunk$set(eval = TRUE)
 # Advanced Operations
 
 ```{r, cathup06, include = FALSE}
-
+options(lifecycle_disable_verbose_retirement = TRUE)
 library(dplyr)
 library(dbplyr)
+library(DBI)
 library(purrr)
 suppressWarnings(library(rlang, warn.conflicts = FALSE)) 
-
-library(DBI)
 
 # Class catchup
 con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
