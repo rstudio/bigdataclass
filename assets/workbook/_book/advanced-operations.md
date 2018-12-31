@@ -16,23 +16,6 @@ flights %>%
 ```
 
 ```
-## Warning: `new_overscope()` is soft-deprecated as of rlang 0.2.0.
-## Please use `new_data_mask()` instead
-## This warning is displayed once per session.
-```
-
-```
-## Warning: `overscope_eval_next()` is soft-deprecated as of rlang 0.2.0.
-## Please use `eval_tidy()` with a data mask instead
-## This warning is displayed once per session.
-```
-
-```
-## Warning: `overscope_clean()` is soft-deprecated as of rlang 0.2.0.
-## This warning is displayed once per session.
-```
-
-```
 ## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##    mean
@@ -227,12 +210,12 @@ airports %>%
 ## [[1]]
 ## <quosure>
 ## expr: ^airport
-## env:  0x5577da008d08
+## env:  0x55b1d91bc2a0
 ## 
 ## [[2]]
 ## <quosure>
 ## expr: ^airportname
-## env:  0x5577da008d08
+## env:  0x55b1d91bc2a0
 ```
 
 3. Add a step to the function that iterates through each quosure and prefixes a minus sign to tell `select()` to drop that specific field.  Use `map()` for the iteration, and `expr()` to create the prefixed expression.
@@ -494,20 +477,20 @@ months %>%
 ## ((SELECT AVG("arrdelay") AS "mean"
 ## FROM (SELECT *
 ## FROM (SELECT *
-## FROM datawarehouse.vflight) "ecesrviaxb"
-## WHERE ("month" IN (1.0, 2.0, 3.0))) "tbbiniaxis")
+## FROM datawarehouse.vflight) "bkcyayfbcd"
+## WHERE ("month" IN (1.0, 2.0, 3.0))) "bccnkoqcwe")
 ## UNION
 ## (SELECT AVG("arrdelay") AS "mean"
 ## FROM (SELECT *
 ## FROM (SELECT *
-## FROM datawarehouse.vflight) "dymwpdsbnv"
-## WHERE ("month" IN (1.0, 3.0, 4.0))) "ftjelctydw"))
+## FROM datawarehouse.vflight) "ovdqufvacw"
+## WHERE ("month" IN (1.0, 3.0, 4.0))) "ncukknqauf"))
 ## UNION
 ## (SELECT AVG("arrdelay") AS "mean"
 ## FROM (SELECT *
 ## FROM (SELECT *
-## FROM datawarehouse.vflight) "haxgomempj"
-## WHERE ("month" IN (2.0, 4.0, 6.0))) "viamawavon")
+## FROM datawarehouse.vflight) "npaxmygwkt"
+## WHERE ("month" IN (2.0, 4.0, 6.0))) "xzxjlsirbb")
 ```
 
 
@@ -623,20 +606,20 @@ map2(
 ## ((SELECT AVG("arrdelay") AS "mean"
 ## FROM (SELECT *
 ## FROM (SELECT *
-## FROM datawarehouse.vflight) "ngfvrwurbo"
-## WHERE ("month" >= 1.0 AND "month" <= 4.0)) "fivzvwywxg")
+## FROM datawarehouse.vflight) "iiozyzpqgv"
+## WHERE ("month" >= 1.0 AND "month" <= 4.0)) "xgsthlyaap")
 ## UNION
 ## (SELECT AVG("arrdelay") AS "mean"
 ## FROM (SELECT *
 ## FROM (SELECT *
-## FROM datawarehouse.vflight) "npeddnlilr"
-## WHERE ("month" >= 2.0 AND "month" <= 5.0)) "dfenhgtysu"))
+## FROM datawarehouse.vflight) "milzbhhnkl"
+## WHERE ("month" >= 2.0 AND "month" <= 5.0)) "cmjeljldyr"))
 ## UNION
 ## (SELECT AVG("arrdelay") AS "mean"
 ## FROM (SELECT *
 ## FROM (SELECT *
-## FROM datawarehouse.vflight) "avxaaormuw"
-## WHERE ("month" >= 3.0 AND "month" <= 7.0)) "laculyyqwm")
+## FROM datawarehouse.vflight) "dawgbvmclj"
+## WHERE ("month" >= 3.0 AND "month" <= 7.0)) "wsnlywihee")
 ```
 
 
