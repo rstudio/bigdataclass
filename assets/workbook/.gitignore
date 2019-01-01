@@ -1,2 +1,7 @@
 _bookdown_files/_main_cache
 derby.log
+logs
+new_model
+parsedmodel.csv
+saved_model
+saved_pipeline

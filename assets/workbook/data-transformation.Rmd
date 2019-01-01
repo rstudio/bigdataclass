@@ -1,0 +1,291 @@
+```{r, section03, include = FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+# Data transformation
+
+```{r, cathup3, include = FALSE}
+
+library(dplyr)
+library(dbplyr)
+library(DBI)
+library(odbc)
+
+# Class catchup
+con <- DBI::dbConnect(odbc::odbc(), "Postgres Dev")
+airports <- tbl(con, in_schema("datawarehouse", "airport"))
+flights <- tbl(con, in_schema("datawarehouse", "vflight"))
+carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
+
+```
+
+## Group and sort records
+*Learn how to use `group_by()` and `arrange()` to better understand aggregated data*
+
+
+1. How many flights are there per month?
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() 
+```
+
+2. Order the results by the month number by using `arrange()`
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  arrange(month)
+```
+
+3. Order the results by the number of flights, starting with the month with most flights by using `desc()` inside the `arrange()` command
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  arrange(desc(n)) 
+```
+
+## Answering questions with `dplyr`
+*Quick review of how to translate questions into `dplyr` code*
+
+1. Which are the top 4 months with the most flight activity?
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(4)
+```
+
+2. What were the top 5 calendar days with most flight activity?
+```{r}
+flights %>%
+  group_by(month, dayofmonth) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(5)
+```
+
+3. Which are the top 5 carriers (airlines) with the most flights?
+
+```{r}
+flights %>%
+  group_by(carriername) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  head(5)
+```
+
+4. Figure the percent ratio of flights per month
+```{r}
+flights %>%
+  group_by(month) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  mutate(percent = n/sum(n, na.rm = TRUE))
+```
+
+5. Figure the percent ratio of flights per carrier
+```{r}
+flights %>%
+  group_by(carriername) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  mutate(percent = n/sum(n, na.rm = TRUE))
+```
+
+## Aggregate mulitple columns
+*Practice using `summarise _` functions*
+
+1. Use `summarise_all()` to send the same function to all fields
+```{r}
+flights %>%
+  select(depdelay, arrdelay) %>%
+  summarise_all(mean, na.rm = TRUE)
+```
+
+2. Use `summarise_at()` to pre-select the fields that will receive the function
+```{r}
+flights %>%
+  summarise_at(c("depdelay", "arrdelay"), mean, na.rm = TRUE)
+```
+
+3. Use `summarise_if()` to summarize only if the field meets a criterion
+```{r}
+flights %>%
+  summarise_if(is.numeric,mean, na.rm = TRUE)
+```
+
+4. Combine with `group_by()` to create more complex results
+```{r}
+flights %>%
+  select(month, depdelay, arrdelay) %>%
+  group_by(month) %>%
+  summarise_all(mean, na.rm = TRUE)
+```
+
+## View record level data
+*Important tips to record preview data*
+
+How many flights in July 18th were one or more hours late?
+```{r}
+flights %>%
+  filter(
+    depdelay >= 60,
+    month == 7,
+    dayofmonth == 18
+  ) %>%
+  tally()
+```
+
+
+1. Use `filter()` to retrieve only the needed data, and `head()` to limit the preview even further.
+```{r}
+flights %>%
+  filter(
+    depdelay >= 60,
+    month == 7,
+    dayofmonth == 18
+  ) %>%
+  head(100)
+```
+
+2. Use `collect()` and `View()` to preview the data in the IDE. Make sure to **always** limit the number of returned rows. https://github.com/tidyverse/tibble/issues/373
+
+```{r, eval = FALSE}
+flights %>%
+  filter(
+    depdelay >= 60,
+    month == 7,
+    dayofmonth == 18
+  ) %>%
+  collect() %>%
+  head(100) %>%
+  View("my_preview")
+```
+
+## Case statements
+*See how to use the flexibility of case statements for special cases*
+
+1. Use `case_when()` to bucket each month one of four seasons
+```{r}
+flights %>%
+  mutate(
+    season = case_when(
+      month >= 3 && month <= 5  ~ "Spring",
+      month >= 6 && month <= 8  ~ "Summer",
+      month >= 9 && month <= 11 ~ "Fall",
+      TRUE ~ "Winter"
+    )
+  ) %>%
+  group_by(season) %>%
+  tally()
+```
+
+2. Add a specific case for "Winter"
+```{r}
+flights %>%
+  mutate(
+    season = case_when(
+      month >= 3 && month <= 5  ~ "Spring",
+      month >= 6 && month <= 8  ~ "Summer",
+      month >= 9 && month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  group_by(season) %>%
+  tally()
+```
+
+3. Append an entry for Monday at the end of the case statement
+```{r}
+flights %>%
+  mutate(
+    season = case_when(
+      month >= 3 && month <= 5  ~ "Spring",
+      month >= 6 && month <= 8  ~ "Summer",
+      month >= 9 && month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter",
+      dayofweek == 1 ~ "Monday"
+    )
+  ) %>%
+  group_by(season) %>%
+  tally()
+```
+
+4. Move the "Monday" entry to the top of the case statement
+```{r}
+flights %>%
+  mutate(
+    season = case_when(
+      dayofweek == 1 ~ "Monday",
+      month >= 3 && month <= 5  ~ "Spring",
+      month >= 6 && month <= 8  ~ "Summer",
+      month >= 9 && month <= 11 ~ "Fall",
+      month == 12 | month <= 2  ~ "Winter"
+    )
+  ) %>%
+  group_by(season) %>%
+  tally()
+```
+
+
+##  Data enrichment
+*Upload a small dataset in order to combine it with the datawarehouse data*
+
+1. Load the `planes` data into memory
+```{r}
+planes <- nycflights13::planes
+```
+
+2. Using `DBI`, copy the `planes` data to the datawarehouse as a temporary table, and load it to a variable
+```{r}
+dbWriteTable(con, "planes", planes, temporary = TRUE)
+tbl_planes <- tbl(con, "planes")
+```
+
+3. Create a "lazy" variable that joins the flights table to the new temp table
+```{r}
+combined <- flights %>%
+  left_join(tbl_planes, by = "tailnum") 
+```
+
+4. View a sample of flights of planes with more than 100 seats
+```{r}
+combined %>%
+  filter(seats > 100) %>%
+  head()
+```
+
+5. How many flights are from McDonnel Douglas planes 
+```{r}
+combined %>%
+  filter(manufacturer == "MCDONNELL DOUGLAS") %>%
+  tally() 
+```
+
+6. See how many flights each plane McDonnel Douglas had
+```{r}
+combined %>%
+  filter(manufacturer == "MCDONNELL DOUGLAS") %>%
+  group_by(tailnum) %>%
+  tally() 
+``` 
+
+7. Get the total number of planes, and the average, minimum & maximum number of flights for the manufacturer
+```{r}
+combined %>%
+  filter(manufacturer == "MCDONNELL DOUGLAS") %>%
+  group_by(tailnum) %>%
+  tally() %>%
+  summarise(planes = n(),
+            avg_flights = mean(n, na.rm = TRUE),
+            max_flights = max(n, na.rm = TRUE),
+            min_flights = min(n, na.rm = TRUE))
+``` 
+
+8. Disconnect from the database
+```{r}
+dbDisconnect(con)
+```
