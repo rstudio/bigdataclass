@@ -1,5 +1,5 @@
-```{r, section04, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+```{r, visualizations, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
 # Data Visualizations

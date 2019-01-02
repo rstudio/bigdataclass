@@ -1,5 +1,5 @@
-```{r, section12, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+```{r, textmining, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
 # Text mining with sparklyr

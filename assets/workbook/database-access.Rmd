@@ -1,4 +1,5 @@
-```{r, section01, include = FALSE}
+```{r, database-access, include = FALSE}
+#knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 knitr::opts_chunk$set(eval = TRUE)
 ```
 

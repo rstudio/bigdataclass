@@ -247,23 +247,6 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 <span class="st">  </span><span class="kw">map</span>(<span class="op">~</span>.<span class="op">$</span>carrier)                    <span class="co"># Add the carrier code to each item</span>
 
 <span class="kw">head</span>(airline_list)</code></pre></div>
-<pre><code>## $`AirTran Airways Corporation`
-## [1] &quot;FL&quot;
-## 
-## $`Alaska Airlines Inc.`
-## [1] &quot;AS&quot;
-## 
-## $`Aloha Airlines Inc.`
-## [1] &quot;AQ&quot;
-## 
-## $`American Airlines Inc.`
-## [1] &quot;AA&quot;
-## 
-## $`American Eagle Airlines Inc.`
-## [1] &quot;MQ&quot;
-## 
-## $`Atlantic Southeast Airlines`
-## [1] &quot;EV&quot;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>In the app code, replace <code>c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;)</code> with <code>airline_list</code></li>
 </ol>
@@ -287,31 +270,12 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
   }
 
 <span class="kw">head</span>(<span class="kw">base_dashboard</span>())</code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 31]
-## # Database: postgres [rstudio_dev@localhost:/postgres]
-##   flightid  year month dayofmonth dayofweek deptime crsdeptime arrtime
-##      &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-## 1  1158322  2008     2          1         5      NA       1200      NA
-## 2  1158341  2008     2          1         5      NA       2045      NA
-## 3  1158881  2008     2          1         5      NA        840      NA
-## 4  1158686  2008     2          1         5     555        600      NA
-## 5  1158779  2008     2          1         5      NA        954      NA
-## 6  1159428  2008     2          1         5      NA       1030      NA
-## # ... with 23 more variables: crsarrtime &lt;dbl&gt;, uniquecarrier &lt;chr&gt;,
-## #   flightnum &lt;dbl&gt;, tailnum &lt;chr&gt;, actualelapsedtime &lt;dbl&gt;,
-## #   crselapsedtime &lt;dbl&gt;, airtime &lt;dbl&gt;, arrdelay &lt;dbl&gt;, depdelay &lt;dbl&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, taxiin &lt;dbl&gt;, taxiout &lt;dbl&gt;,
-## #   cancelled &lt;dbl&gt;, cancellationcode &lt;chr&gt;, diverted &lt;dbl&gt;,
-## #   carrierdelay &lt;dbl&gt;, weatherdelay &lt;dbl&gt;, nasdelay &lt;dbl&gt;,
-## #   securitydelay &lt;dbl&gt;, lateaircraftdelay &lt;dbl&gt;, score &lt;int&gt;</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the base query to figure the number of flights for that carrier</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">base_dashboard</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pull</span>()</code></pre></div>
-<pre><code>## integer64
-## [1] 451931</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>In the app, remove the <code>100</code> number and pipe the <code>dplyr</code> code into the valueBox() function</li>
 </ol>
@@ -333,21 +297,6 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">as.numeric</span>(n)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">flights =</span> n) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(month)</code></pre></div>
-<pre><code>## # A tibble: 12 x 2
-##    month flights
-##    &lt;dbl&gt;   &lt;dbl&gt;
-##  1     1   38256
-##  2     2   36275
-##  3     3   39829
-##  4     4   37049
-##  5     5   36349
-##  6     6   37844
-##  7     7   39335
-##  8     8   38173
-##  9     9   36304
-## 10    10   38645
-## 11    11   36939
-## 12    12   36933</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>In the app, replace <code>head(mtcars)</code> with the piped code, and re-run the app</li>
 </ol>

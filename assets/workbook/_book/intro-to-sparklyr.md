@@ -44,14 +44,6 @@ spark_mtcars %>%
   summarise(avg_wt = mean(wt, na.rm = TRUE))
 ```
 
-```
-## # Source: spark<?> [?? x 2]
-##      am avg_wt
-## * <dbl>  <dbl>
-## 1     0   3.77
-## 2     1   2.41
-```
-
 2. Go to the Spark UI and click the **SQL** button 
 
 3. Click on the top item inside the **Completed Queries** table
@@ -81,26 +73,6 @@ file_columns <- top_rows %>%
 head(file_columns)
 ```
 
-```
-## $flightid
-## [1] "character"
-## 
-## $year
-## [1] "character"
-## 
-## $month
-## [1] "character"
-## 
-## $dayofmonth
-## [1] "character"
-## 
-## $dayofweek
-## [1] "character"
-## 
-## $deptime
-## [1] "character"
-```
-
 4. Use `spark_read()` to "map" the file's structure and location to the Spark context
 
 ```r
@@ -121,13 +93,6 @@ spark_flights <- spark_read_csv(
 ```r
 spark_flights %>%
   tally()
-```
-
-```
-## # Source: spark<?> [?? x 1]
-##         n
-## *   <dbl>
-## 1 7009728
 ```
 
 ## Caching data
@@ -167,13 +132,6 @@ cached_flights %>%
   tally()
 ```
 
-```
-## # Source: spark<?> [?? x 1]
-##         n
-## *   <dbl>
-## 1 7009728
-```
-
 ## `sdf` Functions
 *Overview of a few `sdf_` functions: http://spark.rstudio.com/reference/#section-spark-dataframes *
 
@@ -185,27 +143,6 @@ cached_flights %>%
   sdf_pivot(month ~ dayofmonth)
 ```
 
-```
-## # Source: spark<?> [?? x 32]
-##    month `1.0` `2.0` `3.0` `4.0` `5.0` `6.0` `7.0` `8.0` `9.0` `10.0`
-##  * <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl>
-##  1     1     1     2     3     4     5     6     7     8     9     10
-##  2     2     1     2     3     4     5     6     7     8     9     10
-##  3     3     1     2     3     4     5     6     7     8     9     10
-##  4     4     1     2     3     4     5     6     7     8     9     10
-##  5     5     1     2     3     4     5     6     7     8     9     10
-##  6     6     1     2     3     4     5     6     7     8     9     10
-##  7     7     1     2     3     4     5     6     7     8     9     10
-##  8     8     1     2     3     4     5     6     7     8     9     10
-##  9     9     1     2     3     4     5     6     7     8     9     10
-## 10    10     1     2     3     4     5     6     7     8     9     10
-## # ... with more rows, and 21 more variables: `11.0` <dbl>, `12.0` <dbl>,
-## #   `13.0` <dbl>, `14.0` <dbl>, `15.0` <dbl>, `16.0` <dbl>, `17.0` <dbl>,
-## #   `18.0` <dbl>, `19.0` <dbl>, `20.0` <dbl>, `21.0` <dbl>, `22.0` <dbl>,
-## #   `23.0` <dbl>, `24.0` <dbl>, `25.0` <dbl>, `26.0` <dbl>, `27.0` <dbl>,
-## #   `28.0` <dbl>, `29.0` <dbl>, `30.0` <dbl>, `31.0` <dbl>
-```
-
 2. Use `sdf_partition()` to sepparate the data into discrete groups
 
 ```r
@@ -213,13 +150,6 @@ partition <- cached_flights %>%
   sdf_partition(training = 0.01, testing = 0.09, other = 0.9)
 
 tally(partition$training)
-```
-
-```
-## # Source: spark<?> [?? x 1]
-##       n
-## * <dbl>
-## 1 70155
 ```
 
 ## Feature transformers
@@ -241,23 +171,6 @@ cached_flights %>%
   head(100)
 ```
 
-```
-## # Source: spark<?> [?? x 2]
-##    depdelay delayed
-##  *    <dbl>   <dbl>
-##  1       -4       0
-##  2       -1       0
-##  3       15       0
-##  4       -2       0
-##  5        2       0
-##  6       -4       0
-##  7       19       1
-##  8        1       0
-##  9        0       0
-## 10       -3       0
-## # ... with more rows
-```
-
 2. Use `ft_bucketizer()` to split the data into groups
 
 ```r
@@ -272,23 +185,6 @@ cached_flights %>%
     dephour
   ) %>%
   head(100)
-```
-
-```
-## # Source: spark<?> [?? x 2]
-##    crsdeptime dephour
-##  *      <dbl>   <dbl>
-##  1        910       2
-##  2        835       2
-##  3       1555       3
-##  4        730       1
-##  5       2045       5
-##  6       1135       2
-##  7       1310       3
-##  8       1220       3
-##  9       1515       3
-## 10        630       1
-## # ... with more rows
 ```
 
 ## Fit a model with `sparklyr`
@@ -333,14 +229,6 @@ delayed_model <- training %>%
 summary(delayed_model)
 ```
 
-```
-## Coefficients:
-## (Intercept)    depdelay  dephour_h2  dephour_h3  dephour_h4  dephour_h1 
-##  -2.9032064   0.1368975   0.3023500   0.1810753   0.2522030   0.3814704 
-##  dephour_h5 
-##   0.2443670
-```
-
 ## Run predictions in Spark
 *Quick review of running predictions and reviewing accuracy*
 
@@ -348,34 +236,8 @@ summary(delayed_model)
 
 ```r
 delayed_testing <- sdf_predict(delayed_model, sample_data$testing)
-```
-
-```
-## Warning in sdf_predict.ml_model(delayed_model, sample_data$testing): The
-## signature sdf_predict(model, dataset) is deprecated and will be removed
-## in a future version. Use sdf_predict(dataset, model) or ml_predict(model,
-## dataset) instead.
-```
-
-```r
 delayed_testing %>%
   head()
-```
-
-```
-## # Source: spark<?> [?? x 17]
-##   month dayofmonth arrtime arrdelay depdelay crsarrtime crsdeptime distance
-## * <dbl>      <dbl>   <dbl>    <dbl>    <dbl>      <dbl>      <dbl>    <dbl>
-## 1     7          1     NaN        0        0        845        700      496
-## 2     7          1     NaN        0        0       1125       1011      289
-## 3     7          1     NaN        0        0       1335       1225      258
-## 4     7          1     NaN        0        0       1620       1505      197
-## 5     7          1     NaN        0        0       1730       1205     1476
-## 6     7          1     NaN        0        0       2055       1950      256
-## # ... with 9 more variables: delayed <dbl>, dephour <chr>,
-## #   features <list>, label <dbl>, rawPrediction <list>,
-## #   probability <list>, prediction <dbl>, probability_0 <dbl>,
-## #   probability_1 <dbl>
 ```
 
 2. Use `group_by()` to see how effective the new model is
@@ -384,16 +246,6 @@ delayed_testing %>%
 delayed_testing %>%
   group_by(delayed, prediction) %>%
   tally()
-```
-
-```
-## # A tibble: 4 x 3
-##   delayed prediction      n
-## *   <dbl>      <dbl>  <dbl>
-## 1       0          1  10807
-## 2       0          0 487330
-## 3       1          1  91155
-## 4       1          0  40625
 ```
 
 
