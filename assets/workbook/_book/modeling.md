@@ -266,7 +266,6 @@ test$raw_results %>%
 
 ```r
 pm <- parse_model(model_lm)
-pm
 ```
 
 2. Verify that the resulting table can be used to get the fit formula
@@ -278,8 +277,23 @@ tidypredict_fit(pm)
 3. Save the parsed model for later use
 
 ```r
-library(readr)
-write_csv(pm, "parsedmodel.csv")
+library(yaml)
+
+write_yaml(pm, "my_model.yml")
+```
+
+4. Reload model from the YAML file
+
+
+```r
+my_pm <- read_yaml("my_model.yml")
+```
+
+5. Use the reloaded model to build the fit formula
+
+
+```r
+tidypredict_fit(my_pm)
 ```
 
 4. Disconnect from the database
