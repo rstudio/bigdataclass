@@ -1,7 +1,7 @@
 #Dashboard drill-down
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+```{r, drill-thru, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
 <img src="images/shinydashboard-1.PNG" width = 600>

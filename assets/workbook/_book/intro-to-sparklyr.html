@@ -246,11 +246,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_mtcars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_wt =</span> <span class="kw">mean</span>(wt, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 2]
-##      am avg_wt
-## * &lt;dbl&gt;  &lt;dbl&gt;
-## 1     0   3.77
-## 2     1   2.41</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Go to the Spark UI and click the <strong>SQL</strong> button</p></li>
 <li><p>Click on the top item inside the <strong>Completed Queries</strong> table</p></li>
@@ -274,23 +269,6 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)
 <span class="kw">head</span>(file_columns)</code></pre></div>
-<pre><code>## $flightid
-## [1] &quot;character&quot;
-## 
-## $year
-## [1] &quot;character&quot;
-## 
-## $month
-## [1] &quot;character&quot;
-## 
-## $dayofmonth
-## [1] &quot;character&quot;
-## 
-## $dayofweek
-## [1] &quot;character&quot;
-## 
-## $deptime
-## [1] &quot;character&quot;</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Use <code>spark_read()</code> to “map” the file’s structure and location to the Spark context</li>
 </ol>
@@ -308,10 +286,6 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spark_flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 1]
-##         n
-## *   &lt;dbl&gt;
-## 1 7009728</code></pre>
 </div>
 <div id="caching-data" class="section level2">
 <h2><span class="header-section-number">7.5</span> Caching data</h2>
@@ -344,10 +318,6 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 1]
-##         n
-## *   &lt;dbl&gt;
-## 1 7009728</code></pre>
 </div>
 <div id="sdf-functions" class="section level2">
 <h2><span class="header-section-number">7.6</span> <code>sdf</code> Functions</h2>
@@ -358,24 +328,6 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cached_flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">sdf_pivot</span>(month <span class="op">~</span><span class="st"> </span>dayofmonth)</code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 32]
-##    month `1.0` `2.0` `3.0` `4.0` `5.0` `6.0` `7.0` `8.0` `9.0` `10.0`
-##  * &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1     1     1     2     3     4     5     6     7     8     9     10
-##  2     2     1     2     3     4     5     6     7     8     9     10
-##  3     3     1     2     3     4     5     6     7     8     9     10
-##  4     4     1     2     3     4     5     6     7     8     9     10
-##  5     5     1     2     3     4     5     6     7     8     9     10
-##  6     6     1     2     3     4     5     6     7     8     9     10
-##  7     7     1     2     3     4     5     6     7     8     9     10
-##  8     8     1     2     3     4     5     6     7     8     9     10
-##  9     9     1     2     3     4     5     6     7     8     9     10
-## 10    10     1     2     3     4     5     6     7     8     9     10
-## # ... with more rows, and 21 more variables: `11.0` &lt;dbl&gt;, `12.0` &lt;dbl&gt;,
-## #   `13.0` &lt;dbl&gt;, `14.0` &lt;dbl&gt;, `15.0` &lt;dbl&gt;, `16.0` &lt;dbl&gt;, `17.0` &lt;dbl&gt;,
-## #   `18.0` &lt;dbl&gt;, `19.0` &lt;dbl&gt;, `20.0` &lt;dbl&gt;, `21.0` &lt;dbl&gt;, `22.0` &lt;dbl&gt;,
-## #   `23.0` &lt;dbl&gt;, `24.0` &lt;dbl&gt;, `25.0` &lt;dbl&gt;, `26.0` &lt;dbl&gt;, `27.0` &lt;dbl&gt;,
-## #   `28.0` &lt;dbl&gt;, `29.0` &lt;dbl&gt;, `30.0` &lt;dbl&gt;, `31.0` &lt;dbl&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>sdf_partition()</code> to sepparate the data into discrete groups</li>
 </ol>
@@ -383,10 +335,6 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <span class="st">  </span><span class="kw">sdf_partition</span>(<span class="dt">training =</span> <span class="fl">0.01</span>, <span class="dt">testing =</span> <span class="fl">0.09</span>, <span class="dt">other =</span> <span class="fl">0.9</span>)
 
 <span class="kw">tally</span>(partition<span class="op">$</span>training)</code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 1]
-##       n
-## * &lt;dbl&gt;
-## 1 70155</code></pre>
 </div>
 <div id="feature-transformers" class="section level2">
 <h2><span class="header-section-number">7.7</span> Feature transformers</h2>
@@ -405,20 +353,6 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
     delayed
   ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 2]
-##    depdelay delayed
-##  *    &lt;dbl&gt;   &lt;dbl&gt;
-##  1       -4       0
-##  2       -1       0
-##  3       15       0
-##  4       -2       0
-##  5        2       0
-##  6       -4       0
-##  7       19       1
-##  8        1       0
-##  9        0       0
-## 10       -3       0
-## # ... with more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>ft_bucketizer()</code> to split the data into groups</li>
 </ol>
@@ -433,20 +367,6 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
     dephour
   ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>)</code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 2]
-##    crsdeptime dephour
-##  *      &lt;dbl&gt;   &lt;dbl&gt;
-##  1        910       2
-##  2        835       2
-##  3       1555       3
-##  4        730       1
-##  5       2045       5
-##  6       1135       2
-##  7       1310       3
-##  8       1220       3
-##  9       1515       3
-## 10        630       1
-## # ... with more rows</code></pre>
 </div>
 <div id="fit-a-model-with-sparklyr" class="section level2">
 <h2><span class="header-section-number">7.8</span> Fit a model with <code>sparklyr</code></h2>
@@ -482,11 +402,6 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <li>View the model results</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(delayed_model)</code></pre></div>
-<pre><code>## Coefficients:
-## (Intercept)    depdelay  dephour_h2  dephour_h3  dephour_h4  dephour_h1 
-##  -2.9032064   0.1368975   0.3023500   0.1810753   0.2522030   0.3814704 
-##  dephour_h5 
-##   0.2443670</code></pre>
 </div>
 <div id="run-predictions-in-spark" class="section level2">
 <h2><span class="header-section-number">7.9</span> Run predictions in Spark</h2>
@@ -494,39 +409,15 @@ file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</spa
 <ol style="list-style-type: decimal">
 <li>Use <code>sdf_predict()</code> agains the test dataset</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing &lt;-<span class="st"> </span><span class="kw">sdf_predict</span>(delayed_model, sample_data<span class="op">$</span>testing)</code></pre></div>
-<pre><code>## Warning in sdf_predict.ml_model(delayed_model, sample_data$testing): The
-## signature sdf_predict(model, dataset) is deprecated and will be removed
-## in a future version. Use sdf_predict(dataset, model) or ml_predict(model,
-## dataset) instead.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing &lt;-<span class="st"> </span><span class="kw">sdf_predict</span>(delayed_model, sample_data<span class="op">$</span>testing)
+delayed_testing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()</code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 17]
-##   month dayofmonth arrtime arrdelay depdelay crsarrtime crsdeptime distance
-## * &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1     7          1     NaN        0        0        845        700      496
-## 2     7          1     NaN        0        0       1125       1011      289
-## 3     7          1     NaN        0        0       1335       1225      258
-## 4     7          1     NaN        0        0       1620       1505      197
-## 5     7          1     NaN        0        0       1730       1205     1476
-## 6     7          1     NaN        0        0       2055       1950      256
-## # ... with 9 more variables: delayed &lt;dbl&gt;, dephour &lt;chr&gt;,
-## #   features &lt;list&gt;, label &lt;dbl&gt;, rawPrediction &lt;list&gt;,
-## #   probability &lt;list&gt;, prediction &lt;dbl&gt;, probability_0 &lt;dbl&gt;,
-## #   probability_1 &lt;dbl&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>group_by()</code> to see how effective the new model is</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed_testing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(delayed, prediction) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
-<pre><code>## # A tibble: 4 x 3
-##   delayed prediction      n
-## *   &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
-## 1       0          1  10807
-## 2       0          0 487330
-## 3       1          1  91155
-## 4       1          0  40625</code></pre>
 
 </div>
 </div>

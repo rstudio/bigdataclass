@@ -1,5 +1,5 @@
-```{r, section09, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+```{r, dashboards, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 # Intro to dashboards
 

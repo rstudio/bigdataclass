@@ -188,12 +188,12 @@ airports %>%
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today              
 ##   <dttm>             
-## 1 2018-12-30 16:28:13
-## 2 2018-12-30 16:28:13
-## 3 2018-12-30 16:28:13
-## 4 2018-12-30 16:28:13
-## 5 2018-12-30 16:28:13
-## 6 2018-12-30 16:28:13
+## 1 2019-01-02 15:46:11
+## 2 2019-01-02 15:46:11
+## 3 2019-01-02 15:46:11
+## 4 2019-01-02 15:46:11
+## 5 2019-01-02 15:46:11
+## 6 2019-01-02 15:46:11
 ```
 
 ## Using bang-bang
@@ -223,7 +223,7 @@ airports %>%
 
 ```
 ## <SQL>
-## SELECT "airport", "airportname", "city", "state", "country", "lat", "long", '2018-12-30T16:28:13Z' AS "today"
+## SELECT "airport", "airportname", "city", "state", "country", "lat", "long", '2019-01-02T15:46:11Z' AS "today"
 ## FROM datawarehouse.airport
 ```
 
@@ -241,12 +241,12 @@ airports %>%
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today               
 ##   <chr>               
-## 1 2018-12-30T16:28:13Z
-## 2 2018-12-30T16:28:13Z
-## 3 2018-12-30T16:28:13Z
-## 4 2018-12-30T16:28:13Z
-## 5 2018-12-30T16:28:13Z
-## 6 2018-12-30T16:28:13Z
+## 1 2019-01-02T15:46:11Z
+## 2 2019-01-02T15:46:11Z
+## 3 2019-01-02T15:46:11Z
+## 4 2019-01-02T15:46:11Z
+## 5 2019-01-02T15:46:11Z
+## 6 2019-01-02T15:46:11Z
 ```
 
 ## knitr SQL engine
@@ -261,7 +261,7 @@ airports %>%
 
 ```
 ## <SQL>
-## SELECT "airport", "airportname", "city", "state", "country", "lat", "long", '2018-12-30T16:28:13Z' AS "today"
+## SELECT "airport", "airportname", "city", "state", "country", "lat", "long", '2019-01-02T15:46:11Z' AS "today"
 ## FROM datawarehouse.airport
 ```
 

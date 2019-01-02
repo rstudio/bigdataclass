@@ -1,5 +1,5 @@
-```{r, section06, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+```{r, advanced, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
 # Advanced Operations

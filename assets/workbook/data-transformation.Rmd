@@ -1,5 +1,5 @@
-```{r, section03, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+```{r, data-transformation, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
 # Data transformation

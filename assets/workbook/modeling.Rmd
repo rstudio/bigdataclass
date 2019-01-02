@@ -1,5 +1,5 @@
-```{r, section05, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+```{r, modeling, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
 # Modeling

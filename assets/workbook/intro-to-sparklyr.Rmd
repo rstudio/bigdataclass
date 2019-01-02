@@ -1,5 +1,5 @@
-```{r, section07, include = FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+```{r, intro-to-sparklyr, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
 #Intro to `sparklyr`

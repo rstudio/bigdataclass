@@ -1,4 +1,5 @@
-```{r, section02, include = FALSE}
+```{r, dplyr-basics, include = FALSE}
+#knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 knitr::opts_chunk$set(eval = TRUE)
 ```
 

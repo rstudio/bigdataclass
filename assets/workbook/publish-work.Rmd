@@ -1,5 +1,5 @@
-```{r, section11, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+```{r, publish-work, include = FALSE}
+knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
 #Share and Production
