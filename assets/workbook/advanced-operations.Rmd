@@ -1,8 +1,7 @@
-```{r, advanced, include = FALSE}
+```{r, dashboards, include = FALSE}
 knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
-
-# Advanced Operations
+# Advanced operations
 
 ```{r, cathup06, include = FALSE}
 options(lifecycle_disable_verbose_retirement = TRUE)

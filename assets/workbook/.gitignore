@@ -5,3 +5,6 @@ new_model
 parsedmodel.csv
 saved_model
 saved_pipeline
+my_model.yml
+_book
+_bookdown_files
