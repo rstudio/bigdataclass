@@ -145,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
 <li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>6</b> Advanced Operations</a><ul>
+<li class="chapter" data-level="6" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>6</b> Advanced operations</a><ul>
 <li class="chapter" data-level="6.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>6.1</b> Simple wrapper function</a></li>
 <li class="chapter" data-level="6.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>6.2</b> Multiple variables</a></li>
 <li class="chapter" data-level="6.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>6.3</b> Multiple queries</a></li>
@@ -187,10 +187,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
-<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
 <li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
-<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
-<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#tidying-data"><i class="fa fa-check"></i><b>12.2</b> Tidying data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#transform-the-data"><i class="fa fa-check"></i><b>12.3</b> Transform the data</a></li>
+<li class="chapter" data-level="12.4" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-exploration"><i class="fa fa-check"></i><b>12.4</b> Data Exploration</a></li>
 </ul></li>
 </ul>
 
@@ -420,8 +420,7 @@ test</code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Use the <code>parse_model()</code> function to see how <code>tidypredict</code> interprets the model</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pm &lt;-<span class="st"> </span><span class="kw">parse_model</span>(model_lm)
-pm</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pm &lt;-<span class="st"> </span><span class="kw">parse_model</span>(model_lm)</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Verify that the resulting table can be used to get the fit formula</li>
 </ol>
@@ -429,8 +428,17 @@ pm</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Save the parsed model for later use</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
-<span class="kw">write_csv</span>(pm, <span class="st">&quot;parsedmodel.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(yaml)
+
+<span class="kw">write_yaml</span>(pm, <span class="st">&quot;my_model.yml&quot;</span>)</code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Reload model from the YAML file</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pm &lt;-<span class="st"> </span><span class="kw">read_yaml</span>(<span class="st">&quot;my_model.yml&quot;</span>)</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Use the reloaded model to build the fit formula</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidypredict_fit</span>(my_pm)</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Disconnect from the database</li>
 </ol>

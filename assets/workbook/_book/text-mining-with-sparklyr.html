@@ -145,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
 <li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>6</b> Advanced Operations</a><ul>
+<li class="chapter" data-level="6" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>6</b> Advanced operations</a><ul>
 <li class="chapter" data-level="6.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>6.1</b> Simple wrapper function</a></li>
 <li class="chapter" data-level="6.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>6.2</b> Multiple variables</a></li>
 <li class="chapter" data-level="6.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>6.3</b> Multiple queries</a></li>
@@ -187,10 +187,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
-<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
 <li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
-<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
-<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#tidying-data"><i class="fa fa-check"></i><b>12.2</b> Tidying data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#transform-the-data"><i class="fa fa-check"></i><b>12.3</b> Transform the data</a></li>
+<li class="chapter" data-level="12.4" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-exploration"><i class="fa fa-check"></i><b>12.4</b> Data Exploration</a></li>
 </ul></li>
 </ul>
 
@@ -211,11 +211,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="text-mining-with-sparklyr" class="section level1">
 <h1><span class="header-section-number">12</span> Text mining with sparklyr</h1>
-<div id="data-source" class="section level3">
-<h3><span class="header-section-number">12.0.1</span> Data source</h3>
 <p>For this example, there are two files that will be analyzed. They are both the full works of Sir Arthur Conan Doyle and Mark Twain. The files were downloaded from the <a href="https://www.gutenberg.org/">Gutenberg Project</a> site via the <code>gutenbergr</code> package. Intentionally, no data cleanup was done to the files prior to this analysis. See the appendix below to see how the data was downloaded and prepared.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(<span class="st">&quot;/usr/share/class/bonus/arthur_doyle.txt&quot;</span>, <span class="dv">30</span>) </code></pre></div>
-</div>
 <div id="data-import" class="section level2">
 <h2><span class="header-section-number">12.1</span> Data Import</h2>
 <ol style="list-style-type: decimal">
@@ -230,67 +227,88 @@ conf<span class="op">$</span><span class="st">`</span><span class="dt">sparklyr.
 conf<span class="op">$</span>spark.memory.fraction &lt;-<span class="st"> </span><span class="fl">0.9</span>
 
 sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>, <span class="dt">config =</span> conf,<span class="dt">version =</span> <span class="st">&quot;2.0.0&quot;</span>)</code></pre></div>
-<ol style="list-style-type: decimal">
+<ol start="2" style="list-style-type: decimal">
 <li>The <code>spark_read_text()</code> is a new function which works like <code>readLines()</code> but for <code>sparklyr</code>. Use it to read the <em>mark_twain.txt</em> file into Spark.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">twain_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;file:///usr/share/class/bonus/mark_twain.txt&quot;</span>)
-twain &lt;-<span class="st">  </span><span class="kw">spark_read_text</span>(sc, <span class="st">&quot;twain&quot;</span>, twain_path) </code></pre></div>
-<ol start="2" style="list-style-type: decimal">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">twain_path &lt;-<span class="st"> &quot;file:///usr/share/class/bonus/mark_twain.txt&quot;</span>
+twain &lt;-<span class="st"> </span><span class="kw">spark_read_text</span>(sc, <span class="st">&quot;twain&quot;</span>, twain_path) </code></pre></div>
+<ol start="3" style="list-style-type: decimal">
 <li>Read the <em>arthur_doyle.txt</em> file into Spark</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doyle_path &lt;-<span class="st">  </span><span class="kw">paste0</span>(<span class="st">&quot;file:///usr/share/class/bonus/arthur_doyle.txt&quot;</span>)
-doyle &lt;-<span class="st">  </span><span class="kw">spark_read_text</span>(sc, <span class="st">&quot;doyle&quot;</span>, doyle_path) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doyle_path &lt;-<span class="st"> &quot;file:///usr/share/class/bonus/arthur_doyle.txt&quot;</span>
+doyle &lt;-<span class="st"> </span><span class="kw">spark_read_text</span>(sc, <span class="st">&quot;doyle&quot;</span>, doyle_path) </code></pre></div>
 </div>
-<div id="prepare-the-data" class="section level2">
-<h2><span class="header-section-number">12.2</span> Prepare the data</h2>
+<div id="tidying-data" class="section level2">
+<h2><span class="header-section-number">12.2</span> Tidying data</h2>
 <ol style="list-style-type: decimal">
+<li>Add a identification column to each data set.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">twain_id &lt;-<span class="st"> </span>twain <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">author =</span> <span class="st">&quot;twain&quot;</span>)
+
+doyle_id &lt;-<span class="st"> </span>doyle <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">author =</span> <span class="st">&quot;doyle&quot;</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
 <li>Use <code>sdf_bind_rows()</code> to append the two files together</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_words &lt;-<span class="st"> </span>doyle <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">author =</span> <span class="st">&quot;doyle&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">sdf_bind_rows</span>({
-    twain <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">author =</span> <span class="st">&quot;twain&quot;</span>)
-  }) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">both &lt;-<span class="st"> </span>doyle_id <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sdf_bind_rows</span>(twain_id) 
+
+both</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Filter out empty lines</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_lines &lt;-<span class="st"> </span>both <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(line) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
-<ol start="2" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Use Hive’s <em>regexp_replace</em> to remove punctuation</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_words &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">line =</span> <span class="kw">regexp_replace</span>(line, <span class="st">&quot;[_</span><span class="ch">\&quot;\&#39;</span><span class="st">():;,.!?</span><span class="ch">\\</span><span class="st">-]&quot;</span>, <span class="st">&quot; &quot;</span>)) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_lines &lt;-<span class="st"> </span>all_lines <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">line =</span> <span class="kw">regexp_replace</span>(line, <span class="st">&quot;[_</span><span class="ch">\&quot;\&#39;</span><span class="st">():;,.!?</span><span class="ch">\\</span><span class="st">-]&quot;</span>, <span class="st">&quot; &quot;</span>)) 
+
+<span class="kw">head</span>(all_lines)</code></pre></div>
+</div>
+<div id="transform-the-data" class="section level2">
+<h2><span class="header-section-number">12.3</span> Transform the data</h2>
+<ol style="list-style-type: decimal">
+<li>Use <code>ft_tokenizer()</code> to separate each word. in the line. It places it in a list column.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">word_list &lt;-<span class="st"> </span>all_lines <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">ft_tokenizer</span>(<span class="dt">input_col =</span> <span class="st">&quot;line&quot;</span>,
+               <span class="dt">output_col =</span> <span class="st">&quot;word_list&quot;</span>)
+
+<span class="kw">head</span>(word_list, <span class="dv">4</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Remove “stop words” with the <code>ft_stop_words_remover()</code> transformer. The list is of stop words Spark uses is available here: <a href="https://github.com/apache/spark/blob/master/mllib/src/main/resources/org/apache/spark/ml/feature/stopwords/english.txt" class="uri">https://github.com/apache/spark/blob/master/mllib/src/main/resources/org/apache/spark/ml/feature/stopwords/english.txt</a></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wo_stop &lt;-<span class="st"> </span>word_list <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ft_stop_words_remover</span>(<span class="dt">input_col =</span> <span class="st">&quot;word_list&quot;</span>,
+                        <span class="dt">output_col =</span> <span class="st">&quot;wo_stop_words&quot;</span>)
+
+<span class="kw">head</span>(wo_stop, <span class="dv">4</span>)</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Use <code>ft_tokenizer()</code> to separate each word.</li>
+<li>Un-nest the tokens inside <em>wo_stop_words</em> using <code>explode()</code>. This will create a row per word.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_words &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">ft_tokenizer</span>(<span class="dt">input.col =</span> <span class="st">&quot;line&quot;</span>,
-               <span class="dt">output.col =</span> <span class="st">&quot;word_list&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exploded &lt;-<span class="st"> </span>wo_stop <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">explode</span>(wo_stop_words))
 
-<span class="kw">head</span>(all_words, <span class="dv">4</span>)</code></pre></div>
+<span class="kw">head</span>(exploded)</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li>Remove “stop words” with the <code>ft_stop_words_remover()</code> transformer</li>
+<li>Select the <em>word</em> and <em>author</em> columns, and remove any word with less than 3 characters.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_words &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ft_stop_words_remover</span>(<span class="dt">input.col =</span> <span class="st">&quot;word_list&quot;</span>,
-                        <span class="dt">output.col =</span> <span class="st">&quot;wo_stop_words&quot;</span>)
-
-<span class="kw">head</span>(all_words, <span class="dv">4</span>)</code></pre></div>
-<ol start="5" style="list-style-type: decimal">
-<li>Un-nest the tokens with <strong>explode</strong></li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_words &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">explode</span>(wo_stop_words)) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_words &lt;-<span class="st"> </span>exploded <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(word, author) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(word) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)
   
 <span class="kw">head</span>(all_words, <span class="dv">4</span>)</code></pre></div>
-<ol start="6" style="list-style-type: decimal">
+<ol start="5" style="list-style-type: decimal">
 <li>Cache the <em>all_words</em> variable using <code>compute()</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_words &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">compute</span>(<span class="st">&quot;all_words&quot;</span>)</code></pre></div>
 </div>
-<div id="data-analysis" class="section level2">
-<h2><span class="header-section-number">12.3</span> Data Analysis</h2>
+<div id="data-exploration" class="section level2">
+<h2><span class="header-section-number">12.4</span> Data Exploration</h2>
 <ol style="list-style-type: decimal">
 <li>Words used the most by author</li>
 </ol>
@@ -301,32 +319,67 @@ doyle &lt;-<span class="st">  </span><span class="kw">spark_read_text</span>(sc,
   
 word_count</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li>Figure out which words are used by Doyle but not Twain</li>
+<li>Words most used by Twain</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doyle_unique &lt;-<span class="st"> </span><span class="kw">filter</span>(word_count, author <span class="op">==</span><span class="st"> &quot;doyle&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">anti_join</span>(<span class="kw">filter</span>(word_count, author <span class="op">==</span><span class="st"> &quot;twain&quot;</span>), <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">compute</span>(<span class="st">&quot;doyle_unique&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">twain_most &lt;-<span class="st"> </span>word_count <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;twain&quot;</span>)
 
-doyle_unique</code></pre></div>
+twain_most</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Use <code>wordcloud</code> to visualize the data in the previous step</li>
+<li>Use <code>wordcloud</code> to visualize the top 50 words used by Twain</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doyle_unique <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">twain_most <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(
     word, 
     n,
     <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>)))</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
+<li>Words most used by Doyle</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doyle_most &lt;-<span class="st"> </span>word_count <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;doyle&quot;</span>)
+
+doyle_most</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Used <code>wordcloud</code> to visualize the top 50 words used by Doyle that have more than 5 characters</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doyle_most <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(word) <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(
+    word, 
+    n,
+    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>)
+    ))</code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Use <code>anti_join()</code> to figure out which words are used by Doyle but not Twain. Order the results by number of words.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doyle_unique &lt;-<span class="st"> </span>doyle_most <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">anti_join</span>(twain_most, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) 
+
+doyle_unique</code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>Use <code>wordcloud</code> to visualize top 50 records in the previous step</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doyle_unique <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(
+    word, 
+    n,
+    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>)))</code></pre></div>
+<ol start="8" style="list-style-type: decimal">
 <li>Find out how many times Twain used the word “sherlock”</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_words <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;twain&quot;</span>,
          word <span class="op">==</span><span class="st"> &quot;sherlock&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()</code></pre></div>
-<ol start="5" style="list-style-type: decimal">
+<ol start="9" style="list-style-type: decimal">
 <li>Against the <code>twain</code> variable, use Hive’s <em>instr</em> and <em>lower</em> to make all ever word lower cap, and then look for “sherlock” in the line</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">twain <span class="op">%&gt;%</span>
