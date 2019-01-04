@@ -145,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.5" data-path="modeling.html"><a href="modeling.html#score-inside-database"><i class="fa fa-check"></i><b>5.5</b> Score inside database</a></li>
 <li class="chapter" data-level="5.6" data-path="modeling.html"><a href="modeling.html#parsed-model"><i class="fa fa-check"></i><b>5.6</b> Parsed model</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>6</b> Advanced Operations</a><ul>
+<li class="chapter" data-level="6" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>6</b> Advanced operations</a><ul>
 <li class="chapter" data-level="6.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>6.1</b> Simple wrapper function</a></li>
 <li class="chapter" data-level="6.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>6.2</b> Multiple variables</a></li>
 <li class="chapter" data-level="6.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>6.3</b> Multiple queries</a></li>
@@ -187,10 +187,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.4" data-path="share-and-production.html"><a href="share-and-production.html#scheduled-re-fitting"><i class="fa fa-check"></i><b>11.4</b> Scheduled re-fitting</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>12</b> Text mining with sparklyr</a><ul>
-<li class="chapter" data-level="12.0.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-source"><i class="fa fa-check"></i><b>12.0.1</b> Data source</a></li>
 <li class="chapter" data-level="12.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>12.1</b> Data Import</a></li>
-<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#prepare-the-data"><i class="fa fa-check"></i><b>12.2</b> Prepare the data</a></li>
-<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-analysis"><i class="fa fa-check"></i><b>12.3</b> Data Analysis</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#tidying-data"><i class="fa fa-check"></i><b>12.2</b> Tidying data</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#transform-the-data"><i class="fa fa-check"></i><b>12.3</b> Transform the data</a></li>
+<li class="chapter" data-level="12.4" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-exploration"><i class="fa fa-check"></i><b>12.4</b> Data Exploration</a></li>
 </ul></li>
 </ul>
 
@@ -343,12 +343,12 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today              
 ##   &lt;dttm&gt;             
-## 1 2019-01-02 19:17:26
-## 2 2019-01-02 19:17:26
-## 3 2019-01-02 19:17:26
-## 4 2019-01-02 19:17:26
-## 5 2019-01-02 19:17:26
-## 6 2019-01-02 19:17:26</code></pre>
+## 1 2019-01-04 17:09:41
+## 2 2019-01-04 17:09:41
+## 3 2019-01-04 17:09:41
+## 4 2019-01-04 17:09:41
+## 5 2019-01-04 17:09:41
+## 6 2019-01-04 17:09:41</code></pre>
 </div>
 <div id="using-bang-bang" class="section level2">
 <h2><span class="header-section-number">2.4</span> Using bang-bang</h2>
@@ -369,7 +369,7 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2019-01-02T19:17:26Z&#39; AS &quot;today&quot;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2019-01-04T17:09:41Z&#39; AS &quot;today&quot;
 ## FROM datawarehouse.airport</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Preview how <code>Sys.time()</code> is translated when prefixing <code>!!</code></li>
@@ -382,12 +382,12 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 ## # Database: postgres [rstudio_dev@localhost:/postgres]
 ##   today               
 ##   &lt;chr&gt;               
-## 1 2019-01-02T19:17:26Z
-## 2 2019-01-02T19:17:26Z
-## 3 2019-01-02T19:17:26Z
-## 4 2019-01-02T19:17:26Z
-## 5 2019-01-02T19:17:26Z
-## 6 2019-01-02T19:17:26Z</code></pre>
+## 1 2019-01-04T17:09:41Z
+## 2 2019-01-04T17:09:41Z
+## 3 2019-01-04T17:09:41Z
+## 4 2019-01-04T17:09:41Z
+## 5 2019-01-04T17:09:41Z
+## 6 2019-01-04T17:09:41Z</code></pre>
 </div>
 <div id="knitr-sql-engine" class="section level2">
 <h2><span class="header-section-number">2.5</span> knitr SQL engine</h2>
@@ -398,7 +398,7 @@ carriers &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span cl
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">show_query</span>()</code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2019-01-02T19:17:26Z&#39; AS &quot;today&quot;
+## SELECT &quot;airport&quot;, &quot;airportname&quot;, &quot;city&quot;, &quot;state&quot;, &quot;country&quot;, &quot;lat&quot;, &quot;long&quot;, &#39;2019-01-04T17:09:41Z&#39; AS &quot;today&quot;
 ## FROM datawarehouse.airport</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Paste the result in this SQL chunk</li>

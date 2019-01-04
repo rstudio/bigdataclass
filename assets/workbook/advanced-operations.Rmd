@@ -19,7 +19,7 @@ carriers <- tbl(con, in_schema("datawarehouse", "carrier"))
 
 ```
 
-## 6.1 - Simple wrapper function
+## Simple wrapper function
 *Create a function that accepts a value that is passed to a specific dplyr operation*
 
 
@@ -125,7 +125,7 @@ flights %>%
 ```
 
 
-## 6.2 - Multiple variables
+## Multiple variables
 *Create functions that handle a variable number of arguments. The goal of the exercise is to create an "anti-select()" function.*
 
 1. Use *...* as the second argument of a function called `de_select()`.  Inside the function use `enquos()` to parse it
@@ -195,7 +195,7 @@ mtcars %>%
   de_select(mpg, wt, am)
 ```
 
-## 6.3 - Multiple queries
+## Multiple queries
 *Suggested approach to avoid passing multiple, and similar, queries to the database*
 
 1. Create a simple `dplyr` piped operation that returns the mean of *arrdelay* for the months of January, February and March as a group.
@@ -268,7 +268,7 @@ months %>%
 ```
 
 
-## 6.4 - Multiple queries with an overlaping range
+## Multiple queries with an overlaping range
 
 1. Create a table with a *from* and *to* ranges.
 
