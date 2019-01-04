@@ -35,7 +35,7 @@ table_flights %>%
   class()
 ```
 
-3. Run `remote_query()` againt *table_flights*
+3. Run `remote_query()` again *table_flights*
 ```{r}
 remote_query(table_flights)
 ```
@@ -97,7 +97,7 @@ dbplot_histogram(id_sample, distance)
 ## Sample manually
 *Use `row_number()`, `sample()` and `map_df()` to create a sample data set*
 
-1. Create a filtered dataset with January's data
+1. Create a filtered data set with January's data
 ```{r}
 db_month <- table_flights %>%
   filter(month == 1)

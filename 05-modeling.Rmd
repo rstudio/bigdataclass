@@ -29,7 +29,7 @@ set.seed(100)
 ```{r}
 ```
 
-3. Run `remote_query()` againt *table_flights*
+3. Run `remote_query()` again *table_flights*
 ```{r}
 ```
 
@@ -79,7 +79,7 @@ id_sample <-
 ## 5.3 - Sample manually
 *Use `row_number()`, `sample()` and `map_df()` to create a sample data set*
 
-1. Create a filtered dataset with January's data
+1. Create a filtered data set with January's data
 ```{r}
 db_month <- 
 ```
