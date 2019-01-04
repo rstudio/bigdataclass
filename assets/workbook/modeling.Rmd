@@ -21,17 +21,41 @@ set.seed(100)
 ## SQL Native sampling 
 *Use PostgreSQL TABLESAMPLE clause*
 
-1. Use `build_sql()` and `remote_query()` to combine a the `dplyr` command with a custom SQL statement
+1. Find out the class of the object returned by `show_query()`.  Test with *table_flights*.
+```{r}
+table_flights %>%
+  show_query() %>%
+  class()
+```
+
+2. Find out the class of the object returned by `remote_query()`. Test with *table_flights*.
+```{r}
+table_flights %>%
+  remote_query() %>%
+  class()
+```
+
+3. Run `remote_query()` againt *table_flights*
+```{r}
+remote_query(table_flights)
+```
+
+4. Use `build_sql()` to paste together the results of the `remote_query()` operation and *" TABLESAMPLE SYSTEM (0.1)"*
+```{r}
+build_sql(remote_query(table_flights), " TABLESAMPLE SYSTEM (0.1)")
+```
+
+5. Use `build_sql()` and `remote_query()` to combine a the `dplyr` command with a custom SQL statement
 ```{r}
 sql_sample <-  dbGetQuery(con, build_sql(remote_query(table_flights), " TABLESAMPLE SYSTEM (0.1)"))
 ```
 
-2. Preview the sample data
+6. Preview the sample data
 ```{r}
 sql_sample
 ```
 
-3. Test the efficacy of the sampling with a plot
+6. Test the efficacy of the sampling using `dbplot_histogram()` and comparing to the histogram produced in the Visualization chapter.
 ```{r}
 dbplot_histogram(sql_sample, distance)
 ```
@@ -39,7 +63,7 @@ dbplot_histogram(sql_sample, distance)
 ## Sample with ID
 *Use a record's unique ID to produce a sample*
 
-1. Use `max()` to get the upper limit for *flightid*
+1. Summarize with `max()` and `min()` to get the upper and lower bound of *flightid*
 ```{r}
 limit <- table_flights %>%
   summarise(
@@ -49,21 +73,22 @@ limit <- table_flights %>%
   collect()
 ```
 
-2. Use `sample` to get 0.1% of IDs
+2. Use `sample()` to get 0.1% of IDs
 ```{r}
 sampling <- sample(
   limit$min:limit$max, 
-  round((limit$max -limit$min) * 0.001))
+  round((limit$max -limit$min) * 0.001)
+  )
 ```
 
-3. Use `%in%` to match the sample IDs in the *flight* table
+3. Use `%in%` to match the sample IDs in *table_flights* table
 ```{r}
 id_sample <- table_flights %>%
   filter(flightid %in% sampling) %>%
   collect()
 ```
 
- Verify sample with a histogram
+4. Test the efficacy of the sampling using `dbplot_histogram()` and comparing to the histogram produced in the Visualization chapter.
 ```{r}
 dbplot_histogram(id_sample, distance)
 ```
@@ -72,15 +97,20 @@ dbplot_histogram(id_sample, distance)
 ## Sample manually
 *Use `row_number()`, `sample()` and `map_df()` to create a sample data set*
 
-1. Create a filtered dataset for with 1 month of data
+1. Create a filtered dataset with January's data
 ```{r}
 db_month <- table_flights %>%
   filter(month == 1)
 ```
 
-2. Get the row count
+2. Get the row count, collect and save the results to a variable
 ```{r}
-rows <- as.integer(pull(tally(db_month)))
+rows <- db_month %>%
+  tally() %>%
+  pull() %>%
+  as.integer()
+
+rows
 ```
 
 3. Use `row_number()` to create a new column to number each row
@@ -108,12 +138,21 @@ tally(db_month)
 7. Create a function with the previous steps, but replacing the month number with an argument.  Collect the data at the end
 ```{r}
 sample_segment <- function(x, size = 600) {
+  
   db_month <- table_flights %>%
     filter(month == x)
-  rows <- as.integer(pull(tally(db_month)))
+  
+  rows <- db_month %>%
+    tally() %>%
+    pull() %>%
+    as.integer()
+
+  
   db_month <- db_month %>%
     mutate(row = row_number())
+  
   sampling <- sample(1:rows, size)
+  
   db_month %>%
     filter(row %in% sampling) %>%
     collect()
@@ -131,14 +170,14 @@ strat_sample <- 1:12 %>%
   map_df(~sample_segment(.x))
 ```
 
-10. Verify sample with a histogram
+10. Verify sample with a `dbplot_histogram()`
 ```{r}
 dbplot_histogram(strat_sample, distance)
 ```
 
 ## Create a model & test
 
-1. Prepare a model data set
+1. Prepare a model data set.  Using `case_when()` create a field called *season* and assign based 
 ```{r}
 model_data <- strat_sample %>%
     mutate(
@@ -153,7 +192,7 @@ model_data <- strat_sample %>%
   
 ```
 
-2. Create a simple `lm()` model
+2. Create a simple `lm()` model against *arrdelay*
 ```{r}
 model_lm <- lm(arrdelay ~ . , data = model_data)
 summary(model_lm)
@@ -200,7 +239,8 @@ tidypredict_fit(model_lm)
 tidypredict_sql(model_lm, con)
 ```
 
-3. Run the prediction inside `dplyr`
+3. Run the prediction inside `dplyr` by piping the same transformations into `tidypredict_to_column()`, but starting with *table_flights*
+
 ```{r}
 table_flights %>%
   filter(month == 2,
@@ -218,7 +258,7 @@ table_flights %>%
   head()
 ```
 
-4. View the SQL behind the `dplyr` command
+4. View the SQL behind the `dplyr` command with `remote_query()`
 ```{r}
 table_flights %>%
   filter(month == 2,
@@ -236,13 +276,13 @@ table_flights %>%
   remote_query()
 ```
 
-6. Compare predictions to ensure results are within range
+5. Compare predictions to ensure results are within range using `tidypredict_test()`
 ```{r}
 test <- tidypredict_test(model_lm)
 test
 ```
 
-7. View the records that exceeded the threshold
+6. View the records that exceeded the threshold
 ```{r}
 test$raw_results %>%
   filter(fit_threshold)
@@ -256,12 +296,12 @@ test$raw_results %>%
 pm <- parse_model(model_lm)
 ```
 
-2. Verify that the resulting table can be used to get the fit formula
+2. With `tidypredict_fit()`, verify that the resulting table can be used to get the fit formula
 ```{r}
 tidypredict_fit(pm)
 ```
 
-3. Save the parsed model for later use
+3. Save the parsed model for later use using the `yaml` package
 ```{r}
 library(yaml)
 
