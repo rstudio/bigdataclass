@@ -13,7 +13,7 @@ library(sparklyr)
 
 1. Use `spark_connect()` to create a new local Spark session
 ```{r}
-sc <- spark_connect(master = "local", version = "2.0.0")
+sc <- spark_connect(master = "local")
 ```
 
 2. Click on the `SparkUI` button to view the current Spark session's UI
@@ -61,7 +61,7 @@ spark_mtcars %>%
 
 ```{r}
 library(readr)
-top_rows <- read.csv("/usr/share/class/flights/data/flight_2008_1.csv", nrows = 5)
+top_rows <- read_csv("/usr/share/class/flights/data/flight_2008_1.csv", n_max = 5)
 ```
 
 3. Create a list based on the column names, and add a list item with "character" as its value.
@@ -87,7 +87,7 @@ spark_flights <- spark_read_csv(
 
 5. In the Connections pane, click on the table icon by the `flights` variable
 
-6. Verify that the new variable pointer work using `tally()`
+6. Verify that the new variable pointer works by using `tally()`
 ```{r}
 spark_flights %>%
   tally()
@@ -165,7 +165,6 @@ cached_flights %>%
 
 2. Use `ft_bucketizer()` to split the data into groups
 ```{r}
-
 cached_flights %>%
   ft_bucketizer(
     input_col = "crsdeptime",
@@ -232,7 +231,8 @@ delayed_testing %>%
 ```{r}
 delayed_testing %>%
   group_by(delayed, prediction) %>%
-  tally()
+  tally() %>% 
+  mutate(percent = n / sum(n))
 ```
 
 ```{r, include = FALSE}
