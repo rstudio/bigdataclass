@@ -4,7 +4,7 @@ knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 
 # Data transformation
 
-```{r, cathup3, include = FALSE}
+```{r, catchup3, include = FALSE}
 
 library(dplyr)
 library(dbplyr)
@@ -114,7 +114,7 @@ flights %>%
 3. Use `summarise_if()` to summarize only if the field meets a criterion
 ```{r}
 flights %>%
-  summarise_if(is.numeric,mean, na.rm = TRUE)
+  summarise_if(is.numeric, mean, na.rm = TRUE)
 ```
 
 4. Combine with `group_by()` to create more complex results
@@ -168,7 +168,7 @@ flights %>%
 ## Case statements
 *See how to use the flexibility of case statements for special cases*
 
-1. Use `case_when()` to bucket each month one of four seasons
+1. Use `case_when()` to bucket each month into one of four seasons
 ```{r}
 flights %>%
   mutate(

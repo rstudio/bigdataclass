@@ -141,14 +141,13 @@ con <- dbConnect(
 dbDisconnect(con)
 ```
 
-
 ## Secure credentials in a file
 
 *Credentials can be saved in a YAML file and then read using the `config` package: http://db.rstudio.com/best-practices/managing-credentials/#stored-in-a-file-with-config *
 
 1. Open and explore the `config.yml` file available in your working directory
 
-2. Load the `datawarehouse-dev` vaelus to a variable
+2. Load the `datawarehouse-dev` values to a variable
 ```{r}
 dw <- config::get("datawarehouse-dev")
 ```
