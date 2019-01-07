@@ -1,4 +1,4 @@
-```{r, dashboards, include = FALSE}
+```{r, advanced, include = FALSE}
 knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 # Advanced operations
