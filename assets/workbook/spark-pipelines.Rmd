@@ -28,10 +28,10 @@ spark_flights <- spark_read_csv(
 
 ```
 
-## Recreate the transformations 
-*Overview of how most of the existing code will be reused*
+## Build a pipeline
+*Step-by-step of how to build a new Spark pipeline*
 
-1. Register a new table called *current* containing a sample of the base *flights* table
+1. Use `sdf_partition()` to create a sample of 1% training and 1% testing of the *flights* table.
 ```{r}
 model_data <- sdf_partition(
   tbl(sc, "flights"),
@@ -41,7 +41,7 @@ model_data <- sdf_partition(
 )
 ```
 
-2. Recreate the `dplyr` code in the `cached_flights` variable from the previous unit
+2. Recreate the `dplyr` code in the *cached_flights* variable from the previous unit. Assign it to a new variable called `pepeline_df`.
 ```{r}
 pipeline_df <- model_data$training %>%
   mutate(
@@ -61,7 +61,86 @@ pipeline_df <- model_data$training %>%
   mutate_all(as.numeric)
 ```
 
-3. Create a new Spark pipeline
+3. Start a new pipeline with `ml_pipeline()` and `dplyr`-pipe into `ft_dplyr_transformer()`.  Use `pipeline_df` as the `tbl` argument.
+```{r}
+ml_pipeline(sc) %>%
+  ft_dplyr_transformer(
+    tbl = pipeline_df
+  ) 
+```
+
+4. Pipe code into `ft_binarizer()` to determine if *arrdelay* is over 15 minutes.
+```{r}
+ ml_pipeline(sc) %>%
+  ft_dplyr_transformer(
+    tbl = pipeline_df
+  ) %>%
+  ft_binarizer(
+    input_col = "arrdelay",
+    output_col = "delayed",
+    threshold = 15
+  )
+```
+
+5. Pipe code into `ft_bucketizer()`. Use it to split *dephour* into six even segments of 4 hours.
+```{r}
+ml_pipeline(sc) %>%
+  ft_dplyr_transformer(
+    tbl = pipeline_df
+  ) %>%
+  ft_binarizer(
+    input_col = "arrdelay",
+    output_col = "delayed",
+    threshold = 15
+  ) %>%
+  ft_bucketizer(
+    input_col = "crsdeptime",
+    output_col = "dephour",
+    splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+  )
+```
+
+6. Add `ft_r_formula()` with a model that compares uses *arrdelay* and *dephour* against *depdelay*.
+```{r}
+ml_pipeline(sc) %>%
+  ft_dplyr_transformer(
+    tbl = pipeline_df
+  ) %>%
+  ft_binarizer(
+    input_col = "arrdelay",
+    output_col = "delayed",
+    threshold = 15
+  ) %>%
+  ft_bucketizer(
+    input_col = "crsdeptime",
+    output_col = "dephour",
+    splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+  ) %>%
+  ft_r_formula(delayed ~ arrdelay + dephour)
+```
+
+7. Pipe into a logistic regression model, with `ml_logistic_regression()`
+```{r}
+ml_pipeline(sc) %>%
+  ft_dplyr_transformer(
+    tbl = pipeline_df
+  ) %>%
+  ft_binarizer(
+    input_col = "arrdelay",
+    output_col = "delayed",
+    threshold = 15
+  ) %>%
+  ft_bucketizer(
+    input_col = "crsdeptime",
+    output_col = "dephour",
+    splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
+  ) %>%
+  ft_r_formula(delayed ~ arrdelay + dephour) %>%
+  ml_logistic_regression()
+```
+
+
+8. Assign the entire piped code to a new variable called `flights_pipeline`
 ```{r}
 flights_pipeline <- ml_pipeline(sc) %>%
   ft_dplyr_transformer(
@@ -86,13 +165,17 @@ flights_pipeline
 ## Fit, evaluate, save
 
 
-1. Fit (train) the pipeline's model
+1. Fit (train) the `flights_pipeline` pipeline model using the training data on `model_data`. The function to use is `ml_fit()`
 ```{r}
-model <- ml_fit(flights_pipeline, model_data$training)
+model <- ml_fit(
+  flights_pipeline, 
+  model_data$training
+  )
+
 model
 ```
 
-2. Use the newly fitted model to perform predictions using `ml_transform()`
+2. Use the newly fitted model to perform predictions using `ml_transform()`. Use the testing data from `model_data`
 ```{r}
 predictions <- ml_transform(
   x = model,
@@ -100,7 +183,7 @@ predictions <- ml_transform(
 )
 ```
 
-3. Use `group_by()` to see how the model performed
+3. Use `group_by()`/ `tally()` to see how the model performed
 ```{r}
 predictions %>%
   group_by(delayed, prediction) %>%
@@ -112,6 +195,7 @@ predictions %>%
 ml_save(model, "saved_model", overwrite = TRUE)
 list.files("saved_model")
 ```
+
 5. Save the pipeline using `ml_save()`
 ```{r}
 ml_save(flights_pipeline, "saved_pipeline", overwrite = TRUE)
@@ -123,7 +207,6 @@ list.files("saved_pipeline")
 spark_disconnect(sc)
 ```
 ## Reload model
-
 *Use the saved model inside a different Spark session*
 
 1. Open a new Spark connection and reload the data
@@ -147,7 +230,7 @@ reload
 ```
 
 
-3.  Create a new table called *current*. It needs to pull today's flights
+3.  Create a new table called *current*. It needs to pull today's flights.  
 ```{r}
 library(lubridate)
 
@@ -160,12 +243,7 @@ current <- tbl(sc, "flights") %>%
 show_query(current)
 ```
 
-4.  Create a new table called *current*. It needs to pull today's flights
-```{r}
-head(current)
-```
-
-5. Run predictions against the new data set
+4. Run predictions against `current` using `ml__transform()`.
 ```{r}
 new_predictions <- ml_transform(
   x = ml_load(sc, "saved_model"),
@@ -174,7 +252,7 @@ new_predictions <- ml_transform(
 
 ```
 
-6. Get a quick count of expected delayed flights
+6. Get a quick count of expected delayed flights. The field to check on is called `prediction`
 ```{r}
 new_predictions %>%
   summarise(late_fligths = sum(prediction, na.rm = TRUE))
@@ -189,7 +267,7 @@ flights_pipeline <- ml_load(sc, "saved_pipeline")
 flights_pipeline
 ```
 
-2. Create a new sample data set using `sample_frac()`
+2. Create a new sample data set using `sample_frac()`, 1% of the total data should be sufficient
 ```{r}
 sample <- tbl(sc, "flights") %>%
   sample_frac(0.001) 
