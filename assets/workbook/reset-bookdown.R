@@ -15,4 +15,4 @@ files <- c(
 unlink(files, recursive = TRUE, force = TRUE)
 rm(list=ls())
 
-bookdown:::serve_book()
+bookdown::serve_book()

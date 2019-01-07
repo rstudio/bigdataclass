@@ -1,0 +1,17 @@
+new_session: yes
+
+rmd_files: [
+  "index.Rmd",
+  "01-database-access.Rmd",
+  "02-dplyr-basics.Rmd",
+  "03-data-transformation.Rmd",
+  "04-visualizations.Rmd",
+  "05-modeling.Rmd",
+  "06-advanced-operations.Rmd",
+  "07-intro-to-sparklyr.Rmd",
+  "08-spark-pipelines.Rmd",
+  "09-dashboards.Rmd",
+  "10-drill-thru.Rmd",
+  "11-publish-work.Rmd",
+  "12-textmining.Rmd"
+]
