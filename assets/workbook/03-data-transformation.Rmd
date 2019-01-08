@@ -285,6 +285,20 @@ combined %>%
             min_flights = min(n, na.rm = TRUE))
 ``` 
 
+8. Use `explain()` to see the query plan
+```{r}
+combined %>%
+  filter(manufacturer == "MCDONNELL DOUGLAS") %>%
+  group_by(tailnum) %>%
+  tally() %>%
+  summarise(planes = n(),
+            avg_flights = mean(n, na.rm = TRUE),
+            max_flights = max(n, na.rm = TRUE),
+            min_flights = min(n, na.rm = TRUE)) %>% 
+  explain()
+```
+
+
 8. Disconnect from the database
 ```{r}
 dbDisconnect(con)

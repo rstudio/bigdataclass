@@ -80,6 +80,13 @@ airports %>%
   sql_render(con = simulate_mssql()) 
 ```
 
+5. Use `explain()` to explore the query plan
+```{r}
+airports %>% 
+  head() %>% 
+  explain()
+```
+
 ## Un-translated R commands
 *Review of how `dbplyr` handles R commands that have not been translated into a like-SQL command*
 
