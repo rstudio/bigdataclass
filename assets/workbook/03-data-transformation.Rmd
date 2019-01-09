@@ -125,6 +125,26 @@ flights %>%
   summarise_all(mean, na.rm = TRUE)
 ```
 
+## Data correlation
+*Calculate correlation values in database*
+
+1. Correlate select numeric columns from the flights table
+```{r}
+library(corrr)
+
+flights_cor <- flights %>% 
+  select(contains("delay")) %>% 
+  correlate(use = "complete.obs")
+```
+
+2. Explore the `flights_cor` data
+```{r}
+flights_cor %>% 
+  rearrange() %>% 
+  shave() %>% 
+  fashion()
+```
+
 ## View record level data
 *Important tips to record preview data*
 
