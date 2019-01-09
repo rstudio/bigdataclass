@@ -124,6 +124,31 @@ flights %>%
        y = "# of Flights")
 ```
 
+## Plot correlations
+*Use the `corrr` package to plot correlations*
+
+1. Correlate select numeric columns from the flights table
+```{r}
+library(corrr)
+
+flights_cor <- flights %>% 
+  select(contains("delay")) %>% 
+  correlate(use = "complete.obs")
+```
+
+2. Visualize the correlations
+```{r}
+flights_cor %>% 
+  rplot()
+```
+
+3. Visualize correlation network
+```{r}
+flights_cor %>% 
+  network_plot(min_cor = .15)
+```
+
+
 ## Two or more queries
 *Learn how to use `pull()` to pass a set of values to be used on a secondary query*
 

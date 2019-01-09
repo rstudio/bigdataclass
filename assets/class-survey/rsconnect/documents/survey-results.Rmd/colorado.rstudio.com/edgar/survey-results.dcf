@@ -1,0 +1,12 @@
+name: survey-results
+title: survey-results
+username: edgar
+account: edgar
+server: colorado.rstudio.com
+hostUrl: http://colorado.rstudio.com:3939/__api__
+appId: 1960
+bundleId: 24457
+url: http://colorado.rstudio.com:3939/content/1960/
+when: 1546992823.8567
+asMultiple: FALSE
+asStatic: FALSE
