@@ -48,17 +48,18 @@ a, a > code {
 }
 
 .rstudio-slide {
-  background-image: url('images/background.jpg');
+  background-image: url('images/blank-white.png');
   background-size: contain;
 }
 .title-slide {
-  background-image: url('images/title.jpg');
+  background-image: url('images/background.png');
   background-size: contain;
+  color: #fff;
 }
 .title-slide h1, .title-slide h2, .title-slide h3 {
   text-align: right;
+  color: #fff;
 }
-
 .dark-gray {
   background-color: #585858;
 }
@@ -124,4 +125,11 @@ thead, tfoot, tr:nth-child(even) { background: #eee }
 .remark-slide-content {
   padding-left: 180px;
   padding-right: 40px;
+}
+
+.remark-slide-number {
+  font-size: 9pt;
+  margin-bottom: -11.6px;
+  color: #999; 
+  
 }
