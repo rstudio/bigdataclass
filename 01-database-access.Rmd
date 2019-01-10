@@ -86,7 +86,18 @@ sql_top10
 dbDisconnect(con)
 ```
 
-## 1.5 - Connect to a database without a DSN
+## 1.5 - RStudio SQL Script
+*Try out the new SQL Script support in RStudio 1.2*
+
+1. Open the *query-example.sql* file
+
+2. Click the *Preview* button. It is located in the top-right area of the script
+
+3. In the script, change *airport* to *carrier*
+
+4. Click on *Preview* again
+
+## 1.6 - Connect to a database without a DSN
 *A more complex way of connecting to a database, using best practices: http://db.rstudio.com/best-practices/managing-credentials/#prompt-for-credentials *
 
 1. Use the following code to start a new connection that does not use the pre-defined DSN
@@ -109,7 +120,7 @@ con <- dbConnect(
 dbDisconnect(con)
 ```
 
-## 1.6 - Secure credentials in a file
+## 1.7 - Secure credentials in a file
 
 1. Open and explore the `config.yml` file available in your working directory
 
@@ -139,7 +150,7 @@ con <- dbConnect(odbc::odbc(),
 dbDisconnect(con)
 ```
 
-## 1.7 - Environment variables
+## 1.8 - Environment variables
 
 1. Open and explore the `.Renviron` file available in your working directory
 
@@ -166,7 +177,7 @@ con <- dbConnect(
 dbDisconnect(con)
 ```
 
-## 1.8 - Use options()
+## 1.9 - Use options()
 
 1. Open and explore the `options.R` script available in your working directory
 
