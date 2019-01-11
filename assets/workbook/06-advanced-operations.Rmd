@@ -268,7 +268,7 @@ months %>%
 ```
 
 
-## Multiple queries with an overlaping range
+## Multiple queries with an overlapping range
 
 1. Create a table with a *from* and *to* ranges.
 
@@ -323,6 +323,60 @@ map2(
       summarise(mean = mean(arrdelay, na.rm = TRUE)) 
 ) %>%
   reduce(function(x, y) union(x, y)) %>%
+  show_query()
+```
+
+## Characters to field names
+
+
+1. Create two character variables. One with the name of a field in *flights* and another with a new name to be given to the field.
+```{r}
+my_field <- "new"
+flights_field <- "arrdelay"
+```
+
+2. Add a `mutate()` step that adds the new field. And then another step selecting just the new field.
+```{r}
+flights %>%
+  mutate(!! my_field := !! flights_field) %>%
+  select(my_field)
+```
+
+3. Add `show_query()` to take a look at what was sent to the database
+```{r}
+flights %>%
+  mutate(!! my_field := !! flights_field) %>%
+  select(my_field) %>%
+  show_query()
+```
+
+4. Encase *flights_field* inside `expr()` to see what changes.  Remove `show_query()`
+```{r}
+flights %>%
+  mutate(!! my_field := !! expr(flights_field)) %>%
+  select(my_field)
+```
+
+5. Replace `expr()` with `sym()` 
+```{r}
+flights %>%
+  mutate(!! my_field := !! sym(flights_field)) %>%
+  select(my_field)
+```
+
+6. Re-add `show_query()` 
+```{r}
+flights %>%
+  mutate(!! my_field := !! sym(flights_field)) %>%
+  select(my_field) %>%
+  show_query()
+```
+
+7. Encase *my_field* inside `sym()`
+```{r}
+flights %>%
+  mutate(!! sym(my_field) := !! sym(flights_field)) %>%
+  select(my_field) %>%
   show_query()
 ```
 

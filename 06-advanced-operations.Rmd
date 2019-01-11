@@ -264,6 +264,100 @@ map2(
 
 ```
 
+
+## 6.5 Multiple queries with an overlapping range
+
+1. Create a table with a *from* and *to* ranges.
+
+```{r}
+ranges <- tribble(
+  ~ from, ~to, 
+       1,   4,
+       2,   5,
+       3,   7
+)
+```
+
+2. See how `map2()` works by passing the two variables as the *x* and *y* arguments, and adding them as the function. 
+
+```{r}
+map2(ranges$from, ranges$to, ~.x + .y)
+```
+
+3. Replace *x + y* with the `dplyr` operation from the previous exercise.  In it, re-write the filter to use *x* and *y* as the month ranges 
+
+```{r}
+map2(
+  ranges$from, 
+  ranges$to,
+  ~ flights %>%
+      filter(month >= .x & month <= .y) %>%
+      summarise(mean = mean(arrdelay, na.rm = TRUE)) 
+)
+```
+
+4. Add the reduce operation
+
+```{r}
+map2(
+  ranges$from, 
+  ranges$to,
+  ~ flights %>%
+      filter(month >= .x & month <= .y) %>%
+      summarise(mean = mean(arrdelay, na.rm = TRUE)) 
+) %>%
+  reduce(function(x, y) union(x, y))
+```
+
+5. Add a `show_query()` step to see how the final query was constructed.
+
+```{r}
+map2(
+  ranges$from, 
+  ranges$to,
+  ~ flights %>%
+      filter(month >= .x & month <= .y) %>%
+      summarise(mean = mean(arrdelay, na.rm = TRUE)) 
+) %>%
+  reduce(function(x, y) union(x, y)) %>%
+  show_query()
+```
+
+## 6.6 Characters to field names
+
+1. Create two character variables. One with the name of a field in *flights* and another with a new name to be given to the field.
+```{r}
+my_field <- "new"
+flights_field <- "arrdelay"
+```
+
+2. Add a `mutate()` step that adds the new field. And then another step selecting just the new field.
+```{r}
+flights %>%
+  mutate(!! my_field := !! flights_field) %>%
+  select(my_field)
+```
+
+3. Add `show_query()` to take a look at what was sent to the database
+```{r}
+```
+
+4. Encase *flights_field* inside `expr()` to see what changes.  Remove `show_query()`
+```{r}
+```
+
+5. Replace `expr()` with `sym()` 
+```{r}
+```
+
+6. Re-add `show_query()` 
+```{r}
+```
+
+7. Encase *my_field* inside `sym()`
+```{r}
+```
+
 ```{r, include = FALSE}
 dbDisconnect(con)
 ```
