@@ -2,7 +2,7 @@
 knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
 ```
 
-#Spark pipelines
+# Spark pipelines
 
 ```{r,cathup8, include = FALSE}
 library(tidyverse)
