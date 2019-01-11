@@ -2,7 +2,7 @@
 title: "Intro to sparklyr"
 output: html_notebook
 ---
-## 6.1 -  New Spark session
+## 7.1 -  New Spark session
 
 1. Use `spark_connect()` to create a new local Spark session
 ```{r}
@@ -16,7 +16,7 @@ sc <- spark_connect(master = "local", version = "2.0.0")
 
 3. Click on the `Log` button to see the message history
 
-## 6.2 - Data transfer
+## 7.2 - Data transfer
 
 1. Copy the `mtcars` dataset into the session
 ```{r}
@@ -31,7 +31,7 @@ spark_mtcars <- sdf_copy_to(sc, mtcars, "my_mtcars")
 
 5. Click on the **In-memory table my_mtcars** link
 
-## 6.3 - Simple dplyr example
+## 7.3 - Simple dplyr example
 
 1. Run the following code snipett
 ```{r}
@@ -46,7 +46,7 @@ spark_mtcars %>%
 
 4. At the bottom of the diagram, expand **Details**
 
-## 6.4 - Map data
+## 7.4 - Map data
 
 1. Examine the contents of the /usr/share/flights/data folder
 
@@ -85,7 +85,7 @@ spark_flights %>%
   tally()
 ```
 
-## 6.5 -  Caching data
+## 7.5 -  Caching data
 
 1. Create a subset of the *flights* table object
 ```{r}
@@ -118,7 +118,7 @@ cached_flights %>%
   tally()
 ```
 
-## 6.6 - sdf Functions
+## 7.6 - sdf Functions
 http://spark.rstudio.com/reference/#section-spark-dataframes 
 
 1. Use `sdf_pivot` to create a column for each value in month
@@ -136,7 +136,7 @@ partition <- cached_flights %>%
 tally(partition$training)
 ```
 
-## 6.7 - Feature transformers
+## 7.7 - Feature transformers
 http://spark.rstudio.com/reference/#section-spark-feature-transformers
 
 1. Use `ft_binarizer()` to identify "delayed" flights
@@ -169,7 +169,7 @@ cached_flights %>%
   head(100)
 ```
 
-## 6.8 - Fit a model with sparklyr
+## 7.8 - Fit a model with sparklyr
 
 1. Combine the `ft_` and `sdf_` functions to prepare the data
 ```{r}
@@ -207,7 +207,7 @@ delayed_model <- training %>%
 summary(delayed_model)
 ```
 
-## 6.9 - Run predictions in Spark
+## 7.9 - Run predictions in Spark
 
 1. Use `sdf_predict()` agains the test dataset
 ```{r}
