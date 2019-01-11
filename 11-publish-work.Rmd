@@ -14,7 +14,7 @@ output: html_notebook
 
 5. Select RStudio Connect
 
-6. Copy and paste **your** RStudio Server URL and add `:3939`
+6. Copy and paste **your** RStudio Server URL and add `/rsconnect`
 
 7. Enter your credentials
 
@@ -44,7 +44,7 @@ table_flights <- tbl(con, in_schema("datawarehouse", "flight"))
 
 3. Read the parsed model saved in exercise 5.6
 ```{r}
-parsedmodel <- read_csv("parsedmodel.csv")
+parsedmodel <- yaml::read_yaml("my_model.yml")
 ```
 
 4. Copy the code from exercise 5.5 step 4. Load the code into a variable called *predictions*.  Change the model variable to *parsedmodel*

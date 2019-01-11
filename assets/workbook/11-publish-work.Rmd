@@ -20,7 +20,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 <img src="images/select-connect.PNG" width = 400>
 
-6. Copy and paste **your** RStudio Server URL and add `:3939`
+6. Copy and paste **your** RStudio Server URL and add `/rsconnect`
 
 <img src="images/rsc-server.PNG" width = 400>
 
@@ -53,7 +53,7 @@ table_flights <- tbl(con, in_schema("datawarehouse", "flight"))
 
 3. Read the parsed model saved in exercise 5.6
 ```{r}
-my_pm <- yaml::read_yaml("my_model.yml")
+parsedmodel <- yaml::read_yaml("my_model.yml")
 ```
 
 4. Copy the code from exercise 5.5 step 4. Load the code into a variable called *predictions*.  Change the model variable to *parsedmodel*
