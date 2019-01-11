@@ -183,7 +183,7 @@ model_data <- strat_sample %>%
     mutate(
     season = case_when(
       month >= 3 & month <= 5  ~ "Spring",
-      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 6 & month <= 8  ~ "Summer",
       month >= 9 & month <= 11 ~ "Fall",
       month == 12 | month <= 2  ~ "Winter"
     )
@@ -205,7 +205,7 @@ test_sample <- 1:12 %>%
     mutate(
     season = case_when(
       month >= 3 & month <= 5  ~ "Spring",
-      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 6 & month <= 8  ~ "Summer",
       month >= 9 & month <= 11 ~ "Fall",
       month == 12 | month <= 2  ~ "Winter"
     )
@@ -248,7 +248,7 @@ table_flights %>%
     mutate(
     season = case_when(
       month >= 3 & month <= 5  ~ "Spring",
-      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 6 & month <= 8  ~ "Summer",
       month >= 9 & month <= 11 ~ "Fall",
       month == 12 | month <= 2  ~ "Winter"
     )
@@ -266,7 +266,7 @@ table_flights %>%
     mutate(
     season = case_when(
       month >= 3 & month <= 5  ~ "Spring",
-      month >= 6 & month <= 8  ~ "Summmer",
+      month >= 6 & month <= 8  ~ "Summer",
       month >= 9 & month <= 11 ~ "Fall",
       month == 12 | month <= 2  ~ "Winter"
     )
@@ -320,10 +320,70 @@ my_pm <- read_yaml("my_model.yml")
 tidypredict_fit(my_pm)
 ```
 
-4. Disconnect from the database
+## Model inside the database
+*Brief intro to modeldb*
 
+1. Load `modeldb`
 ```{r}
+library(modeldb)
+```
+
+2. Use the `sampling` variable to create a filtered table of `table_flights`
+```{r}
+sample <- table_flights %>%
+  filter(flightid %in% sampling) 
+```
+
+3. Select *deptime*, *distance* and *arrdelay* from `sample` and pipe into `linear_regression_db()`, pass *arrdelay* as the only argument.
+```{r}
+sample %>%
+  select(deptime, distance, arrdelay) %>%
+  linear_regression_db(arrdelay)
+```
+
+4. Using the coefficients from the results, create a new column that multiplies each field against the corresponding coefficient, and adds them all together along with the intercept
+```{r}
+table_flights %>%
+  head(1000) %>%
+  mutate(pred = --0.6262197	 + (deptime * 0.01050023	) + (distance * -0.003834017	)) %>%
+  select(arrdelay, pred) 
+```
+
+5. Add *dayofweek* to the variable selection.  Add `add_dummy_variables()` in between the selection and the linear regression function. Pass *dayofweek* and `c(1:7)` to represent the 7 days
+```{r}
+sample %>%
+  select(deptime, distance, arrdelay, dayofweek) %>%
+  add_dummy_variables(dayofweek, c(1:7)) %>%
+  linear_regression_db(arrdelay, sample_size = 32) 
+```
+
+6. Replace *arrdelay* with *uniquecarrier*. Group by *uniquecarrier* and remove the `add_dummy_variable()`.
+```{r}
+sample %>%
+  select(deptime, distance, arrdelay, uniquecarrier) %>%
+  group_by(uniquecarrier) %>%
+  linear_regression_db(arrdelay)
+```
+
+7. Pipe the code into `ggplot2`.  Use the intercept for the plot's `x` and *uniquecarrier* for `y`.  Use `geom_point()`
+```{r}
+sample %>%
+  select(deptime, distance, arrdelay, uniquecarrier) %>%
+  group_by(uniquecarrier) %>%
+  linear_regression_db(arrdelay) %>%
+  ggplot() + 
+  geom_point(aes(`(Intercept)`, uniquecarrier))
+```
+
+```{r, include = FALSE}
 dbDisconnect(con)
 ```
+
+
+
+
+
+  
+
 
 

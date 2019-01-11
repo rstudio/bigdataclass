@@ -117,6 +117,17 @@ sql_top10
 dbDisconnect(con)
 ```
 
+## RStudio SQL Script
+*Try out the new SQL Script support in RStudio 1.2*
+
+1. Open the *query-example.sql* file
+
+2. Click the *Preview* button. It is located in the top-right area of the script
+
+3. In the script, change *airport* to *carrier*
+
+4. Click on *Preview* again
+
 ## Connect to a database without a DSN
 *A more complex way of connecting to a database, using best practices: http://db.rstudio.com/best-practices/managing-credentials/#prompt-for-credentials *
 

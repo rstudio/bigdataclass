@@ -203,7 +203,7 @@ test$raw_results %>%
   filter(fit_threshold)
 ```
 
-## 5.6 -Parsed model
+## 5.6 - Parsed model
 *Quick review of the model parser*
 
 1. Use the `parse_model()` function to see how `tidypredict` interprets the model
@@ -232,8 +232,47 @@ my_pm <-
 tidypredict_fit(my_pm)
 ```
 
-4. Disconnect from the database
+## 5.7 -  Model inside the database
+*Brief intro to modeldb*
+
+1. Load `modeldb`
 ```{r}
+library(modeldb)
+```
+
+2. Use the `sampling` variable to create a filtered table of `table_flights`
+```{r}
+sample <- table_flights %>%
+  filter(flightid %in% sampling) 
+```
+
+3. Select *deptime*, *distance* and *arrdelay* from `sample` and pipe into `linear_regression_db()`, pass *arrdelay* as the only argument.
+```{r}
+
+```
+
+4. Using the coefficients from the results, create a new column that multiplies each field against the corresponding coefficient, and adds them all together along with the intercept
+```{r}
+table_flights %>%
+  head(1000) %>%
+  mutate(pred = --0.6262197	 + (deptime * 0.01050023	) + (distance * -0.003834017	)) %>%
+  select(arrdelay, pred) 
+```
+
+5. Add *dayofweek* to the variable selection.  Add `add_dummy_variables()` in between the selection and the linear regression function. Pass *dayofweek* and `c(1:7)` to represent the 7 days
+```{r}
+
+```
+
+6. Replace *arrdelay* with *uniquecarrier*. Group by *uniquecarrier* and remove the `add_dummy_variable()`.
+```{r}
+```
+
+7. Pipe the code into `ggplot2`.  Use the intercept for the plot's `x` and *uniquecarrier* for `y`.  Use `geom_point()`
+```{r}
+```
+
+```{r, include = FALSE}
 dbDisconnect(con)
 ```
 

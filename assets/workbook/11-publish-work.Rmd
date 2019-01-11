@@ -1,5 +1,6 @@
 ```{r, publish-work, include = FALSE}
-knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
+#knitr::opts_chunk$set(eval = as.logical(Sys.getenv("evaluate")))
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 #Share and Production
@@ -52,7 +53,7 @@ table_flights <- tbl(con, in_schema("datawarehouse", "flight"))
 
 3. Read the parsed model saved in exercise 5.6
 ```{r}
-parsedmodel <- read_csv("parsedmodel.csv")
+my_pm <- yaml::read_yaml("my_model.yml")
 ```
 
 4. Copy the code from exercise 5.5 step 4. Load the code into a variable called *predictions*.  Change the model variable to *parsedmodel*
