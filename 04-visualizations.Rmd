@@ -89,7 +89,28 @@ flights %>%
   collect() %>%
 ```
 
-## 4.4 - Two or more queries
+## 4.4 - Plot correlations
+
+1. Correlate select numeric columns from the flights table
+```{r}
+library(corrr)
+
+flights_cor <- flights %>% 
+  select(contains("delay")) %>% 
+  correlate(use = "complete.obs")
+```
+
+2. Visualize the correlations using `rplot()`
+```{r}
+
+```
+
+3. Visualize the correlation network using `network_plot()`
+```{r}
+
+```
+
+## 4.5 - Two or more queries
 
 1. Use `pull()` to get the top 5 carriers loaded in a vector
 ```{r}
@@ -119,7 +140,7 @@ flights %>%
 
 ```
 
-## 4.5 - Visualize using `dbplot`
+## 4.6 - Visualize using `dbplot`
 
 1. Install and load `dbplot`
 ```{r, eval = FALSE}
@@ -130,17 +151,17 @@ library(dbplot)
 
 ```{r}
 flights %>%
-  dbplot_line(month)
+  dbplot_line(month, y = as.numeric(n()))
 ```
 
 3. Update the plot's labels
 ```{r}
 flights %>%
-  dbplot_line(month) +
+  dbplot_line(month, y = as.numeric(n())) +
 
 ```
 
-## 4.6 - Plot a different aggregation
+## 4.7 - Plot a different aggregation
 
 1. Plot the average departure delay by day of week
 ```{r}
@@ -154,22 +175,27 @@ flights %>%
   dbplot_bar(dayofweek, ) +
 ```
 
-## 4.7 - Create a histogram
+## 4.8 - Create a histogram
 
-1. Use the `dbplot_histogram()` to build the histogram
+1. Use `db_compute_bins()` to compute bins for histogram
 ```{r}
-flights %>%
-  dbplot_histogram(distance)
+flights_bins <- flights %>%
+  db_compute_bins(distance)
 ```
 
-2. Adjust the `binwidth` to 300
-
+2. Plot histogram using `flight_bins`
 ```{r}
-flights %>%
-  dbplot_histogram(distance, )
+
 ```
 
-## 4.8 - Raster plot
+
+3. Adjust the `binwidth` to 300
+```{r}
+flights %>%
+  db_compute_bins(distance, )
+```
+
+## 4.9 - Raster plot
 
 1. Use a `dbplot_raster()` to visualize `deptime` versus `arrtime`
 ```{r}
@@ -183,7 +209,7 @@ flights %>%
 ```
 
 
-## 4.9 - Using the `calculate` functions
+## 4.10 - Using the `calculate` functions
 
 1. Use the `db_compute_raster()` function to get the underlying results that feed the plot
 ```{r}
@@ -201,7 +227,7 @@ departure %>%
   geom_raster(aes(x = deptime, y = arrtime, fill = `n()`))
 ```
 
-## 4.10 - Under the hood 
+## 4.11 - Under the hood 
 
 1. Use the `db_bin()` command to see the resulting tidy eval formula
 ```{r}

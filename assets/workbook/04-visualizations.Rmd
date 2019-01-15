@@ -209,23 +209,14 @@ library(dbplot)
 2. Create a line plot using the helper function `dbplot_line()`
 
 ```{r}
-flights %>% 
-  count(month)
-```
-
-
-```{r}
 flights %>%
-  dbplot_line(month)
-
-flights %>% 
-  db_compute_bins(month)
+  dbplot_line(month, y = as.numeric(n()))
 ```
 
 3. Update the plot's labels
 ```{r}
 flights %>%
-  dbplot_line(month) +
+  dbplot_line(month, y = as.numeric(n())) +
   labs(title = "Monthly flights",
        x = "Month",
        y = "Number of flights") 
@@ -254,22 +245,31 @@ flights %>%
 ## Create a histogram
 *Use the package's function to easily create a histogram*
 
-1. Use the `dbplot_histogram()` to build the histogram
+1. Use the `db_compute_bins()` to compute bins for histogram
 ```{r}
-flights %>%
-  dbplot_histogram(distance)
+flights_bins <- flights %>%
+  db_compute_bins(distance)
+```
+
+2. Plot histogram using `flights_bins`
+```{r}
+flights_bins %>% 
+  mutate(count = as.numeric(count)) %>% 
+  ggplot(aes(x = distance, y = count)) +
+  geom_col()
 ```
 
 
-2. Adjust the `binwidth` to 300
-
+3. Adjust the `binwidth` to 300
 ```{r}
 flights %>%
-  dbplot_histogram(distance, binwidth = 300)
+  db_compute_bins(distance, binwidth = 300) %>% 
+  mutate(count = as.numeric(count)) %>% 
+  ggplot(aes(x = distance, y = count)) +
+  geom_col()
 ```
 
 ## Raster plot
-
 1. Use a `dbplot_raster()` to visualize `deptime` versus `depdelay`
 ```{r}
 flights %>%
