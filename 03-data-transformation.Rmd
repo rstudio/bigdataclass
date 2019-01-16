@@ -181,7 +181,7 @@ planes <- nycflights13::planes
 
 2. Using `DBI`, copy the `planes` data to the datawarehouse as a temporary table, and load it to a variable
 ```{r}
-dbWriteTable(con, "planes", planes, temporary = TRUE)
+copy_to(con, planes, "planes", temporary = TRUE)
 tbl_planes <- tbl(con, "planes")
 ```
 
