@@ -24,12 +24,12 @@ tbl(con, in_schema("datawarehouse", "airport"))
 
 4. Load the reference, not the table data, into a variable
 ```{r}
-
+airports <- tbl(con, in_schema("datawarehouse", "airport"))
 ```
 
 5. Call the variable to see preview the data in the table
 ```{r}
-
+airports
 ```
 
 6. Set up the pointers to the other of the tables
@@ -48,13 +48,14 @@ show_query(airports)
 2. Easily view the resulting query by adding `show_query()` in another piped command
 ```{r}
 airports %>%
-  
+  show_query()
 ```
 
 3. Insert `head()` in between the two statements to see how the SQL changes
 ```{r}
 airports %>%
-
+  head() %>%
+  show_query()
 ```
 
 4. Use `sql_render()` and `simulate_mssql()` to see how the SQL statement changes from vendor to vendor
@@ -123,7 +124,8 @@ airports %>%
 
 2. Paste the result in this SQL chunk
 ```{sql, connection = con}
-
+SELECT "airport", "airportname", "city", "state", "country", "lat", "long", '2018-01-26T14:50:10Z' AS "today"
+FROM datawarehouse.airport
 ```
 
 ## 2.6 - Basic aggregation
