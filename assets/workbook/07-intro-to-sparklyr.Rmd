@@ -223,7 +223,7 @@ summary(delayed_model)
 
 1. Use `sdf_predict()` agains the test dataset
 ```{r}
-delayed_testing <- sdf_predict(delayed_model, sample_data$testing)
+delayed_testing <- sdf_predict(sample_data$testing, delayed_model)
 delayed_testing %>%
   head()
 ```

@@ -143,8 +143,8 @@ http://spark.rstudio.com/reference/#section-spark-feature-transformers
 ```{r}
 cached_flights %>%
   ft_binarizer(
-    input.col = "depdelay",
-    output.col = "delayed",
+    input_col = "depdelay",
+    output_col = "delayed",
     threshold = 15
   ) %>%
   select(
@@ -158,8 +158,8 @@ cached_flights %>%
 ```{r}
 cached_flights %>%
   ft_bucketizer(
-    input.col = "crsdeptime",
-    output.col = "dephour",
+    input_col = "crsdeptime",
+    output_col = "dephour",
     splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
   ) %>%
   select(
@@ -176,13 +176,13 @@ cached_flights %>%
 sample_data <- cached_flights %>%
   filter(!is.na(arrdelay)) %>%
   ft_binarizer(
-    input.col = "arrdelay",
-    output.col = "delayed",
+    input_col = "arrdelay",
+    output_col = "delayed",
     threshold = 15
   ) %>%
   ft_bucketizer(
-    input.col = "crsdeptime",
-    output.col = "dephour",
+    input_col = "crsdeptime",
+    output_col = "dephour",
     splits = c(0, 400, 800, 1200, 1600, 2000, 2400)
   ) %>%
   mutate(dephour = paste0("h", as.integer(dephour))) %>%
@@ -211,7 +211,7 @@ summary(delayed_model)
 
 1. Use `sdf_predict()` agains the test dataset
 ```{r}
-delayed_testing <- sdf_predict(delayed_model, sample_data$testing)
+delayed_testing <- sdf_predict(sample_data$testing, delayed_model)
 delayed_testing %>%
   head()
 ```
