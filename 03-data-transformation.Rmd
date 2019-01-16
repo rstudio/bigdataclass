@@ -101,7 +101,26 @@ flights %>%
   summarise_all(mean, na.rm = TRUE)
 ```
 
-## 3.4 - View record level data
+## 3.4 - Data correlation
+
+1. Correlate select numeric columns from the flights table
+```{r}
+library(corrr)
+
+flights_cor <- flights %>% 
+  select(contains("delay")) %>% 
+  correlate(use = "complete.obs")
+```
+
+2. Explore the `flights_cor` data
+```{r}
+flights_cor %>% 
+  rearrange() %>% 
+  shave() %>% 
+  fashion()
+```
+
+## 3.5 - View record level data
 
 How many flights in July 18th were one or more hours late?
 ```{r}
@@ -139,7 +158,7 @@ flights %>%
   View("my_preview")
 ```
 
-## 3.5 - Case statements
+## 3.6 - Case statements
 
 1. Use `case_when()` to bucket each month one of four seasons
 ```{r}
@@ -172,7 +191,7 @@ flights %>%
 ```
 
 
-## 3.6 - Data enrichment
+## 3.7 - Data enrichment
 
 1. Load the `planes` data into memory
 ```{r}
@@ -214,6 +233,12 @@ combined %>%
 ```{r}
 
 ``` 
+
+8. Use `explain()` to see the query plan
+```{r}
+
+```
+
 
 8. Disconnect from the database
 ```{r}
