@@ -4,3 +4,5 @@
 .Ruserdata
 bigdataclass.Rproj
 class-repo.Rproj
+*.nb.html
+*.pptx
