@@ -48,12 +48,12 @@ spark_mtcars %>%
 
 ## 7.4 - Map data
 
-1. Examine the contents of the /usr/share/flights/data folder
+1. Examine the contents of the /usr/share/class/flights/data folder
 
-2. Read the top 5 rows of the `flight_2008_1` CSV file.  It is located under /usr/share/flights
+2. Read the top 5 rows of the `flight_2008_1` CSV file.  It is located under /usr/share/class/flights/data
 ```{r}
 library(readr)
-top_rows <- read.csv("/usr/share/flights/data/flight_2008_1.csv", nrows = 5)
+top_rows <- read_csv("/usr/share/class/flights/data/flight_2008_1.csv", n_max = 5)
 ```
 
 3. Create a list based on the column names, and add a list item with "character" as its value.
