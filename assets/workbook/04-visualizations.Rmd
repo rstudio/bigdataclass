@@ -136,13 +136,13 @@ flights_cor <- flights %>%
   correlate(use = "complete.obs")
 ```
 
-2. Visualize the correlations
+2. Visualize the correlations using `rplot()`
 ```{r}
 flights_cor %>% 
   rplot()
 ```
 
-3. Visualize correlation network
+3. Visualize correlation network using `network_plot()`
 ```{r}
 flights_cor %>% 
   network_plot(min_cor = .15)
