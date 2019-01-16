@@ -65,6 +65,13 @@ airports %>%
   sql_render(con = simulate_mssql()) 
 ```
 
+5. Use `explain()` to explore the query plan
+```{r}
+airports %>% 
+  head() %>% 
+  explain()
+```
+
 ## 2.3 -  Un-translated R commands
 
 1. Preview how `Sys.time()` is translated
